@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="45dip"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:paddingLeft="6dip"
+    android:paddingRight="6dip">
+
+    <ImageView
+        android:id="@+id/actionbar_back"
+        android:layout_width="29dp"
+        android:layout_height="45dp"
+        android:layout_centerVertical="true"
+        android:background="?android:selectableItemBackground"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:src="@drawable/arrow_back" />
+
+    <TextView
+        android:id="@+id/left_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:maxWidth="@dimen/bj_220dp"
+        android:singleLine="true"
+        android:text=""
+        android:visibility="gone"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/bj_10dp"
+        android:layout_toRightOf="@+id/actionbar_back"
+        android:textColor="@color/black_212121"
+        android:textSize="19sp" />
+
+    <TextView
+        android:id="@+id/actionbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:maxWidth="@dimen/bj_220dp"
+        android:singleLine="true"
+        android:textColor="@color/black_212121"
+        android:textSize="19sp" />
+
+    <ImageView
+        android:id="@+id/iv_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="?android:selectableItemBackground"
+        android:padding="10dip"
+        android:visibility="gone" />
+
+
+    <TextView
+        android:id="@+id/actionbar_text_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="?android:selectableItemBackground"
+        android:padding="10dip"
+        android:textColor="@color/black_535353"
+        android:textSize="16sp"
+        android:visibility="gone" />
+</RelativeLayout>
