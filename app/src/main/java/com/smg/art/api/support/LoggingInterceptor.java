@@ -154,7 +154,7 @@ public final class LoggingInterceptor implements Interceptor {
         Connection connection = chain.connection();
         Protocol protocol = connection != null ? connection.protocol() : Protocol.HTTP_1_1;
         String requestStartMessage =
-                "--> " + request.method() + ' ' + request.url() + ' ' + protocol(protocol);
+                "请求URL--> " + request.method() + ' ' + request.url() + ' ' + protocol(protocol);
         if (!logHeaders && hasRequestBody) {
             requestStartMessage += " (" + requestBody.contentLength() + "-byte body)";
         }

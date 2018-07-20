@@ -10,6 +10,6 @@ public interface MainContract {
     }
 
     interface Presenter<T> extends BaseContract.BasePresenter<T> {
-
+        void Apk_Update();
     }
 }

@@ -5,12 +5,15 @@ import com.smg.art.base.BaseActivity;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.MainContract;
+import com.smg.art.presenter.impl.MainActivityPresenter;
 
-
-
+import javax.inject.Inject;
 
 
 public class MainActivity extends BaseActivity implements MainContract.View {
+
+    @Inject
+    MainActivityPresenter mPresenter;
 
 
     @Override
@@ -35,6 +38,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Override
     public void initView() {
+        mPresenter.Apk_Update();
     }
 
     @Override

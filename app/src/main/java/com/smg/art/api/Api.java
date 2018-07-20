@@ -18,6 +18,7 @@ package com.smg.art.api;
 
 import com.google.gson.Gson;
 import com.smg.art.base.Constant;
+import com.smg.art.bean.Apk_UpdateBean;
 
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
@@ -66,7 +67,10 @@ public class Api {
         return service.Fetch_Search_Info(keyword);
     }
 
+    public Observable<Apk_UpdateBean> Fetch_Apk_Update() {
+        return service.Fetch_Apk_Update();
 
+    }
 
 
 }

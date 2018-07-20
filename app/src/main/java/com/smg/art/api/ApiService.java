@@ -17,6 +17,7 @@ package com.smg.art.api;
 
 
 import com.smg.art.base.Constant;
+import com.smg.art.bean.Apk_UpdateBean;
 
 
 import okhttp3.ResponseBody;
@@ -50,6 +51,14 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("search")
     Observable<Response<ResponseBody>> Fetch_Search_Info(@Field("keyword") String keyword);
+
+
+
+    /**
+     * 获取APP更新信息
+     */
+    @GET(Constant.APK_UPDATE)
+    Observable<Apk_UpdateBean> Fetch_Apk_Update();
 
 
 }
