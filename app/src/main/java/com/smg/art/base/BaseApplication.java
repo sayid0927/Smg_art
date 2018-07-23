@@ -5,11 +5,14 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 import com.blankj.utilcode.utils.Utils;
 
+import com.orhanobut.logger.LogLevel;
+import com.orhanobut.logger.Logger;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerAppComponent;
 import com.smg.art.module.ApiModule;
 import com.smg.art.module.AppModule;
 
+import com.smg.art.utils.CrashHandler;
 import com.smg.art.utils.PreferUtil;
 
 
@@ -26,9 +29,10 @@ public class BaseApplication extends Application {
         baseApplication = this;
         //将我们自己的MyApplication中的所有逻辑放在这里，例如初始化一些第三方
         initCompoent();
+        initLogger();
         Utils.init(this);
+//        CrashHandler.getInstance(this).init();
         PreferUtil.getInstance().init(this);
-
 
     }
 
@@ -58,5 +62,8 @@ public class BaseApplication extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+    }
+    private void initLogger() {
+        Logger.init("ART").methodCount(2).methodOffset(0).logLevel(LogLevel.FULL).hideThreadInfo();
     }
 }

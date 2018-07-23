@@ -15,18 +15,15 @@
  */
 package com.smg.art.base;
 
-/**
- * @author yuyh.
- * @date 16/8/6.
- */
+import android.content.Context;
+
 public interface BaseContract {
 
     interface BasePresenter<T> {
 
-        void attachView(T view);
+        void attachView(T view,Context context);
 
         void detachView();
-
 
     }
 

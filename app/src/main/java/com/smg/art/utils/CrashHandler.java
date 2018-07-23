@@ -10,6 +10,7 @@ import android.os.Environment;
 import com.blankj.utilcode.utils.CloseUtils;
 import com.blankj.utilcode.utils.FileUtils;
 import com.blankj.utilcode.utils.Utils;
+import com.orhanobut.logger.Logger;
 
 
 import java.io.File;
@@ -119,12 +120,16 @@ public class CrashHandler
                     e.printStackTrace();
                 } finally {
                     CloseUtils.closeIO(pw);
-
                 }
             }
         }).start();
         // 跳转到崩溃提示Activity
-        System.exit(0);// 关闭已奔溃的app进程
+        Logger.t("TAG").e(throwable.getMessage());
+//        Intent intent = new Intent(context, CrashActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intent.putExtra("crash",throwable.getMessage());
+//        context.startActivity(intent);
+//        System.exit(0);// 关闭已奔溃的app进程
     }
 
     /**

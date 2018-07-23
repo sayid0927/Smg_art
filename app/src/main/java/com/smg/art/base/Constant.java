@@ -17,32 +17,16 @@ package com.smg.art.base;
 
 public class Constant {
 
-
-    public  static  int  APPTYPE =0;   //  漫画
-
-//    public  static  int  APPTYPE =1;   //  动图
-
-
     public static final int STATE_UNKNOWN = 0;
     public static final int STATE_LOADING = 1;
     public static final int STATE_ERROR = 2;
     public static final int STATE_EMPTY = 3;
     public static final int STATE_SUCCESS = 4;
 
-    public  static final String FILEPATH="TuPian";
-
     public  static  final String API_BASE_URL="http://120.78.136.232:9000/";
-    public  static  final String STT_URL="https://www.80s.tt/";
     public  static  final String APK_UPDATE="apk_update";
-    public  static  final String  POST_APK_INFO="app_info";
-    public  static  final String  POST_PHONE_INFO="phone_info";
     public  static  final String APK_UPDATE_PATH="apk_path";
 
-    public  static  final String MEINVHA_DIR_LIST="meinvha_dir_list";
-    public  static  final String MEINVHA_TITLE_LIST="meinvha_title_list";
-    public  static  final String MEINVHA_IMG_LIST="meinvha_img_list";
-
-    public static final String SERVICE_INTENT_EXTRA = "service_intent_extra";
 
 
 }

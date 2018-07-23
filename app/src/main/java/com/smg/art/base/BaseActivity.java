@@ -1,21 +1,15 @@
 package com.smg.art.base;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
-
+import com.jaeger.library.StatusBarUtil;
 import com.smg.art.R;
 import com.smg.art.component.AppComponent;
-
-import com.smg.art.view.CustomerActionbar;
+import com.smg.art.view.CustomDialog;
 import com.smg.art.view.SwipeBackActivity.SwipeBackActivity;
 import com.smg.art.view.SwipeBackActivity.SwipeBackLayout;
 
@@ -29,36 +23,26 @@ public abstract class BaseActivity extends SwipeBackActivity {
 
     public final static List<AppCompatActivity> mActivities = new LinkedList<>();
     private SwipeBackLayout mSwipeBackLayout;
-    protected CustomerActionbar actionbar;
+    private CustomDialog mDialogWaiting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setContentView(getLayoutId());
-
         ButterKnife.bind(this);
         setupActivityComponent(BaseApplication.getBaseApplication().getAppComponent());
+        //沉浸式状态栏
+        StatusBarUtil.setColor(this,getResources().getColor(R.color.colorPrimaryDark), 20);
         attachView();
         initView();
-
-        actionbar = (CustomerActionbar) findViewById(R.id.custom_action_bar);
-        if (actionbar != null) {
-            actionbar.setDisplayHomeAsEnable(shouldShowBackButton());
-            actionbar.setTitle(getTitle().toString());
-            actionbar.getBackView().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onBackPressed();
-                }
-            });
-        }
 
         synchronized (mActivities) {
             mActivities.add(this);
         }
     }
+
+
 
 
     @Override
@@ -135,23 +119,6 @@ public abstract class BaseActivity extends SwipeBackActivity {
     }
 
 
-    protected boolean shouldShowBackButton() {
-        return true;
-    }
-
-
-    public void killAll() {
-        // 复制了一份mActivities 集合Å
-        List<AppCompatActivity> copy;
-        synchronized (mActivities) {
-            copy = new LinkedList<>(mActivities);
-        }
-        for (AppCompatActivity activity : copy) {
-            activity.finish();
-        }
-        // 杀死当前的进程
-        android.os.Process.killProcess(android.os.Process.myPid());
-    }
 
     protected abstract void setupActivityComponent(AppComponent appComponent);
 

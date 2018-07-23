@@ -15,6 +15,7 @@
  */
 package com.smg.art.component;
 
+import android.app.Activity;
 import android.content.Context;
 
 

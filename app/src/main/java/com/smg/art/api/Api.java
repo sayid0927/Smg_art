@@ -21,8 +21,6 @@ import com.smg.art.base.Constant;
 import com.smg.art.bean.Apk_UpdateBean;
 
 import okhttp3.OkHttpClient;
-import okhttp3.ResponseBody;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -31,20 +29,18 @@ import rx.Observable;
 public class Api {
 
     public static Api instance;
-
     private ApiService service;
 
     public Api(OkHttpClient okHttpClient) {
+
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(new Gson()))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create()) // 添加Rx适配器
                 .client(okHttpClient)
                 .baseUrl(Constant.API_BASE_URL)
-//            .addConverterFactory(GsonConverterFactory.create()) // 添加Gson转换器
                 .build();
-
-
         service = retrofit.create(ApiService.class);
+
     }
 
     public static Api getInstance(OkHttpClient okHttpClient) {
@@ -53,24 +49,8 @@ public class Api {
         return instance;
     }
 
-    public Observable<Response<ResponseBody>> downloadPicFromNet(String imgUrl) {
-        return service.downloadPicFromNet(imgUrl);
-    }
-
-
-
-    public Observable<Response<ResponseBody>> Fetch_Apk_Update_Path() {
-        return service.Fetch_Apk_Update_Path();
-    }
-
-    public Observable<Response<ResponseBody>> Fetch_Search_Info(String keyword) {
-        return service.Fetch_Search_Info(keyword);
-    }
-
     public Observable<Apk_UpdateBean> Fetch_Apk_Update() {
         return service.Fetch_Apk_Update();
-
     }
-
 
 }

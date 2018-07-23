@@ -175,4 +175,7 @@
     <dimen name="wz_25sp">25dp</dimen>
     <dimen name="wz_27sp">27dp</dimen>
     <dimen name="wz_40sp">40dp</dimen>
+
+    <dimen name="wz_30px">30px</dimen>
+
 </resources>

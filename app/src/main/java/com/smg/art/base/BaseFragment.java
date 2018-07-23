@@ -27,8 +27,6 @@ public abstract class BaseFragment extends Fragment implements Stateful {
     protected FragmentActivity activity;
     protected LayoutInflater inflater;
 
-    protected Context mContext;
-
     public LoadingPage mLoadingPage;
 
     private boolean mIsVisible = false;     // fragment是否显示了
@@ -40,7 +38,6 @@ public abstract class BaseFragment extends Fragment implements Stateful {
 
     protected View contentView;
     private Unbinder bind;
-    public ProgressDialog loadPd;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
@@ -89,25 +86,6 @@ public abstract class BaseFragment extends Fragment implements Stateful {
             mIsVisible = false;
         }
     }
-
-
-    public void showLoadPd() {
-        if (loadPd == null) {
-            loadPd = new ProgressDialog(getActivity());
-            loadPd.setMessage("正在加载中......");
-            loadPd.show();
-        } else {
-            loadPd.show();
-        }
-    }
-
-
-    public void dismissLoadPd() {
-        if (loadPd != null && loadPd.isShowing())
-            loadPd.dismiss();
-    }
-
-
 
 
     /**

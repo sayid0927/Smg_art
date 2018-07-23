@@ -40,7 +40,6 @@ public interface ApiService {
     @GET
     Observable<Response<ResponseBody>> downloadPicFromNet(@Url String imgUrl);
 
-
     /**
      * 下载apk
      */
