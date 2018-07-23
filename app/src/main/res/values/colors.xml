@@ -16,11 +16,11 @@
   -->
 <resources>
     <!--标题栏的颜色-->
-    <color name="colorPrimary">#3B99DF</color>
+    <color name="colorPrimary">#341c1c</color>
     <!--状态栏的颜色-->
-    <color name="colorPrimaryDark">#3B90DF</color>
+    <color name="colorPrimaryDark">#341c1c</color>
     <!--控件的选中颜色，即checked或selected状态的颜色。-->
-    <color name="colorAccent">#3B99DF</color>
+    <color name="colorAccent">#341c1c</color>
 
     <color name="tip">#88303F9F</color>
     <color name="colorContent">#ff333333</color>

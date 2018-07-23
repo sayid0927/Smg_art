@@ -5,7 +5,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.smg.art"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -53,6 +53,6 @@ dependencies {
     implementation 'org.greenrobot:greendao:3.2.2'
     implementation 'com.jaeger.statusbaruitl:library:1.3.5'
     implementation 'com.zhy:autolayout:1.4.5'
-
+    implementation 'com.github.mancj:MaterialSearchBar:0.7.6'
 
 }

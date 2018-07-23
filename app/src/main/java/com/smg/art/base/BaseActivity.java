@@ -2,6 +2,7 @@ package com.smg.art.base;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
@@ -33,7 +34,9 @@ public abstract class BaseActivity extends SwipeBackActivity {
         ButterKnife.bind(this);
         setupActivityComponent(BaseApplication.getBaseApplication().getAppComponent());
         //沉浸式状态栏
-        StatusBarUtil.setColor(this,getResources().getColor(R.color.colorPrimaryDark), 20);
+        if (Build.VERSION.SDK_INT > 19) {
+            StatusBarUtil.setColor(this,getResources().getColor(R.color.colorPrimaryDark), 10);
+        }
         attachView();
         initView();
 

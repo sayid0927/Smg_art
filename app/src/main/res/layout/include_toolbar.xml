@@ -56,6 +56,12 @@
                     android:textColor="@color/white"
                     android:textSize="25px"
                     android:visibility="gone" />
+
+
+
+
+
+
             </com.zhy.autolayout.AutoLinearLayout>
 
 

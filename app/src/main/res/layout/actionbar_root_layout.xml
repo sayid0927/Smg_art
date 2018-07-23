@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="45dip"
-    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorPrimaryDark"
     android:orientation="horizontal"
     android:paddingLeft="6dip"
     android:paddingRight="6dip">
@@ -44,6 +46,16 @@
         android:textColor="@color/black_212121"
         android:textSize="19sp" />
 
+
+
+
+
+
+
+
+
+
+
     <ImageView
         android:id="@+id/iv_right"
         android:layout_width="wrap_content"
@@ -67,4 +79,4 @@
         android:textColor="@color/black_535353"
         android:textSize="16sp"
         android:visibility="gone" />
-</RelativeLayout>
+</com.zhy.autolayout.AutoRelativeLayout>
