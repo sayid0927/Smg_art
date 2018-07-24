@@ -19,6 +19,7 @@ import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.fragment.HomeContract;
 import com.smg.art.presenter.impl.fragment.HomePresenter;
+import com.smg.art.ui.activity.ClassifyActivity;
 import com.smg.art.ui.activity.MainActivity;
 import com.smg.art.ui.activity.SearchActivity;
 import com.smg.art.ui.adapter.GoodsListApadter;
@@ -72,6 +73,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
     private GoodsListApadter mAdapter;
     private GoodsBean goodsBean;
     private List<GoodsBean> goodsBeans;
+    private Intent i;
 
     @Override
     protected void initView(Bundle bundle) {
@@ -84,21 +86,29 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
 
 
         numBanner.setDelegate(this);
-        numBanner.setAdapter((banner, itemView, model, position) -> Glide.with(getActivity())
-                .load(model)
-//                        .placeholder(R.mipmap.holder)
-                .error(R.mipmap.ic_launcher)
-                .dontAnimate()
-                .centerCrop()
-                .into((ImageView) itemView));
+        numBanner.setAdapter(new BGABanner.Adapter<ImageView,String>() {
+            @Override
+            public void fillBannerItem(BGABanner banner, ImageView itemView, String model, int position) {
 
+                Glide.with(getActivity())
+                        .load(model)
+//                        .placeholder(R.mipmap.holder)
+                        .error(R.mipmap.ic_launcher)
+                        .dontAnimate()
+                        .centerCrop()
+                        .into(itemView);
+            }
+        });
         numBanner.setData(Arrays.asList(
                 "http://a.hiphotos.baidu.com/image/h%3D300/sign=4a51c9cd7e8b4710d12ffbccf3ccc3b2/b64543a98226cffceee78e5eb5014a90f703ea09.jpg",
                 "http://a.hiphotos.baidu.com/image/h%3D300/sign=4a51c9cd7e8b4710d12ffbccf3ccc3b2/b64543a98226cffceee78e5eb5014a90f703ea09.jpg",
                 "http://a.hiphotos.baidu.com/image/h%3D300/sign=4a51c9cd7e8b4710d12ffbccf3ccc3b2/b64543a98226cffceee78e5eb5014a90f703ea09.jpg"),
                 Arrays.asList("", "", ""));
-
     }
+
+
+
+
 
     @Override
     public void loadData() {
@@ -144,27 +154,57 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_search:
-                MainActivity.mainActivity.startActivityIn(new Intent(getActivity(), SearchActivity.class),getActivity());
+                MainActivity.mainActivity.startActivityIn(new Intent(getActivity(), SearchActivity.class), getActivity());
                 break;
             case R.id.ll_book_draw:
+                i = new Intent(getActivity(), ClassifyActivity.class);
+                i.putExtra("postion",0);
+                MainActivity.mainActivity.startActivityIn(i, getActivity());
                 break;
             case R.id.ll_oil_draw:
+                i = new Intent(getActivity(), ClassifyActivity.class);
+                i.putExtra("postion",1);
+                MainActivity.mainActivity.startActivityIn(i, getActivity());
                 break;
             case R.id.ll_bird_draw:
+                i = new Intent(getActivity(), ClassifyActivity.class);
+                i.putExtra("postion",2);
+                MainActivity.mainActivity.startActivityIn(i, getActivity());
                 break;
             case R.id.ll_hill_draw:
+                i = new Intent(getActivity(), ClassifyActivity.class);
+                i.putExtra("postion",3);
+                MainActivity.mainActivity.startActivityIn(i, getActivity());
                 break;
             case R.id.ll_people_draw:
+                i = new Intent(getActivity(), ClassifyActivity.class);
+                i.putExtra("postion",4);
+                MainActivity.mainActivity.startActivityIn(i, getActivity());
                 break;
             case R.id.ll_money_draw:
+                i = new Intent(getActivity(), ClassifyActivity.class);
+                i.putExtra("postion",5);
+                MainActivity.mainActivity.startActivityIn(i, getActivity());
                 break;
             case R.id.ll_jade_draw:
+                i = new Intent(getActivity(), ClassifyActivity.class);
+                i.putExtra("postion",6);
+                MainActivity.mainActivity.startActivityIn(i, getActivity());
                 break;
             case R.id.ll_fine_draw:
+                i = new Intent(getActivity(), ClassifyActivity.class);
+                i.putExtra("postion",7);
+                MainActivity.mainActivity.startActivityIn(i, getActivity());
                 break;
             case R.id.ll_furniture_draw:
+                i = new Intent(getActivity(), ClassifyActivity.class);
+                i.putExtra("postion",8);
+                MainActivity.mainActivity.startActivityIn(i, getActivity());
                 break;
             case R.id.ll_more_draw:
+                i = new Intent(getActivity(), ClassifyActivity.class);
+                i.putExtra("postion",9);
+                MainActivity.mainActivity.startActivityIn(i, getActivity());
                 break;
         }
     }
