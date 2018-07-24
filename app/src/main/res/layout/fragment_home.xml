@@ -10,9 +10,9 @@
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/srl_android"
-        android:background="#362828"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#362828">
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -27,6 +27,7 @@
                 <cn.bingoogolapple.bgabanner.BGABanner
                     android:id="@+id/banner"
                     style="@style/BannerDefaultStyle"
+                    android:layout_marginBottom="10px"
                     app:banner_indicatorGravity="bottom|left"
                     app:banner_isNeedShowIndicatorOnOnlyOnePage="true"
                     app:banner_isNumberIndicator="true"
@@ -37,19 +38,14 @@
                     app:banner_pointContainerBackground="@android:color/transparent"
                     app:banner_transitionEffect="defaultEffect" />
 
-                <include layout="include_home_icon"/>
+                <include layout="@layout/include_home_icon" />
 
-
-
-
-
-
-
-
-
-
-
-
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_goods"
+                    android:overScrollMode="never"
+                    android:layout_marginTop="48px"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
             </com.zhy.autolayout.AutoLinearLayout>
 

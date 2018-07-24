@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:layout_marginTop="20px"
+    android:background="#362828"
     android:orientation="vertical">
 
     <com.zhy.autolayout.AutoLinearLayout
@@ -159,6 +160,7 @@
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="17px"
         android:orientation="horizontal">
 
 
@@ -300,6 +302,107 @@
                 android:textSize="24px" />
 
         </com.zhy.autolayout.AutoLinearLayout>
+
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:paddingBottom="60px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25px"
+        android:layout_marginRight="25px"
+        android:layout_marginTop="47px"
+        android:background="@drawable/show_bg"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:layout_marginLeft="5px"
+            android:layout_width="189px"
+            android:layout_height="255px"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher" />
+
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28px"
+            android:layout_marginTop="34px"
+            android:background="@drawable/show_bg"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="戴玉堂陶瓷供奉佛阿弥陀佛像"
+                android:textColor="@color/black"
+                android:textSize="30px"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="19px"
+                android:text="发行者：欧阳震华"
+                android:textColor="@color/black"
+                android:textSize="26px" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12px"
+                android:text="编 码：180601001"
+                android:textColor="@color/black"
+                android:textSize="26px" />
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12px"
+                    android:text="起拍价："
+                    android:textColor="@color/black"
+                    android:textSize="26px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12px"
+                    android:text="￥ 1000"
+                    android:textColor="@color/black"
+                    android:textSize="26px" />
+
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+
+            <TextView
+                android:id="@+id/bt_logistic_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="39px"
+                android:background="@drawable/btn_order_grey_selector"
+                android:text="唐朝藏品"
+                android:textSize="22px"
+                android:padding="15px"
+                android:textColor="@color/black" />
+
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+
+
+
     </com.zhy.autolayout.AutoLinearLayout>
 
 </com.zhy.autolayout.AutoLinearLayout>

@@ -36,7 +36,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     private ArrayList<String> mTitleList = new ArrayList<>();
     private ArrayList<Fragment> mFragments = new ArrayList<>();
-
+    public static MainActivity mainActivity;
 
     @Inject
     MainActivityPresenter mPresenter;
@@ -81,7 +81,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         tabLayout.setupWithViewPager(vp);
 
         mPresenter.Apk_Update();
-
+        mainActivity = this;
     }
 
     @Override

@@ -1,41 +1,86 @@
 package com.smg.art.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.smg.art.R;
 import com.smg.art.base.BaseFragment;
 import com.smg.art.base.Constant;
 import com.smg.art.bean.Apk_UpdateBean;
+import com.smg.art.bean.GoodsBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.fragment.HomeContract;
 import com.smg.art.presenter.impl.fragment.HomePresenter;
+import com.smg.art.ui.activity.MainActivity;
+import com.smg.art.ui.activity.SearchActivity;
+import com.smg.art.ui.adapter.GoodsListApadter;
+import com.smg.art.view.MyLoadMoreView;
+import com.zhy.autolayout.AutoLinearLayout;
+import com.zhy.autolayout.AutoRelativeLayout;
 
 import java.util.Arrays;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
+import butterknife.OnClick;
 import cn.bingoogolapple.bgabanner.BGABanner;
 
 
-public class HomeFragment extends BaseFragment implements HomeContract.View, BGABanner.Delegate {
+public class HomeFragment extends BaseFragment implements HomeContract.View, BGABanner.Delegate, BaseQuickAdapter.RequestLoadMoreListener {
 
     @Inject
     HomePresenter mPresenter;
     @BindView(R.id.banner)
     BGABanner numBanner;
+    @BindView(R.id.rv_goods)
+    RecyclerView rvGoods;
+
+    @BindView(R.id.rl_search)
+    AutoRelativeLayout rlSearch;
+    @BindView(R.id.ll_book_draw)
+    AutoLinearLayout llBookDraw;
+    @BindView(R.id.ll_oil_draw)
+    AutoLinearLayout llOilDraw;
+    @BindView(R.id.ll_bird_draw)
+    AutoLinearLayout llBirdDraw;
+    @BindView(R.id.ll_hill_draw)
+    AutoLinearLayout llHillDraw;
+    @BindView(R.id.ll_people_draw)
+    AutoLinearLayout llPeopleDraw;
+    @BindView(R.id.ll_money_draw)
+    AutoLinearLayout llMoneyDraw;
+    @BindView(R.id.ll_jade_draw)
+    AutoLinearLayout llJadeDraw;
+    @BindView(R.id.ll_fine_draw)
+    AutoLinearLayout llFineDraw;
+    @BindView(R.id.ll_furniture_draw)
+    AutoLinearLayout llFurnitureDraw;
+    @BindView(R.id.ll_more_draw)
+    AutoLinearLayout llMoreDraw;
+
+
+    private GoodsListApadter mAdapter;
+    private GoodsBean goodsBean;
+    private List<GoodsBean> goodsBeans;
 
     @Override
     protected void initView(Bundle bundle) {
+
+        mAdapter = new GoodsListApadter(goodsBeans, getSupportActivity());
+        mAdapter.setOnLoadMoreListener(this, rvGoods);
+        mAdapter.setLoadMoreView(new MyLoadMoreView());
+        rvGoods.setLayoutManager(new LinearLayoutManager(getSupportActivity()));
+        rvGoods.setAdapter(mAdapter);
 
 
         numBanner.setDelegate(this);
@@ -90,4 +135,37 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
         Toast.makeText(banner.getContext(), "点击了第" + (position + 1) + "页", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onLoadMoreRequested() {
+        //加载更多
+    }
+
+    @OnClick({R.id.rl_search, R.id.ll_book_draw, R.id.ll_oil_draw, R.id.ll_bird_draw, R.id.ll_hill_draw, R.id.ll_people_draw, R.id.ll_money_draw, R.id.ll_jade_draw, R.id.ll_fine_draw, R.id.ll_furniture_draw, R.id.ll_more_draw})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.rl_search:
+                MainActivity.mainActivity.startActivityIn(new Intent(getActivity(), SearchActivity.class),getActivity());
+                break;
+            case R.id.ll_book_draw:
+                break;
+            case R.id.ll_oil_draw:
+                break;
+            case R.id.ll_bird_draw:
+                break;
+            case R.id.ll_hill_draw:
+                break;
+            case R.id.ll_people_draw:
+                break;
+            case R.id.ll_money_draw:
+                break;
+            case R.id.ll_jade_draw:
+                break;
+            case R.id.ll_fine_draw:
+                break;
+            case R.id.ll_furniture_draw:
+                break;
+            case R.id.ll_more_draw:
+                break;
+        }
+    }
 }
