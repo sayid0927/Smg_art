@@ -50,6 +50,7 @@ public class MainActivity extends BaseActivity implements MainContract.View, Tab
 
 
 
+
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
         DaggerMainComponent.builder().appComponent(appComponent).build().inject(this);
