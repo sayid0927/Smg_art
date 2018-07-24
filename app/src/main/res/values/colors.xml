@@ -120,4 +120,10 @@
     <color name="red_normal">#FF0000</color>
     <color name="red_pressed">#FF6666</color>
 
+    <!--灰色-->
+    <color name="grey_f2f2f2">#f2f2f2</color>
+    <color name="grey_e5e5e5">#e5e5e5</color>
+
+    <color name="grey_e6333333">#e6333333</color>
+
 </resources>
