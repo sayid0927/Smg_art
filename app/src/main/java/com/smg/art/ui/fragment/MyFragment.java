@@ -103,7 +103,6 @@ public class MyFragment extends BaseFragment implements HomeContract.View {
 
     @Override
     public void attachView() {
-
     }
 
     @Override
