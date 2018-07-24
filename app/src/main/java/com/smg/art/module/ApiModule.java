@@ -22,7 +22,6 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 
-
 @Module
 public class ApiModule {
 
@@ -44,32 +43,63 @@ public class ApiModule {
 
     }
 
-    Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = chain -> {
-        CacheControl.Builder cacheBuilder = new CacheControl.Builder();
-        cacheBuilder.maxAge(0, TimeUnit.SECONDS);
-        cacheBuilder.maxStale(365, TimeUnit.DAYS);
-        CacheControl cacheControl = cacheBuilder.build();
-        Request request = chain.request();
-        if (!NetworkUtils.isAvailableByPing()) {
-            request = request.newBuilder()
-                    .cacheControl(cacheControl)
-                    .build();
-        }
-        Response originalResponse = chain.proceed(request);
-        if (NetworkUtils.isAvailableByPing()) {
-            int maxAge = 0;//read from cache
-            return originalResponse.newBuilder()
-                    .removeHeader("Pragma")
-                    .header("Cache-Control", "public ,max-age=" + maxAge)
-                    .build();
-        } else {
-            int maxStale = 60 * 60 * 24 * 28;//tolerate 4-weeks stale
-            return originalResponse.newBuilder()
-                    .removeHeader("Prama")
-                    .header("Cache-Control", "poublic, only-if-cached, max-stale=" + maxStale)
-                    .build();
+    Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = new Interceptor() {
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            CacheControl.Builder cacheBuilder = new CacheControl.Builder();
+            cacheBuilder.maxAge(0, TimeUnit.SECONDS);
+            cacheBuilder.maxStale(365, TimeUnit.DAYS);
+            CacheControl cacheControl = cacheBuilder.build();
+            Request request = chain.request();
+            if (!NetworkUtils.isAvailableByPing()) {
+                request = request.newBuilder()
+                        .cacheControl(cacheControl)
+                        .build();
+            }
+            Response originalResponse = chain.proceed(request);
+            if (NetworkUtils.isAvailableByPing()) {
+                int maxAge = 0;//read from cache
+                return originalResponse.newBuilder()
+                        .removeHeader("Pragma")
+                        .header("Cache-Control", "public ,max-age=" + maxAge)
+                        .build();
+            } else {
+                int maxStale = 60 * 60 * 24 * 28;//tolerate 4-weeks stale
+                return originalResponse.newBuilder()
+                        .removeHeader("Prama")
+                        .header("Cache-Control", "poublic, only-if-cached, max-stale=" + maxStale)
+                        .build();
+            }
         }
     };
+
+
+//    Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = chain -> {
+//        CacheControl.Builder cacheBuilder = new CacheControl.Builder();
+//        cacheBuilder.maxAge(0, TimeUnit.SECONDS);
+//        cacheBuilder.maxStale(365, TimeUnit.DAYS);
+//        CacheControl cacheControl = cacheBuilder.build();
+//        Request request = chain.request();
+//        if (!NetworkUtils.isAvailableByPing()) {
+//            request = request.newBuilder()
+//                    .cacheControl(cacheControl)
+//                    .build();
+//        }
+//        Response originalResponse = chain.proceed(request);
+//        if (NetworkUtils.isAvailableByPing()) {
+//            int maxAge = 0;//read from cache
+//            return originalResponse.newBuilder()
+//                    .removeHeader("Pragma")
+//                    .header("Cache-Control", "public ,max-age=" + maxAge)
+//                    .build();
+//        } else {
+//            int maxStale = 60 * 60 * 24 * 28;//tolerate 4-weeks stale
+//            return originalResponse.newBuilder()
+//                    .removeHeader("Prama")
+//                    .header("Cache-Control", "poublic, only-if-cached, max-stale=" + maxStale)
+//                    .build();
+//        }
+//    };
 
     class LoggingInterceptor implements Interceptor {
         @Override
@@ -77,7 +107,7 @@ public class ApiModule {
             Request request = chain.request();
             long t1 = System.nanoTime();//请求发起的时间
             Logger.t("TAG").e(String.format("发送请求 %s on %s%n%s%n",
-                    request.url(), chain.connection(), request.headers(),t1));
+                    request.url(), chain.connection(), request.headers(), t1));
             Response response = chain.proceed(request);
             long t2 = System.nanoTime();//收到响应的时间
             ResponseBody responseBody = response.peekBody(1024 * 1024);
