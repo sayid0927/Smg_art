@@ -1,6 +1,8 @@
 package com.smg.art.ui.activity;
 
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -25,8 +27,10 @@ import javax.inject.Inject;
 import butterknife.BindView;
 
 
-public class MainActivity extends BaseActivity implements MainContract.View {
+public class MainActivity extends BaseActivity implements MainContract.View, TabLayout.OnTabSelectedListener {
 
+    @Inject
+    MainActivityPresenter mPresenter;
 
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
@@ -36,10 +40,13 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     private ArrayList<String> mTitleList = new ArrayList<>();
     private ArrayList<Fragment> mFragments = new ArrayList<>();
+    private TabLayout.Tab tabHome;
+    private TabLayout.Tab tabAuction;
+    private TabLayout.Tab tabMessage;
+    private TabLayout.Tab tabMy;
     public static MainActivity mainActivity;
 
-    @Inject
-    MainActivityPresenter mPresenter;
+
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -53,7 +60,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Override
     public void attachView() {
-        mPresenter.attachView(this,this);
+        mPresenter.attachView(this, this);
     }
 
     @Override
@@ -61,14 +68,15 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         mPresenter.detachView();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void initView() {
         setSwipeBackEnable(false);
 
-        mTitleList.add(UIUtils.getString(R.string.app_name));
-        mTitleList.add(UIUtils.getString(R.string.app_name));
-        mTitleList.add(UIUtils.getString(R.string.app_name));
-        mTitleList.add(UIUtils.getString(R.string.app_name));
+        mTitleList.add(UIUtils.getString(R.string.tab_item_home));
+        mTitleList.add(UIUtils.getString(R.string.tab_item_auction));
+        mTitleList.add(UIUtils.getString(R.string.tab_item_message));
+        mTitleList.add(UIUtils.getString(R.string.tab_item_my));
 
         mFragments.add(new HomeFragment());
         mFragments.add(new HomeFragment());
@@ -79,9 +87,22 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         vp.setAdapter(myAdapter);
         myAdapter.notifyDataSetChanged();
         tabLayout.setupWithViewPager(vp);
+        tabLayout.addOnTabSelectedListener(this);
+
+
+        tabHome = tabLayout.getTabAt(0);
+        tabAuction = tabLayout.getTabAt(1);
+        tabMessage = tabLayout.getTabAt(2);
+        tabMy = tabLayout.getTabAt(3);
+
+        tabHome.setIcon(R.drawable.home_icon_p);
+        tabAuction.setIcon(R.drawable.auction_icon_r);
+        tabMessage.setIcon(R.drawable.message_icon_r);
+        tabMy.setIcon(R.drawable.me_icon_r);
 
         mPresenter.Apk_Update();
         mainActivity = this;
+
     }
 
     @Override
@@ -104,4 +125,44 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         return null;
     }
 
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+
+        switch (tab.getPosition()) {
+            case 0:
+                tabHome.setIcon(R.drawable.home_icon_p);
+                tabAuction.setIcon(R.drawable.auction_icon_r);
+                tabMessage.setIcon(R.drawable.message_icon_r);
+                tabMy.setIcon(R.drawable.me_icon_r);
+                break;
+            case 1:
+                tabHome.setIcon(R.drawable.home_icon_r);
+                tabAuction.setIcon(R.drawable.auction_icon_p);
+                tabMessage.setIcon(R.drawable.message_icon_r);
+                tabMy.setIcon(R.drawable.me_icon_r);
+                break;
+            case 2:
+                tabHome.setIcon(R.drawable.home_icon_r);
+                tabAuction.setIcon(R.drawable.auction_icon_r);
+                tabMessage.setIcon(R.drawable.message_icon_p);
+                tabMy.setIcon(R.drawable.me_icon_r);
+                break;
+            case 3:
+                tabHome.setIcon(R.drawable.home_icon_r);
+                tabAuction.setIcon(R.drawable.auction_icon_r);
+                tabMessage.setIcon(R.drawable.message_icon_r);
+                tabMy.setIcon(R.drawable.me_icon_p);
+                break;
+        }
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
+    }
 }

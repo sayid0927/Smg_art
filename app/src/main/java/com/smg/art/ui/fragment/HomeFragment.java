@@ -2,10 +2,12 @@ package com.smg.art.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -20,6 +22,7 @@ import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.fragment.HomeContract;
 import com.smg.art.presenter.impl.fragment.HomePresenter;
 import com.smg.art.ui.activity.ClassifyActivity;
+import com.smg.art.ui.activity.GoodsDetailActivity;
 import com.smg.art.ui.activity.MainActivity;
 import com.smg.art.ui.activity.SearchActivity;
 import com.smg.art.ui.adapter.GoodsListApadter;
@@ -27,6 +30,7 @@ import com.smg.art.view.MyLoadMoreView;
 import com.zhy.autolayout.AutoLinearLayout;
 import com.zhy.autolayout.AutoRelativeLayout;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -68,6 +72,12 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
     AutoLinearLayout llFurnitureDraw;
     @BindView(R.id.ll_more_draw)
     AutoLinearLayout llMoreDraw;
+    @BindView(R.id.tv_search)
+    TextView tvSearch;
+    @BindView(R.id.et_SearchContent)
+    EditText etSearchContent;
+    @BindView(R.id.ivToolbarNavigation)
+    ImageView ivToolbarNavigation;
 
 
     private GoodsListApadter mAdapter;
@@ -75,18 +85,41 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
     private List<GoodsBean> goodsBeans;
     private Intent i;
 
+
+    @Override
+    public int getLayoutResId() {
+        return R.layout.fragment_home;
+    }
+
     @Override
     protected void initView(Bundle bundle) {
+        goodsBeans = new ArrayList<>();
+        for (int i = 0; i < 30; i++) {
+            GoodsBean goodsBean = new GoodsBean();
+            goodsBeans.add(goodsBean);
+        }
 
+        tvSearch.setVisibility(View.VISIBLE);
+        etSearchContent.setVisibility(View.GONE);
+        ivToolbarNavigation.setVisibility(View.GONE);
         mAdapter = new GoodsListApadter(goodsBeans, getSupportActivity());
         mAdapter.setOnLoadMoreListener(this, rvGoods);
         mAdapter.setLoadMoreView(new MyLoadMoreView());
-        rvGoods.setLayoutManager(new LinearLayoutManager(getSupportActivity()));
+        rvGoods.setLayoutManager(new GridLayoutManager(getSupportActivity(), 2));
         rvGoods.setAdapter(mAdapter);
+        mAdapter.OnGoodsItemListener(new GoodsListApadter.OnGoodsItemListener() {
+            @Override
+            public void OnGoodsItemListener(GoodsBean item) {
+
+                Intent i = new Intent(getActivity(), GoodsDetailActivity.class);
+                MainActivity.mainActivity.startActivityIn(i, getActivity());
+
+            }
+        });
 
 
         numBanner.setDelegate(this);
-        numBanner.setAdapter(new BGABanner.Adapter<ImageView,String>() {
+        numBanner.setAdapter(new BGABanner.Adapter<ImageView, String>() {
             @Override
             public void fillBannerItem(BGABanner banner, ImageView itemView, String model, int position) {
 
@@ -107,18 +140,11 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
     }
 
 
-
-
-
     @Override
     public void loadData() {
         setState(Constant.STATE_SUCCESS);
     }
 
-    @Override
-    public int getLayoutResId() {
-        return R.layout.fragment_home;
-    }
 
     @Override
     public void attachView() {
@@ -158,52 +184,52 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
                 break;
             case R.id.ll_book_draw:
                 i = new Intent(getActivity(), ClassifyActivity.class);
-                i.putExtra("postion",0);
+                i.putExtra("postion", 0);
                 MainActivity.mainActivity.startActivityIn(i, getActivity());
                 break;
             case R.id.ll_oil_draw:
                 i = new Intent(getActivity(), ClassifyActivity.class);
-                i.putExtra("postion",1);
+                i.putExtra("postion", 1);
                 MainActivity.mainActivity.startActivityIn(i, getActivity());
                 break;
             case R.id.ll_bird_draw:
                 i = new Intent(getActivity(), ClassifyActivity.class);
-                i.putExtra("postion",2);
+                i.putExtra("postion", 2);
                 MainActivity.mainActivity.startActivityIn(i, getActivity());
                 break;
             case R.id.ll_hill_draw:
                 i = new Intent(getActivity(), ClassifyActivity.class);
-                i.putExtra("postion",3);
+                i.putExtra("postion", 3);
                 MainActivity.mainActivity.startActivityIn(i, getActivity());
                 break;
             case R.id.ll_people_draw:
                 i = new Intent(getActivity(), ClassifyActivity.class);
-                i.putExtra("postion",4);
+                i.putExtra("postion", 4);
                 MainActivity.mainActivity.startActivityIn(i, getActivity());
                 break;
             case R.id.ll_money_draw:
                 i = new Intent(getActivity(), ClassifyActivity.class);
-                i.putExtra("postion",5);
+                i.putExtra("postion", 5);
                 MainActivity.mainActivity.startActivityIn(i, getActivity());
                 break;
             case R.id.ll_jade_draw:
                 i = new Intent(getActivity(), ClassifyActivity.class);
-                i.putExtra("postion",6);
+                i.putExtra("postion", 6);
                 MainActivity.mainActivity.startActivityIn(i, getActivity());
                 break;
             case R.id.ll_fine_draw:
                 i = new Intent(getActivity(), ClassifyActivity.class);
-                i.putExtra("postion",7);
+                i.putExtra("postion", 7);
                 MainActivity.mainActivity.startActivityIn(i, getActivity());
                 break;
             case R.id.ll_furniture_draw:
                 i = new Intent(getActivity(), ClassifyActivity.class);
-                i.putExtra("postion",8);
+                i.putExtra("postion", 8);
                 MainActivity.mainActivity.startActivityIn(i, getActivity());
                 break;
             case R.id.ll_more_draw:
                 i = new Intent(getActivity(), ClassifyActivity.class);
-                i.putExtra("postion",9);
+                i.putExtra("postion", 9);
                 MainActivity.mainActivity.startActivityIn(i, getActivity());
                 break;
         }

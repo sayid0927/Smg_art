@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Art</string>
+    <string name="bookDraw">书画</string>
+    <string name="oilDraw">油画</string>
+    <string name="birdDraw">花鸟画</string>
+    <string name="hilDraw">山水画</string>
+    <string name="peopleDraw">人物画</string>
+    <string name="moneyDraw">钱币</string>
+    <string name="jadeDraw">玉器</string>
+    <string name="fineDraw">民间精品</string>
+    <string name="furnitureDraw">古家具</string>
+    <string name="moreDraw">更多</string>
+    <string name="search_hint">文化艺术品 / 玉器 / 陶瓷...</string>
+    <string name="tab_item_home">首页</string>
+    <string name="tab_item_auction">拍卖</string>
+    <string name="tab_item_message">消息</string>
+    <string name="tab_item_my">我的</string>
+    <string name="classify_title">分类</string>
 </resources>

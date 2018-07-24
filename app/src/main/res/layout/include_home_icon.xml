@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv"
                 android:layout_marginTop="15px"
-                android:text="书画"
+                android:text="@string/bookDraw"
                 android:textColor="@color/white"
                 android:textSize="24px" />
 
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv"
                 android:layout_marginTop="15px"
-                android:text="油画"
+                android:text="@string/oilDraw"
                 android:textColor="@color/white"
                 android:textSize="24px" />
 
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv"
                 android:layout_marginTop="15px"
-                android:text="花鸟画"
+                android:text="@string/birdDraw"
                 android:textColor="@color/white"
                 android:textSize="24px" />
 
@@ -119,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv"
                 android:layout_marginTop="15px"
-                android:text="山水画"
+                android:text="@string/hilDraw"
                 android:textColor="@color/white"
                 android:textSize="24px" />
 
@@ -147,7 +147,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv"
                 android:layout_marginTop="15px"
-                android:text="山水画"
+                android:text="@string/peopleDraw"
                 android:textColor="@color/white"
                 android:textSize="24px" />
 
@@ -185,7 +185,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv"
                 android:layout_marginTop="15px"
-                android:text="钱币"
+                android:text="@string/moneyDraw"
                 android:textColor="@color/white"
                 android:textSize="24px" />
 
@@ -213,7 +213,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv"
                 android:layout_marginTop="15px"
-                android:text="玉器"
+                android:text="@string/jadeDraw"
                 android:textColor="@color/white"
                 android:textSize="24px" />
 
@@ -241,7 +241,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv"
                 android:layout_marginTop="15px"
-                android:text="民间精品"
+                android:text="@string/fineDraw"
                 android:textColor="@color/white"
                 android:textSize="24px" />
 
@@ -269,7 +269,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv"
                 android:layout_marginTop="15px"
-                android:text="古家具"
+                android:text="@string/furnitureDraw"
                 android:textColor="@color/white"
                 android:textSize="24px" />
 
@@ -297,7 +297,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv"
                 android:layout_marginTop="15px"
-                android:text="更多"
+                android:text="@string/moreDraw"
                 android:textColor="@color/white"
                 android:textSize="24px" />
 

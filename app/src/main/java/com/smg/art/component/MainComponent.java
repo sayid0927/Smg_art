@@ -3,8 +3,10 @@ package com.smg.art.component;
 
 
 import com.smg.art.ui.activity.ClassifyActivity;
+import com.smg.art.ui.activity.GoodsDetailActivity;
 import com.smg.art.ui.activity.MainActivity;
 import com.smg.art.ui.activity.SearchActivity;
+import com.smg.art.ui.fragment.ClassifyChildFragment;
 import com.smg.art.ui.fragment.HomeFragment;
 
 import dagger.Component;
@@ -20,5 +22,9 @@ public interface MainComponent {
     ClassifyActivity  inject (ClassifyActivity classifyActivity);
 
     SearchActivity inject(SearchActivity searchActivity);
+
+    ClassifyChildFragment inject (ClassifyChildFragment  classifyChildFragment);
+
+    GoodsDetailActivity inject (GoodsDetailActivity goodsDetailActivity);
 
 }

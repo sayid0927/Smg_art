@@ -1,0 +1,115 @@
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:fitsSystemWindows="true">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:collapsedTitleTextAppearance="@style/style_textsize1"
+                app:contentScrim="@color/colorPrimary"
+                app:expandedTitleMarginEnd="10dp"
+                app:expandedTitleMarginStart="10dp"
+                app:expandedTitleTextAppearance="@style/style_textsize"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <ImageView
+                    android:id="@+id/img"
+                    android:layout_width="match_parent"
+                    android:layout_height="375dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/test"
+                    app:layout_collapseMode="parallax"
+                    app:layout_collapseParallaxMultiplier="0.5" />
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:fitsSystemWindows="true"
+                    app:layout_collapseMode="pin" />
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.design.widget.CoordinatorLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="98px"
+        android:layout_alignParentBottom="true"
+        android:background="#341c1c">
+
+
+        <TextView
+            android:gravity="center"
+            android:id="@+id/tv_collectioin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="82px"
+            android:drawableTop="@drawable/collection"
+            android:text="收藏"
+            android:drawablePadding="5px"
+            android:textColor="@color/white"
+            android:textSize="22px" />
+
+        <TextView
+            android:drawablePadding="5px"
+            android:gravity="center"
+            android:id="@+id/phone_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="85px"
+            android:layout_toRightOf="@+id/tv_collectioin"
+            android:drawableTop="@drawable/phone_service"
+            android:text="客服"
+            android:textColor="@color/white"
+            android:textSize="22px" />
+
+
+        <TextView
+            android:layout_width="300px"
+            android:layout_height="76px"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="80px"
+            android:gravity="center"
+            android:background="@drawable/text_red_bg"
+            android:padding="10px"
+            android:text="交保证金参与"
+            android:textColor="@color/white"
+            android:textSize="36px" />
+
+
+    </RelativeLayout>
+
+
+</com.zhy.autolayout.AutoRelativeLayout>

@@ -80,5 +80,18 @@
         <!--<item name="banner_placeholderDrawable">@drawable/holder</item>-->
     </style>
 
+    <style name="TabLayoutTextSizeStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">18dp</item>
+    </style>
+
+
+
+    <style name="style_textsize">
+        <item name="android:textSize">23sp</item>
+    </style>
+    <style name="style_textsize1">
+        <item name="android:textSize">18sp</item>
+    </style>
+
 
 </resources>

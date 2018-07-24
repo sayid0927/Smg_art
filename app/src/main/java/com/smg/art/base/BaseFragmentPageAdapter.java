@@ -45,4 +45,6 @@ public class BaseFragmentPageAdapter extends FragmentPagerAdapter {
             return "";
         }
     }
+
+
 }

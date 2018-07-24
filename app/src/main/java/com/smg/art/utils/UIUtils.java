@@ -2,6 +2,9 @@ package com.smg.art.utils;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.widget.Toast;
@@ -78,6 +81,8 @@ public class UIUtils {
     public static String getString(int id, Object... formatArgs) {
         return getResource().getString(id, formatArgs);
     }
+
+
 
     /**
      * 得到string.xml中和字符串数组

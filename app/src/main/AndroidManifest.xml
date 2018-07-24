@@ -27,7 +27,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.SearchActivity" />
-        <activity android:name=".ui.activity.ClassifyActivity"></activity>
+        <activity android:name=".ui.activity.ClassifyActivity" />
+        <activity android:name=".ui.activity.GoodsDetailActivity"></activity>
     </application>
 
 </manifest>
