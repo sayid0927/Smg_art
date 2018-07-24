@@ -20,7 +20,7 @@
         android:id="@+id/tab_layout"
         style="@style/TabLayoutTextStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100px"
         android:background="@color/colorPrimary"
         app:tabSelectedTextColor="#e2bd74"
         app:tabTextColor="@color/white">

@@ -48,9 +48,6 @@ public class MainActivity extends BaseActivity implements MainContract.View, Tab
     private TabLayout.Tab tabMy;
 
 
-
-
-
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
         DaggerMainComponent.builder().appComponent(appComponent).build().inject(this);
@@ -85,13 +82,12 @@ public class MainActivity extends BaseActivity implements MainContract.View, Tab
         mFragments.add(new AuctionFragment());
         mFragments.add(new HomeFragment());
         mFragments.add(new MyFragment());
-//        vp = (ViewPager) findViewById(R.id.vp);
         BaseFragmentPageAdapter myAdapter = new BaseFragmentPageAdapter(getSupportFragmentManager(), mFragments, mTitleList);
         vp.setAdapter(myAdapter);
         myAdapter.notifyDataSetChanged();
         tabLayout.setupWithViewPager(vp);
-        tabLayout.addOnTabSelectedListener(this);
 
+        tabLayout.addOnTabSelectedListener(this);
 
         tabHome = tabLayout.getTabAt(0);
         tabAuction = tabLayout.getTabAt(1);

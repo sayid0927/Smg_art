@@ -79,7 +79,6 @@ public class MyFragment extends BaseFragment implements HomeContract.View {
     ImageView icon5;
     @BindView(R.id.setting)
     RelativeLayout setting;
-    Unbinder unbinder;
 
     @Override
     public void ApkUpdateS(Apk_UpdateBean.DataBean dataBean) {
@@ -110,17 +109,4 @@ public class MyFragment extends BaseFragment implements HomeContract.View {
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
 }
