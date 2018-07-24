@@ -25,8 +25,8 @@ import butterknife.Unbinder;
  */
 
 public class MyFragment extends BaseFragment implements HomeContract.View {
-    @BindView(R.id.mine_head)
-    ImageView mineHead;
+    /*    @BindView(R.id.mine_head)
+        ImageView mineHead;*/
     @BindView(R.id.user_name)
     TextView userName;
     @BindView(R.id.user_id)
