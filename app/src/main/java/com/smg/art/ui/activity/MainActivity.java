@@ -1,8 +1,6 @@
 package com.smg.art.ui.activity;
 
 
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -17,7 +15,9 @@ import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.activity.MainContract;
 
 import com.smg.art.presenter.impl.activity.MainActivityPresenter;
+import com.smg.art.ui.fragment.AuctionFragment;
 import com.smg.art.ui.fragment.HomeFragment;
+import com.smg.art.ui.fragment.MyFragment;
 import com.smg.art.utils.UIUtils;
 
 import java.util.ArrayList;
@@ -32,9 +32,9 @@ public class MainActivity extends BaseActivity implements MainContract.View, Tab
     @Inject
     MainActivityPresenter mPresenter;
 
+    public static MainActivity mainActivity;
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
-
     @BindView(R.id.vp)
     ViewPager vp;
 
@@ -79,10 +79,10 @@ public class MainActivity extends BaseActivity implements MainContract.View, Tab
         mTitleList.add(UIUtils.getString(R.string.tab_item_my));
 
         mFragments.add(new HomeFragment());
+        mFragments.add(new AuctionFragment());
         mFragments.add(new HomeFragment());
-        mFragments.add(new HomeFragment());
-        mFragments.add(new HomeFragment());
-
+        mFragments.add(new MyFragment());
+//        vp = (ViewPager) findViewById(R.id.vp);
         BaseFragmentPageAdapter myAdapter = new BaseFragmentPageAdapter(getSupportFragmentManager(), mFragments, mTitleList);
         vp.setAdapter(myAdapter);
         myAdapter.notifyDataSetChanged();

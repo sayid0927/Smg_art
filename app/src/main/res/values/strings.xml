@@ -16,4 +16,15 @@
     <string name="tab_item_message">消息</string>
     <string name="tab_item_my">我的</string>
     <string name="classify_title">分类</string>
+    <string name="participating_auction">参与的拍卖</string>
+    <string name="check_all">查看全部</string>
+    <string name="for_the_delivery">待交割</string>
+    <string name="compete">参拍中</string>
+    <string name="is_the_delivery">已交割</string>
+    <string name="after_sale">售后</string>
+    <string name="mywallet">我的钱包</string>
+    <string name="mybond">保证金</string>
+    <string name="mycollection">我的收藏</string>
+    <string name="realnameauthentication">实名认证</string>
+    <string name="setting">设置</string>
 </resources>
