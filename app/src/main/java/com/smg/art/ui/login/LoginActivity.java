@@ -180,10 +180,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.foget_passwords:
-                //   startActivity(new Intent(this, ForgetPasswordActivity.class));
+                startActivity(new Intent(this, ForgetPasswordActivity.class));
                 break;
             case R.id.comfirm:
                 startActivity(new Intent(this, MainActivity.class));
+                finish();
                 break;
             case R.id.register_now:
                 startActivity(new Intent(this, RegisterActivity.class));

@@ -10,6 +10,7 @@ import com.smg.art.ui.activity.SearchActivity;
 import com.smg.art.ui.fragment.ClassifyChildFragment;
 import com.smg.art.ui.fragment.HomeFragment;
 import com.smg.art.ui.fragment.MyFragment;
+import com.smg.art.ui.login.ForgetPasswordActivity;
 import com.smg.art.ui.login.LoginActivity;
 import com.smg.art.ui.login.RegisterActivity;
 
@@ -34,6 +35,8 @@ public interface MainComponent {
     GuideActivity inject(GuideActivity guideActivity);
 
     RegisterActivity inject(RegisterActivity registerActivity);
+
+    ForgetPasswordActivity inject(ForgetPasswordActivity forgetPasswordActivity);
     ClassifyChildFragment inject (ClassifyChildFragment  classifyChildFragment);
 
     GoodsDetailActivity inject (GoodsDetailActivity goodsDetailActivity);
