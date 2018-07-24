@@ -1,7 +1,5 @@
 package com.smg.art.ui.activity;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;

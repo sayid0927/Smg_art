@@ -33,6 +33,7 @@ public class GoodsListApadter extends BaseQuickAdapter<GoodsBean, BaseViewHolder
         helper.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(onGoodsItemListener!=null)
                 onGoodsItemListener.OnGoodsItemListener(item);
             }
         });

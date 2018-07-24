@@ -1,6 +1,8 @@
 package com.smg.art.ui.activity;
 
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -44,7 +46,7 @@ public class MainActivity extends BaseActivity implements MainContract.View, Tab
     private TabLayout.Tab tabAuction;
     private TabLayout.Tab tabMessage;
     private TabLayout.Tab tabMy;
-    public static MainActivity mainActivity;
+
 
 
 
