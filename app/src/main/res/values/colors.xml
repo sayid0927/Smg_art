@@ -122,10 +122,19 @@
     <color name="colors_724949">#724949</color>
 
 
+    <!--黄色-->
+    <color name="yellow_ff9a00">#FF9a00</color>
+
+    <!--红色-->
+    <color name="red_b20002">#b20002</color>
+    <color name="grey_ccb20002">#CCB20002</color>
 
     <!--灰色-->
-    <color name="grey_f2f2f2">#f2f2f2</color>
-    <color name="grey_e5e5e5">#e5e5e5</color>
+    <color name="grey_f2f2f2">#F2F2F2</color>
+    <color name="grey_e5e5e5">#E5E5E5</color>
+    <color name="grey_e6000000">#E6000000</color>
+    <color name="grey_66000000">#66000000</color>
+    <color name="grey_cc000000">#CC000000</color>
 
     <color name="grey_e6333333">#e6333333</color>
 

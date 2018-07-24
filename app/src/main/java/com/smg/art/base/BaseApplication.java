@@ -3,16 +3,14 @@ package com.smg.art.base;
 import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
-import com.blankj.utilcode.utils.Utils;
 
+import com.blankj.utilcode.utils.Utils;
 import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerAppComponent;
 import com.smg.art.module.ApiModule;
 import com.smg.art.module.AppModule;
-
-import com.smg.art.utils.CrashHandler;
 import com.smg.art.utils.PreferUtil;
 
 
@@ -22,6 +20,24 @@ public class BaseApplication extends Application {
     public  static BaseApplication baseApplication;
     private static AppComponent appComponent;
 
+
+    public static BaseApplication getContext() {
+        return baseApplication;
+    }
+
+    /**
+     * 获取BaseApplication实例
+     *
+     * @return
+     */
+
+    public static BaseApplication getBaseApplication() {
+        return baseApplication;
+    }
+
+    public static AppComponent getAppComponent() {
+        return appComponent;
+    }
 
     @Override
     public void onCreate() {
@@ -41,21 +57,6 @@ public class BaseApplication extends Application {
                 .apiModule(new ApiModule())
                 .appModule(new AppModule(this))
                 .build();
-    }
-
-
-
-    /**
-     * 获取BaseApplication实例
-     * @return
-     */
-
-    public static BaseApplication getBaseApplication(){
-        return baseApplication;
-    }
-
-    public static AppComponent getAppComponent(){
-        return appComponent;
     }
 
     @Override
