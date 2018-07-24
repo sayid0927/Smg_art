@@ -1,6 +1,7 @@
 package com.smg.art.ui.activity;
 
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -13,9 +14,10 @@ import com.smg.art.bean.Apk_UpdateBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.activity.MainContract;
-
 import com.smg.art.presenter.impl.activity.MainActivityPresenter;
+import com.smg.art.ui.fragment.AuctionFragment;
 import com.smg.art.ui.fragment.HomeFragment;
+import com.smg.art.ui.fragment.MyFragment;
 import com.smg.art.utils.UIUtils;
 
 import java.util.ArrayList;
@@ -23,23 +25,21 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 public class MainActivity extends BaseActivity implements MainContract.View {
 
 
+    public static MainActivity mainActivity;
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
-
     @BindView(R.id.vp)
     ViewPager vp;
-
-    private ArrayList<String> mTitleList = new ArrayList<>();
-    private ArrayList<Fragment> mFragments = new ArrayList<>();
-    public static MainActivity mainActivity;
-
     @Inject
     MainActivityPresenter mPresenter;
+    private ArrayList<String> mTitleList = new ArrayList<>();
+    private ArrayList<Fragment> mFragments = new ArrayList<>();
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -53,7 +53,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Override
     public void attachView() {
-        mPresenter.attachView(this,this);
+        mPresenter.attachView(this, this);
     }
 
     @Override
@@ -71,10 +71,10 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         mTitleList.add(UIUtils.getString(R.string.app_name));
 
         mFragments.add(new HomeFragment());
+        mFragments.add(new AuctionFragment());
         mFragments.add(new HomeFragment());
-        mFragments.add(new HomeFragment());
-        mFragments.add(new HomeFragment());
-
+        mFragments.add(new MyFragment());
+//        vp = (ViewPager) findViewById(R.id.vp);
         BaseFragmentPageAdapter myAdapter = new BaseFragmentPageAdapter(getSupportFragmentManager(), mFragments, mTitleList);
         vp.setAdapter(myAdapter);
         myAdapter.notifyDataSetChanged();
@@ -104,4 +104,10 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         return null;
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }
