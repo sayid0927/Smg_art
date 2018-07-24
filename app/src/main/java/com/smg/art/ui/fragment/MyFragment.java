@@ -1,9 +1,6 @@
 package com.smg.art.ui.fragment;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -17,16 +14,14 @@ import com.smg.art.component.AppComponent;
 import com.smg.art.presenter.contract.fragment.HomeContract;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Created by Mervin on 2018/7/24 0024.
  */
 
 public class MyFragment extends BaseFragment implements HomeContract.View {
-    /*    @BindView(R.id.mine_head)
-        ImageView mineHead;*/
+    @BindView(R.id.mine_head)
+    ImageView mineHead;
     @BindView(R.id.user_name)
     TextView userName;
     @BindView(R.id.user_id)
