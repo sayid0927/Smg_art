@@ -18,16 +18,19 @@ package com.smg.art.api;
 
 import com.smg.art.base.Constant;
 import com.smg.art.bean.Apk_UpdateBean;
+import com.smg.art.bean.PhoneVerifyCodeBean;
+import com.smg.art.bean.RegisterBean;
 
+import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Response;
-
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
 import rx.Observable;
 
@@ -58,6 +61,19 @@ public interface ApiService {
      */
     @GET(Constant.APK_UPDATE)
     Observable<Apk_UpdateBean> Fetch_Apk_Update();
+
+
+    /**
+     * 会员注册
+     */
+    @POST(Constant.MEMBER_REGISTER)
+    Observable<RegisterBean> FetchREGISTER(@QueryMap Map<String, String> map);
+
+    /**
+     * 获取短信验证码
+     */
+    @POST(Constant.MEMBER_GETPHONEVERIFYCODE)
+    Observable<PhoneVerifyCodeBean> FetchPhoneVerifyCode(@QueryMap Map<String, String> map);
 
 
 }

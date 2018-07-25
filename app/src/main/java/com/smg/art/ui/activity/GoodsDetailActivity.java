@@ -1,16 +1,11 @@
 package com.smg.art.ui.activity;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-import com.jaeger.library.StatusBarUtil;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.activity.GoodsDetailContract;
 import com.smg.art.presenter.impl.activity.GoodsDetailActivityPresenter;
-import com.smg.art.presenter.impl.activity.MainActivityPresenter;
 
 import javax.inject.Inject;
 

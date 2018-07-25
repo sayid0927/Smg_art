@@ -9,20 +9,33 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.blankj.utilcode.utils.ToastUtils;
+import com.orhanobut.logger.Logger;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
+import com.smg.art.bean.PhoneVerifyCodeBean;
+import com.smg.art.bean.RegisterBean;
 import com.smg.art.component.AppComponent;
+import com.smg.art.component.DaggerMainComponent;
+import com.smg.art.presenter.contract.login.RegisterContract;
+import com.smg.art.presenter.impl.login.RegisterActivityPresenter;
 import com.smg.art.utils.KeyBoardUtils;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Mervin on 2018/7/24 0024.
  */
 
-public class RegisterActivity extends BaseActivity implements View.OnClickListener {
+public class RegisterActivity extends BaseActivity implements RegisterContract.View, View.OnClickListener {
 
+
+    @Inject
+    RegisterActivityPresenter mPresenter;
 
     @BindView(R.id.actionbar_back)
     ImageView actionbarBack;
@@ -65,7 +78,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
-
+        DaggerMainComponent.builder().appComponent(appComponent).build().inject(this);
     }
 
     @Override
@@ -75,12 +88,12 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void attachView() {
-
+        mPresenter.attachView(this, this);
     }
 
     @Override
     public void detachView() {
-
+        mPresenter.detachView();
     }
 
     @Override
@@ -90,18 +103,39 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
-    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.actionbar_back:
                 KeyBoardUtils.hiddenKeyboart(this);
                 finish();
+                break;
+        }
+    }
+
+    @Override
+    public void FetchRegisterSuccess(RegisterBean registerBean) {
+        Logger.t("TAG").e(registerBean.toString());
+    }
+
+    @Override
+    public void FetchPhoneVerifyCodeSuccess(PhoneVerifyCodeBean phoneVerifyCodeBean) {
+
+        ToastUtils.showLongToast(phoneVerifyCodeBean.getMsg());
+    }
+
+    @Override
+    public void showError(String message) {
+
+    }
+
+    @OnClick({R.id.comfirm, R.id.register})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.comfirm:
+                mPresenter.FetchPhoneVerifyCode("mobilePhone",etContext.getText().toString().trim());
+                break;
+            case R.id.register:
+//                mPresenter.FetchRegister();
                 break;
         }
     }

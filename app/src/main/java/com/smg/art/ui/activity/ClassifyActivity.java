@@ -46,7 +46,6 @@ public class ClassifyActivity extends BaseActivity implements ClassifyContract.V
 
     private ArrayList<String> mTitleList = new ArrayList<>();
     private ArrayList<Fragment> mFragments = new ArrayList<>();
-    private int postion;
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -73,7 +72,7 @@ public class ClassifyActivity extends BaseActivity implements ClassifyContract.V
         actionbarTitle.setText(R.string.classify_title);
 
         setSwipeBackEnable(true);
-        postion = getIntent().getIntExtra("postion", 0);
+        int postion = getIntent().getIntExtra("postion", 0);
         mTitleList.add(UIUtils.getString(R.string.bookDraw));
         mTitleList.add(UIUtils.getString(R.string.oilDraw));
         mTitleList.add(UIUtils.getString(R.string.birdDraw));

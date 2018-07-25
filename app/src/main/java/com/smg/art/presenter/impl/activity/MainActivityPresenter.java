@@ -1,6 +1,7 @@
 
 package com.smg.art.presenter.impl.activity;
 
+import com.orhanobut.logger.Logger;
 import com.smg.art.api.Api;
 import com.smg.art.base.BasePresenter;
 import com.smg.art.bean.Apk_UpdateBean;
@@ -24,42 +25,43 @@ public class MainActivityPresenter extends BasePresenter<MainContract.View> impl
     }
 
     @Override
-    public void Apk_Update() {
+    public void Apk_Update(String ...s) {
         showWaitingDialog("加载中...");
-//        addSubscrebe(api.Fetch_Apk_Update().subscribeOn(Schedulers.io())
+//        addSubscrebe(api.Fetch_REGISTER(s).subscribeOn(Schedulers.io())
 //                .observeOn(AndroidSchedulers.mainThread())
 //                .subscribe(data -> {
-//                    if (mView != null && data.getRes().equals("00000")) {
+//                    if (mView != null ) {
 //                        hideWaitingDialog();
-//                        Apk_UpdateBean.DataBean dataBean = data.getData();
-//                        mView.ApkUpdateS(dataBean);
-//                        fillView(dataBean);
+//                        Logger.t("TAG").e(data.toString());
+////                        Apk_UpdateBean.DataBean dataBean = data.getData();
+////                        mView.ApkUpdateS(dataBean);
+////                        fillView(dataBean);
 //                    }
 //                }, this::loadError));
 
-        addSubscrebe(api.Fetch_Apk_Update().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Apk_UpdateBean>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        hideWaitingDialog();
-                    }
-
-                    @Override
-                    public void onNext(Apk_UpdateBean apk_updateBean) {
-                        if (mView != null && apk_updateBean.getRes().equals("00000")) {
-                            hideWaitingDialog();
-                            Apk_UpdateBean.DataBean dataBean = apk_updateBean.getData();
-                            mView.ApkUpdateS(dataBean);
-                            fillView(dataBean);
-                        }
-                    }
-                }));
+//        addSubscrebe(api.Fetch_Apk_Update().subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Observer<Apk_UpdateBean>() {
+//                    @Override
+//                    public void onCompleted() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        hideWaitingDialog();
+//                    }
+//
+//                    @Override
+//                    public void onNext(Apk_UpdateBean apk_updateBean) {
+//                        if (mView != null && apk_updateBean.getRes().equals("00000")) {
+//                            hideWaitingDialog();
+//                            Apk_UpdateBean.DataBean dataBean = apk_updateBean.getData();
+//                            mView.ApkUpdateS(dataBean);
+//                            fillView(dataBean);
+//                        }
+//                    }
+//                }));
 
     }
 
@@ -68,6 +70,7 @@ public class MainActivityPresenter extends BasePresenter<MainContract.View> impl
     }
 
     private void loadError(Throwable throwable) {
+        Logger.t("TAG").e(throwable.getMessage());
         hideWaitingDialog();
     }
 }

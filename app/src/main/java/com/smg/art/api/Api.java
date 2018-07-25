@@ -16,11 +16,20 @@
 package com.smg.art.api;
 
 
+import android.text.TextUtils;
+
 import com.google.gson.Gson;
 import com.smg.art.base.Constant;
 import com.smg.art.bean.Apk_UpdateBean;
+import com.smg.art.bean.PhoneVerifyCodeBean;
+import com.smg.art.bean.RegisterBean;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -30,6 +39,8 @@ public class Api {
 
     public static Api instance;
     private ApiService service;
+    //用户token
+    public static String JWTTOKEN;
 
     public Api(OkHttpClient okHttpClient) {
 
@@ -49,8 +60,36 @@ public class Api {
         return instance;
     }
 
+    public static Map<String, String> getMap(String... s) {
+        Map<String, String> map = new HashMap<>();
+        if (s.length % 2 != 0) {
+            return null;
+        } else {
+            for (int i = 0; i < s.length; i++) {
+                map.put(s[i], s[++i]);
+            }
+        }
+        if (!TextUtils.isEmpty(JWTTOKEN)) {
+            map.put("access_token", JWTTOKEN);
+        }
+        return map;
+    }
+
     public Observable<Apk_UpdateBean> Fetch_Apk_Update() {
         return service.Fetch_Apk_Update();
     }
 
+    /**
+     * 会员注册
+     */
+    public Observable<RegisterBean> FetchREGISTER(String... s) {
+        return service.FetchREGISTER(getMap(s));
+    }
+
+    /**
+     * 获取短信验证码
+     */
+    public Observable<PhoneVerifyCodeBean> FetchPhoneVerifyCode(String... s) {
+        return service.FetchPhoneVerifyCode(getMap(s));
+    }
 }

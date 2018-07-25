@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import com.smg.art.api.Api;
 import com.smg.art.base.BaseApplication;
 import com.smg.art.base.Constant;
 import com.smg.art.ui.login.LoginActivity;
@@ -142,6 +143,7 @@ public class LocalAppConfigUtil {
         editor = sp.edit();
         editor.putString("access_token", accessToken);
         editor.commit();
+        Api.JWTTOKEN = accessToken;
     }
 
     public String getPassword() {

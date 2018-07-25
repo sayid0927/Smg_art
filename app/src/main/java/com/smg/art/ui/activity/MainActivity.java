@@ -99,7 +99,7 @@ public class MainActivity extends BaseActivity implements MainContract.View, Tab
         tabMessage.setIcon(R.drawable.message_icon_r);
         tabMy.setIcon(R.drawable.me_icon_r);
 
-        mPresenter.Apk_Update();
+        mPresenter.Apk_Update("account","15118183011", "password","111111", "tradingPassword","000000", "verifyCode","1111");
         mainActivity = this;
 
     }
