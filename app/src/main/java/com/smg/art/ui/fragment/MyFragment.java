@@ -1,5 +1,6 @@
 package com.smg.art.ui.fragment;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -12,8 +13,10 @@ import com.smg.art.base.Constant;
 import com.smg.art.bean.Apk_UpdateBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.presenter.contract.fragment.HomeContract;
+import com.smg.art.ui.personalcenter.SettingActivity;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by Mervin on 2018/7/24 0024.
@@ -103,5 +106,16 @@ public class MyFragment extends BaseFragment implements HomeContract.View {
     protected void setupActivityComponent(AppComponent appComponent) {
 
     }
+
+    @OnClick({R.id.my_wallte, R.id.my_bond, R.id.my_collection, R.id.realnameauthentication, R.id.setting})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.setting:
+                startActivity(new Intent(getActivity(), SettingActivity.class));
+                break;
+
+        }
+    }
+
 
 }

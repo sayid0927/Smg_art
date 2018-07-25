@@ -1,8 +1,8 @@
 package com.smg.art.ui.login;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -15,19 +15,31 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.blankj.utilcode.utils.ToastUtils;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
+import com.smg.art.bean.LoginBean;
 import com.smg.art.component.AppComponent;
+import com.smg.art.component.DaggerMainComponent;
+import com.smg.art.presenter.contract.login.LoginContract;
+import com.smg.art.presenter.impl.login.LoginActivityPresenter;
 import com.smg.art.ui.activity.MainActivity;
+import com.smg.art.utils.CommonUtil;
+import com.smg.art.utils.LocalAppConfigUtil;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by Mervin on 2018/7/24 0024.
  */
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener {
+public class LoginActivity extends BaseActivity implements LoginContract.View, View.OnClickListener {
+
+    @Inject
+    LoginActivityPresenter mPresenter;
+
     @BindView(R.id.login_head)
     ImageView loginHead;
     @BindView(R.id.phone)
@@ -119,7 +131,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
-
+        DaggerMainComponent.builder().appComponent(appComponent).build().inject(this);
     }
 
     @Override
@@ -129,12 +141,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void attachView() {
-
+        mPresenter.attachView(this, this);
     }
 
     @Override
     public void detachView() {
-
+        mPresenter.detachView();
     }
 
     @Override
@@ -170,26 +182,67 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
-    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.foget_passwords:
                 startActivity(new Intent(this, ForgetPasswordActivity.class));
                 break;
             case R.id.comfirm:
-                startActivity(new Intent(this, MainActivity.class));
-                finish();
+                if (checkUp()) {
+                    mPresenter.FetchLogin("account", etContext.getText().toString().replace(" ", ""), "password", etPayPwd.getText().toString());
+                }
                 break;
             case R.id.register_now:
                 startActivity(new Intent(this, RegisterActivity.class));
                 break;
         }
+    }
+
+    @Override
+    public void FetchLoginSuccess(LoginBean loginBean) {
+        if (loginBean.getStatus() == 1) {
+            ToastUtils.showShortToast(getString(R.string.login_success));
+            LocalAppConfigUtil.getInstance().setAccessToken(loginBean.getData().getRCToken());
+            LocalAppConfigUtil.getInstance().setCurrentMerberId(loginBean.getData().getMemberId());
+            LocalAppConfigUtil.getInstance().setCurrentMerberNo(loginBean.getData().getMemberNo());
+            LocalAppConfigUtil.getInstance().setJsessionidShiro(loginBean.getData().getJSESSIONID_SHIRO());
+            LocalAppConfigUtil.getInstance().setJsessionId(loginBean.getData().getJSESSIONID());
+            LocalAppConfigUtil.getInstance().setUserTelephone(etContext.getText().toString().replace(" ", ""));
+            LocalAppConfigUtil.getInstance().setPassword(etPayPwd.getText().toString());
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        } else {
+            ToastUtils.showShortToast(loginBean.getMsg());
+        }
+    }
+
+    @Override
+    public void showError(String message) {
+
+    }
+
+    /**
+     * 检查输入是否有错
+     *
+     * @return
+     */
+    private boolean checkUp() {
+        if (TextUtils.isEmpty(etContext.getText().toString().trim())) {
+            ToastUtils.showShortToast("请输入手机号");
+            return false;
+        }
+
+        if (!CommonUtil.isMobileNO(etContext.getText().toString().replace(" ", ""))) {
+            ToastUtils.showShortToast("请输入正确的手机号");
+            return false;
+        }
+
+        if (TextUtils.isEmpty(etPayPwd.getText().toString()) || etPayPwd.getText().length() < 6) {
+            ToastUtils.showShortToast("请输入至少6位密码");
+            return false;
+        }
+
+        return true;
     }
 
 }

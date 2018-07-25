@@ -21,6 +21,8 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.smg.art.base.Constant;
 import com.smg.art.bean.Apk_UpdateBean;
+import com.smg.art.bean.ForgetPasswordBean;
+import com.smg.art.bean.LoginBean;
 import com.smg.art.bean.PhoneVerifyCodeBean;
 import com.smg.art.bean.RegisterBean;
 
@@ -28,8 +30,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.OkHttpClient;
-import okhttp3.ResponseBody;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -38,9 +38,9 @@ import rx.Observable;
 public class Api {
 
     public static Api instance;
-    private ApiService service;
     //用户token
     public static String JWTTOKEN;
+    private ApiService service;
 
     public Api(OkHttpClient okHttpClient) {
 
@@ -91,5 +91,22 @@ public class Api {
      */
     public Observable<PhoneVerifyCodeBean> FetchPhoneVerifyCode(String... s) {
         return service.FetchPhoneVerifyCode(getMap(s));
+    }
+
+    /**
+     * 会员登录
+     *
+     * @param s
+     * @return
+     */
+    public Observable<LoginBean> FetchLogin(String... s) {
+        return service.FetchLogin(getMap(s));
+    }
+
+    /**
+     * 忘记密码
+     */
+    public Observable<ForgetPasswordBean> FetchForgetPassword(String... s) {
+        return service.FetchForgetPassWord(getMap(s));
     }
 }

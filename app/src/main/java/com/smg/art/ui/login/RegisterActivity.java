@@ -1,10 +1,14 @@
 package com.smg.art.ui.login;
 
 import android.content.Intent;
-import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,7 +32,6 @@ import com.smg.art.utils.TimeCount;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -82,6 +85,27 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
     @BindView(R.id.yzm_code)
     EditText yzmCode;
     private TimeCount timeCount;
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before,
+                                  int count) {
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                                      int after) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (!etContext.getText().toString().trim().equals("")) {
+                ivDel.setVisibility(View.VISIBLE);
+            } else {
+                ivDel.setVisibility(View.INVISIBLE);
+            }
+
+        }
+    };
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -110,6 +134,28 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
     public void initView() {
         actionbarTitle.setText(R.string.register_title);
         actionbarBack.setOnClickListener(this);
+        etContext.addTextChangedListener(textWatcher);
+        ivDel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etContext.setText("");
+            }
+        });
+        ivDel.setVisibility(View.INVISIBLE);
+        togglePwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (togglePwd.isChecked()) {
+                    //如果选中，显示密码
+                    etPayPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    etPayPwd.setSelection(etPayPwd.getText().toString().length());
+                } else {
+                    //否则隐藏密码
+                    etPayPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    etPayPwd.setSelection(etPayPwd.getText().toString().length());
+                }
+            }
+        });
     }
 
     @Override
@@ -135,8 +181,8 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
 
     @Override
     public void FetchPhoneVerifyCodeSuccess(PhoneVerifyCodeBean phoneVerifyCodeBean) {
-        ToastUtils.showLongToast(phoneVerifyCodeBean.getMsg());
         if (phoneVerifyCodeBean.getStatus() != 1) {
+            ToastUtils.showLongToast(phoneVerifyCodeBean.getMsg());
             comfirm.setClickable(true);
         } else {
             ToastUtils.showShortToast(getString(R.string.sms_success));
@@ -178,7 +224,6 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
         }
     }
 
-
     /**
      * 开启倒计时
      */
@@ -188,7 +233,6 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
         }
         timeCount.start(); //倒计时后重新获取
     }
-
 
     /**
      * 检查输入是否有错
@@ -222,12 +266,5 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
         }
 
         return true;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

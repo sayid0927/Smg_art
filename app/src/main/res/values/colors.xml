@@ -135,7 +135,13 @@
     <color name="grey_e6000000">#E6000000</color>
     <color name="grey_66000000">#66000000</color>
     <color name="grey_cc000000">#CC000000</color>
+    <color name="black_000000">#000000</color>
+    <color name="black_858585">#858585</color>
+    <color name="black_d2d3d5">#D2D3D5</color>
+    <color name="black_800000">#80000000</color>
 
     <color name="grey_e6333333">#e6333333</color>
+
+    <color name="grey_333333">#333333</color>
 
 </resources>
