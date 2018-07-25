@@ -26,7 +26,7 @@ public class MainActivityPresenter extends BasePresenter<MainContract.View> impl
 
     @Override
     public void Apk_Update(String ...s) {
-        showWaitingDialog("加载中...");
+//        showWaitingDialog("加载中...");
 //        addSubscrebe(api.Fetch_REGISTER(s).subscribeOn(Schedulers.io())
 //                .observeOn(AndroidSchedulers.mainThread())
 //                .subscribe(data -> {

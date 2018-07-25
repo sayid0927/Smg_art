@@ -1,32 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.autolayout.AutoFrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/black_212121"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_waiting">
 
     <com.zhy.autolayout.AutoRelativeLayout
-        android:layout_width="300px"
-        android:layout_height="160px"
-        android:background="@drawable/dialog_waiting"
-        tools:ignore="PxUsage">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="20px"
+        android:gravity="center">
 
 
-        <TextView
-            android:id="@+id/tvTip"
+        <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textColor="@color/white"
-            android:textSize="32px"/>
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="30px"
-            android:layout_toLeftOf="@id/tvTip"/>
+            <ProgressBar
+                android:id="@+id/pb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
+
+            <TextView
+                android:id="@+id/tvTip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/pb"
+                android:text="加载中"
+                android:textColor="@color/white"
+                android:textSize="20px" />
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
 
     </com.zhy.autolayout.AutoRelativeLayout>
 </com.zhy.autolayout.AutoFrameLayout>

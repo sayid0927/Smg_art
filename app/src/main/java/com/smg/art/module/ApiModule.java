@@ -6,6 +6,10 @@ import com.blankj.utilcode.utils.NetworkUtils;
 import com.orhanobut.logger.Logger;
 import com.smg.art.api.Api;
 import com.smg.art.base.BaseApplication;
+import com.smg.art.module.persistentcookiejar.ClearableCookieJar;
+import com.smg.art.module.persistentcookiejar.PersistentCookieJar;
+import com.smg.art.module.persistentcookiejar.cache.SetCookieCache;
+import com.smg.art.module.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +32,10 @@ public class ApiModule {
     @Provides
     public OkHttpClient provideOkHttpClient() {
 
+        //cookie
+        ClearableCookieJar cookieJar =
+                new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(BaseApplication.baseApplication));
+
         File httpCacheDir = new File(BaseApplication.getBaseApplication().getCacheDir(), "response");
         int cacheSize = 10 * 1024 * 1024;// 10 MiB
         Cache cache = new Cache(httpCacheDir, cacheSize);
@@ -38,6 +46,7 @@ public class ApiModule {
                 .addInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR)
                 .retryOnConnectionFailure(true) // 失败重发
                 .cache(cache)
+                .cookieJar(cookieJar)
                 .addInterceptor(new LoggingInterceptor());
         return builder.build();
 
@@ -72,34 +81,6 @@ public class ApiModule {
             }
         }
     };
-
-
-//    Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = chain -> {
-//        CacheControl.Builder cacheBuilder = new CacheControl.Builder();
-//        cacheBuilder.maxAge(0, TimeUnit.SECONDS);
-//        cacheBuilder.maxStale(365, TimeUnit.DAYS);
-//        CacheControl cacheControl = cacheBuilder.build();
-//        Request request = chain.request();
-//        if (!NetworkUtils.isAvailableByPing()) {
-//            request = request.newBuilder()
-//                    .cacheControl(cacheControl)
-//                    .build();
-//        }
-//        Response originalResponse = chain.proceed(request);
-//        if (NetworkUtils.isAvailableByPing()) {
-//            int maxAge = 0;//read from cache
-//            return originalResponse.newBuilder()
-//                    .removeHeader("Pragma")
-//                    .header("Cache-Control", "public ,max-age=" + maxAge)
-//                    .build();
-//        } else {
-//            int maxStale = 60 * 60 * 24 * 28;//tolerate 4-weeks stale
-//            return originalResponse.newBuilder()
-//                    .removeHeader("Prama")
-//                    .header("Cache-Control", "poublic, only-if-cached, max-stale=" + maxStale)
-//                    .build();
-//        }
-//    };
 
     class LoggingInterceptor implements Interceptor {
         @Override
