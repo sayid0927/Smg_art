@@ -33,7 +33,12 @@ public class Constant {
      */
     public  static  final String MEMBER_GETPHONEVERIFYCODE="member/getPhoneVerifyCode";
 
-
+    /**
+     * 会员登录
+     */
+    public static final String MEMBER_LOGIN = "member/login";
+    //忘记密码
+    public static final String FINDPASSWORDBYVALIDTECODE = "member/findPasswordByValidteCode";
 
 
     public  static  final String APK_UPDATE="apk_update";

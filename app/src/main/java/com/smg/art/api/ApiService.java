@@ -18,6 +18,8 @@ package com.smg.art.api;
 
 import com.smg.art.base.Constant;
 import com.smg.art.bean.Apk_UpdateBean;
+import com.smg.art.bean.ForgetPasswordBean;
+import com.smg.art.bean.LoginBean;
 import com.smg.art.bean.PhoneVerifyCodeBean;
 import com.smg.art.bean.RegisterBean;
 
@@ -55,5 +57,16 @@ public interface ApiService {
     @POST(Constant.MEMBER_GETPHONEVERIFYCODE)
     Observable<PhoneVerifyCodeBean> FetchPhoneVerifyCode(@QueryMap Map<String, String> map);
 
+    /**
+     * 会员登录
+     */
+    @POST(Constant.MEMBER_LOGIN)
+    Observable<LoginBean> FetchLogin(@QueryMap Map<String, String> map);
+
+    /**
+     * 忘记密码
+     */
+    @POST(Constant.FINDPASSWORDBYVALIDTECODE)
+    Observable<ForgetPasswordBean> FetchForgetPassWord(@QueryMap Map<String, String> map);
 
 }

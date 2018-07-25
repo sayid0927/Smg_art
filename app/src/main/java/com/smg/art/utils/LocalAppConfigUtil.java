@@ -37,22 +37,42 @@ public class LocalAppConfigUtil {
     }
 
     /**
-     * 获得当前登录用户userid
+     * 获得当前登录用户merberId
      *
      * @return
      */
-    public int getCurrentUserId() {
-        return sp.getInt("user_id", 0);
+    public int getCurrentMerberId() {
+        return sp.getInt("merberId", 0);
     }
 
     /**
-     * 设置当前登录用户userid
+     * merberId
      *
-     * @param userId
+     * @param merberId
      */
-    public void setCurrentUserId(int userId) {
+    public void setCurrentMerberId(int merberId) {
         editor = sp.edit();
-        editor.putInt("user_id", userId);
+        editor.putInt("merberId", merberId);
+        editor.commit();
+    }
+
+    /**
+     * 获得当前登录用户merberId
+     *
+     * @return
+     */
+    public String getCurrentMerberNo() {
+        return sp.getString("merberNo", "");
+    }
+
+    /**
+     * merberId
+     *
+     * @param merberNo
+     */
+    public void setCurrentMerberNo(String merberNo) {
+        editor = sp.edit();
+        editor.putString("merberNo", merberNo);
         editor.commit();
     }
 
@@ -202,6 +222,34 @@ public class LocalAppConfigUtil {
         return false;
     }
 
+    public String getJsessionidShiro() {
+        return sp.getString("JsessionidShiro", "");
+    }
 
+    /**
+     * 设置当前登录用户JSESSIONID_SHIRO
+     *
+     * @param JsessionidShiro
+     */
+    public void setJsessionidShiro(String JsessionidShiro) {
+        editor = sp.edit();
+        editor.putString("jsessionidShiro", JsessionidShiro);
+        editor.commit();
+    }
+
+    public String getJsessionId() {
+        return sp.getString("jsessionId", "");
+    }
+
+    /**
+     * 设置当前登录用户JSESSIONID
+     *
+     * @param JsessionId
+     */
+    public void setJsessionId(String JsessionId) {
+        editor = sp.edit();
+        editor.putString("jsessionId", JsessionId);
+        editor.commit();
+    }
 }
 
