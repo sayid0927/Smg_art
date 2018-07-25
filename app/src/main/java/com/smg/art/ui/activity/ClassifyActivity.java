@@ -18,6 +18,7 @@ import com.smg.art.presenter.contract.activity.ClassifyContract;
 import com.smg.art.presenter.impl.activity.ClassifyActivityPresenter;
 import com.smg.art.ui.fragment.ClassifyChildFragment;
 import com.smg.art.utils.UIUtils;
+import com.zhy.autolayout.AutoRelativeLayout;
 
 import java.util.ArrayList;
 
@@ -30,19 +31,17 @@ import butterknife.OnClick;
 public class ClassifyActivity extends BaseActivity implements ClassifyContract.View {
 
 
+    @Inject
+    ClassifyActivityPresenter mPresenter;
+
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
     @BindView(R.id.vp)
     ViewPager vp;
-
-    @Inject
-    ClassifyActivityPresenter mPresenter;
-    @BindView(R.id.actionbar_back)
-    ImageView actionbarBack;
     @BindView(R.id.actionbar_title)
     TextView actionbarTitle;
-    @BindView(R.id.ll_back)
-    LinearLayout llBack;
+    @BindView(R.id.rl_back)
+    AutoRelativeLayout rlBack;
 
     private ArrayList<String> mTitleList = new ArrayList<>();
     private ArrayList<Fragment> mFragments = new ArrayList<>();
@@ -111,17 +110,12 @@ public class ClassifyActivity extends BaseActivity implements ClassifyContract.V
     }
 
 
-    @OnClick({R.id.actionbar_back, R.id.ll_back})
+    @OnClick({ R.id.rl_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.actionbar_back:
-//                finish();
-                break;
-            case R.id.ll_back:
+            case R.id.rl_back:
                 finish();
                 break;
         }
     }
-
-
 }

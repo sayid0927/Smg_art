@@ -2,24 +2,40 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.smg.art">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <!-- 通过GPS得到精确位置 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- 通过网络得到粗略位置 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- 访问网络. 某些位置信息需要从网络服务器获取 -->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <!-- 访问WiFi状态. 需要WiFi信息用于网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!-- 修改WiFi状态. 发起WiFi扫描, 需要WiFi信息用于网络定位 -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <!-- 访问网络状态, 检测网络的可用性. 需要网络运营商相关信息用于网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- 访问网络的变化, 需要某些信息用于网络定位 -->
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <!-- 访问手机当前状态, 需要某些信息用于网络定位 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- 蓝牙分享所需的权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
         android:name=".base.BaseApplication"
@@ -37,80 +53,71 @@
             android:value="1280" />
 
         <!-- imlib config begin -->
-        <!--<meta-data-->
-            <!--android:name="RONG_CLOUD_APP_KEY"-->
-            <!--android:value="uwd1c0sxupn81"/>-->
+        <meta-data
+            android:name="RONG_CLOUD_APP_KEY"
+            android:value="uwd1c0sxupn81" />
 
-        <!--<service-->
-            <!--android:name="io.rong.imlib.ipc.RongService"-->
-            <!--android:exported="true"-->
-            <!--android:process=":ipc"/>-->
+        <service
+            android:name="io.rong.imlib.ipc.RongService"
+            android:exported="true"
+            android:process=":ipc" />
+        <service
+            android:name="io.rong.imlib.ReConnectService"
+            android:exported="true" />
 
-        <!--<service-->
-            <!--android:name="io.rong.imlib.ReConnectService"-->
-            <!--android:exported="true"/>-->
+        <receiver
+            android:name="io.rong.imlib.ConnectChangeReceiver"
+            android:exported="true" />
+        <receiver
+            android:name="io.rong.imlib.HeartbeatReceiver"
+            android:process=":ipc" />
 
-        <!--<receiver-->
-            <!--android:name="io.rong.imlib.ConnectChangeReceiver"-->
-            <!--android:exported="true"/>-->
-
-        <!--<receiver-->
-            <!--android:name="io.rong.imlib.HeartbeatReceiver"-->
-            <!--android:process=":ipc"/>-->
-
-        <!--&lt;!&ndash; imlib config end &ndash;&gt;-->
+        <!-- imlib config end -->
 
 
-        <!--&lt;!&ndash;必选： SDK 核心功能&ndash;&gt;-->
-        <!--&lt;!&ndash;第三方相关,向第三方推送服务请求 token 的服务 &ndash;&gt;-->
-        <!--<service-->
-            <!--android:name="io.rong.push.core.PushRegistrationService"-->
-            <!--android:exported="false">-->
-        <!--</service>-->
+        <!-- 必选： SDK 核心功能 -->
+        <!-- 第三方相关,向第三方推送服务请求 token 的服务 -->
+        <service
+            android:name="io.rong.push.core.PushRegistrationService"
+            android:exported="false" />
 
-        <!--&lt;!&ndash; 处理 push 消息相关的服务 &ndash;&gt;-->
-        <!--<service-->
-            <!--android:name="io.rong.push.core.MessageHandleService"-->
-            <!--android:exported="true">-->
-        <!--</service>-->
+        <!-- 处理 push 消息相关的服务 -->
+        <service
+            android:name="io.rong.push.core.MessageHandleService"
+            android:exported="true" />
 
-        <!--&lt;!&ndash; push服务 &ndash;&gt;-->
-        <!--<service-->
-            <!--android:name="io.rong.push.PushService"-->
-            <!--android:exported="true"-->
-            <!--android:process="io.rong.push">  &lt;!&ndash; push进程，可以改名 &ndash;&gt;-->
-        <!--</service>-->
+        <!-- push服务 -->
+        <service
+            android:name="io.rong.push.PushService"
+            android:exported="true"
+            android:process="io.rong.push"> <!-- push进程，可以改名 -->
+        </service>
 
-        <!--&lt;!&ndash; push 相关事件接收器 &ndash;&gt;-->
-        <!--<receiver-->
-            <!--android:name="io.rong.push.PushReceiver"-->
-            <!--android:process="io.rong.push">   &lt;!&ndash; 此处进程可以改名，名称需要和PushService所在进程统一 &ndash;&gt;-->
-            <!--&lt;!&ndash; 心跳事件 &ndash;&gt;-->
-            <!--<intent-filter>-->
-                <!--<action android:name="io.rong.push.intent.action.HEART_BEAT"/>-->
-            <!--</intent-filter>-->
-            <!--&lt;!&ndash; 网络变动事件 &ndash;&gt;-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>-->
-            <!--</intent-filter>-->
-            <!--&lt;!&ndash; 部分用户事件 &ndash;&gt;-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.BOOT_COMPLETED"/>-->
-            <!--</intent-filter>-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.USER_PRESENT"/>-->
-                <!--<action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>-->
-                <!--<action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
+        <!-- push 相关事件接收器 -->
+        <receiver
+            android:name="io.rong.push.PushReceiver"
+            android:process="io.rong.push"> <!-- 此处进程可以改名，名称需要和PushService所在进程统一 -->
+            <!-- 心跳事件 -->
+            <intent-filter>
+                <action android:name="io.rong.push.intent.action.HEART_BEAT" />
+            </intent-filter>
+            <!-- 网络变动事件 -->
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <!-- 部分用户事件 -->
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
 
-        <!--必选： SDK 核心功能-->
-
+        <!-- 必选： SDK 核心功能 -->
         <!-- end -->
-
-
-
-
 
         <activity android:name=".ui.activity.GuideActivity">
             <intent-filter>
@@ -119,44 +126,37 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".ui.activity.SearchActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.activity.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.login.LoginActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.login.RegisterActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.activity.ClassifyActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.activity.GoodsDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.login.ForgetPasswordActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
+        <activity android:name=".ui.activity.SearchContactsActivity" />
+        <activity android:name=".ui.activity.SystemMessageActivity"></activity>
     </application>
 
 </manifest>

@@ -34,4 +34,7 @@
     <string name="sms_success">短信发送成功</string>
     <string name="register_success">注册成功</string>
     <string name="input_correct_phone">请输入有效手机号</string>
+    <string name="recent_message">最近消息</string>
+    <string name="address_list">通讯录</string>
+    <string name="system_message">系统消息</string>
 </resources>

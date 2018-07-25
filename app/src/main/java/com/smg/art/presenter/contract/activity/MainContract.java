@@ -10,13 +10,12 @@ public interface MainContract {
 
     interface View extends BaseContract.BaseView {
 
-        void ApkUpdateS(Apk_UpdateBean.DataBean dataBean);
-        TextView tv();
+
+
 
     }
 
     interface Presenter<T> extends BaseContract.BasePresenter<T> {
-        void Apk_Update(String ...s);
-    }
 
+    }
 }

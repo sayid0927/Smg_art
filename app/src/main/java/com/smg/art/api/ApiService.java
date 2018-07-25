@@ -44,26 +44,6 @@ public interface ApiService {
     Observable<Response<ResponseBody>> downloadPicFromNet(@Url String imgUrl);
 
     /**
-     * 下载apk
-     */
-    @GET(Constant.APK_UPDATE_PATH)
-    Observable<Response<ResponseBody>> Fetch_Apk_Update_Path();
-
-    @Headers("url_name:stt")
-    @FormUrlEncoded
-    @POST("search")
-    Observable<Response<ResponseBody>> Fetch_Search_Info(@Field("keyword") String keyword);
-
-
-
-    /**
-     * 获取APP更新信息
-     */
-    @GET(Constant.APK_UPDATE)
-    Observable<Apk_UpdateBean> Fetch_Apk_Update();
-
-
-    /**
      * 会员注册
      */
     @POST(Constant.MEMBER_REGISTER)

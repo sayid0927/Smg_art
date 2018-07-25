@@ -43,8 +43,6 @@ public class ClassifyChildFragment extends BaseFragment implements ClassifyChild
     private GoodsBean goodsBean;
     private List<GoodsBean> goodsBeans;
 
-    private ArrayList<String> mTitleList = new ArrayList<>();
-    private ArrayList<Fragment> mFragments = new ArrayList<>();
 
     public static ClassifyChildFragment getInstance() {
         ClassifyChildFragment sf = new ClassifyChildFragment();

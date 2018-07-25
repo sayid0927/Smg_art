@@ -50,6 +50,7 @@ public class Api {
                 .client(okHttpClient)
                 .baseUrl(Constant.API_BASE_URL)
                 .build();
+
         service = retrofit.create(ApiService.class);
 
     }
@@ -73,10 +74,6 @@ public class Api {
             map.put("access_token", JWTTOKEN);
         }
         return map;
-    }
-
-    public Observable<Apk_UpdateBean> Fetch_Apk_Update() {
-        return service.Fetch_Apk_Update();
     }
 
     /**

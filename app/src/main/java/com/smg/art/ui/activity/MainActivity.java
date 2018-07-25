@@ -19,8 +19,10 @@ import com.smg.art.presenter.contract.activity.MainContract;
 import com.smg.art.presenter.impl.activity.MainActivityPresenter;
 import com.smg.art.ui.fragment.AuctionFragment;
 import com.smg.art.ui.fragment.HomeFragment;
+import com.smg.art.ui.fragment.MessageFragment;
 import com.smg.art.ui.fragment.MyFragment;
 import com.smg.art.utils.UIUtils;
+import com.smg.art.view.NoScrollViewPager;
 
 import java.util.ArrayList;
 
@@ -38,7 +40,7 @@ public class MainActivity extends BaseActivity implements MainContract.View, Tab
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
     @BindView(R.id.vp)
-    ViewPager vp;
+    NoScrollViewPager vp;
 
     private ArrayList<String> mTitleList = new ArrayList<>();
     private ArrayList<Fragment> mFragments = new ArrayList<>();
@@ -71,6 +73,7 @@ public class MainActivity extends BaseActivity implements MainContract.View, Tab
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void initView() {
+
         setSwipeBackEnable(false);
 
         mTitleList.add(UIUtils.getString(R.string.tab_item_home));
@@ -80,10 +83,12 @@ public class MainActivity extends BaseActivity implements MainContract.View, Tab
 
         mFragments.add(new HomeFragment());
         mFragments.add(new AuctionFragment());
-        mFragments.add(new HomeFragment());
+        mFragments.add(new MessageFragment());
         mFragments.add(new MyFragment());
         BaseFragmentPageAdapter myAdapter = new BaseFragmentPageAdapter(getSupportFragmentManager(), mFragments, mTitleList);
+
         vp.setAdapter(myAdapter);
+        vp.setNoScroll(true);
         myAdapter.notifyDataSetChanged();
         tabLayout.setupWithViewPager(vp);
 
@@ -99,7 +104,6 @@ public class MainActivity extends BaseActivity implements MainContract.View, Tab
         tabMessage.setIcon(R.drawable.message_icon_r);
         tabMy.setIcon(R.drawable.me_icon_r);
 
-        mPresenter.Apk_Update("account","15118183011", "password","111111", "tradingPassword","000000", "verifyCode","1111");
         mainActivity = this;
 
     }
@@ -112,16 +116,6 @@ public class MainActivity extends BaseActivity implements MainContract.View, Tab
     @Override
     protected void onDestroy() {
         super.onDestroy();
-    }
-
-    @Override
-    public void ApkUpdateS(Apk_UpdateBean.DataBean dataBean) {
-
-    }
-
-    @Override
-    public TextView tv() {
-        return null;
     }
 
     @Override
