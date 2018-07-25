@@ -31,4 +31,7 @@
     <string name="login">登录</string>
     <string name="register_title">注册</string>
     <string name="forget_password">忘记密码</string>
+    <string name="sms_success">短信发送成功</string>
+    <string name="register_success">注册成功</string>
+    <string name="input_correct_phone">请输入有效手机号</string>
 </resources>

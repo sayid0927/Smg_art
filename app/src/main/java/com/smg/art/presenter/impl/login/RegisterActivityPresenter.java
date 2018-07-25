@@ -65,6 +65,7 @@ public class RegisterActivityPresenter extends BasePresenter<RegisterContract.Vi
                     public void onError(Throwable e) {
                         hideWaitingDialog();
                         mView.showError(e.getMessage());
+                        mView.btn().setClickable(true);
                     }
 
                     @Override
