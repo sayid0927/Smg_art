@@ -22,5 +22,6 @@ public class MainActivityPresenter extends BasePresenter<MainContract.View> impl
     public MainActivityPresenter(Api api) {
         this.api = api;
 
+
     }
 }
