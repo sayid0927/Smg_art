@@ -87,7 +87,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
     SwipeRefreshLayout srlAndroid;
 
 
-
     private GoodsListApadter mAdapter;
     private GoodsBean goodsBean;
     private List<GoodsBean> goodsBeans;
@@ -115,6 +114,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
         mAdapter.setLoadMoreView(new MyLoadMoreView());
         rvGoods.setLayoutManager(new GridLayoutManager(getSupportActivity(), 2));
         rvGoods.setAdapter(mAdapter);
+
         srlAndroid.setOnRefreshListener(this);
         mAdapter.OnGoodsItemListener(new GoodsListApadter.OnGoodsItemListener() {
             @Override
