@@ -63,7 +63,7 @@ public class SystemMessageActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        setSwipeBackEnable(true);
         actionbarTitle.setText(R.string.system_message);
 
         systemMessageBeans = new ArrayList<>();

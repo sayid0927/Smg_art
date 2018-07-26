@@ -42,6 +42,8 @@
     <string name="login_success">恭喜你，登录成功</string>
     <string name="head_portrait">头像</string>
     <string name="nick">昵称</string>
+    <string name="DetailIntroduction">详情介绍</string>
+    <string name="AuctionCentre">拍卖中心</string>
     <string name="all">全部</string>
     <string name="income">收入</string>
     <string name="expenditure">支出</string>

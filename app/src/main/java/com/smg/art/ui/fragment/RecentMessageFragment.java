@@ -10,8 +10,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.smg.art.R;
 import com.smg.art.base.BaseFragment;
 import com.smg.art.base.Constant;
+import com.smg.art.bean.ConversationBean;
 import com.smg.art.bean.RecentMessageBean;
 import com.smg.art.component.AppComponent;
+import com.smg.art.component.DaggerMainComponent;
+import com.smg.art.presenter.contract.activity.RecentMessageContract;
+import com.smg.art.presenter.impl.fragment.RecentMessagePresenter;
 import com.smg.art.ui.activity.MainActivity;
 import com.smg.art.ui.activity.SystemMessageActivity;
 import com.smg.art.ui.adapter.RecentMessageApadter;
@@ -20,15 +24,19 @@ import com.smg.art.view.MyLoadMoreView;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 
 /**
  * Created by Lenovo on 2018/7/25.
  */
 
-public class RecentMessageFragment extends BaseFragment implements BaseQuickAdapter.RequestLoadMoreListener {
+public class RecentMessageFragment extends BaseFragment implements RecentMessageContract.View,BaseQuickAdapter.RequestLoadMoreListener {
 
-    
+    @Inject
+    RecentMessagePresenter mPresenter;
+
     @BindView(R.id.rl_message)
     RecyclerView rlMessage;
 
@@ -54,6 +62,9 @@ public class RecentMessageFragment extends BaseFragment implements BaseQuickAdap
         mApadter.addHeaderView(View.inflate(getActivity(),R.layout.message_rl_header,null));
         rlMessage.setAdapter(mApadter);
 
+        mPresenter.getConversationList();
+
+
 
         mApadter.OnMessageItemListener(new RecentMessageApadter.OnMessageItemListener() {
             @Override
@@ -75,12 +86,12 @@ public class RecentMessageFragment extends BaseFragment implements BaseQuickAdap
 
     @Override
     public void attachView() {
-
+      mPresenter.attachView(this,getActivity());
     }
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
-
+        DaggerMainComponent.builder().appComponent(appComponent).build().inject(this);
     }
 
     @Override
@@ -88,4 +99,13 @@ public class RecentMessageFragment extends BaseFragment implements BaseQuickAdap
 
     }
 
+    @Override
+    public void showError(String message) {
+
+    }
+
+    @Override
+    public void getConversationListSuccess(ConversationBean conversationBean) {
+
+    }
 }

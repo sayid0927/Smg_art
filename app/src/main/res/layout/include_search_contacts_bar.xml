@@ -8,7 +8,7 @@
 
     <com.zhy.autolayout.AutoRelativeLayout
         android:id="@+id/ll_back"
-        android:layout_width="90px"
+        android:layout_width="70px"
         android:layout_centerVertical="true"
         android:layout_height="match_parent"
         android:background="?android:selectableItemBackground">

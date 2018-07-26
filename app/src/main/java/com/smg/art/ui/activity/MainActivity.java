@@ -105,6 +105,7 @@ public class MainActivity extends BaseActivity implements MainContract.View, Tab
         tabMy.setIcon(R.drawable.me_icon_r);
 
         mainActivity = this;
+        mPresenter.connect("NgIBXvwWWKa9T7MuaZnpgq+YsUIoF3ojin3K277sfOk2aEIY8QAFyUpG8NYfTj4Jd2wSxr0L0c7n6WKIR/KoP6tdpZUyLdaH");
 
     }
 
@@ -158,4 +159,10 @@ public class MainActivity extends BaseActivity implements MainContract.View, Tab
     public void onTabReselected(TabLayout.Tab tab) {
 
     }
+
+    @Override
+    public void connectSuccess() {
+
+    }
+
 }

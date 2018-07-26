@@ -1,14 +1,20 @@
 
 package com.smg.art.presenter.impl.activity;
 
+import com.blankj.utilcode.utils.LogUtils;
+import com.blankj.utilcode.utils.ToastUtils;
 import com.orhanobut.logger.Logger;
+import com.smg.art.R;
 import com.smg.art.api.Api;
+import com.smg.art.base.BaseApplication;
 import com.smg.art.base.BasePresenter;
 import com.smg.art.bean.Apk_UpdateBean;
 import com.smg.art.presenter.contract.activity.MainContract;
+import com.smg.art.utils.UIUtils;
 
 import javax.inject.Inject;
 
+import io.rong.imlib.RongIMClient;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -22,6 +28,43 @@ public class MainActivityPresenter extends BasePresenter<MainContract.View> impl
     public MainActivityPresenter(Api api) {
         this.api = api;
 
+    }
 
+    @Override
+    public void connect(String token) {
+        if (UIUtils.getContext().getApplicationInfo().packageName.equals(BaseApplication.getCurProcessName(UIUtils.getContext()))) {
+
+            /**
+             * IMKit SDK调用第二步,建立与服务器的连接
+             */
+            RongIMClient.connect(token, new RongIMClient.ConnectCallback() {
+                /**
+                 * Token 错误，在线上环境下主要是因为 Token 已经过期，您需要向 App Server 重新请求一个新的 Token
+                 */
+                @Override
+                public void onTokenIncorrect() {
+                    ToastUtils.showLongToast("onTokenIncorrect");
+                }
+
+                /**
+                 * 连接融云成功
+                 * @param userid 当前 token
+                 */
+                @Override
+                public void onSuccess(String userid) {
+                    LogUtils.e("--onSuccess---" + userid);
+//                    BroadcastManager.getInstance(mContext).sendBroadcast(AppConst.UPDATE_CONVERSATIONS);
+                }
+
+                /**
+                 * 连接融云失败
+                 * @param errorCode 错误码，可到官网 查看错误码对应的注释
+                 */
+                @Override
+                public void onError(RongIMClient.ErrorCode errorCode) {
+                    ToastUtils.showLongToast("--onError" + errorCode);
+                }
+            });
+        }
     }
 }

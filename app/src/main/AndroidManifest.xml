@@ -53,9 +53,16 @@
             android:value="1280" />
 
         <!-- imlib config begin -->
+        <!--<meta-data-->
+            <!--android:name="RONG_CLOUD_APP_KEY"-->
+            <!--android:value="uwd1c0sxupn81" />-->
+
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"
-            android:value="uwd1c0sxupn81" />
+            android:value="n19jmcy59f1q9" />
+
+
+
 
         <service
             android:name="io.rong.imlib.ipc.RongService"
@@ -152,18 +159,17 @@
             android:name=".ui.activity.GoodsDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.login.ForgetPasswordActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.SearchContactsActivity" />
-        <activity android:name=".ui.activity.SystemMessageActivity"></activity>
-
+        <activity android:name=".ui.activity.SystemMessageActivity" />
         <activity
             android:name=".ui.personalcenter.SettingActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.AuctionDeatilActivity"></activity>
 
         <activity
             android:name=".ui.personalcenter.MyWalletActivity"

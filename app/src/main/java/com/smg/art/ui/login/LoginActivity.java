@@ -185,16 +185,16 @@ public class LoginActivity extends BaseActivity implements LoginContract.View, V
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.foget_passwords:
-                startActivity(new Intent(this, ForgetPasswordActivity.class));
+                startActivityIn(new Intent(this, ForgetPasswordActivity.class),this);
                 break;
             case R.id.comfirm:
-                startActivity(new Intent(this, MainActivity.class));
+                startActivityIn(new Intent(this, MainActivity.class),this);
 //                if (checkUp()) {
 //                    mPresenter.FetchLogin("account", etContext.getText().toString().replace(" ", ""), "password", etPayPwd.getText().toString());
 //                }
                 break;
             case R.id.register_now:
-                startActivity(new Intent(this, RegisterActivity.class));
+                startActivityIn(new Intent(this, RegisterActivity.class),this);
                 break;
         }
     }
@@ -210,7 +210,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View, V
             LocalAppConfigUtil.getInstance().setJsessionId(loginBean.getData().getJSESSIONID());
             LocalAppConfigUtil.getInstance().setUserTelephone(etContext.getText().toString().replace(" ", ""));
             LocalAppConfigUtil.getInstance().setPassword(etPayPwd.getText().toString());
-            startActivity(new Intent(this, MainActivity.class));
+            startActivityIn(new Intent(this, MainActivity.class),this);
             finish();
         } else {
             ToastUtils.showShortToast(loginBean.getMsg());

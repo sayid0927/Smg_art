@@ -51,6 +51,4 @@ public class GoodsListApadter extends BaseQuickAdapter<GoodsBean, BaseViewHolder
         void  OnGoodsItemListener(GoodsBean item);
     }
 
-
-
 }
