@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!--<include layout="@layout/include_toolbar"/>-->
-
 
     <com.smg.art.view.NoScrollViewPager
         android:id="@+id/vp"
@@ -20,35 +18,11 @@
         android:id="@+id/tab_layout"
         style="@style/TabLayoutTextStyle"
         android:layout_width="match_parent"
-        android:layout_height="50px"
+        android:layout_height="60dp"
         app:tabMode="fixed"
         android:background="@color/colorPrimary"
         app:tabSelectedTextColor="#e2bd74"
         app:tabTextColor="@color/white">
-
-        <!--<android.support.design.widget.TabItem-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:background="@drawable/tab_home"-->
-            <!--android:text="@string/tab_item_home" />-->
-
-        <!--<android.support.design.widget.TabItem-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:icon="@drawable/auction_icon_r"-->
-            <!--android:text="@string/tab_item_auction" />-->
-
-        <!--<android.support.design.widget.TabItem-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:icon="@drawable/message_icon_r"-->
-            <!--android:text="@string/tab_item_message" />-->
-
-        <!--<android.support.design.widget.TabItem-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:icon="@drawable/me_icon_r"-->
-            <!--android:text="@string/tab_item_my" />-->
 
     </android.support.design.widget.TabLayout>
 

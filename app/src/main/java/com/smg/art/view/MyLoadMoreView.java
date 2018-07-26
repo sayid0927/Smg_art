@@ -17,6 +17,7 @@ public class MyLoadMoreView extends LoadMoreView {
 
     @Override
     protected int getLoadingViewId() {
+
         return R.id.load_more_loading_view;
     }
 

@@ -2,9 +2,12 @@ package com.smg.art.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,11 +40,13 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import cn.bingoogolapple.bgabanner.BGABanner;
 
 
-public class HomeFragment extends BaseFragment implements HomeContract.View, BGABanner.Delegate, BaseQuickAdapter.RequestLoadMoreListener {
+public class HomeFragment extends BaseFragment implements HomeContract.View, BGABanner.Delegate, BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
 
     @Inject
     HomePresenter mPresenter;
@@ -78,6 +83,9 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
     EditText etSearchContent;
     @BindView(R.id.ivToolbarNavigation)
     ImageView ivToolbarNavigation;
+    @BindView(R.id.srl_android)
+    SwipeRefreshLayout srlAndroid;
+
 
 
     private GoodsListApadter mAdapter;
@@ -107,6 +115,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
         mAdapter.setLoadMoreView(new MyLoadMoreView());
         rvGoods.setLayoutManager(new GridLayoutManager(getSupportActivity(), 2));
         rvGoods.setAdapter(mAdapter);
+        srlAndroid.setOnRefreshListener(this);
         mAdapter.OnGoodsItemListener(new GoodsListApadter.OnGoodsItemListener() {
             @Override
             public void OnGoodsItemListener(GoodsBean item) {
@@ -176,6 +185,12 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
         //加载更多
     }
 
+
+    @Override
+    public void onRefresh() {
+        // 下拉刷新
+    }
+
     @OnClick({R.id.rl_search, R.id.ll_book_draw, R.id.ll_oil_draw, R.id.ll_bird_draw, R.id.ll_hill_draw, R.id.ll_people_draw, R.id.ll_money_draw, R.id.ll_jade_draw, R.id.ll_fine_draw, R.id.ll_furniture_draw, R.id.ll_more_draw})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -234,4 +249,5 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
                 break;
         }
     }
+
 }

@@ -48,19 +48,27 @@
         android:layout_marginTop="15dp"
         android:gravity="center_vertical">
 
+        <!--<ProgressBar-->
+            <!--android:id="@+id/img_progress"-->
+            <!--android:layout_width="20dp"-->
+            <!--android:layout_height="25dp"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:indeterminateDrawable="@drawable/loading_large_anim" />-->
+
         <ProgressBar
-            android:id="@+id/img_progress"
-            android:layout_width="20dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center_vertical"
-            android:indeterminateDrawable="@drawable/yun_anim" />
+            android:indeterminateBehavior="repeat"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateDrawable="@drawable/loading_large_anim" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:text="努力加载中..."
+            android:textColor="#706666"
+            android:text="加载更多"
             android:textSize="14sp" />
 
     </LinearLayout>
