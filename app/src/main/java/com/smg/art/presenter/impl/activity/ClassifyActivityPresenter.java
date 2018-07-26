@@ -22,6 +22,7 @@ public class ClassifyActivityPresenter extends BasePresenter<ClassifyContract.Vi
     public ClassifyActivityPresenter(Api api) {
         this.api = api;
 
+
     }
 
 }
