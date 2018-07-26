@@ -13,6 +13,9 @@ import com.smg.art.base.Constant;
 import com.smg.art.bean.Apk_UpdateBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.presenter.contract.fragment.HomeContract;
+import com.smg.art.ui.activity.MainActivity;
+import com.smg.art.ui.personalcenter.CashDepositActivity;
+import com.smg.art.ui.personalcenter.MyWalletActivity;
 import com.smg.art.ui.personalcenter.SettingActivity;
 
 import butterknife.BindView;
@@ -77,6 +80,7 @@ public class MyFragment extends BaseFragment implements HomeContract.View {
     ImageView icon5;
     @BindView(R.id.setting)
     RelativeLayout setting;
+    Intent intent;
 
     @Override
     public void ApkUpdateS(Apk_UpdateBean.DataBean dataBean) {
@@ -110,8 +114,23 @@ public class MyFragment extends BaseFragment implements HomeContract.View {
     @OnClick({R.id.my_wallte, R.id.my_bond, R.id.my_collection, R.id.realnameauthentication, R.id.setting})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.my_wallte:
+                intent = new Intent(getActivity(), MyWalletActivity.class);
+                MainActivity.mainActivity.startActivityIn(intent, getActivity());
+                break;
+            case R.id.my_bond:
+                intent = new Intent(getActivity(), CashDepositActivity.class);
+                MainActivity.mainActivity.startActivityIn(intent, getActivity());
+                break;
+            case R.id.my_collection:
+                // startActivity(new Intent(getActivity(), SettingActivity.class));
+                break;
+            case R.id.realnameauthentication:
+                // startActivity(new Intent(getActivity(), SettingActivity.class));
+                break;
             case R.id.setting:
-                startActivity(new Intent(getActivity(), SettingActivity.class));
+                intent = new Intent(getActivity(), SettingActivity.class);
+                MainActivity.mainActivity.startActivityIn(intent, getActivity());
                 break;
 
         }

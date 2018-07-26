@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/bj_13dp"
+        android:layout_marginRight="@dimen/bj_13dp"
+        android:layout_marginTop="@dimen/bj_10dp"
+        android:background="@drawable/shape_wihte_model"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/bj_17dp"
+            android:layout_marginTop="@dimen/bj_15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="保证金:"
+                android:textColor="@color/black_666666"
+                android:textSize="@dimen/wz_13sp" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/bj_5dp"
+                android:text="¥ 35488"
+                android:textColor="@color/red_b20002"
+                android:textSize="@dimen/wz_13sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/shop_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/bj_17dp"
+            android:layout_marginTop="@dimen/bj_8dp"
+            android:text="翡翠貔貅玉石吊坠"
+            android:textColor="@color/grey_e6000000"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bj_1dp"
+            android:layout_marginTop="@dimen/bj_14dp"
+            android:background="@color/grey_e7e7e7" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/bj_8dp"
+            android:layout_marginLeft="@dimen/bj_17dp"
+            android:layout_marginTop="@dimen/bj_8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/status_btn"
+                android:layout_width="@dimen/bj_51dp"
+                android:layout_height="@dimen/bj_15dp"
+                android:background="@drawable/shape_red"
+                android:gravity="center"
+                android:text="拍卖中"
+                android:textColor="@color/white"
+                android:textSize="@dimen/wz_10sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/status_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="拍卖结束"
+                android:textColor="@color/orange_d3a02c" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="2015-02-12 12:24:12"
+                android:textColor="@color/grey_999999"
+                android:textSize="@dimen/wz_12sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

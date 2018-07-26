@@ -22,6 +22,9 @@
     <!--控件的选中颜色，即checked或selected状态的颜色。-->
     <color name="colorAccent">#341c1c</color>
 
+    <!--主色调-->
+    <color name="main_color">#341c1c</color>
+
     <color name="tip">#88303F9F</color>
     <color name="colorContent">#ff333333</color>
     <color name="colorSubtitle">#999</color>
@@ -54,6 +57,7 @@
     <!--tab标签栏文字的颜色-->
     <color name="colorTabText">#585858</color>
 
+    <color name="separatedColor">#dfdfdf</color>
     <!--通用背景色-->
     <color name="common_bg">@color/white</color>
     <!--通用触摸背景色-->
@@ -139,9 +143,107 @@
     <color name="black_858585">#858585</color>
     <color name="black_d2d3d5">#D2D3D5</color>
     <color name="black_800000">#80000000</color>
+    <color name="black_666666">#666666</color>
+    <color name="grey_e7e7e7">#E7E7E7</color>
 
     <color name="grey_e6333333">#e6333333</color>
 
     <color name="grey_333333">#333333</color>
+
+    <color name="grey_b49896">#B49896</color>
+
+    <!--白色-->
+    <color name="white_f0f0f0">#F0F0F0</color>
+    <color name="white_f1f1f1">#F1F1F1</color>
+    <color name="white_f7f7f7">#F7F7F7</color>
+    <color name="white_99ffffff">#99FFFFFF</color>
+    <color name="white_66ffffff">#66FFFFFF</color>
+
+    <!--黑色-->
+    <color name="black_151515">#151515</color>
+    <color name="black_1a1a1a">#1A1A1A</color>
+    <color name="black_101010">#101010</color>
+    <color name="black_202020">#202020</color>
+    <color name="black_2e2e2e">#2e2e2e</color>
+    <color name="black_222222">#222222</color>
+    <color name="black_292929">#292929</color>
+    <color name="black_282828">#282828</color>
+    <color name="black_b8b8b8">#B8B8B8</color>
+    <color name="black_b6b6b6">#B6B6B6</color>
+    <color name="black_303030">#303030</color>
+    <color name="black_333333">#333333</color>
+    <color name="black_383838">#383838</color>
+    <color name="black_4b4b4b">#4b4b4b</color>
+    <color name="black_7a7a7a">#7A7A7A</color>
+    <color name="black_757575">#757575</color>
+    <color name="black_808080">#808080</color>
+    <color name="black_838383">#838383</color>
+    <color name="black_001321">#001321</color>
+    <color name="black_818181">#818181</color>
+    <color name="black_828282">#828282</color>
+    <color name="black_999999">#999999</color>
+    <color name="black_f1d2d1">#f1d2d1</color>
+    <color name="colors_ddddde">#DDDDDE</color>
+    <color name="black_969696">#969696</color>
+    <color name="black_595959">#595959</color>
+    <color name="color_c1c1c1">#c1c1c1</color>
+    <color name="bg_line">#999999</color>
+
+    <color name="list_divider">#BBBBBB</color>
+    <color name="black_1f000000">#1F000000</color>
+    <color name="black_14020202">#14020202</color>
+
+    <!--灰色-->
+    <color name="grey_999999">#999999</color>
+    <color name="grey_9a9a9a">#9A9A9A</color>
+    <color name="grey_9f9f9f">#9F9F9F</color>
+    <color name="grey_adadad">#ADADAD</color>
+    <color name="grey_cbcccc">#CBCCCC</color>
+    <color name="grey_cccccc">#CCCCCC</color>
+    <color name="grey_d4d4d4">#D4D4D4</color>
+    <color name="grey_ebebeb">#EBEBEB</color>
+    <color name="grey_9d9d9d">#9D9D9D</color>
+    <color name="grey_e3e3e3">#E3E3E3</color>
+    <color name="color_5b5b5b">#5b5b5b</color>
+
+    <!--橙色-->
+    <color name="black_f1a22c">#F1A22C</color>
+    <color name="orange_fff7f1">#FFF7F1</color>
+    <color name="orange_ff8102">#FF8102</color>
+    <color name="orange_ff3d02">#FF3D02</color>
+    <color name="orange_ff3202">#FF3202</color>
+    <color name="orange_efc813">#EFC813</color>
+    <color name="orange_e30423">#E30423</color>
+
+    <!--红色-->
+    <color name="red_e70113">#E70113</color>
+    <color name="red_fb002f">#FB002F</color>
+    <color name="red_db0000">#DB0000</color>
+    <color name="red_de3229">#DE3229</color>
+    <color name="red_df443b">#DF443B</color>
+    <color name="red_ff2020">#FF2020</color>
+    <color name="red_f2302f">#F2302F</color>
+    <color name="red_ff000">#FF0000</color>
+    <color name="red_ff666">#FF6666</color>
+    <color name="red_ea2000">#EA2000</color>
+
+    <color name="pink_ed275c">#ED275C</color>
+
+    <!--绿色-->
+    <color name="green_1bca65">#1BCA65</color>
+    <color name="green_16bd0e">#16BD0E</color>
+    <color name="green_18c810">#18C810</color>
+
+    <!--蓝色-->
+    <color name="green_1079ff">#1079FF</color>
+
+    <color name="green_effcff">#effcff</color>
+
+
+    <!--分隔线的颜色-->
+    <color name="spacing">#f4f4f4</color>
+    <!--线条颜色-->
+    <color name="line">#e7e6e6</color>
+    <color name="orange_d3a02c">#D3A02C</color>
 
 </resources>

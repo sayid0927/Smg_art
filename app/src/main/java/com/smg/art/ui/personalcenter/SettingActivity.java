@@ -1,5 +1,6 @@
 package com.smg.art.ui.personalcenter;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -12,6 +13,7 @@ import com.smg.art.base.BaseActivity;
 import com.smg.art.component.AppComponent;
 import com.smg.art.utils.KeyBoardUtils;
 import com.smg.art.view.PopDialog;
+import com.zhy.autolayout.AutoRelativeLayout;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -21,10 +23,8 @@ import butterknife.OnClick;
  */
 
 public class SettingActivity extends BaseActivity {
-    @BindView(R.id.actionbar_back)
-    ImageView actionbarBack;
-    @BindView(R.id.ll_back)
-    LinearLayout llBack;
+    @BindView(R.id.rl_back)
+    AutoRelativeLayout actionbarBack;
     @BindView(R.id.left_title)
     TextView leftTitle;
     @BindView(R.id.actionbar_title)
@@ -46,6 +46,7 @@ public class SettingActivity extends BaseActivity {
     @BindView(R.id.exit)
     TextView exit;
     PopDialog popDialog;
+    Intent intent;
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -72,26 +73,30 @@ public class SettingActivity extends BaseActivity {
         actionbarTitle.setText(R.string.setting);
     }
 
-    @OnClick({R.id.actionbar_back, R.id.head, R.id.name, R.id.phone, R.id.pwd, R.id.pay_pwd, R.id.exit})
+    @OnClick({R.id.rl_back, R.id.head, R.id.name, R.id.phone, R.id.pwd, R.id.pay_pwd, R.id.exit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.actionbar_back:
+            case R.id.rl_back:
                 KeyBoardUtils.hiddenKeyboart(this);
                 finish();
                 break;
             case R.id.head:
-
                 break;
             case R.id.name:
-                //startActivity(new Intent(this, ChangeNickNameActivity.class));
+                intent = new Intent(this, ChangeNickNameActivity.class);
+                startActivityIn(intent, this);
                 break;
             case R.id.phone:
+                intent = new Intent(this, SendMobilePhoneActivity.class);
+                startActivityIn(intent, this);
                 break;
             case R.id.pwd:
-                // startActivity(new Intent(this, ChangePasswordActivity.class));
+                intent = new Intent(this, ChangePasswordActivity.class);
+                startActivityIn(intent, this);
                 break;
             case R.id.pay_pwd:
-                //startActivity(new Intent(this, ChangeTradersPasswordActivity.class));
+                intent = new Intent(this, ChangeTradersPasswordActivity.class);
+                startActivityIn(intent, this);
                 break;
             case R.id.exit:
                 popDialog = new PopDialog(this, R.layout.exit_item);

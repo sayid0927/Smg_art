@@ -42,4 +42,38 @@
     <string name="login_success">恭喜你，登录成功</string>
     <string name="head_portrait">头像</string>
     <string name="nick">昵称</string>
+    <string name="all">全部</string>
+    <string name="income">收入</string>
+    <string name="expenditure">支出</string>
+    <string name="cart_yuan_dol">¥</string>
+
+    <string-array name="balance_title">
+        <item>全部</item>
+        <item>收入</item>
+        <item>支出</item>
+    </string-array>
+    <string name="withdraw">提现</string>
+    <string name="recharge">充值</string>
+
+    <!--添加银行卡-->
+    <string name="add_bank_card_owner">持卡人</string>
+    <string name="add_bank_card_owner_hint">请输入持卡人姓名</string>
+    <string name="add_bank_card_NO">卡号</string>
+    <string name="add_bank_card_NO_hint">请输入银行卡号</string>
+    <string name="add_bank_card_branch">支行</string>
+    <string name="add_bank_card_branch_hint">支行信息</string>
+    <string name="add_bank_card_mobile">手机号</string>
+    <string name="add_bank_card_mobile_hint">请输入银行预留手机号</string>
+    <string name="add_bank_card_code">验证码</string>
+    <string name="add_bank_card_get_code">获取验证码</string>
+    <string name="add_bank_card_code_hint">请输入验证码</string>
+    <string name="bank_card">银行卡</string>
+
+    <string name="change_nickname">修改昵称</string>
+    <string name="change_phone">修改手机号码</string>
+    <string name="change_password">修改密码</string>
+    <string name="change_trader_password">修改交易密码</string>
+
+    <string name="cashdeposit">保证金</string>
+
 </resources>
