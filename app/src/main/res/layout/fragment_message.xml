@@ -9,7 +9,7 @@
 
     <com.zhy.autolayout.AutoRelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100px"
+        android:layout_height="80px"
         android:background="@color/colorPrimaryDark">
 
         <com.flyco.tablayout.SlidingTabLayout

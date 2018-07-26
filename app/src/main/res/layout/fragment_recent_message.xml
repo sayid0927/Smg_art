@@ -5,11 +5,9 @@
     android:background="#f2f2f2"
     android:layout_height="match_parent">
 
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rl_message"
         android:background="@color/white"
-        android:layout_marginTop="20px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.smg.art.R;
@@ -50,7 +51,9 @@ public class RecentMessageFragment extends BaseFragment implements BaseQuickAdap
         mApadter.setOnLoadMoreListener(this, rlMessage);
         mApadter.setLoadMoreView(new MyLoadMoreView());
         rlMessage.setLayoutManager(new LinearLayoutManager(getSupportActivity()));
+        mApadter.addHeaderView(View.inflate(getActivity(),R.layout.message_rl_header,null));
         rlMessage.setAdapter(mApadter);
+
 
         mApadter.OnMessageItemListener(new RecentMessageApadter.OnMessageItemListener() {
             @Override

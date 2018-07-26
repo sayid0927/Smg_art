@@ -134,6 +134,7 @@
             android:name=".ui.activity.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:launchMode="singleTask"
+            android:theme="@style/AppThemeMain"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.login.LoginActivity"
