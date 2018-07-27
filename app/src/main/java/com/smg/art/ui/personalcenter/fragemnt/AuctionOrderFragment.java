@@ -8,6 +8,7 @@ import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.smg.art.R;
 import com.smg.art.base.BaseFragment;
+import com.smg.art.base.Constant;
 import com.smg.art.component.AppComponent;
 import com.smg.art.presenter.contract.fragment.AuctionOrderConstrat;
 import com.smg.art.ui.personalcenter.adapter.AuctionAdapter;
@@ -31,7 +32,7 @@ public class AuctionOrderFragment extends BaseFragment implements AuctionOrderCo
 
     @Override
     public void loadData() {
-
+        setState(Constant.STATE_SUCCESS);
     }
 
     @Override

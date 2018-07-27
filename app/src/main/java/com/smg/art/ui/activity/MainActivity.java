@@ -6,6 +6,7 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.smg.art.R;
@@ -21,8 +22,11 @@ import com.smg.art.ui.fragment.AuctionFragment;
 import com.smg.art.ui.fragment.HomeFragment;
 import com.smg.art.ui.fragment.MessageFragment;
 import com.smg.art.ui.fragment.MyFragment;
+import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.utils.UIUtils;
 import com.smg.art.view.NoScrollViewPager;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -105,64 +109,64 @@ public class MainActivity extends BaseActivity implements MainContract.View, Tab
         tabMy.setIcon(R.drawable.me_icon_r);
 
         mainActivity = this;
-        mPresenter.connect("NgIBXvwWWKa9T7MuaZnpgq+YsUIoF3ojin3K277sfOk2aEIY8QAFyUpG8NYfTj4Jd2wSxr0L0c7n6WKIR/KoP6tdpZUyLdaH");
-
-    }
-
-    @Override
-    public void showError(String message) {
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    public void onTabSelected(TabLayout.Tab tab) {
-
-        switch (tab.getPosition()) {
-            case 0:
-                tabHome.setIcon(R.drawable.home_icon_p);
-                tabAuction.setIcon(R.drawable.auction_icon_r);
-                tabMessage.setIcon(R.drawable.message_icon_r);
-                tabMy.setIcon(R.drawable.me_icon_r);
-                break;
-            case 1:
-                tabHome.setIcon(R.drawable.home_icon_r);
-                tabAuction.setIcon(R.drawable.auction_icon_p);
-                tabMessage.setIcon(R.drawable.message_icon_r);
-                tabMy.setIcon(R.drawable.me_icon_r);
-                break;
-            case 2:
-                tabHome.setIcon(R.drawable.home_icon_r);
-                tabAuction.setIcon(R.drawable.auction_icon_r);
-                tabMessage.setIcon(R.drawable.message_icon_p);
-                tabMy.setIcon(R.drawable.me_icon_r);
-                break;
-            case 3:
-                tabHome.setIcon(R.drawable.home_icon_r);
-                tabAuction.setIcon(R.drawable.auction_icon_r);
-                tabMessage.setIcon(R.drawable.message_icon_r);
-                tabMy.setIcon(R.drawable.me_icon_p);
-                break;
+        if (!TextUtils.isEmpty(LocalAppConfigUtil.getInstance().getRCToken()))
+            mPresenter.connect(LocalAppConfigUtil.getInstance().getRCToken());
         }
+
+        @Override
+        public void showError (String message){
+
+        }
+
+        @Override
+        protected void onDestroy () {
+            super.onDestroy();
+        }
+
+        @Override
+        public void onTabSelected (TabLayout.Tab tab){
+
+            switch (tab.getPosition()) {
+                case 0:
+                    tabHome.setIcon(R.drawable.home_icon_p);
+                    tabAuction.setIcon(R.drawable.auction_icon_r);
+                    tabMessage.setIcon(R.drawable.message_icon_r);
+                    tabMy.setIcon(R.drawable.me_icon_r);
+                    break;
+                case 1:
+                    tabHome.setIcon(R.drawable.home_icon_r);
+                    tabAuction.setIcon(R.drawable.auction_icon_p);
+                    tabMessage.setIcon(R.drawable.message_icon_r);
+                    tabMy.setIcon(R.drawable.me_icon_r);
+                    break;
+                case 2:
+                    tabHome.setIcon(R.drawable.home_icon_r);
+                    tabAuction.setIcon(R.drawable.auction_icon_r);
+                    tabMessage.setIcon(R.drawable.message_icon_p);
+                    tabMy.setIcon(R.drawable.me_icon_r);
+                    break;
+                case 3:
+                    tabHome.setIcon(R.drawable.home_icon_r);
+                    tabAuction.setIcon(R.drawable.auction_icon_r);
+                    tabMessage.setIcon(R.drawable.message_icon_r);
+                    tabMy.setIcon(R.drawable.me_icon_p);
+                    break;
+            }
+        }
+
+        @Override
+        public void onTabUnselected (TabLayout.Tab tab){
+
+        }
+
+        @Override
+        public void onTabReselected (TabLayout.Tab tab){
+
+        }
+
+        @Override
+        public void connectSuccess () {
+
+        }
+
     }
-
-    @Override
-    public void onTabUnselected(TabLayout.Tab tab) {
-
-    }
-
-    @Override
-    public void onTabReselected(TabLayout.Tab tab) {
-
-    }
-
-    @Override
-    public void connectSuccess() {
-
-    }
-
-}

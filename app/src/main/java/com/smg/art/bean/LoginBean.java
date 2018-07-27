@@ -10,7 +10,7 @@ public class LoginBean {
     /**
      * status : 1
      * msg : 登录成功
-     * data : {"memberNo":"15303450529","JSESSIONID_SHIRO":"059a552b-8331-4955-b73c-094c6dfa865c","JSESSIONID":"059a552b-8331-4955-b73c-094c6dfa865c","memberId":62}
+     * data : {"memberNo":"15303450529","JSESSIONID_SHIRO":"90c90f9d-3585-411d-9336-70f9159a6053","JSESSIONID":"90c90f9d-3585-411d-9336-70f9159a6053","memberId":62,"RCToken":"WSLHy2CezIYsklI9Ax5KXq1337bdbXhGRi763MOs+4RbTn9GvosS7TE7CTadSlk/zR0F3LIhjc8="}
      */
 
     private int status;
@@ -44,9 +44,10 @@ public class LoginBean {
     public static class DataBean {
         /**
          * memberNo : 15303450529
-         * JSESSIONID_SHIRO : 059a552b-8331-4955-b73c-094c6dfa865c
-         * JSESSIONID : 059a552b-8331-4955-b73c-094c6dfa865c
+         * JSESSIONID_SHIRO : 90c90f9d-3585-411d-9336-70f9159a6053
+         * JSESSIONID : 90c90f9d-3585-411d-9336-70f9159a6053
          * memberId : 62
+         * RCToken : WSLHy2CezIYsklI9Ax5KXq1337bdbXhGRi763MOs+4RbTn9GvosS7TE7CTadSlk/zR0F3LIhjc8=
          */
 
         private String memberNo;
@@ -54,14 +55,6 @@ public class LoginBean {
         private String JSESSIONID;
         private int memberId;
         private String RCToken;
-
-        public String getRCToken() {
-            return RCToken;
-        }
-
-        public void setRCToken(String RCToken) {
-            this.RCToken = RCToken;
-        }
 
         public String getMemberNo() {
             return memberNo;
@@ -93,6 +86,14 @@ public class LoginBean {
 
         public void setMemberId(int memberId) {
             this.memberId = memberId;
+        }
+
+        public String getRCToken() {
+            return RCToken;
+        }
+
+        public void setRCToken(String RCToken) {
+            this.RCToken = RCToken;
         }
     }
 }

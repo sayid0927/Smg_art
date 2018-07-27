@@ -25,4 +25,4 @@ public class ClassifyActivityPresenter extends BasePresenter<ClassifyContract.Vi
 
     }
 
-}
+} 

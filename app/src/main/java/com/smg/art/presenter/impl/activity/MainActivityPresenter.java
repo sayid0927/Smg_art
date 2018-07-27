@@ -10,6 +10,8 @@ import com.smg.art.base.BaseApplication;
 import com.smg.art.base.BasePresenter;
 import com.smg.art.bean.Apk_UpdateBean;
 import com.smg.art.presenter.contract.activity.MainContract;
+import com.smg.art.utils.RongIMCStateful;
+import com.smg.art.utils.RongIMCUtils;
 import com.smg.art.utils.UIUtils;
 
 import javax.inject.Inject;
@@ -20,7 +22,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 
-public class MainActivityPresenter extends BasePresenter<MainContract.View> implements MainContract.Presenter<MainContract.View> {
+public class MainActivityPresenter extends BasePresenter<MainContract.View> implements MainContract.Presenter<MainContract.View>,RongIMCStateful {
 
     private Api api;
 
@@ -37,12 +39,16 @@ public class MainActivityPresenter extends BasePresenter<MainContract.View> impl
             /**
              * IMKit SDK调用第二步,建立与服务器的连接
              */
+
             RongIMClient.connect(token, new RongIMClient.ConnectCallback() {
+
                 /**
                  * Token 错误，在线上环境下主要是因为 Token 已经过期，您需要向 App Server 重新请求一个新的 Token
                  */
+
                 @Override
                 public void onTokenIncorrect() {
+                    setRongIMCState(RongIMCUtils.Connect_TokenIncorrect);
                     ToastUtils.showLongToast("onTokenIncorrect");
                 }
 
@@ -50,21 +56,30 @@ public class MainActivityPresenter extends BasePresenter<MainContract.View> impl
                  * 连接融云成功
                  * @param userid 当前 token
                  */
+
                 @Override
                 public void onSuccess(String userid) {
-                    LogUtils.e("--onSuccess---" + userid);
-//                    BroadcastManager.getInstance(mContext).sendBroadcast(AppConst.UPDATE_CONVERSATIONS);
+                    setRongIMCState(RongIMCUtils.Connect_Success);
+                    ToastUtils.showLongToast("--onSuccess---" + userid);
                 }
 
                 /**
                  * 连接融云失败
                  * @param errorCode 错误码，可到官网 查看错误码对应的注释
                  */
+
                 @Override
                 public void onError(RongIMClient.ErrorCode errorCode) {
+                    setRongIMCState(RongIMCUtils.Connect_Error);
                     ToastUtils.showLongToast("--onError" + errorCode);
                 }
             });
         }
     }
+
+    @Override
+    public void setRongIMCState(int state) {
+          RongIMCUtils.state = state;
+    }
+
 }

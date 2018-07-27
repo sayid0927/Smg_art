@@ -251,5 +251,19 @@ public class LocalAppConfigUtil {
         editor.putString("jsessionId", JsessionId);
         editor.commit();
     }
+    /**
+     * 设置当前登录用户RCToken
+     *
+     * @param RCToken
+     */
+    public void setRCToken(String RCToken) {
+        editor = sp.edit();
+        editor.putString("RCToken", RCToken);
+        editor.commit();
+    }
+
+    public String getRCToken() {
+        return sp.getString("RCToken", "");
+    }
 }
 
