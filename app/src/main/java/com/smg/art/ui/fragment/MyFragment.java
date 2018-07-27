@@ -15,6 +15,7 @@ import com.smg.art.component.AppComponent;
 import com.smg.art.presenter.contract.fragment.HomeContract;
 import com.smg.art.ui.activity.MainActivity;
 import com.smg.art.ui.personalcenter.CashDepositActivity;
+import com.smg.art.ui.personalcenter.MyOrderActivity;
 import com.smg.art.ui.personalcenter.MyWalletActivity;
 import com.smg.art.ui.personalcenter.SettingActivity;
 
@@ -111,9 +112,34 @@ public class MyFragment extends BaseFragment implements HomeContract.View {
 
     }
 
-    @OnClick({R.id.my_wallte, R.id.my_bond, R.id.my_collection, R.id.realnameauthentication, R.id.setting})
+    @OnClick({R.id.check_all, R.id.compete, R.id.for_the_delivery, R.id.is_the_delivery, R.id.after_sale, R.id.my_wallte, R.id.my_bond, R.id.my_collection, R.id.realnameauthentication, R.id.setting})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.check_all:
+                intent = new Intent(getActivity(), MyOrderActivity.class);
+                intent.putExtra("index", 0);
+                MainActivity.mainActivity.startActivityIn(intent, getActivity());
+                break;
+            case R.id.compete:
+                intent = new Intent(getActivity(), MyOrderActivity.class);
+                intent.putExtra("index", 1);
+                MainActivity.mainActivity.startActivityIn(intent, getActivity());
+                break;
+            case R.id.for_the_delivery:
+                intent = new Intent(getActivity(), MyOrderActivity.class);
+                intent.putExtra("index", 2);
+                MainActivity.mainActivity.startActivityIn(intent, getActivity());
+                break;
+            case R.id.is_the_delivery:
+                intent = new Intent(getActivity(), MyOrderActivity.class);
+                intent.putExtra("index", 3);
+                MainActivity.mainActivity.startActivityIn(intent, getActivity());
+                break;
+            case R.id.after_sale:
+                intent = new Intent(getActivity(), MyOrderActivity.class);
+                intent.putExtra("index", 4);
+                MainActivity.mainActivity.startActivityIn(intent, getActivity());
+                break;
             case R.id.my_wallte:
                 intent = new Intent(getActivity(), MyWalletActivity.class);
                 MainActivity.mainActivity.startActivityIn(intent, getActivity());

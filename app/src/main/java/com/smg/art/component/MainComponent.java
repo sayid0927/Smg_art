@@ -18,6 +18,7 @@ import com.smg.art.ui.fragment.RecentMessageFragment;
 import com.smg.art.ui.login.ForgetPasswordActivity;
 import com.smg.art.ui.login.LoginActivity;
 import com.smg.art.ui.login.RegisterActivity;
+import com.smg.art.ui.personalcenter.fragemnt.AuctionOrderFragment;
 
 import dagger.Component;
 
@@ -55,5 +56,8 @@ public interface MainComponent {
     AuctionCentreFragment inject (AuctionCentreFragment auctionCentreFragment);
 
     RecentMessageFragment inject (RecentMessageFragment recentMessageFragment);
+
+    AuctionOrderFragment inject(AuctionOrderFragment auctionOrderFragment);
+
 
 }
