@@ -72,6 +72,7 @@ public class MainActivityPresenter extends BasePresenter<MainContract.View> impl
                 public void onError(RongIMClient.ErrorCode errorCode) {
                     setRongIMCState(RongIMCUtils.Connect_Error);
                     ToastUtils.showLongToast("--onError" + errorCode);
+
                 }
             });
         }
