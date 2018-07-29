@@ -127,7 +127,8 @@
         <!-- 必选： SDK 核心功能 -->
         <!-- end -->
 
-        <activity android:name=".ui.activity.GuideActivity">
+        <activity android:name=".ui.activity.GuideActivity"
+            android:theme="@style/AppThemeMain"  >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -146,6 +147,7 @@
             android:theme="@style/AppThemeMain" />
         <activity
             android:name=".ui.login.LoginActivity"
+            android:theme="@style/AppThemeMain"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity

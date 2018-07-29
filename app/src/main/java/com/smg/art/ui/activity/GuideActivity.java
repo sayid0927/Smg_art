@@ -3,6 +3,7 @@ package com.smg.art.ui.activity;
 import android.content.Intent;
 import android.os.Handler;
 
+import com.jaeger.library.StatusBarUtil;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
 import com.smg.art.component.AppComponent;
@@ -36,18 +37,19 @@ public class GuideActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        StatusBarUtil.setTransparentForImageViewInFragment(GuideActivity.this, null);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (LocalAppConfigUtil.getInstance().isLogin()) {
                     Intent intent = new Intent();
                     intent.setClass(GuideActivity.this, MainActivity.class);
-                    startActivity(intent);
+                    startActivityIn(intent,GuideActivity.this);
                     finish();
                 } else {
                     Intent intent = new Intent();
                     intent.setClass(GuideActivity.this, LoginActivity.class);
-                    startActivity(intent);
+                    startActivityIn(intent,GuideActivity.this);
                     finish();
                 }
 
