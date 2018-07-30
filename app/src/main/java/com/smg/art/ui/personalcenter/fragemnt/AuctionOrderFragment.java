@@ -1,5 +1,6 @@
 package com.smg.art.ui.personalcenter.fragemnt;
 
+import android.os.Bundle;
 import android.widget.ListView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -51,21 +52,8 @@ public class AuctionOrderFragment extends BaseFragment implements AuctionOrderCo
     }
 
     @Override
-    protected void initView() {
-        super.initView();
-        List<String> mlist = new ArrayList<>();
-        mlist.add("1");
-        mlist.add("1");
-        mlist.add("1");
-        mlist.add("1");
-        mlist.add("1");
-        mlist.add("1");
-        mlist.add("1");
-        mlist.add("1");
-        mlist.add("1");
-        mlist.add("1");
-        mlist.add("1");
-        mlist.add("1");
+    protected void initView(Bundle bundle) {
+        super.initView(bundle);
         srl.setPrimaryColorsId(R.color.main_color);
         srl.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -80,7 +68,19 @@ public class AuctionOrderFragment extends BaseFragment implements AuctionOrderCo
                 srl.finishLoadmore();
             }
         });
-
+        List<String> mlist = new ArrayList<>();
+        mlist.add("1");
+        mlist.add("1");
+        mlist.add("1");
+        mlist.add("1");
+        mlist.add("1");
+        mlist.add("1");
+        mlist.add("1");
+        mlist.add("1");
+        mlist.add("1");
+        mlist.add("1");
+        mlist.add("1");
+        mlist.add("1");
         auctionAdapter = new AuctionAdapter(getActivity(), mlist);
         listView.setAdapter(auctionAdapter);
     }
