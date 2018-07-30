@@ -19,12 +19,17 @@ package com.smg.art.api;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
+import com.smg.art.base.AuctionBuyerDepositBean;
+import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.Constant;
+import com.smg.art.base.HomePageImgBean;
 import com.smg.art.bean.Apk_UpdateBean;
 import com.smg.art.bean.ForgetPasswordBean;
 import com.smg.art.bean.LoginBean;
 import com.smg.art.bean.PhoneVerifyCodeBean;
 import com.smg.art.bean.RegisterBean;
+import com.smg.art.bean.SaveCollectsBean;
+import com.smg.art.utils.LocalAppConfigUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +38,8 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.POST;
+import retrofit2.http.QueryMap;
 import rx.Observable;
 
 public class Api {
@@ -70,8 +77,8 @@ public class Api {
                 map.put(s[i], s[++i]);
             }
         }
-        if (!TextUtils.isEmpty(JWTTOKEN)) {
-            map.put("access_token", JWTTOKEN);
+        if (!TextUtils.isEmpty(LocalAppConfigUtil.getInstance().getAccessToken())) {
+            map.put("access_token", LocalAppConfigUtil.getInstance().getAccessToken());
         }
         return map;
     }
@@ -106,4 +113,35 @@ public class Api {
     public Observable<ForgetPasswordBean> FetchForgetPassword(String... s) {
         return service.FetchForgetPassWord(getMap(s));
     }
+
+    /**
+     * 首页广告图片列表
+     */
+    public Observable<HomePageImgBean> FetchHomePageImgBean() {
+        return service.FetchHomePageImgBean();
+    }
+
+    /**
+     * 拍卖品详情
+     */
+    public Observable<AuctionDetailBean> FetchHomepageGetauctiondetail(String... s) {
+        return service.FetchHomepageGetauctiondetail(getMap(s));
+    }
+
+    /**
+     * 新增收藏商品
+     */
+    public Observable<SaveCollectsBean> FetchMembercollectspageSave(String... s) {
+        return service.FetchMembercollectspageSave(getMap(s));
+    }
+
+    /**
+     * 保证金支付
+     */
+    public Observable<AuctionBuyerDepositBean> FetchAuctionBuyerDeposit(String... s) {
+        return service.FetchAuctionBuyerDeposit(getMap(s));
+    }
+
+
+
 }

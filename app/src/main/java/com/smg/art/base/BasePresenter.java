@@ -25,13 +25,16 @@ public class BasePresenter<T extends BaseContract.BaseView> implements BaseContr
      */
     public Dialog showWaitingDialog(String tip) {
         hideWaitingDialog();
-        View view = View.inflate(context, R.layout.dialog_waiting, null);
-        if (!TextUtils.isEmpty(tip))
-            ((TextView) view.findViewById(R.id.tvTip)).setText(tip);
-        mDialogWaiting = new CustomDialog(context, view, R.style.MyDialog);
-        mDialogWaiting.show();
-        mDialogWaiting.setCancelable(false);
-        return mDialogWaiting;
+        if(this.context !=null) {
+            View view = View.inflate(this.context, R.layout.dialog_waiting, null);
+            if (!TextUtils.isEmpty(tip))
+                ((TextView) view.findViewById(R.id.tvTip)).setText(tip);
+            mDialogWaiting = new CustomDialog(this.context, view, R.style.MyDialog);
+            mDialogWaiting.show();
+            mDialogWaiting.setCancelable(false);
+            return mDialogWaiting;
+        }
+        return  null;
     }
 
     /**
@@ -66,6 +69,7 @@ public class BasePresenter<T extends BaseContract.BaseView> implements BaseContr
     @Override
     public void detachView() {
         this.mView = null;
+        this.context = null;
         unSubscribe();
     }
 }

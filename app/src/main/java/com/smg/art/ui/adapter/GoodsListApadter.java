@@ -34,7 +34,7 @@ public class GoodsListApadter extends BaseQuickAdapter<GoodsBean, BaseViewHolder
             @Override
             public void onClick(View view) {
                 if(onGoodsItemListener!=null)
-                onGoodsItemListener.OnGoodsItemListener(item);
+                onGoodsItemListener.OnGoodsItemListener(item,helper.getPosition());
             }
         });
     }
@@ -48,7 +48,7 @@ public class GoodsListApadter extends BaseQuickAdapter<GoodsBean, BaseViewHolder
     }
 
     public  interface  OnGoodsItemListener {
-        void  OnGoodsItemListener(GoodsBean item);
+        void  OnGoodsItemListener(GoodsBean item,int postion);
     }
 
 }

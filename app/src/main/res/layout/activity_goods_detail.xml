@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#362828"
     android:fitsSystemWindows="true">
-
 
 
     <android.support.v4.widget.NestedScrollView
@@ -16,19 +16,15 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-        <com.github.lzyzsd.jsbridge.BridgeWebView
-            android:id="@+id/webview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true" />
+        <include layout="@layout/include_goods_detail" />
+
 
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBar_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/bj_250dp">
+        android:layout_height="375dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
@@ -38,17 +34,23 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="375dp"
                 android:background="@android:color/darker_gray"
                 app:layout_collapseMode="parallax">
 
-                <ImageView
-                    android:id="@+id/hero_bg_pic"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/test" />
 
+                <cn.bingoogolapple.bgabanner.BGABanner
+                    android:id="@+id/banner"
+                    style="@style/BannerLStyle"
+                    app:banner_indicatorGravity="bottom|left"
+                    app:banner_isNeedShowIndicatorOnOnlyOnePage="true"
+                    app:banner_isNumberIndicator="true"
+                    app:banner_numberIndicatorBackground="@drawable/shape_number_indicator_background"
+                    app:banner_numberIndicatorTextColor="@android:color/white"
+                    app:banner_numberIndicatorTextSize="10sp"
+                    app:banner_pointAutoPlayAble="true"
+                    app:banner_pointContainerBackground="@android:color/transparent"
+                    app:banner_transitionEffect="defaultEffect" />
 
             </RelativeLayout>
 
@@ -127,6 +129,7 @@
             android:textSize="22px" />
 
         <TextView
+            android:id="@+id/tv_auction"
             android:layout_width="300px"
             android:layout_height="76px"
             android:layout_alignParentRight="true"

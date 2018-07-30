@@ -191,11 +191,11 @@ public class LoginActivity extends BaseActivity implements LoginContract.View, V
                 startActivityIn(new Intent(this, ForgetPasswordActivity.class),this);
                 break;
             case R.id.comfirm:
-                startActivityIn(new Intent(this, MainActivity.class),this);
-                finish();
-//                if (checkUp()) {
-//                    mPresenter.FetchLogin("account", etContext.getText().toString().replace(" ", ""), "password", etPayPwd.getText().toString());
-//                }
+//                startActivityIn(new Intent(this, MainActivity.class),this);
+//                finish();
+                if (checkUp()) {
+                    mPresenter.FetchLogin("account", etContext.getText().toString().replace(" ", ""), "password", etPayPwd.getText().toString());
+                }
                 break;
             case R.id.register_now:
                 startActivityIn(new Intent(this, RegisterActivity.class),this);

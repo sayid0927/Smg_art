@@ -16,12 +16,16 @@
 package com.smg.art.api;
 
 
+import com.smg.art.base.AuctionBuyerDepositBean;
+import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.Constant;
+import com.smg.art.base.HomePageImgBean;
 import com.smg.art.bean.Apk_UpdateBean;
 import com.smg.art.bean.ForgetPasswordBean;
 import com.smg.art.bean.LoginBean;
 import com.smg.art.bean.PhoneVerifyCodeBean;
 import com.smg.art.bean.RegisterBean;
+import com.smg.art.bean.SaveCollectsBean;
 
 import java.util.Map;
 
@@ -68,5 +72,30 @@ public interface ApiService {
      */
     @POST(Constant.FINDPASSWORDBYVALIDTECODE)
     Observable<ForgetPasswordBean> FetchForgetPassWord(@QueryMap Map<String, String> map);
+
+    /**
+     * 首页广告图片列表
+     */
+    @POST(Constant.HOMEPAGE_GETHOMEPAGEIMG)
+    Observable<HomePageImgBean> FetchHomePageImgBean();
+
+    /**
+     * 拍卖品详情
+     */
+    @GET(Constant.HOMEPAGE_GETAUCTIONDETAIL)
+    Observable<AuctionDetailBean> FetchHomepageGetauctiondetail(@QueryMap Map<String, String> map);
+
+    /**
+     * 新增收藏商品
+     */
+    @POST(Constant.MEMBERCOLLECTSPAGE_SAVE)
+    Observable<SaveCollectsBean> FetchMembercollectspageSave(@QueryMap Map<String, String> map);
+
+
+    /**
+     * 保证金支付
+     */
+    @POST(Constant.AUCTIONBUYERDEPOSIT_INSERT)
+    Observable<AuctionBuyerDepositBean> FetchAuctionBuyerDeposit(@QueryMap Map<String, String> map);
 
 }

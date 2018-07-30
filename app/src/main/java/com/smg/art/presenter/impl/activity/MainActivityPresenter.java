@@ -1,15 +1,12 @@
 
 package com.smg.art.presenter.impl.activity;
 
-import com.blankj.utilcode.utils.LogUtils;
 import com.blankj.utilcode.utils.ToastUtils;
-import com.orhanobut.logger.Logger;
-import com.smg.art.R;
 import com.smg.art.api.Api;
 import com.smg.art.base.BaseApplication;
 import com.smg.art.base.BasePresenter;
-import com.smg.art.bean.Apk_UpdateBean;
 import com.smg.art.presenter.contract.activity.MainContract;
+import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.utils.RongIMCStateful;
 import com.smg.art.utils.RongIMCUtils;
 import com.smg.art.utils.UIUtils;
@@ -17,9 +14,6 @@ import com.smg.art.utils.UIUtils;
 import javax.inject.Inject;
 
 import io.rong.imlib.RongIMClient;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 
 public class MainActivityPresenter extends BasePresenter<MainContract.View> implements MainContract.Presenter<MainContract.View>,RongIMCStateful {
@@ -59,7 +53,9 @@ public class MainActivityPresenter extends BasePresenter<MainContract.View> impl
 
                 @Override
                 public void onSuccess(String userid) {
+
                     setRongIMCState(RongIMCUtils.Connect_Success);
+                    LocalAppConfigUtil.getInstance().setRCMemberId(userid);
                     ToastUtils.showLongToast("--onSuccess---" + userid);
                 }
 

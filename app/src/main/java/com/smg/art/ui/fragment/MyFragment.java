@@ -13,6 +13,7 @@ import com.smg.art.base.Constant;
 import com.smg.art.bean.Apk_UpdateBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.presenter.contract.fragment.HomeContract;
+import com.smg.art.presenter.contract.fragment.MyFragmentContract;
 import com.smg.art.ui.activity.MainActivity;
 import com.smg.art.ui.personalcenter.CashDepositActivity;
 import com.smg.art.ui.personalcenter.MyCollectionActivity;
@@ -27,7 +28,7 @@ import butterknife.OnClick;
  * Created by Mervin on 2018/7/24 0024.
  */
 
-public class MyFragment extends BaseFragment implements HomeContract.View {
+public class MyFragment extends BaseFragment implements MyFragmentContract.View {
     @BindView(R.id.mine_head)
     ImageView mineHead;
     @BindView(R.id.user_name)
@@ -84,10 +85,6 @@ public class MyFragment extends BaseFragment implements HomeContract.View {
     RelativeLayout setting;
     Intent intent;
 
-    @Override
-    public void ApkUpdateS(Apk_UpdateBean.DataBean dataBean) {
-
-    }
 
     @Override
     public void showError(String message) {

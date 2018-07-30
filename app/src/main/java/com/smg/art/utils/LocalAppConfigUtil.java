@@ -163,7 +163,6 @@ public class LocalAppConfigUtil {
         editor = sp.edit();
         editor.putString("access_token", accessToken);
         editor.commit();
-        Api.JWTTOKEN = accessToken;
     }
 
     public String getPassword() {
@@ -265,5 +264,24 @@ public class LocalAppConfigUtil {
     public String getRCToken() {
         return sp.getString("RCToken", "");
     }
+
+
+
+    /**
+     * 设置当前融云用户ID
+     *
+     * @param userid
+     *
+     */
+    public void setRCMemberId(String userid) {
+        editor = sp.edit();
+        editor.putString("RCMemberId", userid);
+        editor.commit();
+    }
+
+    public String getRCMemberId() {
+        return sp.getString("RCMemberId", "");
+    }
+
 }
 

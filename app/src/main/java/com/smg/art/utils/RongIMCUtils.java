@@ -5,6 +5,8 @@ package com.smg.art.utils;
  */
 
 public class RongIMCUtils {
+
+
     /***
      * 融云连接状态
      *

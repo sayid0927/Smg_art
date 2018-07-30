@@ -15,9 +15,13 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.orhanobut.logger.Logger;
 import com.smg.art.R;
+import com.smg.art.base.AuctionDetailBean;
+import com.smg.art.base.BaseApplication;
 import com.smg.art.base.BaseFragment;
 import com.smg.art.base.Constant;
+import com.smg.art.base.HomePageImgBean;
 import com.smg.art.bean.Apk_UpdateBean;
 import com.smg.art.bean.GoodsBean;
 import com.smg.art.component.AppComponent;
@@ -100,6 +104,9 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
 
     @Override
     protected void initView(Bundle bundle) {
+
+
+
         goodsBeans = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
             GoodsBean goodsBean = new GoodsBean();
@@ -118,9 +125,10 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
         srlAndroid.setOnRefreshListener(this);
         mAdapter.OnGoodsItemListener(new GoodsListApadter.OnGoodsItemListener() {
             @Override
-            public void OnGoodsItemListener(GoodsBean item) {
+            public void OnGoodsItemListener(GoodsBean item,int postion) {
 
                 Intent i = new Intent(getActivity(), GoodsDetailActivity.class);
+                i.putExtra("postion",postion);
                 MainActivity.mainActivity.startActivityIn(i, getActivity());
 
             }
@@ -146,18 +154,22 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
                 "http://a.hiphotos.baidu.com/image/h%3D300/sign=4a51c9cd7e8b4710d12ffbccf3ccc3b2/b64543a98226cffceee78e5eb5014a90f703ea09.jpg",
                 "http://a.hiphotos.baidu.com/image/h%3D300/sign=4a51c9cd7e8b4710d12ffbccf3ccc3b2/b64543a98226cffceee78e5eb5014a90f703ea09.jpg"),
                 Arrays.asList("", "", ""));
+
+        mPresenter.FetchHomePageImg();
+
     }
 
 
     @Override
     public void loadData() {
         setState(Constant.STATE_SUCCESS);
+
     }
 
 
     @Override
     public void attachView() {
-        mPresenter.attachView(this, getActivity());
+        mPresenter.attachView(this, getSupportActivity());
     }
 
     @Override
@@ -173,6 +185,15 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
     @Override
     public void ApkUpdateS(Apk_UpdateBean.DataBean dataBean) {
 
+    }
+
+    /**
+     * 首页广告图片列表
+     * @param homePageImgBean
+     */
+    @Override
+    public void FetchHomePageImgSuccess(HomePageImgBean homePageImgBean) {
+        Logger.t("TAG").d(homePageImgBean);
     }
 
     @Override
