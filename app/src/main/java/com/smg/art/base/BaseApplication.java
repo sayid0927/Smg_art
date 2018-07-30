@@ -68,7 +68,7 @@ public class BaseApplication extends Application  implements RongIMClient.OnRece
 //        CrashHandler.getInstance(this).init();
         PreferUtil.getInstance().init(this);
         //初始化融云
-        initRongCloud();
+//        initRongCloud();
         //初始化红包
 //        initRedPacket();
 

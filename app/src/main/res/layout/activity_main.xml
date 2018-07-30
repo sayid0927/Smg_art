@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,16 +14,38 @@
         android:layout_weight="1" />
 
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tab_layout"
-        style="@style/TabLayoutTextStyle"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        app:tabIndicatorColor="@color/colorPrimary"
-        android:background="@color/colorPrimary"
-        app:tabSelectedTextColor="#e2bd74"
-        app:tabTextColor="@color/white">
+    <!--<android.support.design.widget.TabLayout-->
+        <!--android:id="@+id/tab_layout"-->
+        <!--style="@style/TabLayoutTextStyle"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="50dp"-->
+        <!--app:tabIndicatorHeight="0dp"-->
+        <!--app:tabIndicatorColor="@color/colorPrimary"-->
+        <!--android:background="@color/colorPrimary"-->
+        <!--app:tabSelectedTextColor="#e2bd74"-->
+        <!--app:tabTextColor="@color/white">-->
 
-    </android.support.design.widget.TabLayout>
+    <!--</android.support.design.widget.TabLayout>-->
+
+
+    <com.flyco.tablayout.CommonTabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bj_40dp"
+        android:layout_centerInParent="true"
+        android:background="@color/colorPrimaryDark"
+        tl:tl_divider_color="@color/colorPrimaryDark"
+        tl:tl_divider_width="1dp"
+        tl:tl_indicator_color="@color/white"
+        tl:tl_indicator_width_equal_title="true"
+        tl:tl_tab_space_equal="true"
+        tl:tl_textSelectColor="#e2bd74"
+        tl:tl_textUnselectColor="#724949"
+        tl:tl_underline_color="#1A000000"
+        tl:tl_underline_height="1dp"
+        tl:tl_iconHeight="20dp"
+        tl:tl_iconWidth="20dp"
+        tl:tl_indicator_height="0dp"
+        tl:tl_textsize="12sp" />
 
 </com.zhy.autolayout.AutoLinearLayout>
