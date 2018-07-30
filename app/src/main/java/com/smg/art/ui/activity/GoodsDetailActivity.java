@@ -1,16 +1,19 @@
 package com.smg.art.ui.activity;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,8 +31,10 @@ import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.activity.GoodsDetailContract;
 import com.smg.art.presenter.impl.activity.GoodsDetailActivityPresenter;
+import com.smg.art.utils.CallPhone;
 import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.utils.ValidateTime;
+import com.smg.art.view.MyBridgeWebView;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.PermissionListener;
 
@@ -39,13 +44,11 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bingoogolapple.bgabanner.BGABanner;
 
@@ -70,11 +73,9 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
     @BindView(R.id.tv_actionName)
     TextView tvActionName;
     @BindView(R.id.webview)
-    BridgeWebView webview;
+    MyBridgeWebView webview;
     @BindView(R.id.banner)
     BGABanner banner;
-
-    private static final String BaseImgUrl = "http://192.168.1.56:8080/art-world";
     @BindView(R.id.tv_startPrice)
     TextView tvStartPrice;
     @BindView(R.id.tv_frontMoneyAmount)
@@ -89,12 +90,12 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
     TextView tvSs;
     @BindView(R.id.tv_auction)
     TextView tvAuction;
+    @BindView(R.id.bt_auction)
+    Button btAuction;
 
-    private int goodsId;
-    private int id;
     private int postion;
-    private double amount;
-
+    private AuctionDetailBean detailBean;
+    private static final String BaseImgUrl = "http://192.168.1.56:8080/art-world";
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -119,13 +120,9 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
     @Override
     public void initView() {
         setSwipeBackEnable(true);
-        webview.setWebViewClient(new MyWebViewClient(webview));
-        webview.getSettings().setJavaScriptEnabled(true);
-        webview.getSettings().setDefaultTextEncodingName("utf-8");
-        webview.setBackgroundColor(0); // 设置背景色
+        webview.setBackgroundColor(0);
         postion = getIntent().getIntExtra("postion", 0);
         mPresenter.FetchHomepageGetauctiondetail("id", String.valueOf(postion));
-
 
         toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
@@ -136,10 +133,10 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
                 int endOffset = appBarLayout.getHeight() - toolbar.getHeight();
                 int startOffset = 0;
                 int offset = Math.abs(verticalOffset);
-                if (offset <= startOffset) {  //alpha为0
+                if (offset <= startOffset) {
                     toolbar.getBackground().setAlpha(0);
                     toolbarTitle.setVisibility(View.GONE);
-                } else if (offset > startOffset && offset < endOffset) { //alpha为0到255
+                } else if (offset > startOffset && offset < endOffset) {
                     float precent = (float) (offset - startOffset) / endOffset;
                     int alpha = Math.round(precent * 255);
                     toolbar.getBackground().setAlpha(alpha);
@@ -149,7 +146,7 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
                     } else {
                         toolbarBack.setImageResource(R.drawable.arrow_back);
                     }
-                } else if (offset >= endOffset) {  //alpha为255
+                } else if (offset >= endOffset) {
                     toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                     toolbar.getBackground().setAlpha(255);
                     toolbarTitle.setVisibility(View.VISIBLE);
@@ -166,84 +163,10 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
         ToastUtils.showLongToast(message);
     }
 
-    @Override
-    public void finish() {
-        webview.removeAllViews();
-        webview.destroy();
-        webview = null;
-        super.finish();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-
-    @SuppressLint("MissingPermission")
-    @OnClick({R.id.tv_collectioin, R.id.phone_service, R.id.toolbar_back,R.id.tv_auction})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.toolbar_back: //返回
-                finish();
-                break;
-            case R.id.tv_collectioin:  //收藏
-                mPresenter.FetchMembercollectspageSave("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()), "goodsId", String.valueOf(goodsId));
-                break;
-            case  R.id.tv_auction:  // 交保证金参与
-                mPresenter.FetchAuctionBuyerDeposit("auctionId",String.valueOf(id),"goodsId",String.valueOf(goodsId),"memberId",String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),"amount",String.valueOf(amount));
-                break;
-
-            case R.id.phone_service:  //客服
-                if (LocalAppConfigUtil.getInstance().isLogin()) {
-                    if (!TextUtils.isEmpty(LocalAppConfigUtil.getInstance().getServiceTel())) {
-                        if (AndPermission.hasPermission(GoodsDetailActivity.this, Manifest.permission.CALL_PHONE)) {
-                            // 有权限，直接do anything.
-                            Intent intent = new Intent(Intent.ACTION_CALL);
-                            Uri data = Uri.parse("tel:" + LocalAppConfigUtil.getInstance().getServiceTel());
-                            intent.setData(data);
-                            startActivity(intent);
-                        } else {
-                            // 申请权限。
-                            AndPermission.with(GoodsDetailActivity.this)
-                                    .requestCode(100)
-                                    .permission(Manifest.permission.CALL_PHONE)
-                                    .send();
-                        }
-                    } else {
-                        if (AndPermission.hasPermission(GoodsDetailActivity.this, Manifest.permission.CALL_PHONE)) {
-                            // 有权限，直接do anything.
-                            Intent intent2 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:0755-82714092"));
-                            startActivity(intent2);
-                        } else {
-                            // 申请权限。
-                            AndPermission.with(GoodsDetailActivity.this)
-                                    .requestCode(100)
-                                    .permission(Manifest.permission.CALL_PHONE)
-                                    .send();
-                        }
-                    }
-                } else {
-                    if (AndPermission.hasPermission(GoodsDetailActivity.this, Manifest.permission.CALL_PHONE)) {
-                        // 有权限，直接do anything.
-                        Intent intent2 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:0755-82714092"));
-                        startActivity(intent2);
-                    } else {
-                        // 申请权限。
-                        AndPermission.with(GoodsDetailActivity.this)
-                                .requestCode(100)
-                                .permission(Manifest.permission.CALL_PHONE)
-                                .send();
-                    }
-                }
-                break;
-        }
-    }
 
     /**
      * 新增收藏商品
      */
-
     @Override
     public void FetchMembercollectspageSaveSuccess(SaveCollectsBean saveCollectsBean) {
         ToastUtils.showLongToast(saveCollectsBean.getMsg());
@@ -262,9 +185,7 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
      */
     @Override
     public void FetchHomepageGetauctiondetailSuccess(AuctionDetailBean auctionDetailBean) {
-        amount = auctionDetailBean.getData().getFrontMoneyAmount();
-        id = auctionDetailBean.getData().getId();
-        goodsId = auctionDetailBean.getData().getGoodsId();
+        this.detailBean = auctionDetailBean;
         tvActionName.setText(auctionDetailBean.getData().getActionName());
         tvStartPrice.setText("￥ " + String.valueOf(auctionDetailBean.getData().getStartPrice()));
         tvFrontMoneyAmount.setText("￥ " + String.valueOf(auctionDetailBean.getData().getFrontMoneyAmount()));
@@ -318,8 +239,50 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
                         .into(itemView);
             }
         });
-        banner.setData(imgUrls, Arrays.asList("", "", ""));
+        banner.setData(imgUrls, null);
         webview.loadDataWithBaseURL(null, getNewContent(auctionDetailBean.getData().getAuctionDesc()), "text/html", "utf-8", null);
+    }
+
+    @Override
+    public void finish() {
+        webview.removeAllViews();
+        webview.destroy();
+        webview = null;
+        super.finish();
+    }
+
+    @SuppressLint("MissingPermission")
+    @OnClick({R.id.tv_collectioin, R.id.phone_service, R.id.toolbar_back, R.id.bt_auction})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.toolbar_back: //返回
+                finish();
+                break;
+            case R.id.tv_collectioin:  //收藏
+                if (detailBean != null)
+                    mPresenter.FetchMembercollectspageSave("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
+                            "goodsId", String.valueOf(detailBean.getData().getGoodsId()));
+                break;
+            case R.id.bt_auction:  // 交保证金参与
+                if (detailBean != null)
+                    mPresenter.FetchAuctionBuyerDeposit("auctionId", String.valueOf(detailBean.getData().getId()),
+                            "goodsId", String.valueOf(detailBean.getData().getGoodsId()),
+                            "memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
+                            "amount", String.valueOf(detailBean.getData().getFrontMoneyAmount()));
+                break;
+
+            case R.id.phone_service:  //客服
+                if (LocalAppConfigUtil.getInstance().isLogin()) {
+                    if (!TextUtils.isEmpty(LocalAppConfigUtil.getInstance().getServiceTel())) {
+                        CallPhone.callPhone(this, LocalAppConfigUtil.getInstance().getServiceTel());
+                    } else {
+                        CallPhone.callPhone(this, "0755-82714092");
+                    }
+                } else {
+                    CallPhone.callPhone(this, "0755-82714092");
+                }
+                break;
+        }
     }
 
 
@@ -344,7 +307,6 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
         public void onSucceed(int requestCode, List<String> grantedPermissions) {
             // 权限申请成功回调。
             if (!TextUtils.isEmpty(LocalAppConfigUtil.getInstance().getServiceTel())) {
-
                 Intent intent = new Intent(Intent.ACTION_CALL);
                 Uri data = Uri.parse("tel:" + LocalAppConfigUtil.getInstance().getServiceTel());
                 intent.setData(data);
@@ -358,17 +320,6 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
         @Override
         public void onFailed(int requestCode, List<String> deniedPermissions) {
 
-
         }
     };
-
-
-    public class MyWebViewClient extends BridgeWebViewClient {
-
-        public MyWebViewClient(BridgeWebView webView) {
-            super(webView);
-        }
-    }
-
-
 }

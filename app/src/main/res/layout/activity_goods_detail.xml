@@ -97,7 +97,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="98px"
+        android:layout_height="@dimen/bj_45dp"
         android:layout_gravity="bottom"
         android:background="#341c1c">
 
@@ -112,7 +112,7 @@
             android:gravity="center"
             android:text="收藏"
             android:textColor="@color/white"
-            android:textSize="22px" />
+            android:textSize="@dimen/wz_12sp" />
 
         <TextView
             android:id="@+id/phone_service"
@@ -126,21 +126,21 @@
             android:gravity="center"
             android:text="客服"
             android:textColor="@color/white"
-            android:textSize="22px" />
+            android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/tv_auction"
-            android:layout_width="300px"
-            android:layout_height="76px"
+        <Button
+            android:id="@+id/bt_auction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="80px"
+            android:layout_marginRight="@dimen/bj_35dp"
+            android:layout_marginTop="@dimen/bj_15dp"
             android:background="@drawable/text_red_bg"
             android:gravity="center"
-            android:padding="10px"
             android:text="交保证金参与"
             android:textColor="@color/white"
-            android:textSize="36px" />
+            android:textSize="12sp" />
 
     </RelativeLayout>
 

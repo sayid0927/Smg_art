@@ -59,8 +59,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
     @BindView(R.id.rv_goods)
     RecyclerView rvGoods;
 
-    @BindView(R.id.rl_search)
-    AutoRelativeLayout rlSearch;
     @BindView(R.id.ll_book_draw)
     AutoLinearLayout llBookDraw;
     @BindView(R.id.ll_oil_draw)
@@ -87,8 +85,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
     EditText etSearchContent;
     @BindView(R.id.ivToolbarNavigation)
     ImageView ivToolbarNavigation;
-    @BindView(R.id.srl_android)
-    SwipeRefreshLayout srlAndroid;
+//    @BindView(R.id.srl_android)
+//    SwipeRefreshLayout srlAndroid;
 
 
     private GoodsListApadter mAdapter;
@@ -105,8 +103,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
     @Override
     protected void initView(Bundle bundle) {
 
-
-
         goodsBeans = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
             GoodsBean goodsBean = new GoodsBean();
@@ -122,7 +118,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
         rvGoods.setLayoutManager(new GridLayoutManager(getSupportActivity(), 2));
         rvGoods.setAdapter(mAdapter);
 
-        srlAndroid.setOnRefreshListener(this);
+//        srlAndroid.setOnRefreshListener(this);
         mAdapter.OnGoodsItemListener(new GoodsListApadter.OnGoodsItemListener() {
             @Override
             public void OnGoodsItemListener(GoodsBean item,int postion) {
@@ -163,7 +159,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
     @Override
     public void loadData() {
         setState(Constant.STATE_SUCCESS);
-
     }
 
 
