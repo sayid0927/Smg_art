@@ -1,15 +1,21 @@
 package com.smg.art.ui.personalcenter;
 
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
 import com.smg.art.component.AppComponent;
+import com.smg.art.ui.personalcenter.adapter.MyCollectionAdapter;
 import com.smg.art.utils.KeyBoardUtils;
+import com.smg.art.utils.TimerItemUtil;
 import com.zhy.autolayout.AutoRelativeLayout;
 
 import butterknife.BindView;
@@ -30,10 +36,12 @@ public class MyCollectionActivity extends BaseActivity {
     ImageView ivRight;
     @BindView(R.id.actionbar_text_action)
     TextView actionbarTextAction;
-    @BindView(R.id.listView)
-    ListView listView;
+
     @BindView(R.id.srl)
     SmartRefreshLayout srl;
+    MyCollectionAdapter myCollectionAdapter;
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -57,7 +65,24 @@ public class MyCollectionActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        actionbarTitle.setText(R.string.mycollection);
+        srl.setPrimaryColorsId(R.color.main_color);
+        srl.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                srl.finishRefresh();
+            }
 
+        });
+        srl.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                srl.finishLoadmore();
+            }
+        });
+        myCollectionAdapter = new MyCollectionAdapter(this, TimerItemUtil.getTimerItemList());
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(myCollectionAdapter);
     }
 
     @OnClick({R.id.rl_back})
@@ -69,4 +94,14 @@ public class MyCollectionActivity extends BaseActivity {
                 break;
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (myCollectionAdapter != null) {
+            myCollectionAdapter.cancelAllTimers();
+        }
+    }
+
+
 }

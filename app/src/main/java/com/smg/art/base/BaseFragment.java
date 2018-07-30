@@ -1,14 +1,11 @@
 package com.smg.art.base;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 
 import com.smg.art.component.AppComponent;
 import com.smg.art.view.LoadingPage;
@@ -23,20 +20,14 @@ import butterknife.Unbinder;
 public abstract class BaseFragment extends Fragment implements Stateful {
 
 
+    public LoadingPage mLoadingPage;
     protected View parentView;
     protected FragmentActivity activity;
     protected LayoutInflater inflater;
-
-    public LoadingPage mLoadingPage;
-
-    private boolean mIsVisible = false;     // fragment是否显示了
-
-    private boolean isPrepared = false;
-
-    private boolean isFirst = true; //只加载一次界面
-
-
     protected View contentView;
+    private boolean mIsVisible = false;     // fragment是否显示了
+    private boolean isPrepared = false;
+    private boolean isFirst = true; //只加载一次界面
     private Unbinder bind;
 
     @Override
@@ -117,9 +108,6 @@ public abstract class BaseFragment extends Fragment implements Stateful {
     public abstract void attachView();
 
     protected void initView(Bundle bundle) {
-    }
-
-    protected void initView() {
     }
 
     protected abstract void setupActivityComponent(AppComponent appComponent);

@@ -1,5 +1,6 @@
 package com.smg.art.ui.personalcenter.fragemnt;
 
+import android.os.Bundle;
 import android.widget.ListView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -8,6 +9,7 @@ import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.smg.art.R;
 import com.smg.art.base.BaseFragment;
+import com.smg.art.base.Constant;
 import com.smg.art.component.AppComponent;
 import com.smg.art.ui.personalcenter.adapter.FragmentAdapter;
 
@@ -28,6 +30,7 @@ public class AllFragment extends BaseFragment {
 
     @Override
     public void loadData() {
+        setState(Constant.STATE_SUCCESS);
     }
 
     @Override
@@ -46,8 +49,8 @@ public class AllFragment extends BaseFragment {
     }
 
     @Override
-    protected void initView() {
-        super.initView();
+    protected void initView(Bundle bundle) {
+        super.initView(bundle);
         srl.setPrimaryColorsId(R.color.main_color);
         srl.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -65,10 +68,10 @@ public class AllFragment extends BaseFragment {
         });
 
         ArrayList<String> list = new ArrayList<>();
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
+        list.add("1");
+        list.add("1");
+        list.add("1");
+        list.add("1");
         fragmentAdapter = new FragmentAdapter(getActivity(), list);
         listView.setAdapter(fragmentAdapter);
     }

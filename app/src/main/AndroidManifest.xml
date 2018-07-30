@@ -147,9 +147,9 @@
             android:theme="@style/AppThemeMain" />
         <activity
             android:name=".ui.login.LoginActivity"
-            android:theme="@style/AppThemeMain"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeMain" />
         <activity
             android:name=".ui.login.RegisterActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -228,6 +228,12 @@
             android:name=".ui.personalcenter.MyOrderActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.personalcenter.MyCollectionActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+
 
     </application>
 

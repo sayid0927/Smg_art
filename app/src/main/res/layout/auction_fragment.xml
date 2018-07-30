@@ -12,12 +12,19 @@
 
     <include layout="@layout/include_searbar" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_goods"
-        android:overScrollMode="never"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/srl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_goods"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never" />
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 
 
