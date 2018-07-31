@@ -42,6 +42,10 @@ public class Constant {
     public static final String MEMBER_LOGIN = "member/login";
     //忘记密码
     public static final String FINDPASSWORDBYVALIDTECODE = "member/findPasswordByValidteCode";
+    //获取保证金
+    public static final String QUERYAUCTIONBUYERDEPOSITS = "auctionBuyerDeposit/queryAuctionBuyerDeposits";
+    //我的收藏
+    public static final String QUERYMEMBERCOLLECTS = "memberCollectsPage/queryMemberCollects";
     /**
      * 首页广告图片列表
      */

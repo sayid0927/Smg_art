@@ -19,6 +19,7 @@ public class HistoricalSearchApadter extends BaseQuickAdapter<GoodsBean, BaseVie
 
     private Context mContext;
     private List<GoodsBean> data;
+    private OnGoodsItemListener onGoodsItemListener;
 
     public HistoricalSearchApadter(List<GoodsBean> data, Context mContext) {
         super(R.layout.item_goods, data);
@@ -27,7 +28,7 @@ public class HistoricalSearchApadter extends BaseQuickAdapter<GoodsBean, BaseVie
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, final GoodsBean item) {
+    protected void convert(final BaseViewHolder helper, final GoodsBean item) {
 //        helper.setText(R.id.file_title,item.getFileName());
 //        helper.setText(R.id.down_label,item.getFilePath());
         helper.itemView.setOnClickListener(new View.OnClickListener() {
@@ -38,10 +39,6 @@ public class HistoricalSearchApadter extends BaseQuickAdapter<GoodsBean, BaseVie
             }
         });
     }
-
-
-
-    private  OnGoodsItemListener  onGoodsItemListener;
 
     public void OnGoodsItemListener (OnGoodsItemListener  onGoodsItemListener){
         this.onGoodsItemListener =onGoodsItemListener;

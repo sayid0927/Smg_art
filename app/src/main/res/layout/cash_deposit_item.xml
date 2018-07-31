@@ -27,12 +27,18 @@
                 android:textColor="@color/black_666666"
                 android:textSize="@dimen/wz_13sp" />
 
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="@dimen/bj_17dp"
+                android:layout_marginLeft="@dimen/bj_5dp"
+                android:background="@drawable/hammer" />
+
             <TextView
                 android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/bj_5dp"
-                android:text="¥ 35488"
+                android:text="35488"
                 android:textColor="@color/red_b20002"
                 android:textSize="@dimen/wz_13sp" />
         </LinearLayout>
@@ -77,13 +83,15 @@
                 android:id="@+id/status_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="拍卖结束"
+                android:text="拍卖结束,保证金已退回至钱包"
                 android:textColor="@color/orange_d3a02c" />
+
 
             <TextView
                 android:id="@+id/time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/bj_14dp"
                 android:gravity="right"
                 android:text="2015-02-12 12:24:12"
                 android:textColor="@color/grey_999999"

@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.smg.art.R;
+import com.smg.art.bean.CashDepositiBean;
 
 import java.util.List;
 
@@ -20,9 +21,9 @@ public class CashDepositAdapter extends BaseAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
     //private List<ConsumerDetails.DataBean> mList;
-    private List<String> mList;
+    private List<CashDepositiBean.DataBean> mList;
 
-    public CashDepositAdapter(Context context, List<String> list) {
+    public CashDepositAdapter(Context context, List<CashDepositiBean.DataBean> list) {
         this.mContext = context;
         this.mList = list;
         this.mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -53,11 +54,17 @@ public class CashDepositAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-   /*     final ConsumerDetails.DataBean dataBean = mList.get(position);
-        viewHolder.info.setText(dataBean.getInfo());
-        viewHolder.time.setText(DateFormatUtil.getDateStringByTimeSTamp(dataBean.getCreate_time(), "yyyy-MM-dd HH:mm"));
-        viewHolder.price.setText(dataBean.getValue());*/
-
+        CashDepositiBean.DataBean dataBean = mList.get(position);
+        viewHolder.price.setText(String.format("%.2f", dataBean.getAmount()));
+        viewHolder.shop_name.setText(dataBean.getActionName());
+        if (dataBean.getStatus() == 0) {
+            viewHolder.status_btn.setVisibility(View.VISIBLE);
+            viewHolder.status_text.setVisibility(View.GONE);
+        } else if (dataBean.getStatus() == 1) {
+            viewHolder.status_btn.setVisibility(View.GONE);
+            viewHolder.status_text.setVisibility(View.VISIBLE);
+        }
+        viewHolder.time.setText(dataBean.getCreateTime());
         return convertView;
     }
 
