@@ -1,17 +1,15 @@
 package com.smg.art.ui.activity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -31,6 +29,7 @@ import com.smg.art.R;
 import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.BaseActivity;
+import com.smg.art.base.Constant;
 import com.smg.art.bean.SaveCollectsBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
@@ -49,11 +48,13 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bingoogolapple.bgabanner.BGABanner;
 
@@ -100,7 +101,7 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
 
     private int postion;
     private AuctionDetailBean detailBean;
-    private static final String BaseImgUrl = "http://192.168.1.56:8080/art-world";
+
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -230,7 +231,7 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
         List<String> imgUrls = new ArrayList<>();
 
         for (int i = 0; i < split.length; i++) {
-            imgUrls.add(BaseImgUrl + split[i]);
+            imgUrls.add(Constant.BaseImgUrl + split[i]);
         }
 
         banner.setAdapter(new BGABanner.Adapter<ImageView, String>() {
@@ -307,6 +308,7 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
         public void onSucceed(int requestCode, List<String> grantedPermissions) {
             // 权限申请成功回调。
             if (!TextUtils.isEmpty(LocalAppConfigUtil.getInstance().getServiceTel())) {
+
                 Intent intent = new Intent(Intent.ACTION_CALL);
                 Uri data = Uri.parse("tel:" + LocalAppConfigUtil.getInstance().getServiceTel());
                 intent.setData(data);
@@ -322,9 +324,5 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
 
         }
     };
-
-
-
-
 
 }

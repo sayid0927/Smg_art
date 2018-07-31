@@ -44,9 +44,13 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
 
                     @Override
                     public void onNext(HomePageImgBean data) {
-                        if (mView != null && data != null) {
+                        if (mView != null && data != null && data.getStatus() ==1) {
                             hideWaitingDialog();
                             mView.FetchHomePageImgSuccess(data);
+                        }else {
+                            if(data!=null && data.getMsg()!=null){
+                                mView.showError(data.getMsg());
+                            }
                         }
                     }
                 }));

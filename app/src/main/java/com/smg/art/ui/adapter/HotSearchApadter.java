@@ -15,28 +15,28 @@ import java.util.List;
  * Created by wengmf on 2018/3/22.
  */
 
-public class HotSearchApadter extends BaseQuickAdapter<GoodsBean, BaseViewHolder> {
+public class HotSearchApadter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     private Context mContext;
-    private List<GoodsBean> data;
+    private List<String> data;
 
-    public HotSearchApadter(List<GoodsBean> data, Context mContext) {
-        super(R.layout.item_goods, data);
+    public HotSearchApadter(List<String> data, Context mContext) {
+        super(R.layout.item_hot_search, data);
         this.mContext = mContext;
         this.data = data;
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, final GoodsBean item) {
-//        helper.setText(R.id.file_title,item.getFileName());
-//        helper.setText(R.id.down_label,item.getFilePath());
-        helper.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(onGoodsItemListener!=null)
-                onGoodsItemListener.OnGoodsItemListener(item,helper.getPosition());
-            }
-        });
+    protected void convert(BaseViewHolder helper, final String item) {
+
+        helper.setText(R.id.flow_text,item);
+//        helper.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if(onGoodsItemListener!=null)
+//                onGoodsItemListener.OnGoodsItemListener(item,helper.getPosition());
+//            }
+//        });
     }
 
 

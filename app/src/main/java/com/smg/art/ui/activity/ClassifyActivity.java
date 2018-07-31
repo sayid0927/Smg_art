@@ -72,29 +72,11 @@ public class ClassifyActivity extends BaseActivity implements ClassifyContract.V
 
         setSwipeBackEnable(true);
         int postion = getIntent().getIntExtra("postion", 0);
-        mTitleList.add(UIUtils.getString(R.string.bookDraw));
-        mTitleList.add(UIUtils.getString(R.string.oilDraw));
-        mTitleList.add(UIUtils.getString(R.string.birdDraw));
-        mTitleList.add(UIUtils.getString(R.string.hilDraw));
+        mTitleList = getIntent().getStringArrayListExtra("TitleList");
 
-        mTitleList.add(UIUtils.getString(R.string.peopleDraw));
-        mTitleList.add(UIUtils.getString(R.string.moneyDraw));
-        mTitleList.add(UIUtils.getString(R.string.jadeDraw));
-        mTitleList.add(UIUtils.getString(R.string.fineDraw));
-
-        mTitleList.add(UIUtils.getString(R.string.furnitureDraw));
-        mTitleList.add(UIUtils.getString(R.string.moreDraw));
-
-        mFragments.add(ClassifyChildFragment.getInstance());
-        mFragments.add(ClassifyChildFragment.getInstance());
-        mFragments.add(ClassifyChildFragment.getInstance());
-        mFragments.add(ClassifyChildFragment.getInstance());
-        mFragments.add(ClassifyChildFragment.getInstance());
-        mFragments.add(ClassifyChildFragment.getInstance());
-        mFragments.add(ClassifyChildFragment.getInstance());
-        mFragments.add(ClassifyChildFragment.getInstance());
-        mFragments.add(ClassifyChildFragment.getInstance());
-        mFragments.add(ClassifyChildFragment.getInstance());
+        for(int i=0;i<mTitleList.size();i++){
+            mFragments.add(ClassifyChildFragment.getInstance());
+        }
 
         BaseFragmentPageAdapter myAdapter = new BaseFragmentPageAdapter(getSupportFragmentManager(), mFragments, mTitleList);
         vp.setAdapter(myAdapter);

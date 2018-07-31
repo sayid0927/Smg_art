@@ -35,6 +35,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -141,7 +143,11 @@ public class Api {
     public Observable<AuctionBuyerDepositBean> FetchAuctionBuyerDeposit(String... s) {
         return service.FetchAuctionBuyerDeposit(getMap(s));
     }
-
-
+    /**
+     * 获取搜索列表
+     */
+    public Observable<Response<ResponseBody>> FetchHotWordsList(String... s) {
+        return service.FetchHotWordsList(getMap(s));
+    }
 
 }
