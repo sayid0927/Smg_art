@@ -65,17 +65,31 @@
                 android:layout_marginTop="@dimen/bj_18dp"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="¥"
-                    android:textColor="@color/red_b20002"
-                    android:textSize="@dimen/wz_9sp" />
+                <!-- <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="¥"
+                     android:textColor="@color/red_b20002"
+                     android:textSize="@dimen/wz_9sp" />-->
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="bottom"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/bj_15dp"
+                        android:layout_height="@dimen/bj_15dp"
+                        android:layout_marginBottom="@dimen/bj_5dp"
+                        android:layout_marginLeft="@dimen/bj_5dp"
+                        android:background="@drawable/hammer" />
+                </LinearLayout>
                 <TextView
                     android:id="@+id/price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/bj_3dp"
                     android:layout_weight="1"
                     android:text="199"
                     android:textColor="@color/red_b20002"

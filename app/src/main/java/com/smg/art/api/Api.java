@@ -23,7 +23,8 @@ import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.Constant;
 import com.smg.art.base.HomePageImgBean;
-import com.smg.art.bean.Apk_UpdateBean;
+import com.smg.art.bean.CashDepositiBean;
+import com.smg.art.bean.CollectionBean;
 import com.smg.art.bean.ForgetPasswordBean;
 import com.smg.art.bean.LoginBean;
 import com.smg.art.bean.PhoneVerifyCodeBean;
@@ -38,8 +39,6 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.POST;
-import retrofit2.http.QueryMap;
 import rx.Observable;
 
 public class Api {
@@ -143,5 +142,24 @@ public class Api {
     }
 
 
+    /**
+     * 保证金
+     *
+     * @param s
+     * @return
+     */
+    public Observable<CashDepositiBean> FetchCashDeposit(String... s) {
+        return service.FetchCashDeposit(getMap(s));
+    }
 
+
+    /**
+     * 保证金
+     *
+     * @param s
+     * @return
+     */
+    public Observable<CollectionBean> FetchCollection(String... s) {
+        return service.FetchCollection(getMap(s));
+    }
 }

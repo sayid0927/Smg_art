@@ -6,12 +6,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.utils.ToastUtils;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
 import com.smg.art.component.AppComponent;
+import com.smg.art.ui.login.LoginActivity;
 import com.smg.art.utils.KeyBoardUtils;
+import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.view.PopDialog;
 import com.zhy.autolayout.AutoRelativeLayout;
 
@@ -110,7 +111,17 @@ public class SettingActivity extends BaseActivity {
                 popDialog.findViewById(R.id.roll_out_submit).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ToastUtils.showShortToast("确定");
+                        LocalAppConfigUtil.getInstance().setAccessToken("");
+                        LocalAppConfigUtil.getInstance().setCurrentMerberId(0);
+                        LocalAppConfigUtil.getInstance().setCurrentMerberNo("");
+                        LocalAppConfigUtil.getInstance().setJsessionidShiro("");
+                        LocalAppConfigUtil.getInstance().setJsessionId("");
+                        LocalAppConfigUtil.getInstance().setRCToken("");
+                        LocalAppConfigUtil.getInstance().setUserTelephone("");
+                        LocalAppConfigUtil.getInstance().setPassword("");
+                        intent = new Intent(SettingActivity.this, LoginActivity.class);
+                        startActivityIn(intent, SettingActivity.this);
+                        finish();
                     }
                 });
                 break;

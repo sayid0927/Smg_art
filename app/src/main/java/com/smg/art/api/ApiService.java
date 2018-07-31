@@ -20,7 +20,8 @@ import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.Constant;
 import com.smg.art.base.HomePageImgBean;
-import com.smg.art.bean.Apk_UpdateBean;
+import com.smg.art.bean.CashDepositiBean;
+import com.smg.art.bean.CollectionBean;
 import com.smg.art.bean.ForgetPasswordBean;
 import com.smg.art.bean.LoginBean;
 import com.smg.art.bean.PhoneVerifyCodeBean;
@@ -31,10 +32,7 @@ import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Response;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
@@ -73,6 +71,17 @@ public interface ApiService {
     @POST(Constant.FINDPASSWORDBYVALIDTECODE)
     Observable<ForgetPasswordBean> FetchForgetPassWord(@QueryMap Map<String, String> map);
 
+    /**
+     * 保证金
+     */
+    @GET(Constant.QUERYAUCTIONBUYERDEPOSITS)
+    Observable<CashDepositiBean> FetchCashDeposit(@QueryMap Map<String, String> map);
+
+    /**
+     * 我的收藏
+     */
+    @GET(Constant.QUERYMEMBERCOLLECTS)
+    Observable<CollectionBean> FetchCollection(@QueryMap Map<String, String> map);
     /**
      * 首页广告图片列表
      */

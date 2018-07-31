@@ -19,6 +19,7 @@ public class GoodsListApadter extends BaseQuickAdapter<GoodsBean, BaseViewHolder
 
     private Context mContext;
     private List<GoodsBean> data;
+    private OnGoodsItemListener onGoodsItemListener;
 
     public GoodsListApadter(List<GoodsBean> data, Context mContext) {
         super(R.layout.item_goods, data);
@@ -27,7 +28,7 @@ public class GoodsListApadter extends BaseQuickAdapter<GoodsBean, BaseViewHolder
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, final GoodsBean item) {
+    protected void convert(final BaseViewHolder helper, final GoodsBean item) {
 //        helper.setText(R.id.file_title,item.getFileName());
 //        helper.setText(R.id.down_label,item.getFilePath());
         helper.itemView.setOnClickListener(new View.OnClickListener() {
@@ -38,10 +39,6 @@ public class GoodsListApadter extends BaseQuickAdapter<GoodsBean, BaseViewHolder
             }
         });
     }
-
-
-
-    private  OnGoodsItemListener  onGoodsItemListener;
 
     public void OnGoodsItemListener (OnGoodsItemListener  onGoodsItemListener){
         this.onGoodsItemListener =onGoodsItemListener;
