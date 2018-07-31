@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50px"
+        android:layout_marginLeft="@dimen/bj_10dp"
+        android:background="#f2f2f2"
+        android:gravity="center|left"
+        android:textSize="@dimen/wz_13sp"
+        android:text="历史搜索"
+        android:textColor="@color/black" />
+
+</com.zhy.autolayout.AutoRelativeLayout>

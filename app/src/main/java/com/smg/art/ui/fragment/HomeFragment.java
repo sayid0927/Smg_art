@@ -16,6 +16,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.orhanobut.logger.Logger;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.smg.art.R;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.BaseApplication;
@@ -33,6 +37,7 @@ import com.smg.art.ui.activity.GoodsDetailActivity;
 import com.smg.art.ui.activity.MainActivity;
 import com.smg.art.ui.activity.SearchActivity;
 import com.smg.art.ui.adapter.GoodsListApadter;
+import com.smg.art.utils.GlideUtils;
 import com.smg.art.view.MyLoadMoreView;
 import com.zhy.autolayout.AutoLinearLayout;
 import com.zhy.autolayout.AutoRelativeLayout;
@@ -50,7 +55,7 @@ import butterknife.Unbinder;
 import cn.bingoogolapple.bgabanner.BGABanner;
 
 
-public class HomeFragment extends BaseFragment implements HomeContract.View, BGABanner.Delegate, BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
+public class HomeFragment extends BaseFragment implements HomeContract.View, BGABanner.Delegate, OnLoadmoreListener, OnRefreshListener, GoodsListApadter.OnGoodsItemListener {
 
     @Inject
     HomePresenter mPresenter;
@@ -85,8 +90,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
     EditText etSearchContent;
     @BindView(R.id.ivToolbarNavigation)
     ImageView ivToolbarNavigation;
-//    @BindView(R.id.srl_android)
-//    SwipeRefreshLayout srlAndroid;
+    @BindView(R.id.srl)
+    SmartRefreshLayout srl;
 
 
     private GoodsListApadter mAdapter;
@@ -113,41 +118,24 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
         etSearchContent.setVisibility(View.GONE);
         ivToolbarNavigation.setVisibility(View.GONE);
         mAdapter = new GoodsListApadter(goodsBeans, getSupportActivity());
-        mAdapter.setOnLoadMoreListener(this, rvGoods);
         mAdapter.setLoadMoreView(new MyLoadMoreView());
         rvGoods.setLayoutManager(new GridLayoutManager(getSupportActivity(), 2));
         rvGoods.setAdapter(mAdapter);
 
-//        srlAndroid.setOnRefreshListener(this);
-        mAdapter.OnGoodsItemListener(new GoodsListApadter.OnGoodsItemListener() {
-            @Override
-            public void OnGoodsItemListener(GoodsBean item,int postion) {
-
-                Intent i = new Intent(getActivity(), GoodsDetailActivity.class);
-                i.putExtra("postion",postion);
-                MainActivity.mainActivity.startActivityIn(i, getActivity());
-
-            }
-        });
-
+        srl.setOnLoadmoreListener(this);
+        srl.setOnRefreshListener(this);
+        mAdapter.OnGoodsItemListener(this);
 
         numBanner.setDelegate(this);
         numBanner.setAdapter(new BGABanner.Adapter<ImageView, String>() {
             @Override
             public void fillBannerItem(BGABanner banner, ImageView itemView, String model, int position) {
-
-                Glide.with(getActivity())
-                        .load(model)
-//                        .placeholder(R.mipmap.holder)
-                        .error(R.mipmap.ic_launcher)
-                        .dontAnimate()
-                        .centerCrop()
-                        .into(itemView);
+               GlideUtils.loadFitCenter(getActivity(),model,itemView);
             }
         });
         numBanner.setData(Arrays.asList(
-                "http://a.hiphotos.baidu.com/image/h%3D300/sign=4a51c9cd7e8b4710d12ffbccf3ccc3b2/b64543a98226cffceee78e5eb5014a90f703ea09.jpg",
-                "http://a.hiphotos.baidu.com/image/h%3D300/sign=4a51c9cd7e8b4710d12ffbccf3ccc3b2/b64543a98226cffceee78e5eb5014a90f703ea09.jpg",
+                "http://img2.imgtn.bdimg.com/it/u=2803970654,429424554&fm=27&gp=0.jpg",
+                "http://img3.imgtn.bdimg.com/it/u=2956972150,2157952887&fm=11&gp=0.jpg",
                 "http://a.hiphotos.baidu.com/image/h%3D300/sign=4a51c9cd7e8b4710d12ffbccf3ccc3b2/b64543a98226cffceee78e5eb5014a90f703ea09.jpg"),
                 Arrays.asList("", "", ""));
 
@@ -184,6 +172,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
 
     /**
      * 首页广告图片列表
+     *
      * @param homePageImgBean
      */
     @Override
@@ -196,16 +185,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
         Toast.makeText(banner.getContext(), "点击了第" + (position + 1) + "页", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void onLoadMoreRequested() {
-        //加载更多
-    }
-
-
-    @Override
-    public void onRefresh() {
-        // 下拉刷新
-    }
 
     @OnClick({R.id.rl_search, R.id.ll_book_draw, R.id.ll_oil_draw, R.id.ll_bird_draw, R.id.ll_hill_draw, R.id.ll_people_draw, R.id.ll_money_draw, R.id.ll_jade_draw, R.id.ll_fine_draw, R.id.ll_furniture_draw, R.id.ll_more_draw})
     public void onClick(View view) {
@@ -266,4 +245,28 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
         }
     }
 
+    @Override
+    public void onLoadmore(RefreshLayout refreshlayout) {
+        // 加载更多
+        Logger.t("TAG").e("CCCCCCC");
+    }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        //下拉刷新
+        Logger.t("TAG").e("AAAAAAA");
+    }
+
+    /**
+     * 跳转详情页面
+     *
+     * @param item
+     * @param postion
+     */
+    @Override
+    public void OnGoodsItemListener(GoodsBean item, int postion) {
+        Intent i = new Intent(getActivity(), GoodsDetailActivity.class);
+        i.putExtra("postion", postion);
+        MainActivity.mainActivity.startActivityIn(i, getActivity());
+    }
 }

@@ -13,6 +13,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,6 +21,10 @@ import android.widget.TextView;
 import com.blankj.utilcode.utils.TimeUtils;
 import com.blankj.utilcode.utils.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.github.lzyzsd.jsbridge.BridgeWebView;
 import com.github.lzyzsd.jsbridge.BridgeWebViewClient;
 import com.smg.art.R;
@@ -213,12 +218,12 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
                 }
             }
         } else {
-
             tvShow.setText("预展结束");
             tvAuction.setText("拍卖结束");
             tvHh.setText("00");
             tvMm.setText("00");
             tvSs.setText("00");
+
         }
 
         String[] split = auctionDetailBean.getData().getPictureUrl().split(",");
@@ -227,16 +232,11 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
         for (int i = 0; i < split.length; i++) {
             imgUrls.add(BaseImgUrl + split[i]);
         }
+
         banner.setAdapter(new BGABanner.Adapter<ImageView, String>() {
             @Override
             public void fillBannerItem(BGABanner banner, ImageView itemView, String model, int position) {
-                Glide.with(GoodsDetailActivity.this)
-                        .load(model)
-//                        .placeholder(R.mipmap.holder)
-                        .error(R.mipmap.ic_launcher)
-                        .dontAnimate()
-                        .centerCrop()
-                        .into(itemView);
+                Glide.with(GoodsDetailActivity.this).load(model).error(R.mipmap.ic_launcher).dontAnimate().centerCrop().into(itemView);
             }
         });
         banner.setData(imgUrls, null);
@@ -322,4 +322,9 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
 
         }
     };
+
+
+
+
+
 }

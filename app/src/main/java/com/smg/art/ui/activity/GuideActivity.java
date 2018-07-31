@@ -44,13 +44,15 @@ public class GuideActivity extends BaseActivity {
                 if (LocalAppConfigUtil.getInstance().isLogin()) {
                     Intent intent = new Intent();
                     intent.setClass(GuideActivity.this, MainActivity.class);
-                    startActivityIn(intent,GuideActivity.this);
                     finish();
+                    startActivityIn(intent,GuideActivity.this);
+
                 } else {
                     Intent intent = new Intent();
                     intent.setClass(GuideActivity.this, LoginActivity.class);
-                    startActivityIn(intent,GuideActivity.this);
                     finish();
+                    startActivityIn(intent,GuideActivity.this);
+
                 }
 
             }
