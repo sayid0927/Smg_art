@@ -100,6 +100,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.View 
         rvHotSearch.addItemDecoration(decoration);
         mPresenter.FetchHotWordsList();
 
+
     }
 
     @OnClick({R.id.ll_back})
