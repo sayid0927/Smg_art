@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -23,16 +24,25 @@
             android:textColor="@color/grey_333333"
             android:textSize="@dimen/wz_15sp" />
 
-        <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/head"
+        <!-- <com.makeramen.roundedimageview.RoundedImageView
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:id="@+id/head"
+             android:layout_width="50dp"
+             android:layout_height="@dimen/bj_50dp"
+             android:layout_marginRight="@dimen/bj_15dp"
+             android:scaleType="centerCrop"
+             android:src="@drawable/mine_head"
+             app:riv_border_color="@color/white"
+             app:riv_border_width="2dp"
+             app:riv_corner_radius="8dp" />-->
+
+        <com.smg.art.photo.CircleImageView
+            android:id="@+id/civMyPicture"
             android:layout_width="50dp"
-            android:layout_height="@dimen/bj_50dp"
+            android:layout_height="50dp"
             android:layout_marginRight="@dimen/bj_15dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/mine_head"
-            app:riv_border_color="@color/white"
-            app:riv_border_width="2dp"
-            app:riv_corner_radius="8dp" />
+            app:radius="@dimen/bj_25dp"
+            app:src="@mipmap/head" />
 
     </LinearLayout>
 

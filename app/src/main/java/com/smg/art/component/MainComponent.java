@@ -20,6 +20,7 @@ import com.smg.art.ui.login.LoginActivity;
 import com.smg.art.ui.login.RegisterActivity;
 import com.smg.art.ui.personalcenter.CashDepositActivity;
 import com.smg.art.ui.personalcenter.MyCollectionActivity;
+import com.smg.art.ui.personalcenter.SettingActivity;
 import com.smg.art.ui.personalcenter.fragemnt.AuctionOrderFragment;
 
 import dagger.Component;
@@ -64,5 +65,7 @@ public interface MainComponent {
     CashDepositActivity inject(CashDepositActivity cashDepositActivity);
 
     MyCollectionActivity inject(MyCollectionActivity myCollectionActivity);
+
+    SettingActivity inject(SettingActivity settingActivity);
 
 }

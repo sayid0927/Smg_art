@@ -66,6 +66,7 @@ public class AuctionOrderFragment extends BaseFragment implements AuctionOrderCo
     @Override
     protected void initView(Bundle bundle) {
         super.initView(bundle);
+        int type = bundle.getInt("type", 0);
         srl.setPrimaryColorsId(R.color.main_color);
         srl.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -82,22 +83,9 @@ public class AuctionOrderFragment extends BaseFragment implements AuctionOrderCo
                 srl.finishLoadmore();
             }
         });
-     /*   List<String> mlist = new ArrayList<>();
-        mlist.add("1");
-        mlist.add("1");
-        mlist.add("1");
-        mlist.add("1");
-        mlist.add("1");
-        mlist.add("1");
-        mlist.add("1");
-        mlist.add("1");
-        mlist.add("1");
-        mlist.add("1");
-        mlist.add("1");
-        mlist.add("1");*/
         getData(p = 1);
-     /*   auctionAdapter = new AuctionAdapter(getActivity(), list);
-        listView.setAdapter(auctionAdapter);*/
+        auctionAdapter = new AuctionAdapter(getActivity(), list);
+        listView.setAdapter(auctionAdapter);
     }
 
     public void getData(int p) {
@@ -113,7 +101,7 @@ public class AuctionOrderFragment extends BaseFragment implements AuctionOrderCo
     public void FetchAuctionOrderSuccess(AuctionOrderBean auctionOrderBean) {
         if (auctionOrderBean.getStatus() == 1) {
             list.addAll(auctionOrderBean.getData());
-
+            auctionAdapter.notifyDataSetChanged();
         } else {
             ToastUtils.showShortToast(auctionOrderBean.getMsg());
         }

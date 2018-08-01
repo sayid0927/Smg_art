@@ -62,6 +62,9 @@ public class Constant {
     //参拍记录
     public static final String QUERYAUCTIONINFOLIST = "auctionpage/queryAuctionInfoList";
 
+    //上传头像
+    public static final String USERHEADIMG = "upload/userHeadImg";
+
 
 
     public static String LOCAL_APP_CONFIG_FILE_NAME = "smgconfig";//本地应用配置文件名，存储些全局变量

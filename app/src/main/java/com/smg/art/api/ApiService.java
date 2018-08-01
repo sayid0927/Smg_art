@@ -28,6 +28,7 @@ import com.smg.art.bean.LoginBean;
 import com.smg.art.bean.PhoneVerifyCodeBean;
 import com.smg.art.bean.RegisterBean;
 import com.smg.art.bean.SaveCollectsBean;
+import com.smg.art.bean.UpLoadBean;
 
 import java.util.Map;
 
@@ -113,5 +114,11 @@ public interface ApiService {
      */
     @GET(Constant.QUERYAUCTIONINFOLIST)
     Observable<AuctionOrderBean> FetchAuctionOrder(@QueryMap Map<String, String> map);
+
+    /**
+     * 上传头像
+     */
+    @POST(Constant.USERHEADIMG)
+    Observable<UpLoadBean> FetchUploadHead(@QueryMap Map<String, String> map);
 
 }

@@ -31,6 +31,7 @@ import com.smg.art.bean.LoginBean;
 import com.smg.art.bean.PhoneVerifyCodeBean;
 import com.smg.art.bean.RegisterBean;
 import com.smg.art.bean.SaveCollectsBean;
+import com.smg.art.bean.UpLoadBean;
 import com.smg.art.utils.LocalAppConfigUtil;
 
 import java.util.HashMap;
@@ -169,6 +170,13 @@ public class Api {
      */
     public Observable<AuctionOrderBean> FetchAuctionOrder(String... s) {
         return service.FetchAuctionOrder(getMap(s));
+    }
+
+    /**
+     * 上传头像
+     */
+    public Observable<UpLoadBean> FetchUploadHead(String... s) {
+        return service.FetchUploadHead(getMap(s));
     }
 
 }

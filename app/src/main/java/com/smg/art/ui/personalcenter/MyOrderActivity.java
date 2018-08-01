@@ -1,7 +1,6 @@
 package com.smg.art.ui.personalcenter;
 
 import android.graphics.Color;
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,16 +8,13 @@ import android.widget.TextView;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
 import com.smg.art.base.BaseApplication;
-import com.smg.art.base.BasePagerAdapter;
+import com.smg.art.base.BaseViewPageAdapter;
 import com.smg.art.component.AppComponent;
-import com.smg.art.ui.personalcenter.fragemnt.AuctionOrderFragment;
 import com.smg.art.utils.CommonDpUtils;
 import com.smg.art.utils.KeyBoardUtils;
 import com.smg.art.view.TabPageIndicator;
 import com.smg.art.view.ViewPagerSlide;
 import com.zhy.autolayout.AutoRelativeLayout;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -42,12 +38,6 @@ public class MyOrderActivity extends BaseActivity {
     TabPageIndicator indicator;
     @BindView(R.id.viewPager)
     ViewPagerSlide viewPager;
-    AuctionOrderFragment auctionFragment1 = new AuctionOrderFragment();
-    AuctionOrderFragment auctionFragment2 = new AuctionOrderFragment();
-    AuctionOrderFragment auctionFragment3 = new AuctionOrderFragment();
-    AuctionOrderFragment auctionFragment4 = new AuctionOrderFragment();
-    AuctionOrderFragment auctionFragment5 = new AuctionOrderFragment();
-    private ArrayList<Fragment> fragments = new ArrayList<>();
     private String[] titles;
     private int current = 0;
 
@@ -74,13 +64,9 @@ public class MyOrderActivity extends BaseActivity {
     @Override
     public void initView() {
         current = getIntent().getIntExtra("index", 0);
-        fragments.add(auctionFragment1);
-        fragments.add(auctionFragment2);
-        fragments.add(auctionFragment3);
-        fragments.add(auctionFragment4);
-        fragments.add(auctionFragment5);
         titles = getResources().getStringArray(R.array.order_them_title);
-        BasePagerAdapter adapter = new BasePagerAdapter(getSupportFragmentManager(), fragments, titles);
+        BaseViewPageAdapter adapter = new BaseViewPageAdapter(getSupportFragmentManager(), titles);
+        // BasePagerAdapter adapter = new BasePagerAdapter(getSupportFragmentManager(), fragments, titles);
         viewPager.setAdapter(adapter);
         actionbarTitle.setText(R.string.auction_order);
         indicator.setViewPager(viewPager);

@@ -1,9 +1,9 @@
-package com.smg.art.presenter.impl.fragment;
+package com.smg.art.presenter.impl.activity;
 
 import com.smg.art.api.Api;
 import com.smg.art.base.BasePresenter;
-import com.smg.art.bean.AuctionOrderBean;
-import com.smg.art.presenter.contract.fragment.AuctionOrderConstrat;
+import com.smg.art.bean.UpLoadBean;
+import com.smg.art.presenter.contract.activity.SettingContract;
 
 import javax.inject.Inject;
 
@@ -15,22 +15,21 @@ import rx.schedulers.Schedulers;
  * Created by Mervin on 2018/8/1 0001.
  */
 
-public class AuctionOrderPresenter extends BasePresenter<AuctionOrderConstrat.View> implements AuctionOrderConstrat.Presenter<AuctionOrderConstrat.View> {
-
+public class SettingActivityPresenter extends BasePresenter<SettingContract.View> implements SettingContract.Presenter<SettingContract.View> {
     private Api api;
 
     @Inject
-    public AuctionOrderPresenter(Api api) {
+    public SettingActivityPresenter(Api api) {
         this.api = api;
-
     }
 
+
     @Override
-    public void FetchAuctionOrder(String... s) {
+    public void FetchUploadPic(String... s) {
         showWaitingDialog("加载中...");
-        addSubscrebe(api.FetchAuctionOrder(s).subscribeOn(Schedulers.io())
+        addSubscrebe(api.FetchUploadHead(s).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<AuctionOrderBean>() {
+                .subscribe(new Observer<UpLoadBean>() {
                     @Override
                     public void onCompleted() {
 
@@ -43,10 +42,10 @@ public class AuctionOrderPresenter extends BasePresenter<AuctionOrderConstrat.Vi
                     }
 
                     @Override
-                    public void onNext(AuctionOrderBean data) {
+                    public void onNext(UpLoadBean data) {
                         if (mView != null && data != null) {
                             hideWaitingDialog();
-                            mView.FetchAuctionOrderSuccess(data);
+                            mView.FetchUploadPicSuccess(data);
                         }
                     }
                 }));
