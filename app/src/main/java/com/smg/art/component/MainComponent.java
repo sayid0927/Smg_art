@@ -8,10 +8,12 @@ import com.smg.art.ui.activity.GoodsDetailActivity;
 import com.smg.art.ui.activity.GuideActivity;
 import com.smg.art.ui.activity.MainActivity;
 import com.smg.art.ui.activity.SearchActivity;
+import com.smg.art.ui.activity.SearchContactsActivity;
 import com.smg.art.ui.fragment.AuctionCentreFragment;
 import com.smg.art.ui.fragment.AuctionDetailIntroductionFragment;
 import com.smg.art.ui.fragment.AuctionFragment;
 import com.smg.art.ui.fragment.ClassifyChildFragment;
+import com.smg.art.ui.fragment.ContactsFragment;
 import com.smg.art.ui.fragment.HomeFragment;
 import com.smg.art.ui.fragment.MyFragment;
 import com.smg.art.ui.fragment.RecentMessageFragment;
@@ -64,5 +66,9 @@ public interface MainComponent {
     CashDepositActivity inject(CashDepositActivity cashDepositActivity);
 
     MyCollectionActivity inject(MyCollectionActivity myCollectionActivity);
+
+    SearchContactsActivity inject (SearchContactsActivity searchContactsActivity);
+
+    ContactsFragment inject(ContactsFragment contactsFragment);
 
 }

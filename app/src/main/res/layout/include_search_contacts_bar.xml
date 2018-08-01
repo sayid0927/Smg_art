@@ -1,73 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/appBar"
     android:layout_width="match_parent"
-    android:layout_height="80px"
+    android:layout_height="@dimen/bj_50dp"
     android:background="@color/colorPrimaryDark">
 
-    <com.zhy.autolayout.AutoRelativeLayout
+    <RelativeLayout
         android:id="@+id/ll_back"
-        android:layout_width="70px"
-        android:layout_centerVertical="true"
+        android:layout_width="@dimen/bj_35dp"
         android:layout_height="match_parent"
+        android:layout_centerVertical="true"
         android:background="?android:selectableItemBackground">
 
         <ImageView
-            android:layout_centerVertical="true"
             android:id="@+id/actionbar_back"
-            android:layout_marginLeft="24px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/bj_12dp"
             android:src="@drawable/arrow_back" />
 
-    </com.zhy.autolayout.AutoRelativeLayout>
+    </RelativeLayout>
 
-    <com.zhy.autolayout.AutoRelativeLayout
+    <RelativeLayout
         android:id="@+id/rl_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="19px"
-        android:layout_marginLeft="90px"
         android:layout_centerVertical="true"
-        android:layout_marginRight="110px"
-        android:layout_marginTop="19px"
+        android:layout_marginRight="@dimen/bj_13dp"
+        android:layout_toLeftOf="@+id/tv_search"
+        android:layout_toRightOf="@+id/ll_back"
         android:background="@drawable/searchbar_bg">
 
         <ImageView
             android:id="@+id/iv_search"
-            android:layout_alignParentLeft="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="20px"
+            android:layout_marginLeft="@dimen/bj_10dp"
             android:src="@drawable/search_home" />
 
         <EditText
-            android:layout_toRightOf="@+id/iv_search"
-            android:textColorHint="@color/white"
             android:id="@+id/et_SearchContent"
             android:layout_width="match_parent"
-            android:layout_height="56px"
+            android:layout_height="@dimen/bj_28dp"
+            android:layout_toRightOf="@+id/iv_search"
             android:background="@null"
-            android:paddingLeft="17px"
             android:hint="账号ID / 手机号"
             android:maxLines="1"
+            android:paddingLeft="17px"
             android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:textSize="26px" />
 
-    </com.zhy.autolayout.AutoRelativeLayout>
+    </RelativeLayout>
 
 
     <TextView
-        android:layout_marginRight="28px"
-        android:textColor="@color/white"
-        android:textSize="30px"
-        android:layout_centerInParent="true"
-        android:layout_alignParentRight="true"
+        android:id="@+id/tv_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="搜索"/>
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="28px"
+        android:text="搜索"
+        android:textColor="@color/white"
+        android:textSize="30px" />
 
 
-</com.zhy.autolayout.AutoRelativeLayout>
+</RelativeLayout>

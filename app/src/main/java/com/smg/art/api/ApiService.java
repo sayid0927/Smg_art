@@ -20,6 +20,8 @@ import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.Constant;
 import com.smg.art.base.HomePageImgBean;
+import com.smg.art.bean.AddFriendBean;
+import com.smg.art.bean.AddressBookFriendsBean;
 import com.smg.art.bean.AuctionOrderBean;
 import com.smg.art.bean.CashDepositiBean;
 import com.smg.art.bean.CollectionBean;
@@ -28,6 +30,7 @@ import com.smg.art.bean.LoginBean;
 import com.smg.art.bean.PhoneVerifyCodeBean;
 import com.smg.art.bean.RegisterBean;
 import com.smg.art.bean.SaveCollectsBean;
+import com.smg.art.bean.SearchMemberBean;
 
 import java.util.Map;
 
@@ -115,7 +118,29 @@ public interface ApiService {
     Observable<Response<ResponseBody>> FetchHotWordsList(@QueryMap Map<String, String> map);
 
 
+    /**
+     * 搜索平台会员
+     */
+    @POST(Constant.ADDRESSBOOK_SEARCHMEMBER)
+    Observable<SearchMemberBean> FetchSearchMember(@QueryMap Map<String, String> map);
 
+    /**
+     * 新增通讯录好友
+     */
+    @POST(Constant.ADDRESSBOOK_ADDFRIEND)
+    Observable<AddFriendBean> FetchAddFriend(@QueryMap Map<String, String> map);
+
+    /**
+     * 删除通讯录好友
+     */
+    @POST(Constant.ADDRESSBOOK_UPDATEFRIENDRELATION)
+    Observable<AddFriendBean> FetchUpdateFriendRelation(@QueryMap Map<String, String> map);
+
+    /**
+     * 查询通讯录好友列表
+     */
+    @POST(Constant.ADDRESSBOOK_GETADDRESSBOOKFRIENDS)
+    Observable<AddressBookFriendsBean> FetchAddressBookFriends(@QueryMap Map<String, String> map);
 
     /**
      * 我的拍卖

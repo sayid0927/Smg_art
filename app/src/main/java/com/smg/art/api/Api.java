@@ -26,18 +26,25 @@ import com.smg.art.base.HomePageImgBean;
 import com.smg.art.bean.AuctionOrderBean;
 import com.smg.art.bean.CashDepositiBean;
 import com.smg.art.bean.CollectionBean;
+import com.smg.art.bean.AddFriendBean;
+import com.smg.art.bean.AddressBookFriendsBean;
 import com.smg.art.bean.Apk_UpdateBean;
+import com.smg.art.bean.CashDepositiBean;
+import com.smg.art.bean.CollectionBean;
 import com.smg.art.bean.ForgetPasswordBean;
 import com.smg.art.bean.LoginBean;
 import com.smg.art.bean.PhoneVerifyCodeBean;
 import com.smg.art.bean.RegisterBean;
 import com.smg.art.bean.SaveCollectsBean;
+import com.smg.art.bean.SearchMemberBean;
 import com.smg.art.utils.LocalAppConfigUtil;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -124,6 +131,7 @@ public class Api {
         return service.FetchHomePageImgBean();
     }
 
+
     /**
      * 拍卖品详情
      */
@@ -171,6 +179,43 @@ public class Api {
      */
     public Observable<CollectionBean> FetchCollection(String... s) {
         return service.FetchCollection(getMap(s));
+    }
+    /**
+     * 搜索平台会员
+     *
+     * @param s
+     * @return
+     */
+    public Observable<SearchMemberBean> FetchSearchMember(String... s) {
+        return service.FetchSearchMember(getMap(s));
+    }
+    /**
+     * 新增通讯录好友
+     *
+     * @param s
+     * @return
+     */
+    public Observable<AddFriendBean> FetchAddFriend(String... s) {
+        return service.FetchAddFriend(getMap(s));
+    }
+    /**
+     * 删除通讯录好友
+     *
+     * @param s
+     * @return
+     */
+    public Observable<AddFriendBean> FetchUpdateFriendRelation(String... s) {
+        return service.FetchUpdateFriendRelation(getMap(s));
+    }
+
+    /**
+     * 查询通讯录好友列表
+     *
+     * @param s
+     * @return
+     */
+    public Observable<AddressBookFriendsBean> FetchAddressBookFriends(String... s) {
+        return service.FetchAddressBookFriends(getMap(s));
     }
 
     /**

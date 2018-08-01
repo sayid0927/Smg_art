@@ -56,7 +56,6 @@ public class MainActivityPresenter extends BasePresenter<MainContract.View> impl
 
                     setRongIMCState(RongIMCUtils.Connect_Success);
                     LocalAppConfigUtil.getInstance().setRCMemberId(userid);
-                    ToastUtils.showLongToast("--onSuccess---" + userid);
                 }
 
                 /**

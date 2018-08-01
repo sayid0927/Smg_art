@@ -66,6 +66,23 @@ public class Constant {
      * 获取搜索列表
      */
     public static final String HOMEPAGE_GETHOTWORDSLIST = "homePage/getHotWordsList";
+    /**
+     * 搜索平台会员
+     */
+    public static final String  ADDRESSBOOK_SEARCHMEMBER = "AddressBook/searchMember";
+    /**
+     * 新增通讯录好友
+     */
+    public static final String  ADDRESSBOOK_ADDFRIEND = "AddressBook/addFriend";
+    /**
+     * 查询通讯录好友列表
+     */
+    public static final String  ADDRESSBOOK_GETADDRESSBOOKFRIENDS = "AddressBook/getAddressBookFriends";
+    /**
+     * 删除通讯录好友
+     */
+    public static final String  ADDRESSBOOK_UPDATEFRIENDRELATION = "AddressBook/updateFriendRelation";
+
 
 
 

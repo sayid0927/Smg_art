@@ -209,7 +209,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
      */
     @Override
     public void FetchHomePageImgSuccess(HomePageImgBean homePageImgBean) {
-        Logger.t("TAG").d(homePageImgBean);
+
         if(srl.isRefreshing()){
             srl.finishRefresh();
         }
