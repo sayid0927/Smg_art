@@ -17,6 +17,7 @@ import com.smg.art.base.Constant;
 import com.smg.art.component.AppComponent;
 import com.smg.art.ui.activity.MainActivity;
 import com.smg.art.ui.activity.SearchContactsActivity;
+import com.smg.art.view.NoScrollViewPager;
 import com.zhy.autolayout.AutoLinearLayout;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class MessageFragment extends BaseFragment {
     @BindView(R.id.tab_layout)
     SlidingTabLayout tabLayout;
     @BindView(R.id.vp)
-    ViewPager vp;
+    NoScrollViewPager vp;
 
     @BindView(R.id.ll_addfriend)
     AutoLinearLayout llAddfriend;
@@ -56,6 +57,7 @@ public class MessageFragment extends BaseFragment {
 
         BaseFragmentPageAdapter myAdapter = new BaseFragmentPageAdapter(getChildFragmentManager(), mFragments, mTitleList);
         vp.setAdapter(myAdapter);
+        vp.setNoScroll(true);
         myAdapter.notifyDataSetChanged();
         tabLayout.setViewPager(vp);
 

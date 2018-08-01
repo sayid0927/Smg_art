@@ -59,5 +59,12 @@
         <item name="shadow_bottom">@drawable/shadow_bottom</item>
     </style>
 
+    <attr name="indexBarTextSize" format="dimension" />
+
+    <declare-styleable name="IndexBar">
+        <attr name="indexBarTextSize" />
+        <attr name="indexBarPressBackground" format="color" />
+    </declare-styleable>
+
 
 </resources>

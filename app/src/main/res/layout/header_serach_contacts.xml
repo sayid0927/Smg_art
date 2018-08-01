@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="#f2f2f2">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/bj_10dp"
+        android:gravity="center"
+        android:text="搜索结果"
+        android:textColor="#999999"
+        android:textSize="@dimen/wz_13sp" />
+
+
+    <TextView
+        android:id="@+id/tv_conts"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/bj_16dp"
+        android:gravity="center"
+        android:text="10"
+        android:textColor="#999999"
+        android:textSize="@dimen/wz_15sp" />
+</RelativeLayout>

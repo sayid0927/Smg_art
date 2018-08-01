@@ -21,7 +21,11 @@ public class Constant {
     public static final int STATE_ERROR = 2;
     public static final int STATE_EMPTY = 3;
     public static final int STATE_SUCCESS = 4;
+
+    public static final String BaseImgUrl = "http://192.168.1.56:8080/art-world";
     public static final String API_BASE_URL = "http://192.168.1.56:8080/art-world/";
+
+
 
     /**
      * 会员注册
@@ -45,7 +49,7 @@ public class Constant {
     /**
      * 首页广告图片列表
      */
-    public static final String HOMEPAGE_GETHOMEPAGEIMG = "homePage/getHomePageImg";
+    public static final String HOMEPAGE_GETHOMEPAGEIMG = "homePage/getHomePageList";
     /**
      * 拍卖品详情
      */
@@ -58,6 +62,30 @@ public class Constant {
      * 保证金支付
      */
     public static final String AUCTIONBUYERDEPOSIT_INSERT = "auctionBuyerDeposit/insert";
+    /**
+     * 获取搜索列表
+     */
+    public static final String HOMEPAGE_GETHOTWORDSLIST = "homePage/getHotWordsList";
+    /**
+     * 搜索平台会员
+     */
+    public static final String  ADDRESSBOOK_SEARCHMEMBER = "AddressBook/searchMember";
+    /**
+     * 新增通讯录好友
+     */
+    public static final String  ADDRESSBOOK_ADDFRIEND = "AddressBook/addFriend";
+    /**
+     * 查询通讯录好友列表
+     */
+    public static final String  ADDRESSBOOK_GETADDRESSBOOKFRIENDS = "AddressBook/getAddressBookFriends";
+    /**
+     * 删除通讯录好友
+     */
+    public static final String  ADDRESSBOOK_UPDATEFRIENDRELATION = "AddressBook/updateFriendRelation";
+
+
+
+
 
     //参拍记录
     public static final String QUERYAUCTIONINFOLIST = "auctionpage/queryAuctionInfoList";

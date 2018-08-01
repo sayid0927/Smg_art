@@ -113,8 +113,8 @@ public class MainActivity extends BaseActivity implements MainContract.View, OnT
         vp.setNoScroll(true);
         tabLayout.setOnTabSelectListener(this);
         mainActivity = this;
-//        if (!TextUtils.isEmpty(LocalAppConfigUtil.getInstance().getRCToken()))
-//            mPresenter.connect(LocalAppConfigUtil.getInstance().getRCToken());
+        if (!TextUtils.isEmpty(LocalAppConfigUtil.getInstance().getRCToken()))
+            mPresenter.connect(LocalAppConfigUtil.getInstance().getRCToken());
 
         }
 

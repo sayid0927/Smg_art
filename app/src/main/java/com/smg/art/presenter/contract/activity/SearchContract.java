@@ -7,11 +7,13 @@ public interface SearchContract {
 
     interface View extends BaseContract.BaseView {
 
+        void  FetchHotWordsListSuccess();
+
 
     }
 
     interface Presenter<T> extends BaseContract.BasePresenter<T> {
 
-
+        void  FetchHotWordsList();
     }
 }

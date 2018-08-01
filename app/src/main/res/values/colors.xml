@@ -101,6 +101,9 @@
     <color name="gender_select_male_pressed">#B2DFEE</color>
     <color name="gender_select_female_normal">#EEA9B8</color>
     <color name="gender_select_female_pressed">#EEA2AD</color>
+    <color name="color_8d8686">#8d8686</color>
+
+
 
     <!--页面背景的颜色-->
     <color name="colorPageBg">#00000000</color>
@@ -247,4 +250,10 @@
     <color name="line">#e7e6e6</color>
     <color name="orange_d3a02c">#D3A02C</color>
 
+
+    <!--快速索引bar颜色-->
+    <color name="side_bar">#919091</color>
+    <color name="side_bar_pressed">#BFBFBF</color>
+    <color name="gray2">#969696</color>
+    <color name="partTranslucent">#39000000</color>
 </resources>

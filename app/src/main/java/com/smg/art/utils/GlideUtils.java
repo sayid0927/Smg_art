@@ -40,6 +40,14 @@ public class GlideUtils {
      * 网络基本图片加载
      */
 
+    public static void load(Context context, String imgUrl, ImageView iv,int imgid) {
+        Glide.with(context).load(imgUrl).placeholder(imgid).error(imgid).into(iv);
+    }
+
+    /**
+     * 网络基本图片加载
+     */
+
     public static void load(Context context, String imgUrl, ImageView iv) {
         Glide.with(context).load(imgUrl).into(iv);
     }
