@@ -85,6 +85,6 @@
         <item>参拍中</item>
         <item>待交割</item>
         <item>已交割</item>
-        <item>售后</item>
+        <item>投诉</item>
     </string-array>
 </resources>

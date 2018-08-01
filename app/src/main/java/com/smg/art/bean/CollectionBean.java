@@ -68,6 +68,15 @@ public class CollectionBean {
         private long endTime;
         private String createTime;
         private int status;
+        private long sysDate;
+
+        public long getSysDate() {
+            return sysDate;
+        }
+
+        public void setSysDate(long sysDate) {
+            this.sysDate = sysDate;
+        }
 
         public int getId() {
             return id;

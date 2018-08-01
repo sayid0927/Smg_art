@@ -63,7 +63,12 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final CollectionBean.DataBean data = mDatas.get(position);
-        long time = System.currentTimeMillis();//获取系统时间的10位的时间戳
+        long time;
+        if (data.getSysDate() > 0) {
+            time = data.getSysDate();
+        } else {
+            time = System.currentTimeMillis();//获取系统时间的10位的时间戳
+        }
         if (time < data.getStartTime()) {
             holder.end_time.setText("开始时间为:  " + DateFormatUtil.toHourDate(data.getStartTime() / 1000) + "将开始");
             holder.time.setVisibility(View.GONE);
