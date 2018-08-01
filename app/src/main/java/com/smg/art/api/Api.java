@@ -23,6 +23,7 @@ import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.Constant;
 import com.smg.art.base.HomePageImgBean;
+import com.smg.art.bean.AuctionOrderBean;
 import com.smg.art.bean.CashDepositiBean;
 import com.smg.art.bean.CollectionBean;
 import com.smg.art.bean.ForgetPasswordBean;
@@ -154,7 +155,7 @@ public class Api {
 
 
     /**
-     * 保证金
+     * 我的收藏
      *
      * @param s
      * @return
@@ -162,4 +163,12 @@ public class Api {
     public Observable<CollectionBean> FetchCollection(String... s) {
         return service.FetchCollection(getMap(s));
     }
+
+    /**
+     * 参拍记录
+     */
+    public Observable<AuctionOrderBean> FetchAuctionOrder(String... s) {
+        return service.FetchAuctionOrder(getMap(s));
+    }
+
 }

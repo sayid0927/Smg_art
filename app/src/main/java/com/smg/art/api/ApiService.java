@@ -20,6 +20,7 @@ import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.Constant;
 import com.smg.art.base.HomePageImgBean;
+import com.smg.art.bean.AuctionOrderBean;
 import com.smg.art.bean.CashDepositiBean;
 import com.smg.art.bean.CollectionBean;
 import com.smg.art.bean.ForgetPasswordBean;
@@ -106,5 +107,11 @@ public interface ApiService {
      */
     @POST(Constant.AUCTIONBUYERDEPOSIT_INSERT)
     Observable<AuctionBuyerDepositBean> FetchAuctionBuyerDeposit(@QueryMap Map<String, String> map);
+
+    /**
+     * 我的拍卖
+     */
+    @GET(Constant.QUERYAUCTIONINFOLIST)
+    Observable<AuctionOrderBean> FetchAuctionOrder(@QueryMap Map<String, String> map);
 
 }
