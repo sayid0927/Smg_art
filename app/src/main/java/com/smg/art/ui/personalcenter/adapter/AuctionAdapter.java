@@ -1,6 +1,7 @@
 package com.smg.art.ui.personalcenter.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 
 import com.smg.art.R;
 import com.smg.art.bean.AuctionOrderBean;
+import com.smg.art.utils.CommonDpUtils;
+import com.smg.art.utils.GlideCommonUtils;
 
 import java.util.List;
 
@@ -55,20 +58,72 @@ public class AuctionAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-   /*     final ConsumerDetails.DataBean dataBean = mList.get(position);
-        viewHolder.info.setText(dataBean.getInfo());
-        viewHolder.time.setText(DateFormatUtil.getDateStringByTimeSTamp(dataBean.getCreate_time(), "yyyy-MM-dd HH:mm"));
-        viewHolder.price.setText(dataBean.getValue());*/
         AuctionOrderBean.DataBean dataBean = mList.get(position);
-        if (dataBean.getStatus() == 6) {
-            viewHolder.auction.setVisibility(View.GONE);
-            viewHolder.complaint.setVisibility(View.VISIBLE);
-            //   viewHolder.complaint_name.setText();
-        } else {
-            viewHolder.auction.setVisibility(View.VISIBLE);
-            viewHolder.complaint.setVisibility(View.GONE);
-        }
+        if (!TextUtils.isEmpty(dataBean.getStatus())) {
+            if (("6").equals(dataBean.getStatus())) {//已交割或投诉
+                if (!TextUtils.isEmpty(dataBean.getComplainFlag())) {
+                    if (dataBean.getComplainFlag().equals("1")) {//1代表已投诉
+                        viewHolder.auction.setVisibility(View.GONE);
+                        viewHolder.complaint.setVisibility(View.VISIBLE);
+                        viewHolder.complaint_name.setText(dataBean.getActionName());
+                        viewHolder.complaint_cause.setText(dataBean.getComplain());
+                        viewHolder.detail.setVisibility(View.VISIBLE);
+                        viewHolder.detail.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                //查看详情
+                            }
+                        });
+                    } else {//0代表未投诉  或者dataBean.getComplainFlag()
+                        viewHolder.auction.setVisibility(View.VISIBLE);
+                        viewHolder.complaint.setVisibility(View.GONE);
+                        if (!TextUtils.isEmpty(dataBean.getPictureUrl())) {
+                            String[] pic = dataBean.getPictureUrl().split(",");
+                            GlideCommonUtils.showSquarePic(mContext, pic[0], viewHolder.iv);
+                        } else {
+                            viewHolder.iv.setImageResource(R.mipmap.defaut_square);
+                        }
+                        viewHolder.shop_name.setText(dataBean.getActionName());
+                        viewHolder.end_time.setText("结束时间: " + dataBean.getEndTime());
+                        viewHolder.price.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", dataBean.getNowprice()))));
+                        viewHolder.detail.setVisibility(View.VISIBLE);
+                        viewHolder.complaint_btn.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    viewHolder.auction.setVisibility(View.GONE);
+                    viewHolder.complaint.setVisibility(View.GONE);
+                }
 
+            } else if (("5").equals(dataBean.getStatus())) {//待交割
+                viewHolder.auction.setVisibility(View.VISIBLE);
+                viewHolder.complaint.setVisibility(View.GONE);
+                if (!TextUtils.isEmpty(dataBean.getPictureUrl())) {
+                    String[] pic = dataBean.getPictureUrl().split(",");
+                    GlideCommonUtils.showSquarePic(mContext, pic[0], viewHolder.iv);
+                } else {
+                    viewHolder.iv.setImageResource(R.mipmap.defaut_square);
+                }
+                viewHolder.shop_name.setText(dataBean.getActionName());
+                viewHolder.end_time.setText("结束时间: " + dataBean.getEndTime());
+                viewHolder.price.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", dataBean.getNowprice()))));
+                viewHolder.detail.setVisibility(View.VISIBLE);
+                viewHolder.complaint_btn.setVisibility(View.GONE);
+            } else {
+                viewHolder.auction.setVisibility(View.VISIBLE);
+                viewHolder.complaint.setVisibility(View.GONE);
+                if (!TextUtils.isEmpty(dataBean.getPictureUrl())) {
+                    String[] pic = dataBean.getPictureUrl().split(",");
+                    GlideCommonUtils.showSquarePic(mContext, pic[0], viewHolder.iv);
+                } else {
+                    viewHolder.iv.setImageResource(R.mipmap.defaut_square);
+                }
+                viewHolder.shop_name.setText(dataBean.getActionName());
+                viewHolder.end_time.setText("结束时间: " + dataBean.getEndTime());
+                viewHolder.price.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", dataBean.getNowprice()))));
+                viewHolder.detail.setVisibility(View.VISIBLE);
+                viewHolder.complaint_btn.setVisibility(View.GONE);
+            }
+        }
         return convertView;
     }
 
@@ -79,7 +134,8 @@ public class AuctionAdapter extends BaseAdapter {
         private TextView shop_name;
         private TextView end_time;
         private TextView price;
-        private TextView detail;
+        private TextView detail;//查看详情
+        private TextView complaint_btn;//发起投诉
         private LinearLayout complaint;
         private TextView complaint_name;//投诉
         private TextView complaint_cause;//投诉原因
@@ -92,6 +148,7 @@ public class AuctionAdapter extends BaseAdapter {
             price = (TextView) view.findViewById(R.id.price);
             end_time = (TextView) view.findViewById(R.id.end_time);
             detail = (TextView) view.findViewById(R.id.detail);
+            complaint_btn = (TextView) view.findViewById(R.id.complaint_btn);
             auction = (LinearLayout) view.findViewById(R.id.auction);
             complaint = (LinearLayout) view.findViewById(R.id.complaint);
             complaint_name = (TextView) view.findViewById(R.id.complaint_name);

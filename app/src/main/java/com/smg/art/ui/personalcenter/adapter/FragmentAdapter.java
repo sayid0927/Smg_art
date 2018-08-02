@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.smg.art.R;
+import com.smg.art.bean.BalanceOfPayBean;
 
 import java.util.List;
 
@@ -17,12 +18,11 @@ import java.util.List;
 
 public class FragmentAdapter extends BaseAdapter {
 
-    List<String> mList;
     private Context mContext;
-    // private List<ConsumerDetails.DataBean> mList;
+    private List<BalanceOfPayBean.DataBean> mList;
     private LayoutInflater mInflater;
 
-    public FragmentAdapter(Context context, List<String> list) {
+    public FragmentAdapter(Context context, List<BalanceOfPayBean.DataBean> list) {
         this.mContext = context;
         this.mList = list;
         this.mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -53,10 +53,16 @@ public class FragmentAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-  /*      final ConsumerDetails.DataBean dataBean = mList.get(position);
-        viewHolder.info.setText(dataBean.getInfo());
-        viewHolder.time.setText(DateFormatUtil.getDateStringByTimeSTamp(dataBean.getCreate_time(), "yyyy-MM-dd HH:mm"));
-        viewHolder.price.setText(dataBean.getValue());*/
+        BalanceOfPayBean.DataBean dataBean = mList.get(position);
+        viewHolder.info.setText(dataBean.getDescn());
+        viewHolder.time.setText(dataBean.getCreateTime());
+        if (dataBean.getType() == 1) {//收入
+            viewHolder.price.setText("+" + String.format("%.2f", dataBean.getAmount()));
+            viewHolder.price.setTextColor(mContext.getResources().getColor(R.color.green_1bca65));
+        } else if (dataBean.getType() == 2) {//支出
+            viewHolder.price.setText("-" + String.format("%.2f", dataBean.getAmount()));
+            viewHolder.price.setTextColor(mContext.getResources().getColor(R.color.red_fb002f));
+        }
 
         return convertView;
     }

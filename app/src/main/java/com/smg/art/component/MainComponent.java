@@ -1,7 +1,6 @@
 package com.smg.art.component;
 
 
-
 import com.smg.art.ui.activity.AuctionDeatilActivity;
 import com.smg.art.ui.activity.ClassifyActivity;
 import com.smg.art.ui.activity.GoodsDetailActivity;
@@ -22,8 +21,10 @@ import com.smg.art.ui.login.LoginActivity;
 import com.smg.art.ui.login.RegisterActivity;
 import com.smg.art.ui.personalcenter.CashDepositActivity;
 import com.smg.art.ui.personalcenter.MyCollectionActivity;
+import com.smg.art.ui.personalcenter.MyWalletActivity;
 import com.smg.art.ui.personalcenter.SettingActivity;
 import com.smg.art.ui.personalcenter.fragemnt.AuctionOrderFragment;
+import com.smg.art.ui.personalcenter.fragemnt.BalanceFragment;
 
 import dagger.Component;
 
@@ -74,4 +75,7 @@ public interface MainComponent {
 
     ContactsFragment inject(ContactsFragment contactsFragment);
 
+    MyWalletActivity inject(MyWalletActivity myWalletActivity);
+
+    BalanceFragment inject(BalanceFragment balanceFragment);
 }

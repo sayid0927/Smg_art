@@ -66,7 +66,6 @@ public class MyOrderActivity extends BaseActivity {
         current = getIntent().getIntExtra("index", 0);
         titles = getResources().getStringArray(R.array.order_them_title);
         BaseViewPageAdapter adapter = new BaseViewPageAdapter(getSupportFragmentManager(), titles);
-        // BasePagerAdapter adapter = new BasePagerAdapter(getSupportFragmentManager(), fragments, titles);
         viewPager.setAdapter(adapter);
         actionbarTitle.setText(R.string.auction_order);
         indicator.setViewPager(viewPager);

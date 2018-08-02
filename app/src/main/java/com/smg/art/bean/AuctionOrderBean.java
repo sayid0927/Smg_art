@@ -11,7 +11,7 @@ public class AuctionOrderBean {
     /**
      * status : 1
      * msg : OK
-     * data : [{"id":4,"sellerMemberId":16,"sellerMemberName":null,"goodsId":6,"bidNo":"BM201807260004","actionName":"瓷中皇族 臻品收藏 《绶带鸟》小美人瓶 一代宗师 省工艺美术大师 张震作品","startPrice":50,"stepSize":10,"nowprice":50,"buyerMemberId":78,"bidCount":0,"startTime":"2018-07-26 00:00:00","endTime":"2019-07-31 00:00:00","stepTime":20,"deferredTime":20,"status":4,"feeStatus":null,"feeAmount":5,"returnFrontMoneyStatus":null,"frontMoneyAmount":100,"deliveryStatus":null,"approvalStatus":1,"applyStatus":1,"frontMoneyStatus":0,"pictureUrl":"/static/uploads/image/50da66ae-5189-45e4-8556-7e3870a370d7.jpg,/static/uploads/image/5bcb0c8f-96aa-41f1-a664-75dc6eb6fed8.jpg,/static/uploads/image/f5e09e71-d1a5-41e6-9d1a-8082b4028a0b.jpg,/static/uploads/image/4694ec2c-23bd-4981-a964-2a58144660b3.jpg,/static/uploads/image/0d3d358f-ec1e-4086-9f46-41ceda7af3cc.jpg","auctionDesc":"<p style=\"text-align: center;\">拍品描述<\/p><p style=\"text-align: center;\"><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t22402/127/2207041098/93109/f3b899a2/5b4c06b0N523d49e5.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t22402/127/2207041098/93109/f3b899a2/5b4c06b0N523d49e5.jpg\" alt=\"\" id=\" 0937eeaebded44fc82bb5d41d16ff462\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t21556/305/2184406151/108073/7fc7d353/5b4c06b0N6412d71b.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t21556/305/2184406151/108073/7fc7d353/5b4c06b0N6412d71b.jpg\" alt=\"\" id=\" 6ddbfba5294b4187a6d01a63e0bf8cbb\r\n\"/><\/a><br/><\/p><p style=\"margin-top: 0px; padding: 0px; color: rgb(102, 102, 102);\"><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t23428/50/983855578/71127/1a0a10a2/5b4c06b1N5f7620c4.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t23428/50/983855578/71127/1a0a10a2/5b4c06b1N5f7620c4.jpg\" alt=\"\" id=\" 544114cb413a4dadbabd7ac05dd847b1\r\n\"/><\/a><\/p><p style=\"margin-top: 0px; padding: 0px; color: rgb(102, 102, 102);\"><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t20494/190/2226381989/95221/94256c92/5b4c06c1N692388f1.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t20494/190/2226381989/95221/94256c92/5b4c06c1N692388f1.jpg\" alt=\"\" id=\" 603b22b08c084ce682b8709c8693d789\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t22012/287/2170716639/95060/7f98d0dd/5b4c06c1N4da3a8f3.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t22012/287/2170716639/95060/7f98d0dd/5b4c06c1N4da3a8f3.jpg\" alt=\"\" id=\" c2b999b5d8364080beb2a235efa6c262\r\n\"/><\/a><br/><\/p><p style=\"margin-top: 0px; padding: 0px; color: rgb(102, 102, 102);\"><br/><br/><br/><br/><br/><br/><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t21553/144/2405228974/732881/9adec4f1/5b5582faNddd1f8df.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t21553/144/2405228974/732881/9adec4f1/5b5582faNddd1f8df.jpg\" alt=\"\" id=\" 9632b1e4d919447b9ba5e5de13a30d80\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t20653/274/2414862061/678176/82d0d27d/5b5582fbN3dec9be3.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t20653/274/2414862061/678176/82d0d27d/5b5582fbN3dec9be3.jpg\" alt=\"\" id=\" e957d03df54a48e180a6a33a3e56a67d\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t21823/96/2410128987/627737/d98e2913/5b5582fbNb1c32896.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t21823/96/2410128987/627737/d98e2913/5b5582fbNb1c32896.jpg\" alt=\"\" id=\" 50d5b721e8f44932b9589f852158fd26\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t20551/145/2435064745/700033/d47bcd4f/5b5582fcN14d7117e.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t20551/145/2435064745/700033/d47bcd4f/5b5582fcN14d7117e.jpg\" alt=\"\" id=\" d56ed9aea27240538e67b1f3da642b63\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t21601/47/2432958237/718175/28cc67d0/5b5582fdN242cfbc4.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t21601/47/2432958237/718175/28cc67d0/5b5582fdN242cfbc4.jpg\" alt=\"\" id=\" bc07624c94894c01953c0a7f544f1da1\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t21874/115/2457179698/779937/19920575/5b5582feN5c831ad4.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t21874/115/2457179698/779937/19920575/5b5582feN5c831ad4.jpg\" alt=\"\" id=\" 53dfcbbf041a4fa68d78143d561a446e\r\n\"/><\/a><br/><br/><br/><br/><br/><br/><br/><\/p><p style=\"margin-top: 0px; padding: 0px; color: rgb(102, 102, 102);\"><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t21574/17/2219279235/293334/98570669/5b4c06e1N825fbea8.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t21574/17/2219279235/293334/98570669/5b4c06e1N825fbea8.jpg\" alt=\"\" id=\" 5ce7979ba62c47d282cc9ad2430ea81f\r\n\"/><\/a><br/><\/p><p style=\"margin-top: 0px; padding: 0px; color: rgb(102, 102, 102);\"><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t21868/35/2188103062/143966/7f526dcc/5b4c0724N397239d7.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t21868/35/2188103062/143966/7f526dcc/5b4c0724N397239d7.jpg\" alt=\"\" id=\" e09ade175e3c4fb4bbc062697ac7150b\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t22891/179/992857085/545507/61b3b6d/5b4c0725N0d2113c2.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t22891/179/992857085/545507/61b3b6d/5b4c0725N0d2113c2.jpg\" alt=\"\" id=\" 9e73c2032ca24a02bb3788492bba4ca9\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t20518/356/2173284073/110951/f64bf901/5b4c0725Nbc2a5537.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t20518/356/2173284073/110951/f64bf901/5b4c0725Nbc2a5537.jpg\" alt=\"\" id=\" a7b4c7311cc746de8278416da41be6a2\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t20611/188/2171523223/183459/1df163fa/5b4c0726Ne69946e7.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t20611/188/2171523223/183459/1df163fa/5b4c0726Ne69946e7.jpg\" alt=\"\" id=\" 97dcc1a1c96345d2b7ca2be4225d86c8\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t20299/252/2223893799/221539/a34a4397/5b4c0726N1e9c5b70.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t20299/252/2223893799/221539/a34a4397/5b4c0726N1e9c5b70.jpg\" alt=\"\" id=\" 47e02a47a60d4f0c8113648f64fb187b\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t20020/65/2131753093/199763/1ba687a1/5b4c0727Nde86639e.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t20020/65/2131753093/199763/1ba687a1/5b4c0727Nde86639e.jpg\" alt=\"\" id=\" 26b57e2a6ff34c70adbabebd8148e527\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t23308/177/1007705152/180712/823db5e5/5b4c0727N8ad6c150.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t23308/177/1007705152/180712/823db5e5/5b4c0727N8ad6c150.jpg\" alt=\"\" id=\" ac37cc62de65486a888dfc6756a2de85\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t21196/22/2212791972/169165/23c156dc/5b4c0727N9e14f596.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t21196/22/2212791972/169165/23c156dc/5b4c0727N9e14f596.jpg\" alt=\"\" id=\" f3cc744dd25945759c82509647c3c249\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t21013/77/2222728707/97110/82b6fdcc/5b4c0728N6229938d.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t21013/77/2222728707/97110/82b6fdcc/5b4c0728N6229938d.jpg\" alt=\"\" id=\" 98bae1fb47674c56b075d65b6f58d806\r\n\"/><\/a><br/><br/><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t20134/162/2179611945/251478/855a42f2/5b4c0729N49542eb6.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t20134/162/2179611945/251478/855a42f2/5b4c0729N49542eb6.jpg\" alt=\"\" id=\" 4245c307592146f1a192a64d0c0c4d64\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t21622/355/2205283646/113897/ee0d88bc/5b4c0728N54bf25ee.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t21622/355/2205283646/113897/ee0d88bc/5b4c0728N54bf25ee.jpg\" alt=\"\" id=\" 334eecb1a68f476a8ebdaa7ac3e8aee5\r\n\"/><\/a><\/p><p style=\"margin-top: 0px; padding: 0px; color: rgb(102, 102, 102);\"><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t20944/245/2195646714/272902/363a5555/5b4c0729N25b3c672.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t20944/245/2195646714/272902/363a5555/5b4c0729N25b3c672.jpg\" alt=\"\" id=\" 90960c11c8d446c1b395dc7f9ad1c6b8\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t20944/245/2195646714/272902/363a5555/5b4c0729N25b3c672.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t20944/245/2195646714/272902/363a5555/5b4c0729N25b3c672.jpg\" alt=\"\" id=\" 90960c11c8d446c1b395dc7f9ad1c6b8\r\n\"/><\/a><br/><\/p><p><br/><\/p>\r\n","certificateUrl":"/static/uploads/image/51fc5a03-4c4e-4df9-a03b-d09ad5956bc5.jpg,/static/uploads/image/08acf0d9-092f-48eb-9390-f6d1180ad8d2.jpg","complainStatus":null,"complain":null,"complainResult":null,"createTime":"2018-07-26 15:13:33","returnFrontMoneyTime":null,"descn":null,"startCreateDate":null,"endCreateDate":null,"sysDate":null,"buyerEnsureAmount":100,"categoryId":null}]
+     * data : [{"id":4,"sellerMemberId":16,"sellerMemberName":null,"goodsId":6,"bidNo":"BM201807260004","actionName":"瓷中皇族 臻品收藏 《绶带鸟》小美人瓶 一代宗师 省工艺美术大师 张震作品","startPrice":50,"stepSize":10,"nowprice":50,"buyerMemberId":78,"bidCount":0,"startTime":"2018-07-26 00:00:00","endTime":"2019-07-31 00:00:00","stepTime":20,"deferredTime":20,"status":4,"feeStatus":null,"feeAmount":5,"returnFrontMoneyStatus":null,"frontMoneyAmount":100,"deliveryStatus":null,"approvalStatus":1,"applyStatus":1,"frontMoneyStatus":0,"pictureUrl":"/static/uploads/image/50da66ae-5189-45e4-8556-7e3870a370d7.jpg,/static/uploads/image/5bcb0c8f-96aa-41f1-a664-75dc6eb6fed8.jpg,/static/uploads/image/f5e09e71-d1a5-41e6-9d1a-8082b4028a0b.jpg,/static/uploads/image/4694ec2c-23bd-4981-a964-2a58144660b3.jpg,/static/uploads/image/0d3d358f-ec1e-4086-9f46-41ceda7af3cc.jpg","auctionDesc":"<p style=\"text-align: center;\">拍品描述<\/p><p style=\"text-align: center;\"><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t22402/127/2207041098/93109/f3b899a2/5b4c06b0N523d49e5.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t22402/127/2207041098/93109/f3b899a2/5b4c06b0N523d49e5.jpg\" alt=\"\" id=\" 0937eeaebded44fc82bb5d41d16ff462\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t21556/305/2184406151/108073/7fc7d353/5b4c06b0N6412d71b.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t21556/305/2184406151/108073/7fc7d353/5b4c06b0N6412d71b.jpg\" alt=\"\" id=\" 6ddbfba5294b4187a6d01a63e0bf8cbb\r\n\"/><\/a><br/><\/p><p style=\"margin-top: 0px; padding: 0px; color: rgb(102, 102, 102);\"><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t23428/50/983855578/71127/1a0a10a2/5b4c06b1N5f7620c4.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t23428/50/983855578/71127/1a0a10a2/5b4c06b1N5f7620c4.jpg\" alt=\"\" id=\" 544114cb413a4dadbabd7ac05dd847b1\r\n\"/><\/a><\/p><p style=\"margin-top: 0px; padding: 0px; color: rgb(102, 102, 102);\"><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t20494/190/2226381989/95221/94256c92/5b4c06c1N692388f1.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t20494/190/2226381989/95221/94256c92/5b4c06c1N692388f1.jpg\" alt=\"\" id=\" 603b22b08c084ce682b8709c8693d789\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t22012/287/2170716639/95060/7f98d0dd/5b4c06c1N4da3a8f3.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t22012/287/2170716639/95060/7f98d0dd/5b4c06c1N4da3a8f3.jpg\" alt=\"\" id=\" c2b999b5d8364080beb2a235efa6c262\r\n\"/><\/a><br/><\/p><p style=\"margin-top: 0px; padding: 0px; color: rgb(102, 102, 102);\"><br/><br/><br/><br/><br/><br/><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t21553/144/2405228974/732881/9adec4f1/5b5582faNddd1f8df.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t21553/144/2405228974/732881/9adec4f1/5b5582faNddd1f8df.jpg\" alt=\"\" id=\" 9632b1e4d919447b9ba5e5de13a30d80\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t20653/274/2414862061/678176/82d0d27d/5b5582fbN3dec9be3.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t20653/274/2414862061/678176/82d0d27d/5b5582fbN3dec9be3.jpg\" alt=\"\" id=\" e957d03df54a48e180a6a33a3e56a67d\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t21823/96/2410128987/627737/d98e2913/5b5582fbNb1c32896.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t21823/96/2410128987/627737/d98e2913/5b5582fbNb1c32896.jpg\" alt=\"\" id=\" 50d5b721e8f44932b9589f852158fd26\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t20551/145/2435064745/700033/d47bcd4f/5b5582fcN14d7117e.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t20551/145/2435064745/700033/d47bcd4f/5b5582fcN14d7117e.jpg\" alt=\"\" id=\" d56ed9aea27240538e67b1f3da642b63\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t21601/47/2432958237/718175/28cc67d0/5b5582fdN242cfbc4.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t21601/47/2432958237/718175/28cc67d0/5b5582fdN242cfbc4.jpg\" alt=\"\" id=\" bc07624c94894c01953c0a7f544f1da1\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t21874/115/2457179698/779937/19920575/5b5582feN5c831ad4.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t21874/115/2457179698/779937/19920575/5b5582feN5c831ad4.jpg\" alt=\"\" id=\" 53dfcbbf041a4fa68d78143d561a446e\r\n\"/><\/a><br/><br/><br/><br/><br/><br/><br/><\/p><p style=\"margin-top: 0px; padding: 0px; color: rgb(102, 102, 102);\"><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t21574/17/2219279235/293334/98570669/5b4c06e1N825fbea8.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t21574/17/2219279235/293334/98570669/5b4c06e1N825fbea8.jpg\" alt=\"\" id=\" 5ce7979ba62c47d282cc9ad2430ea81f\r\n\"/><\/a><br/><\/p><p style=\"margin-top: 0px; padding: 0px; color: rgb(102, 102, 102);\"><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t21868/35/2188103062/143966/7f526dcc/5b4c0724N397239d7.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t21868/35/2188103062/143966/7f526dcc/5b4c0724N397239d7.jpg\" alt=\"\" id=\" e09ade175e3c4fb4bbc062697ac7150b\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t22891/179/992857085/545507/61b3b6d/5b4c0725N0d2113c2.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t22891/179/992857085/545507/61b3b6d/5b4c0725N0d2113c2.jpg\" alt=\"\" id=\" 9e73c2032ca24a02bb3788492bba4ca9\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t20518/356/2173284073/110951/f64bf901/5b4c0725Nbc2a5537.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t20518/356/2173284073/110951/f64bf901/5b4c0725Nbc2a5537.jpg\" alt=\"\" id=\" a7b4c7311cc746de8278416da41be6a2\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t20611/188/2171523223/183459/1df163fa/5b4c0726Ne69946e7.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t20611/188/2171523223/183459/1df163fa/5b4c0726Ne69946e7.jpg\" alt=\"\" id=\" 97dcc1a1c96345d2b7ca2be4225d86c8\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t20299/252/2223893799/221539/a34a4397/5b4c0726N1e9c5b70.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t20299/252/2223893799/221539/a34a4397/5b4c0726N1e9c5b70.jpg\" alt=\"\" id=\" 47e02a47a60d4f0c8113648f64fb187b\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t20020/65/2131753093/199763/1ba687a1/5b4c0727Nde86639e.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t20020/65/2131753093/199763/1ba687a1/5b4c0727Nde86639e.jpg\" alt=\"\" id=\" 26b57e2a6ff34c70adbabebd8148e527\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t23308/177/1007705152/180712/823db5e5/5b4c0727N8ad6c150.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t23308/177/1007705152/180712/823db5e5/5b4c0727N8ad6c150.jpg\" alt=\"\" id=\" ac37cc62de65486a888dfc6756a2de85\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t21196/22/2212791972/169165/23c156dc/5b4c0727N9e14f596.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t21196/22/2212791972/169165/23c156dc/5b4c0727N9e14f596.jpg\" alt=\"\" id=\" f3cc744dd25945759c82509647c3c249\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t21013/77/2222728707/97110/82b6fdcc/5b4c0728N6229938d.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t21013/77/2222728707/97110/82b6fdcc/5b4c0728N6229938d.jpg\" alt=\"\" id=\" 98bae1fb47674c56b075d65b6f58d806\r\n\"/><\/a><br/><br/><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t20134/162/2179611945/251478/855a42f2/5b4c0729N49542eb6.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t20134/162/2179611945/251478/855a42f2/5b4c0729N49542eb6.jpg\" alt=\"\" id=\" 4245c307592146f1a192a64d0c0c4d64\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t21622/355/2205283646/113897/ee0d88bc/5b4c0728N54bf25ee.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t21622/355/2205283646/113897/ee0d88bc/5b4c0728N54bf25ee.jpg\" alt=\"\" id=\" 334eecb1a68f476a8ebdaa7ac3e8aee5\r\n\"/><\/a><\/p><p style=\"margin-top: 0px; padding: 0px; color: rgb(102, 102, 102);\"><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t20944/245/2195646714/272902/363a5555/5b4c0729N25b3c672.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t20944/245/2195646714/272902/363a5555/5b4c0729N25b3c672.jpg\" alt=\"\" id=\" 90960c11c8d446c1b395dc7f9ad1c6b8\r\n\"/><\/a><br/><a href=\"https://img30.360buyimg.com/popWaterMark/jfs/t20944/245/2195646714/272902/363a5555/5b4c0729N25b3c672.jpg\" target=\"_blank\" style=\"margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;\"><img src=\"https://img30.360buyimg.com/popWaterMark/jfs/t20944/245/2195646714/272902/363a5555/5b4c0729N25b3c672.jpg\" alt=\"\" id=\" 90960c11c8d446c1b395dc7f9ad1c6b8\r\n\"/><\/a><br/><\/p><p><br/><\/p>\r\n","certificateUrl":"/static/uploads/image/51fc5a03-4c4e-4df9-a03b-d09ad5956bc5.jpg,/static/uploads/image/08acf0d9-092f-48eb-9390-f6d1180ad8d2.jpg","complainFlag":null,"complainStatus":null,"complain":null,"complainResult":null,"createTime":"2018-07-26 15:13:33","returnFrontMoneyTime":null,"descn":null,"startCreateDate":null,"endCreateDate":null,"sysDate":null,"buyerEnsureAmount":100,"categoryId":null}]
      */
 
     private int status;
@@ -50,9 +50,9 @@ public class AuctionOrderBean {
          * goodsId : 6
          * bidNo : BM201807260004
          * actionName : 瓷中皇族 臻品收藏 《绶带鸟》小美人瓶 一代宗师 省工艺美术大师 张震作品
-         * startPrice : 50
-         * stepSize : 10
-         * nowprice : 50
+         * startPrice : 50.0
+         * stepSize : 10.0
+         * nowprice : 50.0
          * buyerMemberId : 78
          * bidCount : 0
          * startTime : 2018-07-26 00:00:00
@@ -61,16 +61,43 @@ public class AuctionOrderBean {
          * deferredTime : 20
          * status : 4
          * feeStatus : null
-         * feeAmount : 5
+         * feeAmount : 5.0
          * returnFrontMoneyStatus : null
-         * frontMoneyAmount : 100
+         * frontMoneyAmount : 100.0
          * deliveryStatus : null
          * approvalStatus : 1
          * applyStatus : 1
          * frontMoneyStatus : 0
          * pictureUrl : /static/uploads/image/50da66ae-5189-45e4-8556-7e3870a370d7.jpg,/static/uploads/image/5bcb0c8f-96aa-41f1-a664-75dc6eb6fed8.jpg,/static/uploads/image/f5e09e71-d1a5-41e6-9d1a-8082b4028a0b.jpg,/static/uploads/image/4694ec2c-23bd-4981-a964-2a58144660b3.jpg,/static/uploads/image/0d3d358f-ec1e-4086-9f46-41ceda7af3cc.jpg
-         * auctionDesc :
+         * auctionDesc : <p style="text-align: center;">拍品描述</p><p style="text-align: center;"><br/><a href="https://img30.360buyimg.com/popWaterMark/jfs/t22402/127/2207041098/93109/f3b899a2/5b4c06b0N523d49e5.jpg" target="_blank" style="margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;"><img src="https://img30.360buyimg.com/popWaterMark/jfs/t22402/127/2207041098/93109/f3b899a2/5b4c06b0N523d49e5.jpg" alt="" id=" 0937eeaebded44fc82bb5d41d16ff462
+         "/></a><br/><a href="https://img30.360buyimg.com/popWaterMark/jfs/t21556/305/2184406151/108073/7fc7d353/5b4c06b0N6412d71b.jpg" target="_blank" style="margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;"><img src="https://img30.360buyimg.com/popWaterMark/jfs/t21556/305/2184406151/108073/7fc7d353/5b4c06b0N6412d71b.jpg" alt="" id=" 6ddbfba5294b4187a6d01a63e0bf8cbb
+         "/></a><br/></p><p style="margin-top: 0px; padding: 0px; color: rgb(102, 102, 102);"><a href="https://img30.360buyimg.com/popWaterMark/jfs/t23428/50/983855578/71127/1a0a10a2/5b4c06b1N5f7620c4.jpg" target="_blank" style="margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;"><img src="https://img30.360buyimg.com/popWaterMark/jfs/t23428/50/983855578/71127/1a0a10a2/5b4c06b1N5f7620c4.jpg" alt="" id=" 544114cb413a4dadbabd7ac05dd847b1
+         "/></a></p><p style="margin-top: 0px; padding: 0px; color: rgb(102, 102, 102);"><br/><a href="https://img30.360buyimg.com/popWaterMark/jfs/t20494/190/2226381989/95221/94256c92/5b4c06c1N692388f1.jpg" target="_blank" style="margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;"><img src="https://img30.360buyimg.com/popWaterMark/jfs/t20494/190/2226381989/95221/94256c92/5b4c06c1N692388f1.jpg" alt="" id=" 603b22b08c084ce682b8709c8693d789
+         "/></a><br/><a href="https://img30.360buyimg.com/popWaterMark/jfs/t22012/287/2170716639/95060/7f98d0dd/5b4c06c1N4da3a8f3.jpg" target="_blank" style="margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;"><img src="https://img30.360buyimg.com/popWaterMark/jfs/t22012/287/2170716639/95060/7f98d0dd/5b4c06c1N4da3a8f3.jpg" alt="" id=" c2b999b5d8364080beb2a235efa6c262
+         "/></a><br/></p><p style="margin-top: 0px; padding: 0px; color: rgb(102, 102, 102);"><br/><br/><br/><br/><br/><br/><br/><a href="https://img30.360buyimg.com/popWaterMark/jfs/t21553/144/2405228974/732881/9adec4f1/5b5582faNddd1f8df.jpg" target="_blank" style="margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;"><img src="https://img30.360buyimg.com/popWaterMark/jfs/t21553/144/2405228974/732881/9adec4f1/5b5582faNddd1f8df.jpg" alt="" id=" 9632b1e4d919447b9ba5e5de13a30d80
+         "/></a><br/><a href="https://img30.360buyimg.com/popWaterMark/jfs/t20653/274/2414862061/678176/82d0d27d/5b5582fbN3dec9be3.jpg" target="_blank" style="margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;"><img src="https://img30.360buyimg.com/popWaterMark/jfs/t20653/274/2414862061/678176/82d0d27d/5b5582fbN3dec9be3.jpg" alt="" id=" e957d03df54a48e180a6a33a3e56a67d
+         "/></a><br/><a href="https://img30.360buyimg.com/popWaterMark/jfs/t21823/96/2410128987/627737/d98e2913/5b5582fbNb1c32896.jpg" target="_blank" style="margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;"><img src="https://img30.360buyimg.com/popWaterMark/jfs/t21823/96/2410128987/627737/d98e2913/5b5582fbNb1c32896.jpg" alt="" id=" 50d5b721e8f44932b9589f852158fd26
+         "/></a><br/><a href="https://img30.360buyimg.com/popWaterMark/jfs/t20551/145/2435064745/700033/d47bcd4f/5b5582fcN14d7117e.jpg" target="_blank" style="margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;"><img src="https://img30.360buyimg.com/popWaterMark/jfs/t20551/145/2435064745/700033/d47bcd4f/5b5582fcN14d7117e.jpg" alt="" id=" d56ed9aea27240538e67b1f3da642b63
+         "/></a><br/><a href="https://img30.360buyimg.com/popWaterMark/jfs/t21601/47/2432958237/718175/28cc67d0/5b5582fdN242cfbc4.jpg" target="_blank" style="margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;"><img src="https://img30.360buyimg.com/popWaterMark/jfs/t21601/47/2432958237/718175/28cc67d0/5b5582fdN242cfbc4.jpg" alt="" id=" bc07624c94894c01953c0a7f544f1da1
+         "/></a><br/><a href="https://img30.360buyimg.com/popWaterMark/jfs/t21874/115/2457179698/779937/19920575/5b5582feN5c831ad4.jpg" target="_blank" style="margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;"><img src="https://img30.360buyimg.com/popWaterMark/jfs/t21874/115/2457179698/779937/19920575/5b5582feN5c831ad4.jpg" alt="" id=" 53dfcbbf041a4fa68d78143d561a446e
+         "/></a><br/><br/><br/><br/><br/><br/><br/></p><p style="margin-top: 0px; padding: 0px; color: rgb(102, 102, 102);"><br/><a href="https://img30.360buyimg.com/popWaterMark/jfs/t21574/17/2219279235/293334/98570669/5b4c06e1N825fbea8.jpg" target="_blank" style="margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;"><img src="https://img30.360buyimg.com/popWaterMark/jfs/t21574/17/2219279235/293334/98570669/5b4c06e1N825fbea8.jpg" alt="" id=" 5ce7979ba62c47d282cc9ad2430ea81f
+         "/></a><br/></p><p style="margin-top: 0px; padding: 0px; color: rgb(102, 102, 102);"><br/><a href="https://img30.360buyimg.com/popWaterMark/jfs/t21868/35/2188103062/143966/7f526dcc/5b4c0724N397239d7.jpg" target="_blank" style="margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;"><img src="https://img30.360buyimg.com/popWaterMark/jfs/t21868/35/2188103062/143966/7f526dcc/5b4c0724N397239d7.jpg" alt="" id=" e09ade175e3c4fb4bbc062697ac7150b
+         "/></a><br/><a href="https://img30.360buyimg.com/popWaterMark/jfs/t22891/179/992857085/545507/61b3b6d/5b4c0725N0d2113c2.jpg" target="_blank" style="margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;"><img src="https://img30.360buyimg.com/popWaterMark/jfs/t22891/179/992857085/545507/61b3b6d/5b4c0725N0d2113c2.jpg" alt="" id=" 9e73c2032ca24a02bb3788492bba4ca9
+         "/></a><br/><a href="https://img30.360buyimg.com/popWaterMark/jfs/t20518/356/2173284073/110951/f64bf901/5b4c0725Nbc2a5537.jpg" target="_blank" style="margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;"><img src="https://img30.360buyimg.com/popWaterMark/jfs/t20518/356/2173284073/110951/f64bf901/5b4c0725Nbc2a5537.jpg" alt="" id=" a7b4c7311cc746de8278416da41be6a2
+         "/></a><br/><a href="https://img30.360buyimg.com/popWaterMark/jfs/t20611/188/2171523223/183459/1df163fa/5b4c0726Ne69946e7.jpg" target="_blank" style="margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;"><img src="https://img30.360buyimg.com/popWaterMark/jfs/t20611/188/2171523223/183459/1df163fa/5b4c0726Ne69946e7.jpg" alt="" id=" 97dcc1a1c96345d2b7ca2be4225d86c8
+         "/></a><br/><a href="https://img30.360buyimg.com/popWaterMark/jfs/t20299/252/2223893799/221539/a34a4397/5b4c0726N1e9c5b70.jpg" target="_blank" style="margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;"><img src="https://img30.360buyimg.com/popWaterMark/jfs/t20299/252/2223893799/221539/a34a4397/5b4c0726N1e9c5b70.jpg" alt="" id=" 47e02a47a60d4f0c8113648f64fb187b
+         "/></a><br/><a href="https://img30.360buyimg.com/popWaterMark/jfs/t20020/65/2131753093/199763/1ba687a1/5b4c0727Nde86639e.jpg" target="_blank" style="margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;"><img src="https://img30.360buyimg.com/popWaterMark/jfs/t20020/65/2131753093/199763/1ba687a1/5b4c0727Nde86639e.jpg" alt="" id=" 26b57e2a6ff34c70adbabebd8148e527
+         "/></a><br/><a href="https://img30.360buyimg.com/popWaterMark/jfs/t23308/177/1007705152/180712/823db5e5/5b4c0727N8ad6c150.jpg" target="_blank" style="margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;"><img src="https://img30.360buyimg.com/popWaterMark/jfs/t23308/177/1007705152/180712/823db5e5/5b4c0727N8ad6c150.jpg" alt="" id=" ac37cc62de65486a888dfc6756a2de85
+         "/></a><br/><a href="https://img30.360buyimg.com/popWaterMark/jfs/t21196/22/2212791972/169165/23c156dc/5b4c0727N9e14f596.jpg" target="_blank" style="margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;"><img src="https://img30.360buyimg.com/popWaterMark/jfs/t21196/22/2212791972/169165/23c156dc/5b4c0727N9e14f596.jpg" alt="" id=" f3cc744dd25945759c82509647c3c249
+         "/></a><br/><a href="https://img30.360buyimg.com/popWaterMark/jfs/t21013/77/2222728707/97110/82b6fdcc/5b4c0728N6229938d.jpg" target="_blank" style="margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;"><img src="https://img30.360buyimg.com/popWaterMark/jfs/t21013/77/2222728707/97110/82b6fdcc/5b4c0728N6229938d.jpg" alt="" id=" 98bae1fb47674c56b075d65b6f58d806
+         "/></a><br/><br/><br/><a href="https://img30.360buyimg.com/popWaterMark/jfs/t20134/162/2179611945/251478/855a42f2/5b4c0729N49542eb6.jpg" target="_blank" style="margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;"><img src="https://img30.360buyimg.com/popWaterMark/jfs/t20134/162/2179611945/251478/855a42f2/5b4c0729N49542eb6.jpg" alt="" id=" 4245c307592146f1a192a64d0c0c4d64
+         "/></a><br/><a href="https://img30.360buyimg.com/popWaterMark/jfs/t21622/355/2205283646/113897/ee0d88bc/5b4c0728N54bf25ee.jpg" target="_blank" style="margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;"><img src="https://img30.360buyimg.com/popWaterMark/jfs/t21622/355/2205283646/113897/ee0d88bc/5b4c0728N54bf25ee.jpg" alt="" id=" 334eecb1a68f476a8ebdaa7ac3e8aee5
+         "/></a></p><p style="margin-top: 0px; padding: 0px; color: rgb(102, 102, 102);"><br/><a href="https://img30.360buyimg.com/popWaterMark/jfs/t20944/245/2195646714/272902/363a5555/5b4c0729N25b3c672.jpg" target="_blank" style="margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;"><img src="https://img30.360buyimg.com/popWaterMark/jfs/t20944/245/2195646714/272902/363a5555/5b4c0729N25b3c672.jpg" alt="" id=" 90960c11c8d446c1b395dc7f9ad1c6b8
+         "/></a><br/><a href="https://img30.360buyimg.com/popWaterMark/jfs/t20944/245/2195646714/272902/363a5555/5b4c0729N25b3c672.jpg" target="_blank" style="margin: 0px; padding: 0px; color: rgb(67, 62, 51); text-decoration-line: none; cursor: pointer;"><img src="https://img30.360buyimg.com/popWaterMark/jfs/t20944/245/2195646714/272902/363a5555/5b4c0729N25b3c672.jpg" alt="" id=" 90960c11c8d446c1b395dc7f9ad1c6b8
+         "/></a><br/></p><p><br/></p>
+
          * certificateUrl : /static/uploads/image/51fc5a03-4c4e-4df9-a03b-d09ad5956bc5.jpg,/static/uploads/image/08acf0d9-092f-48eb-9390-f6d1180ad8d2.jpg
+         * complainFlag : null
          * complainStatus : null
          * complain : null
          * complainResult : null
@@ -80,7 +107,7 @@ public class AuctionOrderBean {
          * startCreateDate : null
          * endCreateDate : null
          * sysDate : null
-         * buyerEnsureAmount : 100
+         * buyerEnsureAmount : 100.0
          * categoryId : null
          */
 
@@ -90,20 +117,20 @@ public class AuctionOrderBean {
         private int goodsId;
         private String bidNo;
         private String actionName;
-        private int startPrice;
-        private int stepSize;
-        private int nowprice;
+        private double startPrice;
+        private double stepSize;
+        private double nowprice;
         private int buyerMemberId;
         private int bidCount;
         private String startTime;
         private String endTime;
         private int stepTime;
         private int deferredTime;
-        private int status;
+        private String status;
         private String feeStatus;
-        private int feeAmount;
+        private double feeAmount;
         private String returnFrontMoneyStatus;
-        private int frontMoneyAmount;
+        private double frontMoneyAmount;
         private String deliveryStatus;
         private int approvalStatus;
         private int applyStatus;
@@ -111,6 +138,7 @@ public class AuctionOrderBean {
         private String pictureUrl;
         private String auctionDesc;
         private String certificateUrl;
+        private String complainFlag;
         private String complainStatus;
         private String complain;
         private String complainResult;
@@ -119,8 +147,8 @@ public class AuctionOrderBean {
         private String descn;
         private String startCreateDate;
         private String endCreateDate;
-        private String sysDate;
-        private int buyerEnsureAmount;
+        private Long sysDate;
+        private double buyerEnsureAmount;
         private String categoryId;
 
         public int getId() {
@@ -171,27 +199,27 @@ public class AuctionOrderBean {
             this.actionName = actionName;
         }
 
-        public int getStartPrice() {
+        public double getStartPrice() {
             return startPrice;
         }
 
-        public void setStartPrice(int startPrice) {
+        public void setStartPrice(double startPrice) {
             this.startPrice = startPrice;
         }
 
-        public int getStepSize() {
+        public double getStepSize() {
             return stepSize;
         }
 
-        public void setStepSize(int stepSize) {
+        public void setStepSize(double stepSize) {
             this.stepSize = stepSize;
         }
 
-        public int getNowprice() {
+        public double getNowprice() {
             return nowprice;
         }
 
-        public void setNowprice(int nowprice) {
+        public void setNowprice(double nowprice) {
             this.nowprice = nowprice;
         }
 
@@ -243,11 +271,11 @@ public class AuctionOrderBean {
             this.deferredTime = deferredTime;
         }
 
-        public int getStatus() {
+        public String getStatus() {
             return status;
         }
 
-        public void setStatus(int status) {
+        public void setStatus(String status) {
             this.status = status;
         }
 
@@ -259,11 +287,11 @@ public class AuctionOrderBean {
             this.feeStatus = feeStatus;
         }
 
-        public int getFeeAmount() {
+        public double getFeeAmount() {
             return feeAmount;
         }
 
-        public void setFeeAmount(int feeAmount) {
+        public void setFeeAmount(double feeAmount) {
             this.feeAmount = feeAmount;
         }
 
@@ -275,11 +303,11 @@ public class AuctionOrderBean {
             this.returnFrontMoneyStatus = returnFrontMoneyStatus;
         }
 
-        public int getFrontMoneyAmount() {
+        public double getFrontMoneyAmount() {
             return frontMoneyAmount;
         }
 
-        public void setFrontMoneyAmount(int frontMoneyAmount) {
+        public void setFrontMoneyAmount(double frontMoneyAmount) {
             this.frontMoneyAmount = frontMoneyAmount;
         }
 
@@ -337,6 +365,14 @@ public class AuctionOrderBean {
 
         public void setCertificateUrl(String certificateUrl) {
             this.certificateUrl = certificateUrl;
+        }
+
+        public String getComplainFlag() {
+            return complainFlag;
+        }
+
+        public void setComplainFlag(String complainFlag) {
+            this.complainFlag = complainFlag;
         }
 
         public String getComplainStatus() {
@@ -403,19 +439,19 @@ public class AuctionOrderBean {
             this.endCreateDate = endCreateDate;
         }
 
-        public String getSysDate() {
+        public Long getSysDate() {
             return sysDate;
         }
 
-        public void setSysDate(String sysDate) {
+        public void setSysDate(Long sysDate) {
             this.sysDate = sysDate;
         }
 
-        public int getBuyerEnsureAmount() {
+        public double getBuyerEnsureAmount() {
             return buyerEnsureAmount;
         }
 
-        public void setBuyerEnsureAmount(int buyerEnsureAmount) {
+        public void setBuyerEnsureAmount(double buyerEnsureAmount) {
             this.buyerEnsureAmount = buyerEnsureAmount;
         }
 

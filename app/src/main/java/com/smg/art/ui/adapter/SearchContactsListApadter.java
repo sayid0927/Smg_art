@@ -2,15 +2,13 @@ package com.smg.art.ui.adapter;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.smg.art.R;
 import com.smg.art.base.Constant;
-import com.smg.art.bean.GoodsBean;
 import com.smg.art.bean.SearchMemberBean;
-import com.smg.art.utils.GlideCommonUtils;
 import com.smg.art.utils.GlideUtils;
 
 import java.util.List;
@@ -37,7 +35,7 @@ public class SearchContactsListApadter extends BaseQuickAdapter<SearchMemberBean
     protected void convert(final BaseViewHolder helper, final SearchMemberBean.DataBean item) {
          helper.setText(R.id.tv_name,item.getMemberName());
 //        GlideCommonUtils.showHeadPic(mContext, Constant.BaseImgUrl+item.getHeadImg(),helper.getView(R.id.iv_head));
-        GlideUtils.load(mContext, Constant.BaseImgUrl+item.getHeadImg(),helper.getView(R.id.iv_head));
+        GlideUtils.load(mContext, Constant.BaseImgUrl + item.getHeadImg(), (ImageView) helper.getView(R.id.iv_head));
         helper.getView(R.id.tv_add_finds).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

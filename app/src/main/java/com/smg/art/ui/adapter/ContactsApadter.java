@@ -1,9 +1,9 @@
 package com.smg.art.ui.adapter;
 
 import android.content.Context;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseItemDraggableAdapter;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.smg.art.R;
 import com.smg.art.base.Constant;
@@ -22,6 +22,7 @@ public class ContactsApadter extends BaseItemDraggableAdapter<AddressBookFriends
 
     private Context mContext;
     private List<AddressBookFriendsBean.DataBean> data;
+    private OnGoodsItemListener onGoodsItemListener;
 
     public ContactsApadter(List<AddressBookFriendsBean.DataBean> data, Context mContext) {
         super(R.layout.item_contact, data);
@@ -33,13 +34,9 @@ public class ContactsApadter extends BaseItemDraggableAdapter<AddressBookFriends
     protected void convert(BaseViewHolder helper, final AddressBookFriendsBean.DataBean item) {
 
          helper.setText(R.id.tv_name,item.getMemberName());
-        GlideUtils.load(mContext, Constant.BaseImgUrl+item.getHeadImg(),helper.getView(R.id.iv_head));
+        GlideUtils.load(mContext, Constant.BaseImgUrl + item.getHeadImg(), (ImageView) helper.getView(R.id.iv_head));
 
     }
-
-
-
-    private  OnGoodsItemListener  onGoodsItemListener;
 
     public void OnGoodsItemListener (OnGoodsItemListener  onGoodsItemListener){
         this.onGoodsItemListener =onGoodsItemListener;
