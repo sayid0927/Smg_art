@@ -95,6 +95,12 @@ public class Constant {
     //上传头像
     public static final String USERHEADIMG = "upload/userHeadImg";
 
+    //我的钱包查询余额
+    public static final String QUERYWALLETINFO = "wallet/queryWalletInfo";
+
+    //我的钱包收支
+    public static final String QUERYWALLETRECORDS = "wallet/queryWalletRecords";
+
 
 
     public static String LOCAL_APP_CONFIG_FILE_NAME = "smgconfig";//本地应用配置文件名，存储些全局变量

@@ -24,12 +24,10 @@ import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.Constant;
 import com.smg.art.base.HomePageImgBean;
-import com.smg.art.bean.AuctionOrderBean;
-import com.smg.art.bean.CashDepositiBean;
-import com.smg.art.bean.CollectionBean;
 import com.smg.art.bean.AddFriendBean;
 import com.smg.art.bean.AddressBookFriendsBean;
-import com.smg.art.bean.Apk_UpdateBean;
+import com.smg.art.bean.AuctionOrderBean;
+import com.smg.art.bean.BalanceOfPayBean;
 import com.smg.art.bean.CashDepositiBean;
 import com.smg.art.bean.CollectionBean;
 import com.smg.art.bean.ForgetPasswordBean;
@@ -37,8 +35,9 @@ import com.smg.art.bean.LoginBean;
 import com.smg.art.bean.PhoneVerifyCodeBean;
 import com.smg.art.bean.RegisterBean;
 import com.smg.art.bean.SaveCollectsBean;
-import com.smg.art.bean.UpLoadBean;
 import com.smg.art.bean.SearchMemberBean;
+import com.smg.art.bean.UpLoadBean;
+import com.smg.art.bean.WalletBalanceBean;
 import com.smg.art.utils.LocalAppConfigUtil;
 
 import java.util.HashMap;
@@ -50,8 +49,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.POST;
-import retrofit2.http.QueryMap;
 import rx.Observable;
 
 public class Api {
@@ -240,4 +237,17 @@ public class Api {
         return service.FetchAnnouncementAuctionList(getMap(s));
     }
 
+    /**
+     * 上传头像
+     */
+    public Observable<WalletBalanceBean> FetchMyWalletBalance(String... s) {
+        return service.FetchMyWalletBalance(getMap(s));
+    }
+
+    /**
+     * 查询钱包收支
+     */
+    public Observable<BalanceOfPayBean> FetchBalanceOfPay(String... s) {
+        return service.FetchBalanceOfPay(getMap(s));
+    }
 }

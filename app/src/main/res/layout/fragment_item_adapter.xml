@@ -25,7 +25,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:text="提现"
                 android:textColor="@color/black_212121"
                 android:textSize="@dimen/wz_15sp" />
 
@@ -34,7 +33,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/bj_11dp"
-                android:text="提现"
                 android:textColor="@color/grey_999999"
                 android:textSize="@dimen/wz_12sp" />
 
@@ -45,7 +43,6 @@
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="提现"
             android:textColor="@color/red_fb002f"
             android:textSize="@dimen/wz_15sp" />
 

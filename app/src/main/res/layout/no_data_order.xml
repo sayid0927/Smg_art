@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/no_order_date" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="您的订单空空如也"
+        android:textSize="@dimen/wz_15sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/bj_5dp"
+        android:text="暂无更多数据"
+        android:textSize="@dimen/wz_13sp" />
+
+    <TextView
+        android:id="@+id/detail"
+        android:layout_width="@dimen/bj_75dp"
+        android:layout_height="@dimen/bj_20dp"
+        android:layout_marginTop="@dimen/bj_20dp"
+        android:background="@drawable/shape_red"
+        android:gravity="center"
+        android:text="去看看"
+        android:textColor="@color/white"
+        android:textSize="@dimen/wz_12sp" />
+
+
+</LinearLayout>

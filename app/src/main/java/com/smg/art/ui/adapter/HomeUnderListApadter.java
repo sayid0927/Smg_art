@@ -1,14 +1,13 @@
 package com.smg.art.ui.adapter;
 
 import android.content.Context;
-import android.view.View;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.smg.art.R;
 import com.smg.art.base.Constant;
 import com.smg.art.base.HomePageImgBean;
-import com.smg.art.bean.GoodsBean;
 import com.smg.art.utils.GlideUtils;
 
 import java.util.List;
@@ -22,6 +21,7 @@ public class HomeUnderListApadter extends BaseQuickAdapter<HomePageImgBean.DataB
 
     private Context mContext;
     private List<HomePageImgBean.DataBean.UnderListBean> data;
+    private OnGoodsItemListener onGoodsItemListener;
 
     public HomeUnderListApadter(List<HomePageImgBean.DataBean.UnderListBean> data, Context mContext) {
         super(R.layout.item_home_under, data);
@@ -31,10 +31,9 @@ public class HomeUnderListApadter extends BaseQuickAdapter<HomePageImgBean.DataB
 
     @Override
     protected void convert(BaseViewHolder helper, final HomePageImgBean.DataBean.UnderListBean item) {
-        GlideUtils.loadFitCenter(mContext, Constant.BaseImgUrl+item.getImgPath(),helper.getView(R.id.iv_under));
+        GlideUtils.loadFitCenter(mContext, Constant.BaseImgUrl + item.getImgPath(), (ImageView) helper.getView(R.id.iv_under));
     }
 
-    private  OnGoodsItemListener  onGoodsItemListener;
     public void OnGoodsItemListener (OnGoodsItemListener  onGoodsItemListener){
         this.onGoodsItemListener =onGoodsItemListener;
     }

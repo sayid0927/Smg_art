@@ -3,25 +3,32 @@ package com.smg.art.ui.personalcenter;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.utils.ToastUtils;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
 import com.smg.art.base.BaseApplication;
-import com.smg.art.base.BasePagerAdapter;
+import com.smg.art.bean.WalletBalanceBean;
 import com.smg.art.component.AppComponent;
-import com.smg.art.ui.fragment.ClassifyChildFragment;
-import com.smg.art.ui.personalcenter.fragemnt.AllFragment;
+import com.smg.art.component.DaggerMainComponent;
+import com.smg.art.presenter.contract.activity.MyWalletContract;
+import com.smg.art.presenter.impl.activity.MyWalletPresenter;
+import com.smg.art.ui.adapter.MyWalletViewAdapter;
 import com.smg.art.utils.CommonDpUtils;
 import com.smg.art.utils.KeyBoardUtils;
+import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.view.TabPageIndicator;
 import com.smg.art.view.ViewPagerSlide;
 import com.zhy.autolayout.AutoRelativeLayout;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -30,8 +37,9 @@ import butterknife.OnClick;
  * Created by Mervin on 2018/7/26 0026.
  */
 
-public class MyWalletActivity extends BaseActivity {
-
+public class MyWalletActivity extends BaseActivity implements MyWalletContract.View {
+    @Inject
+    MyWalletPresenter mPresenter;
     @BindView(R.id.rl_back)
     AutoRelativeLayout rlBack;
     @BindView(R.id.left_title)
@@ -52,17 +60,16 @@ public class MyWalletActivity extends BaseActivity {
     TextView withdraw;
     @BindView(R.id.rcharge)
     TextView rcharge;
-    AllFragment allFragment = new AllFragment();
     Intent intent;
+    @BindView(R.id.price)
+    TextView price;
     private String[] titles;
-    /*    AllFragment allFragment = new AllFragment();
-        Expenditurefragment expenditurefragment = new Expenditurefragment();//支出
-        IncomeFragment incomeFragment = new IncomeFragment();//收入*/
     private ArrayList<Fragment> fragments = new ArrayList<>();
+    private int current = 0;
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
-        // DaggerMainComponent.builder().appComponent(appComponent).build().inject(this);
+        DaggerMainComponent.builder().appComponent(appComponent).build().inject(this);
     }
 
     @Override
@@ -72,31 +79,28 @@ public class MyWalletActivity extends BaseActivity {
 
     @Override
     public void attachView() {
-
+        mPresenter.attachView(this, this);
     }
 
     @Override
     public void detachView() {
+        mPresenter.detachView();
+    }
 
+    public void getData() {
+        mPresenter.FetchMyWalletBalance("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
     }
 
     @Override
     public void initView() {
         actionbarTitle.setText(R.string.mywallet);
-        fragments.add(allFragment);
-        fragments.add(ClassifyChildFragment.getInstance());
-        fragments.add(ClassifyChildFragment.getInstance());
-  /*      Bundle bundle = new Bundle();
-        bundle.putString("key", "balance");*/
-        // allFragment.setArguments();
-      /*  allFragment.setArguments(bundle);
-        incomeFragment.setArguments(bundle);
-        expenditurefragment.setArguments(bundle);*/
         titles = getResources().getStringArray(R.array.balance_title);
-        BasePagerAdapter adapter = new BasePagerAdapter(getSupportFragmentManager(), fragments, titles);
+        MyWalletViewAdapter adapter = new MyWalletViewAdapter(getSupportFragmentManager(), titles);
         viewPager.setAdapter(adapter);
         indicator.setViewPager(viewPager);
         setTabPagerIndicator();
+        viewPager.setCurrentItem(current);
+        getData();
     }
 
     private void setTabPagerIndicator() {
@@ -126,4 +130,21 @@ public class MyWalletActivity extends BaseActivity {
                 break;
         }
     }
+
+    @Override
+    public void FetchMyWalletBalanceSuccess(WalletBalanceBean walletBalanceBean) {
+        if (walletBalanceBean.getStatus() == 1) {
+            if (!TextUtils.isEmpty(walletBalanceBean.getData())) {
+                price.setText(String.format("%.2f", Double.valueOf(walletBalanceBean.getData())));
+            }
+        } else {
+            ToastUtils.showShortToast(walletBalanceBean.getMsg());
+        }
+    }
+
+    @Override
+    public void showError(String message) {
+
+    }
+
 }

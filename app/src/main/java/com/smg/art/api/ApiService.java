@@ -24,6 +24,7 @@ import com.smg.art.base.HomePageImgBean;
 import com.smg.art.bean.AddFriendBean;
 import com.smg.art.bean.AddressBookFriendsBean;
 import com.smg.art.bean.AuctionOrderBean;
+import com.smg.art.bean.BalanceOfPayBean;
 import com.smg.art.bean.CashDepositiBean;
 import com.smg.art.bean.CollectionBean;
 import com.smg.art.bean.ForgetPasswordBean;
@@ -31,8 +32,9 @@ import com.smg.art.bean.LoginBean;
 import com.smg.art.bean.PhoneVerifyCodeBean;
 import com.smg.art.bean.RegisterBean;
 import com.smg.art.bean.SaveCollectsBean;
-import com.smg.art.bean.UpLoadBean;
 import com.smg.art.bean.SearchMemberBean;
+import com.smg.art.bean.UpLoadBean;
+import com.smg.art.bean.WalletBalanceBean;
 
 import java.util.Map;
 
@@ -163,5 +165,17 @@ public interface ApiService {
 
 
 
+
+    /**
+     * 查询余额
+     */
+    @GET(Constant.QUERYWALLETINFO)
+    Observable<WalletBalanceBean> FetchMyWalletBalance(@QueryMap Map<String, String> map);
+
+    /**
+     * 查询钱包收支
+     */
+    @GET(Constant.QUERYWALLETRECORDS)
+    Observable<BalanceOfPayBean> FetchBalanceOfPay(@QueryMap Map<String, String> map);
 
 }

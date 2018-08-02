@@ -1,10 +1,15 @@
 package com.smg.art.utils;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.TextAppearanceSpan;
 import android.util.Base64;
 
 import com.smg.art.base.BaseApplication;
@@ -144,6 +149,15 @@ public class CommonDpUtils {
             e.printStackTrace();
         }
         return file;
+    }
+
+    public static SpannableStringBuilder priceText(String price) {
+        ColorStateList redColors = ColorStateList.valueOf(Color.parseColor("#b20002"));
+        SpannableStringBuilder spanBuilder = new SpannableStringBuilder(price);
+        //style 为0 即是正常的，还有Typeface.BOLD(粗体) Typeface.ITALIC(斜体)等
+        //size  为0 即采用原始的正常的 size大小
+        spanBuilder.setSpan(new TextAppearanceSpan(null, 0, 30, redColors, null), price.length() - 2, price.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        return spanBuilder;
     }
 }
 

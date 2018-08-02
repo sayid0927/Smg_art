@@ -13,12 +13,12 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.smg.art.R;
 import com.smg.art.base.BaseFragment;
 import com.smg.art.base.Constant;
-import com.smg.art.bean.AuctionOrderBean;
+import com.smg.art.bean.BalanceOfPayBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
-import com.smg.art.presenter.contract.fragment.AuctionOrderConstrat;
-import com.smg.art.presenter.impl.fragment.AuctionOrderPresenter;
-import com.smg.art.ui.personalcenter.adapter.AuctionAdapter;
+import com.smg.art.presenter.contract.fragment.BalanceContract;
+import com.smg.art.presenter.impl.fragment.BalanceOfPayPresenter;
+import com.smg.art.ui.personalcenter.adapter.FragmentAdapter;
 import com.smg.art.utils.LocalAppConfigUtil;
 
 import java.util.ArrayList;
@@ -29,25 +29,25 @@ import javax.inject.Inject;
 import butterknife.BindView;
 
 /**
- * Created by Mervin on 2018/7/27 0027.
+ * Created by Mervin on 2018/7/26 0026.
  */
 
-public class AuctionOrderFragment extends BaseFragment implements AuctionOrderConstrat.View {
+public class BalanceFragment extends BaseFragment implements BalanceContract.View {
     @Inject
-    AuctionOrderPresenter mPresenter;
+    BalanceOfPayPresenter mPresenter;
 
     @BindView(R.id.listView)
     ListView listView;
     @BindView(R.id.srl)
     SmartRefreshLayout srl;
-    AuctionAdapter auctionAdapter;
-    int p = 1;
     @BindView(R.id.no_data)
     LinearLayout noData;
+    int p = 1;
     int type;
+    String upType;
+    private FragmentAdapter fragmentAdapter;
     private int count = 10;
-    private List<AuctionOrderBean.DataBean> list = new ArrayList<AuctionOrderBean.DataBean>();
-
+    private List<BalanceOfPayBean.DataBean> list = new ArrayList<BalanceOfPayBean.DataBean>();
 
     @Override
     public void loadData() {
@@ -56,7 +56,7 @@ public class AuctionOrderFragment extends BaseFragment implements AuctionOrderCo
 
     @Override
     public int getLayoutResId() {
-        return R.layout.auction_fragment_order;
+        return R.layout.fragment_item;
     }
 
     @Override
@@ -67,6 +67,14 @@ public class AuctionOrderFragment extends BaseFragment implements AuctionOrderCo
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
         DaggerMainComponent.builder().appComponent(appComponent).build().inject(this);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (listView != null && isVisibleToUser) {
+            getData(p = 1);
+        }
     }
 
     @Override
@@ -90,36 +98,45 @@ public class AuctionOrderFragment extends BaseFragment implements AuctionOrderCo
                 srl.finishLoadmore();
             }
         });
+        fragmentAdapter = new FragmentAdapter(getActivity(), list);
+        listView.setAdapter(fragmentAdapter);
         getData(p = 1);
-        auctionAdapter = new AuctionAdapter(getActivity(), list);
-        listView.setAdapter(auctionAdapter);
     }
 
     public void getData(int p) {
-        mPresenter.FetchAuctionOrder("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()), "type", String.valueOf(type), "page", String.valueOf(p), "rows", String.valueOf(count));
+        if (type == 0) {
+            upType = "";
+        } else {
+            upType = String.valueOf(type);
+        }
+        mPresenter.FetchBalanceOfPayment("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()), "type", upType, "page", String.valueOf(p), "rows", String.valueOf(count));
+    }
+
+
+    @Override
+    public void FetchBalanceOfPaymentSuccess(BalanceOfPayBean balanceOfPayBean) {
+        if (balanceOfPayBean.getStatus() == 1) {
+            if (p == 1) {
+                list.clear();
+            }
+            list.addAll(balanceOfPayBean.getData());
+            if (list.size() > 0) {
+                srl.setVisibility(View.VISIBLE);
+                noData.setVisibility(View.GONE);
+                fragmentAdapter.notifyDataSetChanged();
+            } else {
+                srl.setVisibility(View.GONE);
+                noData.setVisibility(View.VISIBLE);
+            }
+
+        } else {
+            ToastUtils.showShortToast(balanceOfPayBean.getMsg());
+        }
     }
 
     @Override
     public void showError(String message) {
 
     }
-
-    @Override
-    public void FetchAuctionOrderSuccess(AuctionOrderBean auctionOrderBean) {
-        if (auctionOrderBean.getStatus() == 1) {
-            list.addAll(auctionOrderBean.getData());
-            if (list.size() > 0) {
-                srl.setVisibility(View.VISIBLE);
-                noData.setVisibility(View.GONE);
-                auctionAdapter.notifyDataSetChanged();
-            } else {
-                srl.setVisibility(View.GONE);
-                noData.setVisibility(View.VISIBLE);
-            }
-        } else {
-            ToastUtils.showShortToast(auctionOrderBean.getMsg());
-        }
-    }
-
 
 }
