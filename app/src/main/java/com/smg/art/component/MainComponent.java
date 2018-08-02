@@ -19,6 +19,7 @@ import com.smg.art.ui.fragment.RecentMessageFragment;
 import com.smg.art.ui.login.ForgetPasswordActivity;
 import com.smg.art.ui.login.LoginActivity;
 import com.smg.art.ui.login.RegisterActivity;
+import com.smg.art.ui.personalcenter.AddBankCardActivity;
 import com.smg.art.ui.personalcenter.CashDepositActivity;
 import com.smg.art.ui.personalcenter.MyCollectionActivity;
 import com.smg.art.ui.personalcenter.MyWalletActivity;
@@ -78,4 +79,6 @@ public interface MainComponent {
     MyWalletActivity inject(MyWalletActivity myWalletActivity);
 
     BalanceFragment inject(BalanceFragment balanceFragment);
+
+    AddBankCardActivity inject(AddBankCardActivity addBankCardActivity);
 }

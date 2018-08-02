@@ -2,6 +2,7 @@ package com.smg.art.ui.personalcenter;
 
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -10,11 +11,19 @@ import android.widget.TextView;
 import com.blankj.utilcode.utils.ToastUtils;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
+import com.smg.art.bean.AddBankCardBean;
+import com.smg.art.bean.PhoneVerifyCodeBean;
 import com.smg.art.component.AppComponent;
+import com.smg.art.component.DaggerMainComponent;
+import com.smg.art.presenter.contract.activity.AddBankCardContract;
+import com.smg.art.presenter.impl.activity.AddBankCardPresenter;
 import com.smg.art.utils.CommonUtil;
 import com.smg.art.utils.KeyBoardUtils;
-import com.smg.art.utils.TimeCount;
+import com.smg.art.utils.LocalAppConfigUtil;
+import com.smg.art.utils.TimeCountRed;
 import com.zhy.autolayout.AutoRelativeLayout;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -23,7 +32,10 @@ import butterknife.OnClick;
  * Created by Mervin on 2018/7/26 0026.
  */
 
-public class AddBankCardActivity extends BaseActivity implements View.OnClickListener {
+public class AddBankCardActivity extends BaseActivity implements View.OnClickListener, AddBankCardContract.View {
+
+    @Inject
+    AddBankCardPresenter mPresenter;
 
     @BindView(R.id.rl_back)
     AutoRelativeLayout rlBack;
@@ -54,16 +66,16 @@ public class AddBankCardActivity extends BaseActivity implements View.OnClickLis
     @BindView(R.id.etBankCardCode)
     EditText etBankCardCode;
     @BindView(R.id.addBankCardGetCode)
-    TextView addBankCardGetCode;
+    Button addBankCardGetCode;
     @BindView(R.id.addBankCardCode)
     RelativeLayout addBankCardCode;
     @BindView(R.id.tvCommitWithdraw)
     TextView tvCommitWithdraw;
-    private TimeCount timeCount;
+    private TimeCountRed timeCount;
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
-
+        DaggerMainComponent.builder().appComponent(appComponent).build().inject(this);
     }
 
     @Override
@@ -73,11 +85,12 @@ public class AddBankCardActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void attachView() {
-
+        mPresenter.attachView(this, this);
     }
 
     @Override
     public void detachView() {
+        mPresenter.detachView();
         if (timeCount != null) {
             timeCount.cancel();
         }
@@ -96,58 +109,17 @@ public class AddBankCardActivity extends BaseActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.addBankCardGetCode:
                 if (TextUtils.isEmpty(etBankCardMobile.getText().toString()) || !CommonUtil.isMobileNO(etBankCardMobile.getText().toString())) {
-                    ToastUtils.showShortToast("请输入有效手机号");
+                    ToastUtils.showShortToast(R.string.input_correct_phone);
                 } else {
                     addBankCardGetCode.setClickable(false);
-                       /* VolleyManager.volleyPost(UrlEntity.SMS_CODE, VolleyManager.getMap("telephone", etBankCardMobile.getText().toString(), "captcha_id", code, "verify", graphCode.getText().toString()), new VolleyManager.Responses() {
-                            @Override
-                            public void onResponse(String s, int requestCode) {
-                                LoginInfo loginInfo = JsonManager.parseJson(s, LoginInfo.class);
-                                if (loginInfo.getError_code() != 0) {
-                                    T.show(loginInfo.getError_msg());
-                                    addBankCardGetCode.setClickable(true);
-                                } else {
-                                    T.show(getString(R.string.sms_info));
-                                    startTime();
-                                }
-                            }
-
-                            @Override
-                            public void onErrorResponse(VolleyError volleyError) {
-                                addBankCardGetCode.setClickable(true);
-                            }
-                        }, 0);*/
+                    mPresenter.FetchPhoneVerifyCode("mobilePhone", etBankCardMobile.getText().toString().trim());
                 }
                 break;
             case R.id.tvCommitWithdraw:
                 if (checkUp()) {
-                   /* VolleyManager.volleyPost(UrlEntity.ADDBANK, VolleyManager.getMap("name", etBankCardOwner.getText().toString(), "number", etBankCardNO.getText().toString(),
-                            "branch", etBankCardBranch.getText().toString(), "telephone", etBankCardMobile.getText().toString(), "telephone_code", etBankCardCode.getText().toString()), new VolleyManager.Responses() {
-                        @Override
-                        public void onResponse(String s, int requestCode) {
-                            if (loading != null) {
-                                loading.dismiss();
-                            }
-                            PublicInfo publicInfo = JsonManager.parseJson(s, PublicInfo.class);
-                            if (publicInfo != null) {
-                                if (publicInfo.getError_code() == 0) {
-                                    T.show("银行卡添加成功");
-                                    finish();
-                                } else {
-                                    T.show(publicInfo.getError_msg());
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onErrorResponse(VolleyError volleyError) {
-                            if (loading != null) {
-                                loading.dismiss();
-                            }
-                        }
-                    }, 0);
-                }
-                break;*/
+                    mPresenter.FetchAddBankCard("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()), "bankUserName", etBankCardOwner.getText().toString(),
+                            "cardNo", etBankCardNO.getText().toString(), "openBankName", etBankCardBranch.getText().toString(), "mobile", etBankCardMobile.getText().toString(),
+                            "verifiCode", etBankCardCode.getText().toString());
                 }
         }
     }
@@ -187,7 +159,7 @@ public class AddBankCardActivity extends BaseActivity implements View.OnClickLis
      */
     public void startTime() {
         if (timeCount == null) {
-            timeCount = new TimeCount(60000, 1000, addBankCardGetCode);
+            timeCount = new TimeCountRed(60000, 1000, addBankCardGetCode);
         }
         timeCount.start(); //倒计时后重新获取
     }
@@ -204,4 +176,34 @@ public class AddBankCardActivity extends BaseActivity implements View.OnClickLis
     }
 
 
+    @Override
+    public void FetchAddBankCardSuccess(AddBankCardBean addBankCardBean) {
+        if (addBankCardBean.getStatus() == 1) {
+            ToastUtils.showShortToast("银行卡添加成功");
+            finish();
+        } else {
+            ToastUtils.showShortToast(addBankCardBean.getMsg());
+        }
+    }
+
+    @Override
+    public void FetchPhoneVerifyCodeSuccess(PhoneVerifyCodeBean phoneVerifyCodeBean) {
+        if (phoneVerifyCodeBean.getStatus() != 1) {
+            ToastUtils.showLongToast(phoneVerifyCodeBean.getMsg());
+            addBankCardGetCode.setClickable(true);
+        } else {
+            ToastUtils.showShortToast(getString(R.string.sms_success));
+            startTime();
+        }
+    }
+
+    @Override
+    public Button btn() {
+        return addBankCardGetCode;
+    }
+
+    @Override
+    public void showError(String message) {
+
+    }
 }

@@ -21,6 +21,7 @@ import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.Constant;
 import com.smg.art.base.HomePageImgBean;
+import com.smg.art.bean.AddBankCardBean;
 import com.smg.art.bean.AddFriendBean;
 import com.smg.art.bean.AddressBookFriendsBean;
 import com.smg.art.bean.AuctionOrderBean;
@@ -177,5 +178,11 @@ public interface ApiService {
      */
     @GET(Constant.QUERYWALLETRECORDS)
     Observable<BalanceOfPayBean> FetchBalanceOfPay(@QueryMap Map<String, String> map);
+
+    /**
+     * 添加银行卡
+     */
+    @POST(Constant.INSERTORUPDATEBANKNOINFO)
+    Observable<AddBankCardBean> FetchAddBankCard(@QueryMap Map<String, String> map);
 
 }

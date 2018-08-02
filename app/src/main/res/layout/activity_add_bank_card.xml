@@ -224,7 +224,7 @@
             android:textColor="@color/grey_adadad"
             android:textSize="15sp" />
 
-        <TextView
+        <Button
             android:id="@+id/addBankCardGetCode"
             android:layout_width="104dp"
             android:layout_height="30dp"

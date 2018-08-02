@@ -24,6 +24,7 @@ import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.Constant;
 import com.smg.art.base.HomePageImgBean;
+import com.smg.art.bean.AddBankCardBean;
 import com.smg.art.bean.AddFriendBean;
 import com.smg.art.bean.AddressBookFriendsBean;
 import com.smg.art.bean.AuctionOrderBean;
@@ -249,5 +250,12 @@ public class Api {
      */
     public Observable<BalanceOfPayBean> FetchBalanceOfPay(String... s) {
         return service.FetchBalanceOfPay(getMap(s));
+    }
+
+    /**
+     * 添加银行卡
+     */
+    public Observable<AddBankCardBean> FetchAddBankCard(String... s) {
+        return service.FetchAddBankCard(getMap(s));
     }
 }
