@@ -1,23 +1,20 @@
 package com.smg.art.ui.fragment;
 
 
-import android.app.ListActivity;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blankj.utilcode.utils.ToastUtils;
-import com.chad.library.adapter.base.listener.OnItemSwipeListener;
 import com.smg.art.R;
 import com.smg.art.base.BaseFragment;
 import com.smg.art.base.Constant;
 import com.smg.art.bean.AddFriendBean;
 import com.smg.art.bean.AddressBookFriendsBean;
+import com.smg.art.bean.UpudterMessageBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.fragment.ContactsFragmentContract;
@@ -27,6 +24,7 @@ import com.smg.art.utils.DividerItemDecoration;
 import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.utils.TitleItemDecoration;
 import com.smg.art.view.IndexBar;
+import com.yanzhenjie.recyclerview.swipe.SwipeItemClickListener;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuBridge;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
@@ -34,18 +32,22 @@ import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuItemClickListener;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import io.rong.imkit.RongIM;
 
 /**
  * Created by Lenovo on 2018/7/25.
  */
 
-public class ContactsFragment extends BaseFragment implements ContactsFragmentContract.View {
+public class ContactsFragment extends BaseFragment implements ContactsFragmentContract.View, SwipeItemClickListener {
 
     @Inject
     ContactsFragmentPresenter mPresenter;
@@ -55,7 +57,6 @@ public class ContactsFragment extends BaseFragment implements ContactsFragmentCo
     IndexBar indexBar;
     @BindView(R.id.tvSideBarHint)
     TextView tvSideBarHint;
-
 
     private List<AddressBookFriendsBean.DataBean> mData = new ArrayList<>();
     private ContactsApadter mAdapter;
@@ -80,10 +81,13 @@ public class ContactsFragment extends BaseFragment implements ContactsFragmentCo
     @Override
     protected void initView(Bundle bundle) {
         super.initView(bundle);
+        EventBus.getDefault().register(this);
         mManager = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(mManager);
         mAdapter = new ContactsApadter(mData, getActivity());
-
+        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        rv.addItemDecoration(new DefaultItemDecoration(ContextCompat.getColor(getActivity(), R.color.divider_color)));
+        rv.setSwipeItemClickListener(this);
         rv.setSwipeMenuCreator(swipeMenuCreator);
         rv.setSwipeMenuItemClickListener(mMenuItemClickListener);
 
@@ -101,6 +105,7 @@ public class ContactsFragment extends BaseFragment implements ContactsFragmentCo
                 .setmSourceDatas(mData);//设置数据源
 
         mPresenter.FetchAddressBookFriends("memberId", LocalAppConfigUtil.getInstance().getRCMemberId());
+
     }
 
     @Override
@@ -110,7 +115,18 @@ public class ContactsFragment extends BaseFragment implements ContactsFragmentCo
 
     @Override
     public void showError(String message) {
+        ToastUtils.showLongToast(message);
+    }
 
+    @Subscribe
+    public void getEventBus(UpudterMessageBean upudterMessageBean) {
+        mPresenter.FetchAddressBookFriends("memberId", LocalAppConfigUtil.getInstance().getRCMemberId());
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
     }
 
     /**
@@ -118,6 +134,9 @@ public class ContactsFragment extends BaseFragment implements ContactsFragmentCo
      */
     @Override
     public void FetchAddressBookFriendsSuccess(AddressBookFriendsBean addressBookFriendsBean) {
+        if (mData.size() != 0) {
+            mData.clear();
+        }
         mData = addressBookFriendsBean.getData();
         mAdapter.setNewData(mData);
         mAdapter.notifyDataSetChanged();
@@ -181,4 +200,9 @@ public class ContactsFragment extends BaseFragment implements ContactsFragmentCo
             }
         }
     };
+
+    @Override
+    public void onItemClick(View itemView, int position) {
+        RongIM.getInstance().startPrivateChat(getActivity(), String.valueOf(mData.get(position).getMemberId()), mData.get(position).getMemberName());
+    }
 }

@@ -47,15 +47,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.smg.art.fileProvider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
         <meta-data
             android:name="design_width"
             android:value="720" />
@@ -63,80 +54,23 @@
             android:name="design_height"
             android:value="1280" />
 
-         imlib config begin
-        <meta-data
-            android:name="RONG_CLOUD_APP_KEY"
-            android:value="uwd1c0sxupn81" />
+        <!--会话界面-->
+        <activity
+            android:name="com.smg.art.ui.activity.ConversationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
 
-        <!--<meta-data-->
-            <!--android:name="RONG_CLOUD_APP_KEY"-->
-            <!--android:value="n19jmcy59f1q9" />-->
-
-
-
-
-
-        <service
-            android:name="io.rong.imlib.ipc.RongService"
-            android:exported="true"
-            android:process=":ipc" />
-        <service
-            android:name="io.rong.imlib.ReConnectService"
-            android:exported="true" />
-
-        <receiver
-            android:name="io.rong.imlib.ConnectChangeReceiver"
-            android:exported="true" />
-        <receiver
-            android:name="io.rong.imlib.HeartbeatReceiver"
-            android:process=":ipc" />
-
-        <!-- imlib config end -->
-
-
-        <!-- 必选： SDK 核心功能 -->
-        <!-- 第三方相关,向第三方推送服务请求 token 的服务 -->
-        <service
-            android:name="io.rong.push.core.PushRegistrationService"
-            android:exported="false" />
-
-        <!-- 处理 push 消息相关的服务 -->
-        <service
-            android:name="io.rong.push.core.MessageHandleService"
-            android:exported="true" />
-
-        <!-- push服务 -->
-        <service
-            android:name="io.rong.push.PushService"
-            android:exported="true"
-            android:process="io.rong.push"> <!-- push进程，可以改名 -->
-        </service>
-
-        <!-- push 相关事件接收器 -->
-        <receiver
-            android:name="io.rong.push.PushReceiver"
-            android:process="io.rong.push"> <!-- 此处进程可以改名，名称需要和PushService所在进程统一 -->
-            <!-- 心跳事件 -->
             <intent-filter>
-                <action android:name="io.rong.push.intent.action.HEART_BEAT" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:host="com.smg.art"
+                    android:pathPrefix="/conversation/"
+                    android:scheme="rong" />
             </intent-filter>
-            <!-- 网络变动事件 -->
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-            <!-- 部分用户事件 -->
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.USER_PRESENT" />
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
-            </intent-filter>
-        </receiver>
+        </activity>
 
-        <!-- 必选： SDK 核心功能 -->
-        <!-- end -->
+
 
         <activity android:name=".ui.activity.GuideActivity"
             android:theme="@style/AppThemeMain"  >
