@@ -19,6 +19,7 @@ package com.smg.art.api;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
+import com.smg.art.base.AnnouncementAuctionListBean;
 import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.Constant;
@@ -231,6 +232,12 @@ public class Api {
      */
     public Observable<UpLoadBean> FetchUploadHead(String... s) {
         return service.FetchUploadHead(getMap(s));
+    }
+    /**
+     * 首页公告期分页查询
+     */
+    public Observable<AnnouncementAuctionListBean> FetchAnnouncementAuctionList(String... s) {
+        return service.FetchAnnouncementAuctionList(getMap(s));
     }
 
 }

@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.utils.ToastUtils;
+import com.jaeger.library.StatusBarUtil;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
 import com.smg.art.bean.AddFriendBean;

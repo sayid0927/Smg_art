@@ -2,6 +2,7 @@
 package com.smg.art.presenter.impl.fragment;
 
 import com.smg.art.api.Api;
+import com.smg.art.base.AnnouncementAuctionListBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.BasePresenter;
 import com.smg.art.base.HomePageImgBean;
@@ -47,6 +48,36 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
                         if (mView != null && data != null && data.getStatus() ==1) {
                             hideWaitingDialog();
                             mView.FetchHomePageImgSuccess(data);
+                        }else {
+                            if(data!=null && data.getMsg()!=null){
+                                mView.showError(data.getMsg());
+                            }
+                        }
+                    }
+                }));
+    }
+
+    @Override
+    public void FetchAnnouncementAuctionList(String ...s) {
+        addSubscrebe(api.FetchAnnouncementAuctionList(s).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<AnnouncementAuctionListBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        hideWaitingDialog();
+                        mView.showError(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(AnnouncementAuctionListBean data) {
+                        if (mView != null && data != null && data.getStatus() ==1) {
+                            hideWaitingDialog();
+                            mView.FetchAnnouncementAuctionListSuccess(data);
                         }else {
                             if(data!=null && data.getMsg()!=null){
                                 mView.showError(data.getMsg());

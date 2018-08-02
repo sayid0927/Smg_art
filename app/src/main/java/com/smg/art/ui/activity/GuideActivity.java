@@ -10,6 +10,12 @@ import com.smg.art.component.AppComponent;
 import com.smg.art.ui.login.LoginActivity;
 import com.smg.art.utils.LocalAppConfigUtil;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.Conversation;
+
 /**
  * Created by Mervin on 2018/7/24 0024.
  */
@@ -42,6 +48,7 @@ public class GuideActivity extends BaseActivity {
             @Override
             public void run() {
                 if (LocalAppConfigUtil.getInstance().isLogin()) {
+
                     Intent intent = new Intent();
                     intent.setClass(GuideActivity.this, MainActivity.class);
                     finish();

@@ -1,6 +1,7 @@
 package com.smg.art.ui.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -26,6 +27,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.rong.imkit.RongIM;
+import io.rong.imkit.fragment.ConversationListFragment;
+import io.rong.imlib.model.Conversation;
 
 /**
  * Created by Lenovo on 2018/7/25.
@@ -52,7 +56,8 @@ public class MessageFragment extends BaseFragment {
         mTitleList.add(getString(R.string.recent_message));
         mTitleList.add(getString(R.string.address_list));
 
-        mFragments.add(new RecentMessageFragment());
+        mConversationList = initConversationList();
+        mFragments.add(mConversationList);
         mFragments.add(new ContactsFragment());
 
         BaseFragmentPageAdapter myAdapter = new BaseFragmentPageAdapter(getChildFragmentManager(), mFragments, mTitleList);
@@ -86,5 +91,29 @@ public class MessageFragment extends BaseFragment {
     @OnClick(R.id.ll_addfriend)
     public void onViewClicked() {
         MainActivity.mainActivity.startActivityIn(new Intent(getActivity(), SearchContactsActivity.class),getActivity());
+    }
+
+    private Fragment mConversationList;
+    private Fragment mConversationFragment = null;
+
+    private Fragment initConversationList() {
+
+        /**
+         * appendQueryParameter对具体的会话列表做展示
+         */
+        if (mConversationFragment == null) {
+            ConversationListFragment listFragment = new ConversationListFragment();
+            Uri uri = Uri.parse("rong://" +getActivity().getApplicationInfo().packageName).buildUpon()
+                    .appendPath("conversationList")
+                    .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), "false")       //设置私聊会话非聚合显示
+                    .appendQueryParameter(Conversation.ConversationType.GROUP.getName(), "true")            //设置群组会话聚合显示
+                    .appendQueryParameter(Conversation.ConversationType.DISCUSSION.getName(), "false")//设置讨论组会话非聚合显示
+                    .appendQueryParameter(Conversation.ConversationType.SYSTEM.getName(), "false")         //设置系统会话非聚合显示
+                    .build();
+            listFragment.setUri(uri);
+            return listFragment;
+        } else {
+            return mConversationFragment;
+        }
     }
 }

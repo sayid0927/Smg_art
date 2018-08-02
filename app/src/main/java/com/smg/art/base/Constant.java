@@ -82,8 +82,10 @@ public class Constant {
      * 删除通讯录好友
      */
     public static final String  ADDRESSBOOK_UPDATEFRIENDRELATION = "AddressBook/updateFriendRelation";
-
-
+    /**
+     * 首页公告期分页查询
+     */
+    public static final String  HOMEPAGE_GETANNOUNCEMENTAUCTIONLIST = "homePage/getAnnouncementAuctionList";
 
 
 

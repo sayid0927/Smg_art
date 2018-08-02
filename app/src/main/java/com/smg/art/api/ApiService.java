@@ -16,6 +16,7 @@
 package com.smg.art.api;
 
 
+import com.smg.art.base.AnnouncementAuctionListBean;
 import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.Constant;
@@ -154,5 +155,13 @@ public interface ApiService {
      */
     @POST(Constant.USERHEADIMG)
     Observable<UpLoadBean> FetchUploadHead(@QueryMap Map<String, String> map);
+    /**
+     * 首页公告期分页查询
+     */
+    @GET(Constant.HOMEPAGE_GETANNOUNCEMENTAUCTIONLIST)
+    Observable<AnnouncementAuctionListBean> FetchAnnouncementAuctionList(@QueryMap Map<String, String> map);
+
+
+
 
 }

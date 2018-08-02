@@ -20,6 +20,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.smg.art.R;
+import com.smg.art.base.AnnouncementAuctionListBean;
 import com.smg.art.base.BaseFragment;
 import com.smg.art.base.Constant;
 import com.smg.art.base.HomePageImgBean;
@@ -134,13 +135,15 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
 
     private GoodsListApadter mAdapter;
     private HomeUnderListApadter underListApadter;
-    private GoodsBean goodsBean;
-    private List<GoodsBean> goodsBeans;
+    private List<AnnouncementAuctionListBean.DataBean.RowsBean> rowsBeans = new ArrayList<>();
     private Intent i;
     private List<HomePageImgBean.DataBean.CategoryListBean> categoryListBeans = new ArrayList<>();
     private List<HomePageImgBean.DataBean.UpperListBean> upperListBeans = new ArrayList<>();
     private List<HomePageImgBean.DataBean.UnderListBean> underListBeans = new ArrayList<>();
     private ArrayList<String> mTitleList = new ArrayList<>();
+    private int page = 1;
+    private int rows = 10;
+
 
     @Override
     public int getLayoutResId() {
@@ -150,18 +153,12 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
     @Override
     protected void initView(Bundle bundle) {
 
-        goodsBeans = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            GoodsBean goodsBean = new GoodsBean();
-            goodsBeans.add(goodsBean);
-        }
-
         tvSearch.setVisibility(View.VISIBLE);
         etSearchContent.setVisibility(View.GONE);
         ivToolbarNavigation.setVisibility(View.GONE);
 
-        mAdapter = new GoodsListApadter(goodsBeans, getSupportActivity());
-        underListApadter = new HomeUnderListApadter(underListBeans,getSupportActivity());
+        mAdapter = new GoodsListApadter(rowsBeans, getSupportActivity());
+        underListApadter = new HomeUnderListApadter(underListBeans, getSupportActivity());
         rvGoods.setLayoutManager(new GridLayoutManager(getSupportActivity(), 2));
         rvUnder.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvGoods.setAdapter(mAdapter);
@@ -172,6 +169,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
         mAdapter.OnGoodsItemListener(this);
 
         mPresenter.FetchHomePageImg();
+        mPresenter.FetchAnnouncementAuctionList("page", String.valueOf(page), "rows", String.valueOf(rows));
 
     }
 
@@ -197,20 +195,13 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
 
     }
 
-    @Override
-    public void ApkUpdateS(Apk_UpdateBean.DataBean dataBean) {
-
-    }
-
     /**
      * 首页广告图片列表
-     *
-     * @param homePageImgBean
      */
     @Override
     public void FetchHomePageImgSuccess(HomePageImgBean homePageImgBean) {
 
-        if(srl.isRefreshing()){
+        if (srl.isRefreshing()) {
             srl.finishRefresh();
         }
         this.categoryListBeans = homePageImgBean.getData().getCategoryList();
@@ -221,6 +212,21 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
         fillView(categoryListBeans);
     }
 
+    /**
+     * 首页公告期分页查询
+     */
+    @Override
+    public void FetchAnnouncementAuctionListSuccess(AnnouncementAuctionListBean announcementAuctionListBean) {
+        if (srl.isLoading()) {
+            mAdapter.addData(announcementAuctionListBean.getData().getRows());
+            srl.finishLoadmore();
+        } else {
+            if (rowsBeans.size() != 0)
+                rowsBeans.clear();
+            rowsBeans = announcementAuctionListBean.getData().getRows();
+            mAdapter.setNewData(rowsBeans);
+        }
+    }
 
 
     @Override
@@ -322,30 +328,33 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
     @Override
     public void onLoadmore(RefreshLayout refreshlayout) {
         // 加载更多
-        Logger.t("TAG").e("CCCCCCC");
+        page++;
+        mPresenter.FetchAnnouncementAuctionList("page", String.valueOf(page), "rows", String.valueOf(rows));
     }
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
         //下拉刷新
         mPresenter.FetchHomePageImg();
+        page = 1;
+        mPresenter.FetchAnnouncementAuctionList("page", String.valueOf(page), "rows", String.valueOf(rows));
     }
 
     /**
      * 跳转详情页面
      *
      * @param item
-     * @param postion
      */
     @Override
-    public void OnGoodsItemListener(GoodsBean item, int postion) {
+    public void OnGoodsItemListener(AnnouncementAuctionListBean.DataBean.RowsBean item) {
         Intent i = new Intent(getActivity(), GoodsDetailActivity.class);
-        i.putExtra("postion", postion);
+        i.putExtra("postion", item.getId());
         MainActivity.mainActivity.startActivityIn(i, getActivity());
     }
 
     /**
      * 固定广告位
+     *
      * @param underListBeans
      */
     private void initUnder(List<HomePageImgBean.DataBean.UnderListBean> underListBeans) {
@@ -354,7 +363,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
 
 
     /**
-     *滚动 广告图片
+     * 滚动 广告图片
      *
      * @param upperListBeans
      */
@@ -382,7 +391,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
 
         if (categoryListBeans.size() >= 1 && categoryListBeans.get(0) != null) {
             HomePageImgBean.DataBean.CategoryListBean categoryListBean = categoryListBeans.get(0);
-            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivBookDraw,R.drawable.draw_def);
+            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivBookDraw, R.drawable.draw_def);
             tvBookDraw.setText(categoryListBean.getCategoryName());
             mTitleList.add(categoryListBean.getCategoryName());
         } else {
@@ -391,7 +400,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
 
         if (categoryListBeans.size() >= 2 && categoryListBeans.get(1) != null) {
             HomePageImgBean.DataBean.CategoryListBean categoryListBean = categoryListBeans.get(1);
-            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivOilDraw,R.drawable.draw_def);
+            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivOilDraw, R.drawable.draw_def);
             tvOilDraw.setText(categoryListBean.getCategoryName());
             mTitleList.add(categoryListBean.getCategoryName());
         } else {
@@ -400,7 +409,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
 
         if (categoryListBeans.size() >= 3 && categoryListBeans.get(3) != null) {
             HomePageImgBean.DataBean.CategoryListBean categoryListBean = categoryListBeans.get(2);
-            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivBirdDraw,R.drawable.draw_def);
+            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivBirdDraw, R.drawable.draw_def);
             tvBirdDraw.setText(categoryListBean.getCategoryName());
             mTitleList.add(categoryListBean.getCategoryName());
         } else {
@@ -409,7 +418,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
 
         if (categoryListBeans.size() >= 4 && categoryListBeans.get(3) != null) {
             HomePageImgBean.DataBean.CategoryListBean categoryListBean = categoryListBeans.get(3);
-            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivHillDraw,R.drawable.draw_def);
+            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivHillDraw, R.drawable.draw_def);
             tvHillDraw.setText(categoryListBean.getCategoryName());
             mTitleList.add(categoryListBean.getCategoryName());
         } else {
@@ -418,7 +427,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
 
         if (categoryListBeans.size() >= 5 && categoryListBeans.get(4) != null) {
             HomePageImgBean.DataBean.CategoryListBean categoryListBean = categoryListBeans.get(4);
-            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivPeopleDraw,R.drawable.draw_def);
+            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivPeopleDraw, R.drawable.draw_def);
             tvPeopleDraw.setText(categoryListBean.getCategoryName());
             mTitleList.add(categoryListBean.getCategoryName());
         } else {
@@ -427,7 +436,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
 
         if (categoryListBeans.size() >= 6 && categoryListBeans.get(5) != null) {
             HomePageImgBean.DataBean.CategoryListBean categoryListBean = categoryListBeans.get(5);
-            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivMoneyDraw,R.drawable.draw_def);
+            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivMoneyDraw, R.drawable.draw_def);
             tvMoneyDraw.setText(categoryListBean.getCategoryName());
             mTitleList.add(categoryListBean.getCategoryName());
         } else {
@@ -436,7 +445,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
 
         if (categoryListBeans.size() >= 7 && categoryListBeans.get(6) != null) {
             HomePageImgBean.DataBean.CategoryListBean categoryListBean = categoryListBeans.get(6);
-            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivJadeDraw,R.drawable.draw_def);
+            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivJadeDraw, R.drawable.draw_def);
             tvJadeDraw.setText(categoryListBean.getCategoryName());
             mTitleList.add(categoryListBean.getCategoryName());
         } else {
@@ -445,7 +454,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
 
         if (categoryListBeans.size() >= 8 && categoryListBeans.get(7) != null) {
             HomePageImgBean.DataBean.CategoryListBean categoryListBean = categoryListBeans.get(7);
-            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivFineDraw,R.drawable.draw_def);
+            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivFineDraw, R.drawable.draw_def);
             tvFineDraw.setText(categoryListBean.getCategoryName());
             mTitleList.add(categoryListBean.getCategoryName());
         } else {
@@ -454,7 +463,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
 
         if (categoryListBeans.size() >= 9 && categoryListBeans.get(8) != null) {
             HomePageImgBean.DataBean.CategoryListBean categoryListBean = categoryListBeans.get(8);
-            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivFurnitureDraw,R.drawable.draw_def);
+            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivFurnitureDraw, R.drawable.draw_def);
             tvFurnitureDraw.setText(categoryListBean.getCategoryName());
             mTitleList.add(categoryListBean.getCategoryName());
         } else {
@@ -463,7 +472,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
 
         if (categoryListBeans.size() >= 10 && categoryListBeans.get(9) != null) {
             HomePageImgBean.DataBean.CategoryListBean categoryListBean = categoryListBeans.get(9);
-            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivMoreDraw,R.drawable.draw_def);
+            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivMoreDraw, R.drawable.draw_def);
             tvMoreDraw.setText(categoryListBean.getCategoryName());
             mTitleList.add(categoryListBean.getCategoryName());
         } else {

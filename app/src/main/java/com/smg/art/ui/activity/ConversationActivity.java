@@ -6,15 +6,21 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.utils.LocationUtils;
+import com.jaeger.library.StatusBarUtil;
 import com.smg.art.R;
 import com.smg.art.base.BaseApplication;
 import com.smg.art.utils.LocalAppConfigUtil;
+import com.zhy.autolayout.AutoRelativeLayout;
 
 import java.util.Locale;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationFragment;
 import io.rong.imlib.RongIMClient;
@@ -25,7 +31,11 @@ import io.rong.imlib.model.Conversation;
  */
 
 public class ConversationActivity extends FragmentActivity {
-    private String mTargetId,title;
+    @BindView(R.id.rl_back)
+    AutoRelativeLayout rlBack;
+    @BindView(R.id.actionbar_title)
+    TextView actionbarTitle;
+    private String mTargetId, title;
 
     boolean isFromPush = false;
 
@@ -39,7 +49,8 @@ public class ConversationActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.conversation);
-
+        ButterKnife.bind(this);
+        StatusBarUtil.setColor(this,getResources().getColor(R.color.colorPrimaryDark), 10);
         Intent intent = getIntent();
         getIntentDate(intent);
         isReconnect(intent);
@@ -52,11 +63,11 @@ public class ConversationActivity extends FragmentActivity {
     private void getIntentDate(Intent intent) {
         mTargetId = intent.getData().getQueryParameter("targetId");
         title = intent.getData().getQueryParameter("title");
-
+        actionbarTitle.setText(title);
         //intent.getData().getLastPathSegment();//获得当前会话类型
         mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment().toUpperCase(Locale.getDefault()));
-
 //        enterFragment(mConversationType, mTargetId);
+
     }
 
 
@@ -133,23 +144,8 @@ public class ConversationActivity extends FragmentActivity {
         }
     }
 
-
-    @Override
-    public void onBackPressed() {
-        ConversationFragment fragment = (ConversationFragment) getSupportFragmentManager().findFragmentById(R.id.conversation);
-        if(!fragment.onBackPressed()) {
-            finish();
-        }
+    @OnClick(R.id.rl_back)
+    public void onViewClicked() {
+        finish();
     }
-
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (KeyEvent.KEYCODE_BACK == event.getKeyCode() && isFromPush) {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
 }

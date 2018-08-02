@@ -59,11 +59,11 @@ public class ClassifyChildFragment extends BaseFragment implements ClassifyChild
             goodsBeans.add(goodsBean);
         }
 
-        mAdapter = new GoodsListApadter(goodsBeans, getSupportActivity());
-//        mAdapter.setOnLoadMoreListener(get, rvGoods);
-        mAdapter.setLoadMoreView(new MyLoadMoreView());
-        rvGoods.setLayoutManager(new GridLayoutManager(getSupportActivity(),2));
-        rvGoods.setAdapter(mAdapter);
+//        mAdapter = new GoodsListApadter(goodsBeans, getSupportActivity());
+////        mAdapter.setOnLoadMoreListener(get, rvGoods);
+//        mAdapter.setLoadMoreView(new MyLoadMoreView());
+//        rvGoods.setLayoutManager(new GridLayoutManager(getSupportActivity(),2));
+//        rvGoods.setAdapter(mAdapter);
 
     }
 
