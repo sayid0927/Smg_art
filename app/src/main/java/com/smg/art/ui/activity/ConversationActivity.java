@@ -52,7 +52,6 @@ public class ConversationActivity extends FragmentActivity {
     private void getIntentDate(Intent intent) {
         mTargetId = intent.getData().getQueryParameter("targetId");
         title = intent.getData().getQueryParameter("title");
-        Toast.makeText(this, title+"<<<会话ID>>>>>>>>>" + mTargetId, Toast.LENGTH_SHORT).show();
 
         //intent.getData().getLastPathSegment();//获得当前会话类型
         mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment().toUpperCase(Locale.getDefault()));
@@ -119,7 +118,7 @@ public class ConversationActivity extends FragmentActivity {
         //push
         if (intent.getData().getScheme().equals("rong") && intent.getData().getQueryParameter("isFromPush") != null) {
             isFromPush = true;
-            Log.e("","isFromPush");
+
             //通过intent.getData().getQueryParameter("push") 为true，判断是否是push消息
             if (intent.getData().getQueryParameter("isFromPush").equals("true")) {
                 reconnect(token);
