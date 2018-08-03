@@ -27,15 +27,19 @@ import com.smg.art.bean.AddressBookFriendsBean;
 import com.smg.art.bean.AuctionOrderBean;
 import com.smg.art.bean.BalanceOfPayBean;
 import com.smg.art.bean.CashDepositiBean;
+import com.smg.art.bean.CheckBankCardBean;
 import com.smg.art.bean.CollectionBean;
+import com.smg.art.bean.CurrencyExchangeRateBean;
 import com.smg.art.bean.ForgetPasswordBean;
 import com.smg.art.bean.LoginBean;
 import com.smg.art.bean.PhoneVerifyCodeBean;
+import com.smg.art.bean.ReChargeBean;
 import com.smg.art.bean.RegisterBean;
 import com.smg.art.bean.SaveCollectsBean;
 import com.smg.art.bean.SearchMemberBean;
 import com.smg.art.bean.UpLoadBean;
 import com.smg.art.bean.WalletBalanceBean;
+import com.smg.art.bean.WithDrawBean;
 
 import java.util.Map;
 
@@ -190,5 +194,31 @@ public interface ApiService {
      */
     @POST(Constant.INSERTORUPDATEBANKNOINFO)
     Observable<AddBankCardBean> FetchAddBankCard(@QueryMap Map<String, String> map);
+
+    /**
+     * 查看银行卡
+     */
+    @GET(Constant.GETUSERBANKCARD)
+    Observable<CheckBankCardBean> FetchCheckBankCard(@QueryMap Map<String, String> map);
+
+    /**
+     * 查看银行卡
+     */
+    @POST(Constant.BANKWITHCASH)
+    Observable<WithDrawBean> FetchWithDraw(@QueryMap Map<String, String> map);
+
+
+    /**
+     * 获取拍卖汇率
+     */
+    @GET(Constant.GETCURRENCYEXCHANGERATE)
+    Observable<CurrencyExchangeRateBean> FetchCurrencyExchangeRate(@QueryMap Map<String, String> map);
+
+    /**
+     * 充值
+     */
+    @POST(Constant.RECHARGEBANKCARD)
+    Observable<ReChargeBean> FetchReCharge(@QueryMap Map<String, String> map);
+
 
 }

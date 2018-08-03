@@ -30,15 +30,19 @@ import com.smg.art.bean.AddressBookFriendsBean;
 import com.smg.art.bean.AuctionOrderBean;
 import com.smg.art.bean.BalanceOfPayBean;
 import com.smg.art.bean.CashDepositiBean;
+import com.smg.art.bean.CheckBankCardBean;
 import com.smg.art.bean.CollectionBean;
+import com.smg.art.bean.CurrencyExchangeRateBean;
 import com.smg.art.bean.ForgetPasswordBean;
 import com.smg.art.bean.LoginBean;
 import com.smg.art.bean.PhoneVerifyCodeBean;
+import com.smg.art.bean.ReChargeBean;
 import com.smg.art.bean.RegisterBean;
 import com.smg.art.bean.SaveCollectsBean;
 import com.smg.art.bean.SearchMemberBean;
 import com.smg.art.bean.UpLoadBean;
 import com.smg.art.bean.WalletBalanceBean;
+import com.smg.art.bean.WithDrawBean;
 import com.smg.art.utils.LocalAppConfigUtil;
 
 import java.util.HashMap;
@@ -50,8 +54,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
-import retrofit2.http.QueryMap;
 import rx.Observable;
 
 public class Api {
@@ -269,4 +271,35 @@ public class Api {
     public Observable<AddBankCardBean> FetchAddBankCard(String... s) {
         return service.FetchAddBankCard(getMap(s));
     }
+
+
+    /**
+     * 查看银行卡
+     */
+    public Observable<CheckBankCardBean> FetchCheckBankCard(String... s) {
+        return service.FetchCheckBankCard(getMap(s));
+    }
+
+    /**
+     * 提现
+     */
+    public Observable<WithDrawBean> FetchWithDraw(String... s) {
+        return service.FetchWithDraw(getMap(s));
+    }
+
+    /**
+     * 拍卖汇率
+     */
+    public Observable<CurrencyExchangeRateBean> FetchCurrencyExchangeRate(String... s) {
+        return service.FetchCurrencyExchangeRate(getMap(s));
+    }
+
+    /**
+     * 拍卖汇率
+     */
+    public Observable<ReChargeBean> FetchReCharge(String... s) {
+        return service.FetchReCharge(getMap(s));
+    }
+
+
 }

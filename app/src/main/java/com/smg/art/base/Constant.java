@@ -109,7 +109,17 @@ public class Constant {
     //添加银行卡
     public static final String INSERTORUPDATEBANKNOINFO = "wallet/insertOrUpdateBankNoInfo";
 
+    //查看银行卡
+    public static final String GETUSERBANKCARD = "wallet/getUserBankCard";
 
+    //提现
+    public static final String BANKWITHCASH = "wallet/bankWithCash";
+
+    //获取拍卖汇率
+    public static final String GETCURRENCYEXCHANGERATE = "wallet/getCurrencyExchangeRate";
+
+    //充值
+    public static final String RECHARGEBANKCARD = "wallet/rechargeBankCard";
 
     public static String LOCAL_APP_CONFIG_FILE_NAME = "smgconfig";//本地应用配置文件名，存储些全局变量
 

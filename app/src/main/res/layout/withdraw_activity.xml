@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="294dp"
+        android:layout_height="342dp"
         android:layout_marginLeft="28dp"
         android:layout_marginRight="@dimen/bj_28dp"
         android:layout_marginTop="@dimen/bj_21dp"
@@ -21,7 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/bj_53dp"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -43,9 +44,10 @@
                 android:layout_width="@dimen/bj_25dp"
                 android:layout_height="@dimen/bj_25dp"
                 android:layout_marginLeft="@dimen/bj_13dp"
-                android:background="@drawable/mine_head" />
+                android:background="@drawable/bankdefault" />
 
             <TextView
+                android:id="@+id/bank_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/bj_10dp"
@@ -54,6 +56,7 @@
                 android:textColor="@color/black_000000" />
 
             <TextView
+                android:id="@+id/bank_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/bj_25dp"
@@ -140,18 +143,63 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/bj_13dp"
+            android:layout_marginTop="@dimen/bj_10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="现有总币: "
+                android:textColor="@color/black_858585"
+                android:textSize="@dimen/wz_12sp" />
+
+            <TextView
+                android:id="@+id/total_money"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_858585"
+                android:textSize="@dimen/wz_12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/bj_13dp"
+            android:layout_marginTop="@dimen/bj_8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/bj_19dp"
+                android:layout_height="@dimen/bj_19dp"
+                android:background="@drawable/hammer" />
+
+            <TextView
+                android:id="@+id/exchange_rate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/bj_5dp"
+                android:textColor="@color/black_858585"
+                android:textSize="@dimen/wz_12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/bj_13dp"
             android:layout_marginTop="@dimen/bj_15dp"
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/total_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="余额5889789"
-                android:textColor="@color/black_858585"
+                android:textColor="@color/red_df443b"
                 android:textSize="@dimen/wz_14sp" />
 
             <TextView
+                android:id="@+id/all_withdraw"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/bj_18dp"
