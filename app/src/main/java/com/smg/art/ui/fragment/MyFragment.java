@@ -7,19 +7,26 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.utils.ToastUtils;
 import com.smg.art.R;
 import com.smg.art.base.BaseFragment;
 import com.smg.art.base.Constant;
-import com.smg.art.bean.Apk_UpdateBean;
+import com.smg.art.bean.PersonalCenterBean;
 import com.smg.art.component.AppComponent;
-import com.smg.art.presenter.contract.fragment.HomeContract;
+import com.smg.art.component.DaggerMainComponent;
+import com.smg.art.photo.CircleImageView;
 import com.smg.art.presenter.contract.fragment.MyFragmentContract;
+import com.smg.art.presenter.impl.fragment.MyFragmentPresenter;
 import com.smg.art.ui.activity.MainActivity;
 import com.smg.art.ui.personalcenter.CashDepositActivity;
 import com.smg.art.ui.personalcenter.MyCollectionActivity;
 import com.smg.art.ui.personalcenter.MyOrderActivity;
 import com.smg.art.ui.personalcenter.MyWalletActivity;
 import com.smg.art.ui.personalcenter.SettingActivity;
+import com.smg.art.utils.GlideCommonUtils;
+import com.smg.art.utils.LocalAppConfigUtil;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -29,8 +36,10 @@ import butterknife.OnClick;
  */
 
 public class MyFragment extends BaseFragment implements MyFragmentContract.View {
+    @Inject
+    MyFragmentPresenter mPresenter;
     @BindView(R.id.mine_head)
-    ImageView mineHead;
+    CircleImageView mineHead;
     @BindView(R.id.user_name)
     TextView userName;
     @BindView(R.id.user_id)
@@ -103,11 +112,22 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
 
     @Override
     public void attachView() {
+        mPresenter.attachView(this, getActivity());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getdata();
+    }
+
+    private void getdata() {
+        mPresenter.FetchPersonalCenter("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
     }
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
-
+        DaggerMainComponent.builder().appComponent(appComponent).build().inject(this);
     }
 
     @OnClick({R.id.check_all, R.id.compete, R.id.for_the_delivery, R.id.is_the_delivery, R.id.after_sale, R.id.my_wallte, R.id.my_bond, R.id.my_collection, R.id.realnameauthentication, R.id.setting})
@@ -162,4 +182,14 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
     }
 
 
+    @Override
+    public void FetchPersonalCenterSuccess(PersonalCenterBean announcementAuctionListBean) {
+        if (announcementAuctionListBean.getStatus() == 1) {
+            userName.setText(announcementAuctionListBean.getData().getMemberName());
+            userId.setText("ID: " + announcementAuctionListBean.getData().getMemberNo());
+            GlideCommonUtils.showHead(getActivity(), announcementAuctionListBean.getData().getHeadImg(), mineHead);
+        } else {
+            ToastUtils.showShortToast(announcementAuctionListBean.getMsg());
+        }
+    }
 }

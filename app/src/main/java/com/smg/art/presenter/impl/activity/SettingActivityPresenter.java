@@ -2,6 +2,7 @@ package com.smg.art.presenter.impl.activity;
 
 import com.smg.art.api.Api;
 import com.smg.art.base.BasePresenter;
+import com.smg.art.bean.PersonalCenterBean;
 import com.smg.art.bean.UpLoadBean;
 import com.smg.art.presenter.contract.activity.SettingContract;
 
@@ -46,6 +47,33 @@ public class SettingActivityPresenter extends BasePresenter<SettingContract.View
                         if (mView != null && data != null) {
                             hideWaitingDialog();
                             mView.FetchUploadPicSuccess(data);
+                        }
+                    }
+                }));
+    }
+
+    @Override
+    public void FetchPersonalCenter(String... s) {
+        showWaitingDialog("加载中...");
+        addSubscrebe(api.FetchPersonalCenter(s).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<PersonalCenterBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        hideWaitingDialog();
+                        mView.showError(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(PersonalCenterBean data) {
+                        if (mView != null && data != null) {
+                            hideWaitingDialog();
+                            mView.FetchPersonalCenterSuccess(data);
                         }
                     }
                 }));

@@ -27,11 +27,13 @@ import com.smg.art.bean.AddressBookFriendsBean;
 import com.smg.art.bean.AuctionOrderBean;
 import com.smg.art.bean.BalanceOfPayBean;
 import com.smg.art.bean.CashDepositiBean;
+import com.smg.art.bean.ChangeNickBean;
 import com.smg.art.bean.CheckBankCardBean;
 import com.smg.art.bean.CollectionBean;
 import com.smg.art.bean.CurrencyExchangeRateBean;
 import com.smg.art.bean.ForgetPasswordBean;
 import com.smg.art.bean.LoginBean;
+import com.smg.art.bean.PersonalCenterBean;
 import com.smg.art.bean.PhoneVerifyCodeBean;
 import com.smg.art.bean.ReChargeBean;
 import com.smg.art.bean.RegisterBean;
@@ -219,6 +221,18 @@ public interface ApiService {
      */
     @POST(Constant.RECHARGEBANKCARD)
     Observable<ReChargeBean> FetchReCharge(@QueryMap Map<String, String> map);
+
+    /**
+     * 个人中心
+     */
+    @POST(Constant.QUERYSETTINGPARAM)
+    Observable<PersonalCenterBean> FetchPersonalCenter(@QueryMap Map<String, String> map);
+
+    /**
+     * 修改昵称
+     */
+    @POST(Constant.UPDATEMEMBERNAME)
+    Observable<ChangeNickBean> FetchChangeNick(@QueryMap Map<String, String> map);
 
 
 }

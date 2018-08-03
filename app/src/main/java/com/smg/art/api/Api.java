@@ -30,11 +30,13 @@ import com.smg.art.bean.AddressBookFriendsBean;
 import com.smg.art.bean.AuctionOrderBean;
 import com.smg.art.bean.BalanceOfPayBean;
 import com.smg.art.bean.CashDepositiBean;
+import com.smg.art.bean.ChangeNickBean;
 import com.smg.art.bean.CheckBankCardBean;
 import com.smg.art.bean.CollectionBean;
 import com.smg.art.bean.CurrencyExchangeRateBean;
 import com.smg.art.bean.ForgetPasswordBean;
 import com.smg.art.bean.LoginBean;
+import com.smg.art.bean.PersonalCenterBean;
 import com.smg.art.bean.PhoneVerifyCodeBean;
 import com.smg.art.bean.ReChargeBean;
 import com.smg.art.bean.RegisterBean;
@@ -295,11 +297,26 @@ public class Api {
     }
 
     /**
-     * 拍卖汇率
+     * 充值
      */
     public Observable<ReChargeBean> FetchReCharge(String... s) {
         return service.FetchReCharge(getMap(s));
     }
+
+    /**
+     * 个人中心
+     */
+    public Observable<PersonalCenterBean> FetchPersonalCenter(String... s) {
+        return service.FetchPersonalCenter(getMap(s));
+    }
+
+    /**
+     * 修改昵称
+     */
+    public Observable<ChangeNickBean> FetchChangeNick(String... s) {
+        return service.FetchChangeNick(getMap(s));
+    }
+
 
 
 }

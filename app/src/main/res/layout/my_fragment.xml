@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey_f2f2f2"
@@ -20,14 +21,24 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/mine_bg">
 
-                <ImageView
+                <!--   <ImageView
+                       android:id="@+id/mine_head"
+                       android:layout_width="@dimen/bj_48dp"
+                       android:layout_height="@dimen/bj_48dp"
+                       android:layout_alignParentLeft="true"
+                       android:layout_centerInParent="true"
+                       android:layout_marginLeft="@dimen/bj_13dp"
+                       android:background="@drawable/mine_head" />-->
+
+                <com.smg.art.photo.CircleImageView
                     android:id="@+id/mine_head"
-                    android:layout_width="@dimen/bj_48dp"
-                    android:layout_height="@dimen/bj_48dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="@dimen/bj_13dp"
-                    android:background="@drawable/mine_head" />
+                    app:radius="@dimen/bj_25dp"
+                    app:src="@mipmap/head" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -43,7 +54,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/bj_15dp"
                         android:singleLine="true"
-                        android:text="BJFDJFSDKLFJSLFS"
                         android:textColor="@color/white" />
 
                     <LinearLayout
@@ -65,7 +75,6 @@
                             android:layout_marginLeft="@dimen/bj_7dp"
                             android:layout_marginRight="@dimen/bj_15dp"
                             android:singleLine="true"
-                            android:text="ID:234234892"
                             android:textColor="@color/white" />
                     </LinearLayout>
                 </LinearLayout>

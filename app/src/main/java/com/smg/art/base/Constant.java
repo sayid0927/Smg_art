@@ -91,8 +91,8 @@ public class Constant {
      */
     public static final String  HOMEPAGE_GETAUCTIONLISTBYNAME = "homePage/getAuctionListByName";
 
-
-
+    //个人中心
+    public static final String QUERYSETTINGPARAM = "member/querySettingParam";
 
     //参拍记录
     public static final String QUERYAUCTIONINFOLIST = "auctionpage/queryAuctionInfoList";
@@ -120,6 +120,10 @@ public class Constant {
 
     //充值
     public static final String RECHARGEBANKCARD = "wallet/rechargeBankCard";
+
+    //修改昵称
+    public static final String UPDATEMEMBERNAME = "member/updateMemberName";
+
 
     public static String LOCAL_APP_CONFIG_FILE_NAME = "smgconfig";//本地应用配置文件名，存储些全局变量
 
