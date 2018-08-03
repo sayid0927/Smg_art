@@ -180,6 +180,12 @@ public interface ApiService {
     Observable<BalanceOfPayBean> FetchBalanceOfPay(@QueryMap Map<String, String> map);
 
     /**
+     * 首页搜索框查询
+     */
+    @GET(Constant.HOMEPAGE_GETAUCTIONLISTBYNAME)
+    Observable<AnnouncementAuctionListBean> FetchAuctionListByName(@QueryMap Map<String, String> map);
+
+    /**
      * 添加银行卡
      */
     @POST(Constant.INSERTORUPDATEBANKNOINFO)

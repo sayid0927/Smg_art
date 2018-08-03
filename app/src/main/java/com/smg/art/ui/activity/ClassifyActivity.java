@@ -10,8 +10,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.smg.art.R;
+import com.smg.art.base.AnnouncementAuctionListBean;
 import com.smg.art.base.BaseActivity;
 import com.smg.art.base.BaseFragmentPageAdapter;
+import com.smg.art.base.HomePageImgBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.activity.ClassifyContract;
@@ -21,6 +23,7 @@ import com.smg.art.utils.UIUtils;
 import com.zhy.autolayout.AutoRelativeLayout;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -45,6 +48,8 @@ public class ClassifyActivity extends BaseActivity implements ClassifyContract.V
 
     private ArrayList<String> mTitleList = new ArrayList<>();
     private ArrayList<Fragment> mFragments = new ArrayList<>();
+    private List<HomePageImgBean.DataBean.CategoryListBean> categoryListBeans = new ArrayList<>();
+    public  static  ClassifyActivity classifyActivity;
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -72,18 +77,19 @@ public class ClassifyActivity extends BaseActivity implements ClassifyContract.V
 
         setSwipeBackEnable(true);
         int postion = getIntent().getIntExtra("postion", 0);
-        mTitleList = getIntent().getStringArrayListExtra("TitleList");
 
-        for(int i=0;i<mTitleList.size();i++){
-            mFragments.add(ClassifyChildFragment.getInstance());
-        }
+        categoryListBeans = (List<HomePageImgBean.DataBean.CategoryListBean>) getIntent().getSerializableExtra("item");
+         for(int n =0;n<categoryListBeans.size();n++){
+             mTitleList.add(categoryListBeans.get(n).getCategoryName());
+             mFragments.add(ClassifyChildFragment.getInstance(categoryListBeans.get(n).getId()));
+         }
 
         BaseFragmentPageAdapter myAdapter = new BaseFragmentPageAdapter(getSupportFragmentManager(), mFragments, mTitleList);
         vp.setAdapter(myAdapter);
         myAdapter.notifyDataSetChanged();
         tabLayout.setupWithViewPager(vp);
         vp.setCurrentItem(postion);
-
+        classifyActivity= this;
     }
 
     @Override
@@ -91,6 +97,11 @@ public class ClassifyActivity extends BaseActivity implements ClassifyContract.V
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        classifyActivity= null;
+    }
 
     @OnClick({ R.id.rl_back})
     public void onViewClicked(View view) {
@@ -100,4 +111,5 @@ public class ClassifyActivity extends BaseActivity implements ClassifyContract.V
                 break;
         }
     }
+
 }

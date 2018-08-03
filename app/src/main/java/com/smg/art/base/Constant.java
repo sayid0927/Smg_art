@@ -86,6 +86,11 @@ public class Constant {
      * 首页公告期分页查询
      */
     public static final String  HOMEPAGE_GETANNOUNCEMENTAUCTIONLIST = "homePage/getAnnouncementAuctionList";
+    /**
+     * 首页搜索框查询
+     */
+    public static final String  HOMEPAGE_GETAUCTIONLISTBYNAME = "homePage/getAuctionListByName";
+
 
 
 

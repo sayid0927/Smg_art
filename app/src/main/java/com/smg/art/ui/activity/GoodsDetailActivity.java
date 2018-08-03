@@ -36,6 +36,7 @@ import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.activity.GoodsDetailContract;
 import com.smg.art.presenter.impl.activity.GoodsDetailActivityPresenter;
 import com.smg.art.utils.CallPhone;
+import com.smg.art.utils.GlideUtils;
 import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.utils.ValidateTime;
 import com.smg.art.view.MyBridgeWebView;
@@ -237,7 +238,7 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
         banner.setAdapter(new BGABanner.Adapter<ImageView, String>() {
             @Override
             public void fillBannerItem(BGABanner banner, ImageView itemView, String model, int position) {
-                Glide.with(GoodsDetailActivity.this).load(model).error(R.mipmap.ic_launcher).dontAnimate().centerCrop().into(itemView);
+              GlideUtils.loadFitCenter(GoodsDetailActivity.this,model,itemView);
             }
         });
         banner.setData(imgUrls, null);
@@ -265,11 +266,12 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
                             "goodsId", String.valueOf(detailBean.getData().getGoodsId()));
                 break;
             case R.id.bt_auction:  // 交保证金参与
-                if (detailBean != null)
+                if (detailBean != null) {
                     mPresenter.FetchAuctionBuyerDeposit("auctionId", String.valueOf(detailBean.getData().getId()),
                             "goodsId", String.valueOf(detailBean.getData().getGoodsId()),
                             "memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
                             "amount", String.valueOf(detailBean.getData().getFrontMoneyAmount()));
+                }
                 break;
 
             case R.id.phone_service:  //客服

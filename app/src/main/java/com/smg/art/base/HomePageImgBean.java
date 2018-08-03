@@ -1,5 +1,6 @@
 package com.smg.art.base;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -138,7 +139,7 @@ public class HomePageImgBean {
             }
         }
 
-        public static class CategoryListBean {
+        public static class CategoryListBean implements Serializable {
             /**
              * id : 1
              * parentId : null

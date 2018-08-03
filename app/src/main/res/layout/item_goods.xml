@@ -21,12 +21,12 @@
         <ImageView
             android:id="@+id/iv_actioniv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="@dimen/bj_170dp" />
 
         <RelativeLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/bj_70dp"
+            android:layout_height="@dimen/bj_80dp"
             android:background="@drawable/show_bg">
 
             <TextView

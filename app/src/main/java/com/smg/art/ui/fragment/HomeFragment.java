@@ -10,11 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -24,8 +22,6 @@ import com.smg.art.base.AnnouncementAuctionListBean;
 import com.smg.art.base.BaseFragment;
 import com.smg.art.base.Constant;
 import com.smg.art.base.HomePageImgBean;
-import com.smg.art.bean.Apk_UpdateBean;
-import com.smg.art.bean.GoodsBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.fragment.HomeContract;
@@ -35,11 +31,11 @@ import com.smg.art.ui.activity.GoodsDetailActivity;
 import com.smg.art.ui.activity.MainActivity;
 import com.smg.art.ui.activity.SearchActivity;
 import com.smg.art.ui.adapter.GoodsListApadter;
+import com.smg.art.ui.adapter.HomeIconApadter;
 import com.smg.art.ui.adapter.HomeUnderListApadter;
 import com.smg.art.utils.GlideUtils;
-import com.smg.art.view.MyLoadMoreView;
-import com.smg.art.view.RoundImageView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +48,7 @@ import butterknife.Unbinder;
 import cn.bingoogolapple.bgabanner.BGABanner;
 
 
-public class HomeFragment extends BaseFragment implements HomeContract.View, BGABanner.Delegate, OnLoadmoreListener, OnRefreshListener, GoodsListApadter.OnGoodsItemListener {
+public class HomeFragment extends BaseFragment implements HomeContract.View, BGABanner.Delegate, OnLoadmoreListener, OnRefreshListener, GoodsListApadter.OnGoodsItemListener, HomeIconApadter.OnHomeIconItemListener {
 
     @Inject
     HomePresenter mPresenter;
@@ -61,26 +57,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
     @BindView(R.id.rv_goods)
     RecyclerView rvGoods;
 
-    @BindView(R.id.ll_book_draw)
-    LinearLayout llBookDraw;
-    @BindView(R.id.ll_oil_draw)
-    LinearLayout llOilDraw;
-    @BindView(R.id.ll_bird_draw)
-    LinearLayout llBirdDraw;
-    @BindView(R.id.ll_hill_draw)
-    LinearLayout llHillDraw;
-    @BindView(R.id.ll_people_draw)
-    LinearLayout llPeopleDraw;
-    @BindView(R.id.ll_money_draw)
-    LinearLayout llMoneyDraw;
-    @BindView(R.id.ll_jade_draw)
-    LinearLayout llJadeDraw;
-    @BindView(R.id.ll_fine_draw)
-    LinearLayout llFineDraw;
-    @BindView(R.id.ll_furniture_draw)
-    LinearLayout llFurnitureDraw;
-    @BindView(R.id.ll_more_draw)
-    LinearLayout llMoreDraw;
     @BindView(R.id.tv_search)
     TextView tvSearch;
     @BindView(R.id.et_SearchContent)
@@ -89,54 +65,17 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
     ImageView ivToolbarNavigation;
     @BindView(R.id.srl)
     SmartRefreshLayout srl;
-    @BindView(R.id.iv_book_draw)
-    RoundImageView ivBookDraw;
-    @BindView(R.id.tv_book_draw)
-    TextView tvBookDraw;
-    @BindView(R.id.iv_oil_draw)
-    RoundImageView ivOilDraw;
-    @BindView(R.id.tv_oil_draw)
-    TextView tvOilDraw;
-    @BindView(R.id.iv_bird_draw)
-    RoundImageView ivBirdDraw;
-    @BindView(R.id.tv_bird_draw)
-    TextView tvBirdDraw;
-    @BindView(R.id.iv_hill_draw)
-    RoundImageView ivHillDraw;
-    @BindView(R.id.tv_hill_draw)
-    TextView tvHillDraw;
-    @BindView(R.id.iv_people_draw)
-    RoundImageView ivPeopleDraw;
-    @BindView(R.id.tv_people_draw)
-    TextView tvPeopleDraw;
-    @BindView(R.id.iv_money_draw)
-    RoundImageView ivMoneyDraw;
-    @BindView(R.id.tv_money_draw)
-    TextView tvMoneyDraw;
-    @BindView(R.id.iv_jade_draw)
-    RoundImageView ivJadeDraw;
-    @BindView(R.id.tv_jade_draw)
-    TextView tvJadeDraw;
-    @BindView(R.id.iv_fine_draw)
-    RoundImageView ivFineDraw;
-    @BindView(R.id.tv_fine_draw)
-    TextView tvFineDraw;
-    @BindView(R.id.iv_furniture_draw)
-    RoundImageView ivFurnitureDraw;
-    @BindView(R.id.tv_furniture_draw)
-    TextView tvFurnitureDraw;
-    @BindView(R.id.iv_more_draw)
-    RoundImageView ivMoreDraw;
-    @BindView(R.id.tv_more_draw)
-    TextView tvMoreDraw;
     @BindView(R.id.rv_under)
     RecyclerView rvUnder;
+    @BindView(R.id.rv_icon)
+    RecyclerView rvIcon;
 
 
     private GoodsListApadter mAdapter;
     private HomeUnderListApadter underListApadter;
+    private HomeIconApadter homeIconApadter;
+
     private List<AnnouncementAuctionListBean.DataBean.RowsBean> rowsBeans = new ArrayList<>();
-    private Intent i;
     private List<HomePageImgBean.DataBean.CategoryListBean> categoryListBeans = new ArrayList<>();
     private List<HomePageImgBean.DataBean.UpperListBean> upperListBeans = new ArrayList<>();
     private List<HomePageImgBean.DataBean.UnderListBean> underListBeans = new ArrayList<>();
@@ -157,17 +96,21 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
         etSearchContent.setVisibility(View.GONE);
         ivToolbarNavigation.setVisibility(View.GONE);
 
+        homeIconApadter = new HomeIconApadter(categoryListBeans, getActivity());
         mAdapter = new GoodsListApadter(rowsBeans, getSupportActivity());
         underListApadter = new HomeUnderListApadter(underListBeans, getSupportActivity());
         rvGoods.setLayoutManager(new GridLayoutManager(getSupportActivity(), 2));
         rvUnder.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvIcon.setLayoutManager(new GridLayoutManager(getSupportActivity(), 5));
+
         rvGoods.setAdapter(mAdapter);
         rvUnder.setAdapter(underListApadter);
+        rvIcon.setAdapter(homeIconApadter);
 
         srl.setOnLoadmoreListener(this);
         srl.setOnRefreshListener(this);
         mAdapter.OnGoodsItemListener(this);
-
+        homeIconApadter.OnHomeIconItemListener(this);
         mPresenter.FetchHomePageImg();
         mPresenter.FetchAnnouncementAuctionList("page", String.valueOf(page), "rows", String.valueOf(rows));
 
@@ -204,6 +147,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
         if (srl.isRefreshing()) {
             srl.finishRefresh();
         }
+        if (categoryListBeans.size() != 0)
+            categoryListBeans.clear();
         this.categoryListBeans = homePageImgBean.getData().getCategoryList();
         this.upperListBeans = homePageImgBean.getData().getUpperList();
         this.underListBeans = homePageImgBean.getData().getUnderList();
@@ -221,8 +166,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
             mAdapter.addData(announcementAuctionListBean.getData().getRows());
             srl.finishLoadmore();
         } else {
-            if (rowsBeans.size() != 0)
-                rowsBeans.clear();
+            if (rowsBeans.size() != 0) rowsBeans.clear();
+            if(srl.isRefreshing()) srl.finishRefresh();
             rowsBeans = announcementAuctionListBean.getData().getRows();
             mAdapter.setNewData(rowsBeans);
         }
@@ -235,91 +180,11 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
     }
 
 
-    @OnClick({R.id.rl_search, R.id.ll_book_draw, R.id.ll_oil_draw, R.id.ll_bird_draw, R.id.ll_hill_draw, R.id.ll_people_draw, R.id.ll_money_draw, R.id.ll_jade_draw, R.id.ll_fine_draw, R.id.ll_furniture_draw, R.id.ll_more_draw})
+    @OnClick({R.id.rl_search})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_search:
                 MainActivity.mainActivity.startActivityIn(new Intent(getActivity(), SearchActivity.class), getActivity());
-                break;
-            case R.id.ll_book_draw:
-                if (mTitleList.size() >= 0) {
-                    i = new Intent(getActivity(), ClassifyActivity.class);
-                    i.putStringArrayListExtra("TitleList", mTitleList);
-                    i.putExtra("postion", 0);
-                    MainActivity.mainActivity.startActivityIn(i, getActivity());
-                }
-                break;
-            case R.id.ll_oil_draw:
-                if (mTitleList.size() >= 1) {
-                    i = new Intent(getActivity(), ClassifyActivity.class);
-                    i.putStringArrayListExtra("TitleList", mTitleList);
-                    i.putExtra("postion", 1);
-                    MainActivity.mainActivity.startActivityIn(i, getActivity());
-                }
-                break;
-            case R.id.ll_bird_draw:
-                if (mTitleList.size() >= 2) {
-                    i = new Intent(getActivity(), ClassifyActivity.class);
-                    i.putStringArrayListExtra("TitleList", mTitleList);
-                    i.putExtra("postion", 2);
-                    MainActivity.mainActivity.startActivityIn(i, getActivity());
-                }
-                break;
-            case R.id.ll_hill_draw:
-                if (mTitleList.size() >= 3) {
-                    i = new Intent(getActivity(), ClassifyActivity.class);
-                    i.putStringArrayListExtra("TitleList", mTitleList);
-                    i.putExtra("postion", 3);
-                    MainActivity.mainActivity.startActivityIn(i, getActivity());
-                }
-                break;
-            case R.id.ll_people_draw:
-                if (mTitleList.size() >= 4) {
-                    i = new Intent(getActivity(), ClassifyActivity.class);
-                    i.putStringArrayListExtra("TitleList", mTitleList);
-                    i.putExtra("postion", 4);
-                    MainActivity.mainActivity.startActivityIn(i, getActivity());
-                }
-                break;
-            case R.id.ll_money_draw:
-                if (mTitleList.size() >= 5) {
-                    i = new Intent(getActivity(), ClassifyActivity.class);
-                    i.putStringArrayListExtra("TitleList", mTitleList);
-                    i.putExtra("postion", 5);
-                    MainActivity.mainActivity.startActivityIn(i, getActivity());
-                }
-                break;
-            case R.id.ll_jade_draw:
-                if (mTitleList.size() >= 6) {
-                    i = new Intent(getActivity(), ClassifyActivity.class);
-                    i.putStringArrayListExtra("TitleList", mTitleList);
-                    i.putExtra("postion", 6);
-                    MainActivity.mainActivity.startActivityIn(i, getActivity());
-                }
-                break;
-            case R.id.ll_fine_draw:
-                if (mTitleList.size() >= 7) {
-                    i = new Intent(getActivity(), ClassifyActivity.class);
-                    i.putStringArrayListExtra("TitleList", mTitleList);
-                    i.putExtra("postion", 7);
-                    MainActivity.mainActivity.startActivityIn(i, getActivity());
-                }
-                break;
-            case R.id.ll_furniture_draw:
-                if (mTitleList.size() >= 8) {
-                    i = new Intent(getActivity(), ClassifyActivity.class);
-                    i.putStringArrayListExtra("TitleList", mTitleList);
-                    i.putExtra("postion", 8);
-                    MainActivity.mainActivity.startActivityIn(i, getActivity());
-                }
-                break;
-            case R.id.ll_more_draw:
-                if (mTitleList.size() >= 9) {
-                    i = new Intent(getActivity(), ClassifyActivity.class);
-                    i.putStringArrayListExtra("TitleList", mTitleList);
-                    i.putExtra("postion", 9);
-                    MainActivity.mainActivity.startActivityIn(i, getActivity());
-                }
                 break;
         }
     }
@@ -382,101 +247,27 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
         numBanner.setData(imgUrls, null);
     }
 
-
     /***
      * 填充icon
      * @param categoryListBeans
      */
     private void fillView(List<HomePageImgBean.DataBean.CategoryListBean> categoryListBeans) {
+        homeIconApadter.setNewData(categoryListBeans);
+    }
 
-        if (categoryListBeans.size() >= 1 && categoryListBeans.get(0) != null) {
-            HomePageImgBean.DataBean.CategoryListBean categoryListBean = categoryListBeans.get(0);
-            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivBookDraw, R.drawable.draw_def);
-            tvBookDraw.setText(categoryListBean.getCategoryName());
-            mTitleList.add(categoryListBean.getCategoryName());
-        } else {
-            llBookDraw.setVisibility(View.INVISIBLE);
-        }
+    /**
+     * 跳转分类
+     */
+    @Override
+    public void OnHomeIconItemListener(HomePageImgBean.DataBean.CategoryListBean item ,int postion) {
 
-        if (categoryListBeans.size() >= 2 && categoryListBeans.get(1) != null) {
-            HomePageImgBean.DataBean.CategoryListBean categoryListBean = categoryListBeans.get(1);
-            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivOilDraw, R.drawable.draw_def);
-            tvOilDraw.setText(categoryListBean.getCategoryName());
-            mTitleList.add(categoryListBean.getCategoryName());
-        } else {
-            llOilDraw.setVisibility(View.INVISIBLE);
-        }
-
-        if (categoryListBeans.size() >= 3 && categoryListBeans.get(3) != null) {
-            HomePageImgBean.DataBean.CategoryListBean categoryListBean = categoryListBeans.get(2);
-            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivBirdDraw, R.drawable.draw_def);
-            tvBirdDraw.setText(categoryListBean.getCategoryName());
-            mTitleList.add(categoryListBean.getCategoryName());
-        } else {
-            llBirdDraw.setVisibility(View.INVISIBLE);
-        }
-
-        if (categoryListBeans.size() >= 4 && categoryListBeans.get(3) != null) {
-            HomePageImgBean.DataBean.CategoryListBean categoryListBean = categoryListBeans.get(3);
-            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivHillDraw, R.drawable.draw_def);
-            tvHillDraw.setText(categoryListBean.getCategoryName());
-            mTitleList.add(categoryListBean.getCategoryName());
-        } else {
-            llHillDraw.setVisibility(View.INVISIBLE);
-        }
-
-        if (categoryListBeans.size() >= 5 && categoryListBeans.get(4) != null) {
-            HomePageImgBean.DataBean.CategoryListBean categoryListBean = categoryListBeans.get(4);
-            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivPeopleDraw, R.drawable.draw_def);
-            tvPeopleDraw.setText(categoryListBean.getCategoryName());
-            mTitleList.add(categoryListBean.getCategoryName());
-        } else {
-            llPeopleDraw.setVisibility(View.INVISIBLE);
-        }
-
-        if (categoryListBeans.size() >= 6 && categoryListBeans.get(5) != null) {
-            HomePageImgBean.DataBean.CategoryListBean categoryListBean = categoryListBeans.get(5);
-            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivMoneyDraw, R.drawable.draw_def);
-            tvMoneyDraw.setText(categoryListBean.getCategoryName());
-            mTitleList.add(categoryListBean.getCategoryName());
-        } else {
-            llMoneyDraw.setVisibility(View.INVISIBLE);
-        }
-
-        if (categoryListBeans.size() >= 7 && categoryListBeans.get(6) != null) {
-            HomePageImgBean.DataBean.CategoryListBean categoryListBean = categoryListBeans.get(6);
-            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivJadeDraw, R.drawable.draw_def);
-            tvJadeDraw.setText(categoryListBean.getCategoryName());
-            mTitleList.add(categoryListBean.getCategoryName());
-        } else {
-            llJadeDraw.setVisibility(View.INVISIBLE);
-        }
-
-        if (categoryListBeans.size() >= 8 && categoryListBeans.get(7) != null) {
-            HomePageImgBean.DataBean.CategoryListBean categoryListBean = categoryListBeans.get(7);
-            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivFineDraw, R.drawable.draw_def);
-            tvFineDraw.setText(categoryListBean.getCategoryName());
-            mTitleList.add(categoryListBean.getCategoryName());
-        } else {
-            llFineDraw.setVisibility(View.INVISIBLE);
-        }
-
-        if (categoryListBeans.size() >= 9 && categoryListBeans.get(8) != null) {
-            HomePageImgBean.DataBean.CategoryListBean categoryListBean = categoryListBeans.get(8);
-            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivFurnitureDraw, R.drawable.draw_def);
-            tvFurnitureDraw.setText(categoryListBean.getCategoryName());
-            mTitleList.add(categoryListBean.getCategoryName());
-        } else {
-            llFurnitureDraw.setVisibility(View.INVISIBLE);
-        }
-
-        if (categoryListBeans.size() >= 10 && categoryListBeans.get(9) != null) {
-            HomePageImgBean.DataBean.CategoryListBean categoryListBean = categoryListBeans.get(9);
-            GlideUtils.load(getActivity(), Constant.BaseImgUrl + categoryListBean.getIco(), ivMoreDraw, R.drawable.draw_def);
-            tvMoreDraw.setText(categoryListBean.getCategoryName());
-            mTitleList.add(categoryListBean.getCategoryName());
-        } else {
-            llMoreDraw.setVisibility(View.INVISIBLE);
+        if (categoryListBeans.size() >= 0) {
+            Bundle bundle = new Bundle();
+            Intent i = new Intent(getActivity(), ClassifyActivity.class);
+            i.putExtra("postion", postion);
+            bundle.putSerializable("item", (Serializable)categoryListBeans);
+            i.putExtras(bundle);
+            MainActivity.mainActivity.startActivityIn(i, getActivity());
         }
     }
 }

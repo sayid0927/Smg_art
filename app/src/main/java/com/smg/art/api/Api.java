@@ -50,6 +50,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.GET;
+import retrofit2.http.QueryMap;
 import rx.Observable;
 
 public class Api {
@@ -251,6 +253,15 @@ public class Api {
     public Observable<BalanceOfPayBean> FetchBalanceOfPay(String... s) {
         return service.FetchBalanceOfPay(getMap(s));
     }
+
+    /**
+     * 首页搜索框查询
+     */
+    public Observable<AnnouncementAuctionListBean> FetchAuctionListByName(String... s) {
+        return service.FetchAuctionListByName(getMap(s));
+    }
+
+
 
     /**
      * 添加银行卡
