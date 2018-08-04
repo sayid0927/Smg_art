@@ -4,6 +4,8 @@ package com.smg.art.presenter.contract.activity;
 import com.smg.art.base.BaseContract;
 import com.smg.art.bean.ConversationBean;
 
+import java.util.List;
+
 import io.rong.imlib.model.Conversation;
 
 public interface RecentMessageContract {
@@ -14,7 +16,7 @@ public interface RecentMessageContract {
          *  获取最近会话列表成功
          * @param conversationBean
          */
-        void getConversationListSuccess(ConversationBean conversationBean);
+        void getConversationListSuccess(List<Conversation> conversationBean);
 
 
     }
@@ -24,8 +26,6 @@ public interface RecentMessageContract {
          *  获取最近会话列表
          */
         void getConversationList();
-
-
     }
 
 }

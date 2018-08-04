@@ -123,7 +123,7 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
     }
 
     private void getdata() {
-        mPresenter.FetchPersonalCenter("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
+//        mPresenter.FetchPersonalCenter("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
     }
 
     @Override

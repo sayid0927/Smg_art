@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.TextView;
@@ -43,6 +44,7 @@ public class ConversationActivity extends FragmentActivity {
      * 会话类型
      */
     private Conversation.ConversationType mConversationType;
+    private String MemberId,MemberName;
 
 
     @Override
@@ -51,101 +53,38 @@ public class ConversationActivity extends FragmentActivity {
         setContentView(R.layout.conversation);
         ButterKnife.bind(this);
         StatusBarUtil.setColor(this,getResources().getColor(R.color.colorPrimaryDark), 10);
-        Intent intent = getIntent();
-        getIntentDate(intent);
-        isReconnect(intent);
-    }
 
-
-    /**
-     * 展示如何从 Intent 中得到 融云会话页面传递的 Uri
-     */
-    private void getIntentDate(Intent intent) {
-        mTargetId = intent.getData().getQueryParameter("targetId");
-        title = intent.getData().getQueryParameter("title");
-        actionbarTitle.setText(title);
-        //intent.getData().getLastPathSegment();//获得当前会话类型
-        mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment().toUpperCase(Locale.getDefault()));
-//        enterFragment(mConversationType, mTargetId);
-
-    }
-
-
-    /**
-     * 加载会话页面 ConversationFragment
-     *
-     * @param mConversationType
-     * @param mTargetId
-     */
-    private void enterFragment(Conversation.ConversationType mConversationType, String mTargetId) {
-
-        ConversationFragment fragment = (ConversationFragment) getSupportFragmentManager().findFragmentById(R.id.conversation);
+        if (getIntent() != null && getIntent() .getData() != null){
+            MemberId = getIntent() .getData().getQueryParameter("targetId");
+            MemberName = getIntent() .getData().getQueryParameter("title");
+        }else {
+            MemberId = getIntent().getStringExtra("MemberId");
+            MemberName = getIntent().getStringExtra("MemberName");
+        }
+        MemberId ="78";
+        ConversationFragment fragment = new ConversationFragment();
 
         Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
-                .appendPath("conversation").appendPath(mConversationType.getName().toLowerCase())
-                .appendQueryParameter("targetId", mTargetId).build();
-
+                .appendPath("conversation").appendPath(io.rong.imlib.model.Conversation.ConversationType.PRIVATE.getName().toLowerCase())
+                .appendQueryParameter("targetId", MemberId).appendQueryParameter("title", "hello").build();
         fragment.setUri(uri);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.conversation, fragment);
+        transaction.commit();
+        actionbarTitle.setText(MemberName);
+
     }
-
-    /**
-     * 重连
-     *
-     * @param token
-     */
-    private void reconnect(String token) {
-        Log.e("", "《重连》");
-
-        if (getApplicationInfo().packageName.equals(BaseApplication.getCurProcessName(getApplicationContext()))) {
-
-            RongIM.connect(token, new RongIMClient.ConnectCallback() {
-                @Override
-                public void onTokenIncorrect() {
-                    Log.e("", "连接失败");
-                }
-
-                @Override
-                public void onSuccess(String s) {
-                    enterFragment(mConversationType, mTargetId);
-                }
-
-                @Override
-                public void onError(RongIMClient.ErrorCode errorCode) {
-                    Log.e("", "连接失败—————>" + errorCode);
-                }
-            });
-        }
-    }
-
-
-    /**
-     * 判断消息是否是 push 消息
-     */
-    private void isReconnect(Intent intent) {
-        String token = LocalAppConfigUtil.getInstance().getRCToken();
-
-        if (intent == null || intent.getData() == null)
-            return;
-        //push
-        if (intent.getData().getScheme().equals("rong") && intent.getData().getQueryParameter("isFromPush") != null) {
-            isFromPush = true;
-
-            //通过intent.getData().getQueryParameter("push") 为true，判断是否是push消息
-            if (intent.getData().getQueryParameter("isFromPush").equals("true")) {
-                reconnect(token);
-            } else {
-                //程序切到后台，收到消息后点击进入,会执行这里
-                if (RongIM.getInstance() == null || RongIM.getInstance().getRongIMClient() == null) {
-                    reconnect(token);
-                } else {
-                    enterFragment(mConversationType, mTargetId);
-                }
-            }
-        }
-    }
-
     @OnClick(R.id.rl_back)
     public void onViewClicked() {
         finish();
+    }
+    @Override
+    public void finish() {
+        super.finish();
+        finishActivity();
+    }
+    protected void finishActivity() {
+        overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
     }
 }

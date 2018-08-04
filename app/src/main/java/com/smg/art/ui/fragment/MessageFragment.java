@@ -1,10 +1,12 @@
 package com.smg.art.ui.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +31,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationListFragment;
+import io.rong.imkit.model.UIConversation;
 import io.rong.imlib.model.Conversation;
 
 /**
@@ -56,8 +59,7 @@ public class MessageFragment extends BaseFragment {
         mTitleList.add(getString(R.string.recent_message));
         mTitleList.add(getString(R.string.address_list));
 
-        mConversationList = initConversationList();
-        mFragments.add(mConversationList);
+        mFragments.add(new MyRecentMessageFragment());
         mFragments.add(new ContactsFragment());
 
         BaseFragmentPageAdapter myAdapter = new BaseFragmentPageAdapter(getChildFragmentManager(), mFragments, mTitleList);
@@ -90,30 +92,59 @@ public class MessageFragment extends BaseFragment {
 
     @OnClick(R.id.ll_addfriend)
     public void onViewClicked() {
-        MainActivity.mainActivity.startActivityIn(new Intent(getActivity(), SearchContactsActivity.class),getActivity());
+        MainActivity.mainActivity.startActivityIn(new Intent(getActivity(), SearchContactsActivity.class), getActivity());
     }
 
-    private Fragment mConversationList;
-    private Fragment mConversationFragment = null;
-
-    private Fragment initConversationList() {
+    private class MyConversationListBehaviorListener implements RongIM.ConversationListBehaviorListener {
+        /**
+         * 当点击会话头像后执行。
+         *
+         * @param context          上下文。
+         * @param conversationType 会话类型。
+         * @param targetId         被点击的用户id。
+         * @return 如果用户自己处理了点击后的逻辑处理，则返回 true，否则返回 false，false 走融云默认处理方式。
+         */
+        public boolean onConversationPortraitClick(Context context, Conversation.ConversationType conversationType, String targetId) {
+            return false;
+        }
 
         /**
-         * appendQueryParameter对具体的会话列表做展示
+         * 当长按会话头像后执行。
+         *
+         * @param context          上下文。
+         * @param conversationType 会话类型。
+         * @param targetId         被点击的用户id。
+         * @return 如果用户自己处理了点击后的逻辑处理，则返回 true，否则返回 false，false 走融云默认处理方式。
          */
-        if (mConversationFragment == null) {
-            ConversationListFragment listFragment = new ConversationListFragment();
-            Uri uri = Uri.parse("rong://" +getActivity().getApplicationInfo().packageName).buildUpon()
-                    .appendPath("conversationList")
-                    .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), "false")       //设置私聊会话非聚合显示
-                    .appendQueryParameter(Conversation.ConversationType.GROUP.getName(), "true")            //设置群组会话聚合显示
-                    .appendQueryParameter(Conversation.ConversationType.DISCUSSION.getName(), "false")//设置讨论组会话非聚合显示
-                    .appendQueryParameter(Conversation.ConversationType.SYSTEM.getName(), "false")         //设置系统会话非聚合显示
-                    .build();
-            listFragment.setUri(uri);
-            return listFragment;
-        } else {
-            return mConversationFragment;
+        public boolean onConversationPortraitLongClick(Context context, Conversation.ConversationType conversationType, String targetId) {
+            return false;
+        }
+
+        /**
+         * 长按会话列表中的 item 时执行。
+         *
+         * @param context        上下文。
+         * @param view           触发点击的 View。
+         * @param uiConversation 长按时的会话条目。
+         * @return 如果用户自己处理了长按会话后的逻辑处理，则返回 true， 否则返回 false，false 走融云默认处理方式。
+         */
+        @Override
+        public boolean onConversationLongClick(Context context, View view, UIConversation uiConversation) {
+            return false;
+        }
+
+        /**
+         * 点击会话列表中的 item 时执行。
+         *
+         * @param context        上下文。
+         * @param view           触发点击的 View。
+         * @param uiConversation 会话条目。
+         * @return 如果用户自己处理了点击会话后的逻辑处理，则返回 true， 否则返回 false，false 走融云默认处理方式。
+         */
+        @Override
+        public boolean onConversationClick(Context context, View view, UIConversation uiConversation) {
+            Log.e("TAG","VVVV");
+            return false;
         }
     }
 }

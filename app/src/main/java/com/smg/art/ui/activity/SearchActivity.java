@@ -135,7 +135,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
             @Override
             public void onClick(View view) {
                 isClearAll = true;
-                mPresenter.FetchDeleteWordById("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
+                mPresenter.FetchDeleteWordById("word", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
             }
         });
         return headerView;
@@ -298,7 +298,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
         this.postion = postion;
         this.isClearAll = false;
         mPresenter.FetchDeleteWordById("id", String.valueOf(item.getId()),
-                "memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
+                "word", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
     }
 
     /**

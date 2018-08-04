@@ -61,7 +61,7 @@ public class BasePresenter<T extends BaseContract.BaseView> implements BaseContr
     }
 
     @Override
-    public void attachView(T view , Context context) {
+    public void  attachView(T view , Context context) {
         this.mView = view;
         this.context = context;
     }

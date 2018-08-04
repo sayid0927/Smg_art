@@ -207,6 +207,13 @@ public class ContactsFragment extends BaseFragment implements ContactsFragmentCo
 
     @Override
     public void onItemClick(View itemView, int position) {
-        RongIM.getInstance().startPrivateChat(getActivity(), String.valueOf(mData.get(position).getMemberId()), mData.get(position).getMemberName());
+        Intent i = new Intent( getActivity(),ConversationActivity.class);
+        i.putExtra("MemberId",String.valueOf(mData.get(position).getMemberId()));
+        i.putExtra("MemberName",String.valueOf(mData.get(position).getMemberName()));
+        MainActivity.mainActivity.startActivityIn(i,getActivity());
+
+//        RongIM.getInstance().startPrivateChat(getActivity(),
+//                String.valueOf(mData.get(position).getMemberId()), mData.get(position).getMemberName());
+
     }
 }

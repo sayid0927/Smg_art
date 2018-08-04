@@ -94,4 +94,5 @@ public interface MainComponent {
 
     ChangeNickNameActivity inject(ChangeNickNameActivity changeNickNameActivity);
 
+
 }

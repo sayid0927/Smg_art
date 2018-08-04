@@ -26,6 +26,7 @@ public interface AuthenticationContract {
         void FetchMemberAuthSaveSuccess(CreatWordsBean cardUrlBean);
 
 
+
     }
 
     interface Presenter<T> extends BaseContract.BasePresenter<T> {

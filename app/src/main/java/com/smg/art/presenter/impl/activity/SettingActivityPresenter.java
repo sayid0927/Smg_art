@@ -56,6 +56,11 @@ public class SettingActivityPresenter extends BasePresenter<SettingContract.View
     }
 
     @Override
+    public void FetchUploadPic(String... s) {
+
+    }
+
+    @Override
     public void FetchPersonalCenter(String... s) {
         showWaitingDialog("加载中...");
         addSubscrebe(api.FetchPersonalCenter(s).subscribeOn(Schedulers.io())

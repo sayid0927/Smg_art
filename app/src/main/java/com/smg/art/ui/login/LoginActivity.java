@@ -208,7 +208,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View, V
         if (loginBean.getStatus() == 1) {
             ToastUtils.showShortToast(getString(R.string.login_success));
             LocalAppConfigUtil.getInstance().setAccessToken(loginBean.getData().getRCToken());
-            LocalAppConfigUtil.getInstance().setCurrentMerberId(78);
+            LocalAppConfigUtil.getInstance().setCurrentMerberId(62);
             LocalAppConfigUtil.getInstance().setCurrentMerberNo(loginBean.getData().getMemberNo());
             LocalAppConfigUtil.getInstance().setJsessionidShiro(loginBean.getData().getJSESSIONID_SHIRO());
             LocalAppConfigUtil.getInstance().setJsessionId(loginBean.getData().getJSESSIONID());

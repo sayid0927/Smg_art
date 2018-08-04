@@ -30,9 +30,9 @@ public class RecentMessagePresenter extends BasePresenter<RecentMessageContract.
             @Override
             public void onSuccess(List<Conversation> conversations) {
                 if (conversations != null && conversations.size() > 0) {
-//                    mData.clear();
-//                    mData.addAll(conversations);
-//                    filterData(mData);
+                     if(mView!=null){
+                         mView.getConversationListSuccess(conversations);
+                     }
                 }
             }
 

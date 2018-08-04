@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
+import android.util.Log;
 
 import com.blankj.utilcode.utils.Utils;
 import com.orhanobut.logger.LogLevel;
@@ -12,12 +13,15 @@ import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerAppComponent;
 import com.smg.art.module.ApiModule;
 import com.smg.art.module.AppModule;
+import com.smg.art.utils.MyReceiveMessageListener;
 import com.smg.art.utils.PreferUtil;
 
 import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Message;
 
 
-public class BaseApplication extends Application  {
+public class BaseApplication extends Application implements  RongIMClient.OnReceiveMessageListener {
 
     public  static BaseApplication baseApplication;
     private static AppComponent appComponent;
@@ -100,7 +104,18 @@ public class BaseApplication extends Application  {
         if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext())) ||
                 "io.rong.push".equals(getCurProcessName(getApplicationContext()))) {
             RongIM.init(this);
+            //监听接收到的消息
+            RongIM.setOnReceiveMessageListener(new MyReceiveMessageListener());
+//            RongIM.Li
+
+//            RongIM.getInstance().setConversationClickListener(new MyConversationClickListener());
+
         }
     }
 
+    @Override
+    public boolean onReceived(Message message, int i) {
+        Log.e("TAG","CCCC");
+        return false;
+    }
 }
