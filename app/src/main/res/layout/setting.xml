@@ -64,10 +64,10 @@
             android:textSize="@dimen/wz_15sp" />
 
         <TextView
+            android:id="@+id/nick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/bj_14dp"
-            android:text="Angle"
             android:textColor="@color/grey_e6000000"
             android:textSize="@dimen/wz_15sp" />
 
@@ -97,10 +97,10 @@
             android:textSize="@dimen/wz_15sp" />
 
         <TextView
+            android:id="@+id/phone_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/bj_14dp"
-            android:text="155 0749 0910"
             android:textColor="@color/grey_e6000000"
             android:textSize="@dimen/wz_15sp" />
 

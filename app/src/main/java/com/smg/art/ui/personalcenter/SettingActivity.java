@@ -18,10 +18,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.utils.ToastUtils;
 import com.smg.art.BuildConfig;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
 import com.smg.art.base.Constant;
+import com.smg.art.bean.PersonalCenterBean;
 import com.smg.art.bean.UpLoadBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
@@ -32,6 +34,7 @@ import com.smg.art.presenter.impl.activity.SettingActivityPresenter;
 import com.smg.art.ui.login.LoginActivity;
 import com.smg.art.utils.ClipFileUtil;
 import com.smg.art.utils.GlideUtils;
+import com.smg.art.utils.GlideCommonUtils;
 import com.smg.art.utils.ImageFormartUtils;
 import com.smg.art.utils.KeyBoardUtils;
 import com.smg.art.utils.L;
@@ -94,6 +97,10 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
     TextView exit;
     PopDialog popDialog;
     Intent intent;
+    @BindView(R.id.nick)
+    TextView nick;
+    @BindView(R.id.phone_num)
+    TextView phoneNum;
     //调用照相机返回图片文件
     private File tempFile;
     // 1: 圆形裁剪, 2: 矩形裁剪
@@ -180,6 +187,16 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
                 });
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getData();
+    }
+
+    private void getData() {
+        mPresenter.FetchPersonalCenter("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
     }
 
     /**
@@ -342,6 +359,17 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
     @Override
     public void FetchUploadPicSuccess(UpLoadBean upLoadBean) {
         GlideUtils.load(this, Constant.BaseImgUrl + upLoadBean.getHeadImg(), civMyPicture);
+    }
+
+    @Override
+    public void FetchPersonalCenterSuccess(PersonalCenterBean announcementAuctionListBean) {
+        if (announcementAuctionListBean.getStatus() == 1) {
+            GlideCommonUtils.showHead(this, announcementAuctionListBean.getData().getHeadImg(), civMyPicture);
+            nick.setText(announcementAuctionListBean.getData().getMemberName());
+            phoneNum.setText(announcementAuctionListBean.getData().getMobilePhone());
+        } else {
+            ToastUtils.showShortToast(announcementAuctionListBean.getMsg());
+        }
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Selection;
 import android.text.Spannable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -12,11 +13,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.utils.ToastUtils;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
+import com.smg.art.bean.CheckBankCardBean;
+import com.smg.art.bean.CurrencyExchangeRateBean;
+import com.smg.art.bean.WithDrawBean;
 import com.smg.art.component.AppComponent;
+import com.smg.art.component.DaggerMainComponent;
+import com.smg.art.presenter.contract.activity.WithdrawContract;
+import com.smg.art.presenter.impl.activity.WithDrawPresenter;
 import com.smg.art.utils.KeyBoardUtils;
+import com.smg.art.utils.LocalAppConfigUtil;
 import com.zhy.autolayout.AutoRelativeLayout;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -25,7 +36,10 @@ import butterknife.OnClick;
  * Created by Mervin on 2018/7/26 0026.
  */
 
-public class WithdrawActivity extends BaseActivity {
+public class WithdrawActivity extends BaseActivity implements WithdrawContract.View {
+    @Inject
+    WithDrawPresenter mPresenter;
+
     @BindView(R.id.rl_back)
     AutoRelativeLayout rlBack;
     @BindView(R.id.left_title)
@@ -47,6 +61,20 @@ public class WithdrawActivity extends BaseActivity {
     @BindView(R.id.bank_info)
     LinearLayout bankInfo;
     Intent intent;
+    @BindView(R.id.bank_name)
+    TextView bankName;
+    @BindView(R.id.bank_card)
+    TextView bankCard;
+    @BindView(R.id.total_money)
+    TextView totalMoney;
+    @BindView(R.id.exchange_rate)
+    TextView exchangeRate;
+    @BindView(R.id.total_price)
+    TextView totalPrice;
+    @BindView(R.id.all_withdraw)
+    TextView allWithdraw;
+    CheckBankCardBean mCheckBankCardBean;
+    CurrencyExchangeRateBean mCurrencyExchangeRateBean;
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void onTextChanged(CharSequence s, int start, int before,
@@ -70,7 +98,7 @@ public class WithdrawActivity extends BaseActivity {
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
-
+        DaggerMainComponent.builder().appComponent(appComponent).build().inject(this);
     }
 
     @Override
@@ -80,12 +108,12 @@ public class WithdrawActivity extends BaseActivity {
 
     @Override
     public void attachView() {
-
+        mPresenter.attachView(this, this);
     }
 
     @Override
     public void detachView() {
-
+        mPresenter.detachView();
     }
 
     @Override
@@ -110,6 +138,17 @@ public class WithdrawActivity extends BaseActivity {
         etContext.addTextChangedListener(textWatcher);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getBankData();
+    }
+
+    public void getBankData() {
+        mPresenter.FetchCheckBankCard("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()), "type", "0");
+        mPresenter.FetchCurrencyExchangeRate("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
+    }
+
     /**
      * 设置输入时的控件状态
      *
@@ -121,7 +160,7 @@ public class WithdrawActivity extends BaseActivity {
         ivDel.setVisibility(visible);
     }
 
-    @OnClick({R.id.rl_back, R.id.add_bank, R.id.bank_info})
+    @OnClick({R.id.rl_back, R.id.add_bank, R.id.bank_info, R.id.confirm, R.id.all_withdraw})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_back:
@@ -133,7 +172,72 @@ public class WithdrawActivity extends BaseActivity {
                 startActivityIn(intent, this);
                 break;
             case R.id.bank_info:
+                intent = new Intent(this, AddBankCardActivity.class);
+                startActivityIn(intent, this);
+                break;
+            case R.id.all_withdraw:
+                if (!TextUtils.isEmpty(mCurrencyExchangeRateBean.getData().getRmbAmount())) {
+                    etContext.setText(mCurrencyExchangeRateBean.getData().getRmbAmount());
+                } else {
+                    ToastUtils.showShortToast("提现金额不足");
+                }
+                break;
+            case R.id.confirm:
+                if (TextUtils.isEmpty(etContext.getText().toString())) {
+                    ToastUtils.showShortToast("请输入提现金额");
+                } else {
+                    mPresenter.FetchWithdrawCode("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()), "cardNo", mCheckBankCardBean.getData().getCardNo(),
+                            "amount", etContext.getText().toString());
+                }
+
                 break;
         }
     }
+
+    @Override
+    public void FetchCheckBankCardSuccess(CheckBankCardBean checkBankCardBean) {
+        if (checkBankCardBean.getStatus() == 1) {
+            if (checkBankCardBean.getData() != null) {
+                mCheckBankCardBean = checkBankCardBean;
+                addBank.setVisibility(View.GONE);
+                bankInfo.setVisibility(View.VISIBLE);
+                bankName.setText(checkBankCardBean.getData().getBank());
+                bankCard.setText("(" + checkBankCardBean.getData().getCardNo().substring(checkBankCardBean.getData().getCardNo().length() - 4, checkBankCardBean.getData().getCardNo().length()) + ")");
+            } else {
+                addBank.setVisibility(View.VISIBLE);
+                bankInfo.setVisibility(View.GONE);
+            }
+        } else {
+            ToastUtils.showShortToast(checkBankCardBean.getMsg());
+        }
+    }
+
+    @Override
+    public void FetchWithdrawSuccess(WithDrawBean withDrawBean) {
+        if (withDrawBean.getStatus() == 1) {
+            ToastUtils.showShortToast("提现成功");
+            finish();
+        } else {
+            ToastUtils.showShortToast(withDrawBean.getMsg());
+        }
+    }
+
+    @Override
+    public void FetchCurrencyExchangeRateSuccess(CurrencyExchangeRateBean currencyExchangeRateBean) {
+        if (currencyExchangeRateBean.getStatus() == 1) {
+            mCurrencyExchangeRateBean = currencyExchangeRateBean;
+            totalMoney.setText(String.format("%.2f", Double.valueOf(currencyExchangeRateBean.getData().getAmount())));
+            exchangeRate.setText("1币=" + currencyExchangeRateBean.getData().getCurrency() + "元");
+            totalPrice.setText("总金额:" + String.format("%.2f", Double.valueOf(currencyExchangeRateBean.getData().getRmbAmount())));
+        } else {
+            ToastUtils.showShortToast(currencyExchangeRateBean.getMsg());
+        }
+    }
+
+    @Override
+    public void showError(String message) {
+
+    }
+
+
 }

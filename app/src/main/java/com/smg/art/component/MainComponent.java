@@ -22,9 +22,12 @@ import com.smg.art.ui.login.RegisterActivity;
 import com.smg.art.ui.personalcenter.AddBankCardActivity;
 import com.smg.art.ui.personalcenter.AuthenticationActivity;
 import com.smg.art.ui.personalcenter.CashDepositActivity;
+import com.smg.art.ui.personalcenter.ChangeNickNameActivity;
 import com.smg.art.ui.personalcenter.MyCollectionActivity;
 import com.smg.art.ui.personalcenter.MyWalletActivity;
+import com.smg.art.ui.personalcenter.RechargeActivity;
 import com.smg.art.ui.personalcenter.SettingActivity;
+import com.smg.art.ui.personalcenter.WithdrawActivity;
 import com.smg.art.ui.personalcenter.fragemnt.AuctionOrderFragment;
 import com.smg.art.ui.personalcenter.fragemnt.BalanceFragment;
 
@@ -84,4 +87,11 @@ public interface MainComponent {
     AddBankCardActivity inject(AddBankCardActivity addBankCardActivity);
 
     AuthenticationActivity inject(AuthenticationActivity authenticationActivity);
+
+    WithdrawActivity inject(WithdrawActivity withdrawActivity);
+
+    RechargeActivity inject(RechargeActivity rechargeActivity);
+
+    ChangeNickNameActivity inject(ChangeNickNameActivity changeNickNameActivity);
+
 }

@@ -87,6 +87,12 @@ public class MyWalletActivity extends BaseActivity implements MyWalletContract.V
         mPresenter.detachView();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getData();
+    }
+
     public void getData() {
         mPresenter.FetchMyWalletBalance("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
     }
@@ -100,7 +106,6 @@ public class MyWalletActivity extends BaseActivity implements MyWalletContract.V
         indicator.setViewPager(viewPager);
         setTabPagerIndicator();
         viewPager.setCurrentItem(current);
-        getData();
     }
 
     private void setTabPagerIndicator() {

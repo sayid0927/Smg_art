@@ -1,6 +1,7 @@
 package com.smg.art.presenter.contract.activity;
 
 import com.smg.art.base.BaseContract;
+import com.smg.art.bean.PersonalCenterBean;
 import com.smg.art.bean.UpLoadBean;
 
 import java.util.List;
@@ -18,12 +19,22 @@ public interface SettingContract {
          */
         void FetchUploadPicSuccess(UpLoadBean upLoadBean);
 
+        /**
+         * 个人中心
+         */
+        void FetchPersonalCenterSuccess(PersonalCenterBean announcementAuctionListBean);
 
     }
 
     interface Presenter<T> extends BaseContract.BasePresenter<T> {
 
         void FetchUploadPic(List<MultipartBody.Part> parts);
+        void FetchUploadPic(String... s);
+
+        /**
+         * 个人中心
+         */
+        void FetchPersonalCenter(String... s);
     }
 
 }

@@ -31,9 +31,9 @@
                 android:textSize="@dimen/wz_15sp" />
 
             <TextView
+                android:id="@+id/payee"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="艺术品世界"
                 android:textColor="@color/black_000000"
                 android:textSize="@dimen/wz_15sp" />
 
@@ -48,9 +48,10 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/bank_icon"
                 android:layout_width="@dimen/bj_36dp"
                 android:layout_height="@dimen/bj_36dp"
-                android:background="@drawable/mine_head" />
+                android:background="@drawable/bankdefault" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -59,17 +60,17 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/bank_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="招商银行"
                     android:textColor="@color/black_000000"
                     android:textSize="@dimen/wz_15sp" />
 
                 <TextView
+                    android:id="@+id/bank_card"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/bj_10dp"
-                    android:text="85456585418624565"
                     android:textColor="@color/black_000000"
                     android:textSize="@dimen/wz_15sp" />
             </LinearLayout>
@@ -144,10 +145,18 @@
             android:layout_marginTop="@dimen/bj_14dp"
             android:background="@color/grey_e7e7e7" />
 
+        <ImageView
+            android:id="@+id/up_pic"
+            android:layout_width="@dimen/bj_70dp"
+            android:layout_height="@dimen/bj_70dp"
+            android:layout_marginLeft="@dimen/bj_18dp"
+            android:layout_marginTop="@dimen/bj_20dp"
+            android:background="@drawable/default_up_pic" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/bj_25dp"
+            android:layout_marginTop="@dimen/bj_18dp"
             android:gravity="center"
             android:orientation="horizontal">
 

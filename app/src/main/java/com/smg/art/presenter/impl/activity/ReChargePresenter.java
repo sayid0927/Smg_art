@@ -2,38 +2,34 @@ package com.smg.art.presenter.impl.activity;
 
 import com.smg.art.api.Api;
 import com.smg.art.base.BasePresenter;
-import com.smg.art.bean.PersonalCenterBean;
-import com.smg.art.bean.UpLoadBean;
-import com.smg.art.presenter.contract.activity.SettingContract;
-
-import java.util.List;
+import com.smg.art.bean.CheckBankCardBean;
+import com.smg.art.bean.ReChargeBean;
+import com.smg.art.presenter.contract.activity.ReChargeContract;
 
 import javax.inject.Inject;
 
-import okhttp3.MultipartBody;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
- * Created by Mervin on 2018/8/1 0001.
+ * Created by Mervin on 2018/8/3 0003.
  */
 
-public class SettingActivityPresenter extends BasePresenter<SettingContract.View> implements SettingContract.Presenter<SettingContract.View> {
+public class ReChargePresenter extends BasePresenter<ReChargeContract.View> implements ReChargeContract.Presenter<ReChargeContract.View> {
     private Api api;
 
     @Inject
-    public SettingActivityPresenter(Api api) {
+    public ReChargePresenter(Api api) {
         this.api = api;
     }
 
-
     @Override
-    public void FetchUploadPic(List<MultipartBody.Part> parts) {
+    public void FetchReCharge(String... s) {
         showWaitingDialog("加载中...");
-        addSubscrebe(api.FetchUploadHead(parts).subscribeOn(Schedulers.io())
+        addSubscrebe(api.FetchReCharge(s).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<UpLoadBean>() {
+                .subscribe(new Observer<ReChargeBean>() {
                     @Override
                     public void onCompleted() {
 
@@ -46,21 +42,21 @@ public class SettingActivityPresenter extends BasePresenter<SettingContract.View
                     }
 
                     @Override
-                    public void onNext(UpLoadBean data) {
+                    public void onNext(ReChargeBean data) {
                         if (mView != null && data != null) {
                             hideWaitingDialog();
-                            mView.FetchUploadPicSuccess(data);
+                            mView.FetchReChargeSuccess(data);
                         }
                     }
                 }));
     }
 
     @Override
-    public void FetchPersonalCenter(String... s) {
+    public void FetchCheckBankCard(String... s) {
         showWaitingDialog("加载中...");
-        addSubscrebe(api.FetchPersonalCenter(s).subscribeOn(Schedulers.io())
+        addSubscrebe(api.FetchCheckBankCard(s).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<PersonalCenterBean>() {
+                .subscribe(new Observer<CheckBankCardBean>() {
                     @Override
                     public void onCompleted() {
 
@@ -73,10 +69,10 @@ public class SettingActivityPresenter extends BasePresenter<SettingContract.View
                     }
 
                     @Override
-                    public void onNext(PersonalCenterBean data) {
+                    public void onNext(CheckBankCardBean data) {
                         if (mView != null && data != null) {
                             hideWaitingDialog();
-                            mView.FetchPersonalCenterSuccess(data);
+                            mView.FetchCheckBankCardSuccess(data);
                         }
                     }
                 }));

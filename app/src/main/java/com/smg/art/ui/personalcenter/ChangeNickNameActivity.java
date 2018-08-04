@@ -1,16 +1,25 @@
 package com.smg.art.ui.personalcenter;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.utils.ToastUtils;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
+import com.smg.art.bean.ChangeNickBean;
 import com.smg.art.component.AppComponent;
+import com.smg.art.component.DaggerMainComponent;
+import com.smg.art.presenter.contract.activity.ChangeNickContract;
+import com.smg.art.presenter.impl.activity.ChangeNickNamePresenter;
 import com.smg.art.utils.KeyBoardUtils;
+import com.smg.art.utils.LocalAppConfigUtil;
 import com.zhy.autolayout.AutoRelativeLayout;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -19,7 +28,9 @@ import butterknife.OnClick;
  * Created by Mervin on 2018/7/26 0026.
  */
 
-public class ChangeNickNameActivity extends BaseActivity {
+public class ChangeNickNameActivity extends BaseActivity implements ChangeNickContract.View {
+    @Inject
+    ChangeNickNamePresenter mPresenter;
     @BindView(R.id.rl_back)
     AutoRelativeLayout rlBack;
     @BindView(R.id.left_title)
@@ -39,7 +50,7 @@ public class ChangeNickNameActivity extends BaseActivity {
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
-
+        DaggerMainComponent.builder().appComponent(appComponent).build().inject(this);
     }
 
     @Override
@@ -49,12 +60,12 @@ public class ChangeNickNameActivity extends BaseActivity {
 
     @Override
     public void attachView() {
-
+        mPresenter.attachView(this, this);
     }
 
     @Override
     public void detachView() {
-
+        mPresenter.detachView();
     }
 
     @Override
@@ -62,14 +73,35 @@ public class ChangeNickNameActivity extends BaseActivity {
         actionbarTitle.setText(R.string.change_nickname);
     }
 
-    @OnClick({R.id.rl_back})
+    @OnClick({R.id.rl_back, R.id.save})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_back:
                 KeyBoardUtils.hiddenKeyboart(this);
                 finish();
                 break;
+            case R.id.save:
+                if (TextUtils.isEmpty(editText.getText().toString())) {
+                    ToastUtils.showShortToast("请输入昵称");
+                } else {
+                    mPresenter.FetchChangeNick("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()), "memberName", editText.getText().toString());
+                }
+                break;
         }
     }
 
+    @Override
+    public void FetchChangeNickSuccess(ChangeNickBean changeNickBean) {
+        if (changeNickBean.getStatus() == 1) {
+            ToastUtils.showShortToast("修改成功");
+            finish();
+        } else {
+            ToastUtils.showShortToast(changeNickBean.getMsg());
+        }
+    }
+
+    @Override
+    public void showError(String message) {
+
+    }
 }
