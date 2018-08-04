@@ -15,6 +15,7 @@ import com.smg.art.component.AppComponent;
 import com.smg.art.presenter.contract.fragment.HomeContract;
 import com.smg.art.presenter.contract.fragment.MyFragmentContract;
 import com.smg.art.ui.activity.MainActivity;
+import com.smg.art.ui.personalcenter.AuthenticationActivity;
 import com.smg.art.ui.personalcenter.CashDepositActivity;
 import com.smg.art.ui.personalcenter.MyCollectionActivity;
 import com.smg.art.ui.personalcenter.MyOrderActivity;
@@ -151,7 +152,8 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
                 MainActivity.mainActivity.startActivityIn(intent, getActivity());
                 break;
             case R.id.realnameauthentication:
-                // startActivity(new Intent(getActivity(), SettingActivity.class));
+                intent = new Intent(getActivity(), AuthenticationActivity.class);
+                MainActivity.mainActivity.startActivityIn(intent, getActivity());
                 break;
             case R.id.setting:
                 intent = new Intent(getActivity(), SettingActivity.class);
@@ -160,6 +162,4 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
 
         }
     }
-
-
 }

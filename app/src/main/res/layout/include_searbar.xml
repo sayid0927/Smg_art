@@ -26,49 +26,48 @@
 
 
     <RelativeLayout
-        android:layout_centerInParent="true"
         android:id="@+id/rl_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="19px"
-        android:layout_marginLeft="90px"
-        android:layout_marginRight="90px"
-        android:layout_marginTop="19px"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="@dimen/bj_30dp"
+        android:layout_toRightOf="@+id/ll_back"
         android:background="@drawable/searchbar_bg">
 
         <TextView
             android:id="@+id/tv_search"
             android:layout_width="match_parent"
-            android:layout_height="56px"
+            android:layout_height="@dimen/bj_30dp"
             android:gravity="center|left"
             android:hint="@string/search_hint"
-            android:paddingLeft="17px"
+            android:paddingLeft="@dimen/bj_9dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="26px"
+            android:textSize="@dimen/wz_13sp"
             android:visibility="gone" />
 
 
         <EditText
             android:id="@+id/et_SearchContent"
             android:layout_width="match_parent"
-            android:layout_height="56px"
+            android:layout_height="@dimen/bj_30dp"
             android:background="@null"
             android:drawablePadding="10dp"
             android:hint="@string/search_hint"
             android:maxLines="1"
-            android:paddingLeft="17px"
+            android:paddingLeft="@dimen/bj_9dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="26px" />
+            android:textSize="@dimen/wz_13sp" />
 
 
         <ImageView
+            android:id="@+id/iv_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
-            android:layout_marginRight="20px"
+            android:layout_marginRight="@dimen/bj_8dp"
             android:src="@drawable/search_home" />
 
     </RelativeLayout>

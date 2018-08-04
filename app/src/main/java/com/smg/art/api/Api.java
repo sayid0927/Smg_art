@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.smg.art.base.AnnouncementAuctionListBean;
 import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
+import com.smg.art.base.CardUrlBean;
 import com.smg.art.base.Constant;
 import com.smg.art.base.HomePageImgBean;
 import com.smg.art.bean.AddBankCardBean;
@@ -31,7 +32,9 @@ import com.smg.art.bean.AuctionOrderBean;
 import com.smg.art.bean.BalanceOfPayBean;
 import com.smg.art.bean.CashDepositiBean;
 import com.smg.art.bean.CollectionBean;
+import com.smg.art.bean.CreatWordsBean;
 import com.smg.art.bean.ForgetPasswordBean;
+import com.smg.art.bean.HotWordsListBean;
 import com.smg.art.bean.LoginBean;
 import com.smg.art.bean.PhoneVerifyCodeBean;
 import com.smg.art.bean.RegisterBean;
@@ -42,8 +45,10 @@ import com.smg.art.bean.WalletBalanceBean;
 import com.smg.art.utils.LocalAppConfigUtil;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
@@ -51,6 +56,9 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
+import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.QueryMap;
 import rx.Observable;
 
@@ -157,7 +165,7 @@ public class Api {
     /**
      * 获取搜索列表
      */
-    public Observable<Response<ResponseBody>> FetchHotWordsList(String... s) {
+    public Observable<HotWordsListBean> FetchHotWordsList(String... s) {
         return service.FetchHotWordsList(getMap(s));
     }
 
@@ -230,9 +238,17 @@ public class Api {
     /**
      * 上传头像
      */
-    public Observable<UpLoadBean> FetchUploadHead(String... s) {
-        return service.FetchUploadHead(getMap(s));
+    public Observable<UpLoadBean> FetchUploadHead(List<MultipartBody.Part> parts) {
+        return service.FetchUploadHead(parts);
     }
+
+    /**
+     * 上传图片
+     */
+    public Observable<CardUrlBean> FetchUploadFile(List<MultipartBody.Part> parts) {
+        return service.FetchUploadFile(parts);
+    }
+
     /**
      * 首页公告期分页查询
      */
@@ -269,4 +285,27 @@ public class Api {
     public Observable<AddBankCardBean> FetchAddBankCard(String... s) {
         return service.FetchAddBankCard(getMap(s));
     }
+
+
+    /**
+     * 新增热门搜索字段
+     */
+    public Observable<CreatWordsBean> FetchCreatWordsBean(String... s) {
+        return service.FetchCreatWordsBean(getMap(s));
+    }
+
+    /**
+     * 搜索字段删除接口
+     */
+    public Observable<CreatWordsBean> FetchDeleteWordById(String... s) {
+        return service.FetchDeleteWordById(getMap(s));
+    }
+
+    /**
+     * 新增实名认证
+     */
+    public Observable<CreatWordsBean> FetchMemberAuthSave(String... s) {
+        return service.FetchMemberAuthSave(getMap(s));
+    }
+
 }

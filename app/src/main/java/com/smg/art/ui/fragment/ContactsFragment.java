@@ -1,6 +1,7 @@
 package com.smg.art.ui.fragment;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,6 +20,9 @@ import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.fragment.ContactsFragmentContract;
 import com.smg.art.presenter.impl.fragment.ContactsFragmentPresenter;
+import com.smg.art.ui.activity.ConversationActivity;
+import com.smg.art.ui.activity.MainActivity;
+import com.smg.art.ui.activity.SearchActivity;
 import com.smg.art.ui.adapter.ContactsApadter;
 import com.smg.art.utils.DividerItemDecoration;
 import com.smg.art.utils.LocalAppConfigUtil;

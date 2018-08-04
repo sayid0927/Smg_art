@@ -167,7 +167,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
             srl.finishLoadmore();
         } else {
             if (rowsBeans.size() != 0) rowsBeans.clear();
-            if(srl.isRefreshing()) srl.finishRefresh();
+            if (srl.isRefreshing()) srl.finishRefresh();
             rowsBeans = announcementAuctionListBean.getData().getRows();
             mAdapter.setNewData(rowsBeans);
         }
@@ -184,7 +184,9 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_search:
-                MainActivity.mainActivity.startActivityIn(new Intent(getActivity(), SearchActivity.class), getActivity());
+                Intent i = new Intent(getActivity(), SearchActivity.class);
+                i.putExtra("status", "3");
+                MainActivity.mainActivity.startActivityIn(i, getActivity());
                 break;
         }
     }
@@ -259,13 +261,13 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
      * 跳转分类
      */
     @Override
-    public void OnHomeIconItemListener(HomePageImgBean.DataBean.CategoryListBean item ,int postion) {
+    public void OnHomeIconItemListener(HomePageImgBean.DataBean.CategoryListBean item, int postion) {
 
         if (categoryListBeans.size() >= 0) {
             Bundle bundle = new Bundle();
             Intent i = new Intent(getActivity(), ClassifyActivity.class);
             i.putExtra("postion", postion);
-            bundle.putSerializable("item", (Serializable)categoryListBeans);
+            bundle.putSerializable("item", (Serializable) categoryListBeans);
             i.putExtras(bundle);
             MainActivity.mainActivity.startActivityIn(i, getActivity());
         }

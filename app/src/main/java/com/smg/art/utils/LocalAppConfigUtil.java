@@ -283,5 +283,27 @@ public class LocalAppConfigUtil {
         return sp.getString("RCMemberId", "");
     }
 
+
+
+
+    /**
+     * 设置当前融云用户ID
+     *
+     * @param HeadImg
+     *
+     */
+    public void setHeadImg(String HeadImg) {
+        editor = sp.edit();
+        editor.putString("HeadImg", HeadImg);
+        editor.commit();
+    }
+
+    public String getHeadImg() {
+        return sp.getString("HeadImg", "");
+    }
+
+
+
+
 }
 

@@ -36,13 +36,12 @@
              app:riv_border_width="2dp"
              app:riv_corner_radius="8dp" />-->
 
-        <com.smg.art.photo.CircleImageView
+        <com.smg.art.view.RoundImageView
             android:id="@+id/civMyPicture"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginRight="@dimen/bj_15dp"
-            app:radius="@dimen/bj_25dp"
-            app:src="@mipmap/head" />
+            android:background="@mipmap/head" />
 
     </LinearLayout>
 

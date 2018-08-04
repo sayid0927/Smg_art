@@ -4,8 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -22,6 +26,7 @@ import com.smg.art.presenter.contract.fragment.AuctionContract;
 import com.smg.art.presenter.impl.fragment.AuctionPresenter;
 import com.smg.art.ui.activity.AuctionDeatilActivity;
 import com.smg.art.ui.activity.MainActivity;
+import com.smg.art.ui.activity.SearchActivity;
 import com.smg.art.ui.adapter.AuctionGoodsListApadter;
 import com.smg.art.utils.TimerItemUtil;
 
@@ -30,6 +35,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * Created by Mervin on 2018/7/24 0024.
@@ -47,6 +55,11 @@ public class AuctionFragment extends BaseFragment implements AuctionContract.Vie
     RecyclerView rvGoods;
     @BindView(R.id.srl)
     SmartRefreshLayout srl;
+    @BindView(R.id.tv_search)
+    TextView tvSearch;
+    @BindView(R.id.et_SearchContent)
+    EditText etSearchContent;
+    Unbinder unbinder;
 
     private AuctionGoodsListApadter mAdapter;
     private AuctionGoodsBean auctionGoodsBean;
@@ -55,13 +68,14 @@ public class AuctionFragment extends BaseFragment implements AuctionContract.Vie
     @Override
     protected void initView(Bundle bundle) {
         super.initView(bundle);
+
+
+        tvSearch.setVisibility(View.VISIBLE);
+        etSearchContent.setVisibility(View.GONE);
+
+
         ivToolbarNavigation.setVisibility(View.GONE);
 
-      /*  auctionGoodsBeans = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            AuctionGoodsBean auctionGoodsBean = new AuctionGoodsBean();
-            auctionGoodsBeans.add(auctionGoodsBean);
-        }*/
         srl.setPrimaryColorsId(R.color.main_color);
         srl.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -77,8 +91,6 @@ public class AuctionFragment extends BaseFragment implements AuctionContract.Vie
             }
         });
         mAdapter = new AuctionGoodsListApadter(getSupportActivity(), TimerItemUtil.getTimerItemList());
-   /*     mAdapter.setOnLoadMoreListener(this, rvGoods);
-        mAdapter.setLoadMoreView(new MyLoadMoreView());*/
         rvGoods.setLayoutManager(new LinearLayoutManager(getSupportActivity()));
         rvGoods.setAdapter(mAdapter);
 
@@ -129,4 +141,16 @@ public class AuctionFragment extends BaseFragment implements AuctionContract.Vie
             mAdapter.cancelAllTimers();
         }
     }
+
+    @OnClick({R.id.rl_search})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.rl_search:
+                Intent i = new Intent(getActivity(), SearchActivity.class);
+                i.putExtra("status", "4");
+                MainActivity.mainActivity.startActivityIn(i, getActivity());
+                break;
+        }
+    }
+
 }

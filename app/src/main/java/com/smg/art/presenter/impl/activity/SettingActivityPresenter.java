@@ -5,8 +5,11 @@ import com.smg.art.base.BasePresenter;
 import com.smg.art.bean.UpLoadBean;
 import com.smg.art.presenter.contract.activity.SettingContract;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
+import okhttp3.MultipartBody;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -25,9 +28,9 @@ public class SettingActivityPresenter extends BasePresenter<SettingContract.View
 
 
     @Override
-    public void FetchUploadPic(String... s) {
+    public void FetchUploadPic(List<MultipartBody.Part> parts) {
         showWaitingDialog("加载中...");
-        addSubscrebe(api.FetchUploadHead(s).subscribeOn(Schedulers.io())
+        addSubscrebe(api.FetchUploadHead(parts).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<UpLoadBean>() {
                     @Override

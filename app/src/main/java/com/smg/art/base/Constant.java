@@ -90,6 +90,24 @@ public class Constant {
      * 首页搜索框查询
      */
     public static final String  HOMEPAGE_GETAUCTIONLISTBYNAME = "homePage/getAuctionListByName";
+    /**
+     * 新增热门搜索字段
+     */
+    public static final String   HOMEPAGE_CREATWORDS = "homePage/creatWords";
+    /**
+     * 搜索字段删除接口
+     */
+    public static final String   HOMEPAGE_DELETEWORDBYID = "homePage/deleteWordById";
+
+    /**
+     * 上传图片
+     */
+    public static final String   UPLOAD_UPLOADFILE = "upload/uploadFile";
+
+    /**
+     * 新增实名认证
+     */
+    public static final String   MEMBERAUTH_SAVE = "memberAuth/save";
 
 
 

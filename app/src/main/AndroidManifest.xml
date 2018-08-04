@@ -46,8 +46,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
         <meta-data
             android:name="design_width"
             android:value="720" />
@@ -55,23 +53,22 @@
             android:name="design_height"
             android:value="1280" />
 
-        <!--会话界面-->
+        <!-- 会话界面 -->
         <activity
-            android:name="com.smg.art.ui.activity.ConversationActivity"
+            android:name=".ui.activity.ConversationActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data
                     android:host="com.smg.art"
                     android:pathPrefix="/conversation/"
                     android:scheme="rong" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".ui.activity.GuideActivity"
             android:theme="@style/AppThemeMain">
@@ -85,7 +82,6 @@
             android:name=".ui.activity.SearchActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.activity.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -93,19 +89,17 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeMain"
             android:windowSoftInputMode="stateHidden|adjustResize">
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data
                     android:host="com.smg.art"
                     android:pathPrefix="/conversationlist"
-                    android:scheme="rong"/>
+                    android:scheme="rong" />
             </intent-filter>
-
         </activity>
-
-
         <activity
             android:name=".ui.login.LoginActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -133,72 +127,60 @@
             android:name=".ui.personalcenter.SettingActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.AuctionDeatilActivity"></activity>
-
+        <activity android:name=".ui.activity.AuctionDeatilActivity" />
         <activity
             android:name=".ui.personalcenter.MyWalletActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.personalcenter.WithdrawActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.personalcenter.AddBankCardActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.personalcenter.RechargeActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.personalcenter.ChangeNickNameActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.personalcenter.ChangePasswordActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.personalcenter.ChangeTradersPasswordActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.personalcenter.SendMobilePhoneActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.personalcenter.BindingPhoneActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.personalcenter.CashDepositActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.personalcenter.MyOrderActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.personalcenter.MyCollectionActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".photo.ClipImageActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.personalcenter.AuthenticationActivity"></activity>
     </application>
 
 </manifest>

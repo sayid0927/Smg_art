@@ -213,6 +213,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View, V
             LocalAppConfigUtil.getInstance().setJsessionidShiro(loginBean.getData().getJSESSIONID_SHIRO());
             LocalAppConfigUtil.getInstance().setJsessionId(loginBean.getData().getJSESSIONID());
             LocalAppConfigUtil.getInstance().setRCToken(loginBean.getData().getRCToken());
+            LocalAppConfigUtil.getInstance().setHeadImg(loginBean.getData().getHeadImg());
             LocalAppConfigUtil.getInstance().setUserTelephone(etContext.getText().toString().replace(" ", ""));
             LocalAppConfigUtil.getInstance().setPassword(etPayPwd.getText().toString());
             startActivityIn(new Intent(this, MainActivity.class),this);

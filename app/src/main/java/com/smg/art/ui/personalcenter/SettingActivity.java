@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.smg.art.BuildConfig;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
+import com.smg.art.base.Constant;
 import com.smg.art.bean.UpLoadBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
@@ -30,21 +31,27 @@ import com.smg.art.presenter.contract.activity.SettingContract;
 import com.smg.art.presenter.impl.activity.SettingActivityPresenter;
 import com.smg.art.ui.login.LoginActivity;
 import com.smg.art.utils.ClipFileUtil;
+import com.smg.art.utils.GlideUtils;
 import com.smg.art.utils.ImageFormartUtils;
 import com.smg.art.utils.KeyBoardUtils;
 import com.smg.art.utils.L;
 import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.view.PopDialog;
+import com.smg.art.view.RoundImageView;
 import com.zhy.autolayout.AutoRelativeLayout;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Created by Mervin on 2018/7/25 0025.
@@ -74,7 +81,7 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
     @BindView(R.id.actionbar_text_action)
     TextView actionbarTextAction;
     @BindView(R.id.civMyPicture)
-    CircleImageView civMyPicture;
+    RoundImageView civMyPicture;
     @BindView(R.id.name)
     LinearLayout name;
     @BindView(R.id.phone)
@@ -105,17 +112,18 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
 
     @Override
     public void attachView() {
-
+        mPresenter.attachView(this, this);
     }
 
     @Override
     public void detachView() {
-
+//        mPresenter.detachView();
     }
 
     @Override
     public void initView() {
         actionbarTitle.setText(R.string.setting);
+        GlideUtils.load(this, Constant.BaseImgUrl + LocalAppConfigUtil.getInstance().getHeadImg(), civMyPicture);
     }
 
     @OnClick({R.id.rl_back, R.id.civMyPicture, R.id.name, R.id.phone, R.id.pwd, R.id.pay_pwd, R.id.exit})
@@ -316,7 +324,14 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
                         e.printStackTrace();
                     }
                     if (type == 1) {
-                        mPresenter.FetchUploadPic("upfile", "data:image/" + cropImagePath, "memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
+
+                        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM); //表单类型
+                        File headerfile = new File(cropImagePath);
+                        RequestBody body = RequestBody.create(MediaType.parse("multipart/form-data"), headerfile);//表单类型
+                        builder.addFormDataPart("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));//传入服务器需要的key，和相应value值
+                        builder.addFormDataPart("upfile", headerfile.getName(), body); //添加图片数据，body创建的请求体
+                        List<MultipartBody.Part> parts = builder.build().parts();
+                        mPresenter.FetchUploadPic(parts);
 
                     }
                 }
@@ -326,6 +341,7 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
 
     @Override
     public void FetchUploadPicSuccess(UpLoadBean upLoadBean) {
+        GlideUtils.load(this, Constant.BaseImgUrl + upLoadBean.getHeadImg(), civMyPicture);
     }
 
     @Override

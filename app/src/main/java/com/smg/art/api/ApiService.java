@@ -19,6 +19,7 @@ package com.smg.art.api;
 import com.smg.art.base.AnnouncementAuctionListBean;
 import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
+import com.smg.art.base.CardUrlBean;
 import com.smg.art.base.Constant;
 import com.smg.art.base.HomePageImgBean;
 import com.smg.art.bean.AddBankCardBean;
@@ -28,7 +29,9 @@ import com.smg.art.bean.AuctionOrderBean;
 import com.smg.art.bean.BalanceOfPayBean;
 import com.smg.art.bean.CashDepositiBean;
 import com.smg.art.bean.CollectionBean;
+import com.smg.art.bean.CreatWordsBean;
 import com.smg.art.bean.ForgetPasswordBean;
+import com.smg.art.bean.HotWordsListBean;
 import com.smg.art.bean.LoginBean;
 import com.smg.art.bean.PhoneVerifyCodeBean;
 import com.smg.art.bean.RegisterBean;
@@ -37,12 +40,16 @@ import com.smg.art.bean.SearchMemberBean;
 import com.smg.art.bean.UpLoadBean;
 import com.smg.art.bean.WalletBalanceBean;
 
+import java.util.List;
 import java.util.Map;
 
+import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
 import rx.Observable;
@@ -109,7 +116,6 @@ public interface ApiService {
     @POST(Constant.MEMBERCOLLECTSPAGE_SAVE)
     Observable<SaveCollectsBean> FetchMembercollectspageSave(@QueryMap Map<String, String> map);
 
-
     /**
      * 保证金支付
      */
@@ -119,9 +125,8 @@ public interface ApiService {
     /**
      * 获取搜索列表
      */
-    @POST(Constant.HOMEPAGE_GETHOTWORDSLIST)
-    Observable<Response<ResponseBody>> FetchHotWordsList(@QueryMap Map<String, String> map);
-
+    @GET(Constant.HOMEPAGE_GETHOTWORDSLIST)
+    Observable<HotWordsListBean> FetchHotWordsList(@QueryMap Map<String, String> map);
 
     /**
      * 搜索平台会员
@@ -156,16 +161,21 @@ public interface ApiService {
     /**
      * 上传头像
      */
+    @Multipart
     @POST(Constant.USERHEADIMG)
-    Observable<UpLoadBean> FetchUploadHead(@QueryMap Map<String, String> map);
+    Observable<UpLoadBean> FetchUploadHead(@Part List<MultipartBody.Part> partLis);
+
+    /**
+     * 上传图片
+     */
+    @Multipart
+    @POST(Constant.UPLOAD_UPLOADFILE)
+    Observable<CardUrlBean> FetchUploadFile(@Part List<MultipartBody.Part> partLis);
     /**
      * 首页公告期分页查询
      */
     @GET(Constant.HOMEPAGE_GETANNOUNCEMENTAUCTIONLIST)
     Observable<AnnouncementAuctionListBean> FetchAnnouncementAuctionList(@QueryMap Map<String, String> map);
-
-
-
 
     /**
      * 查询余额
@@ -190,5 +200,22 @@ public interface ApiService {
      */
     @POST(Constant.INSERTORUPDATEBANKNOINFO)
     Observable<AddBankCardBean> FetchAddBankCard(@QueryMap Map<String, String> map);
+
+    /**
+     * 新增热门搜索字段
+     */
+    @POST(Constant.HOMEPAGE_CREATWORDS)
+    Observable<CreatWordsBean> FetchCreatWordsBean(@QueryMap Map<String, String> map);
+    /**
+     * 搜索字段删除接口
+     */
+    @GET(Constant.HOMEPAGE_DELETEWORDBYID)
+    Observable<CreatWordsBean> FetchDeleteWordById(@QueryMap Map<String, String> map);
+
+    /**
+     * 新增实名认证
+     */
+    @POST(Constant.MEMBERAUTH_SAVE)
+    Observable<CreatWordsBean> FetchMemberAuthSave(@QueryMap Map<String, String> map);
 
 }

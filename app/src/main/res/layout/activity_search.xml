@@ -10,9 +10,9 @@
     <include layout="@layout/include_searbar" />
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nsv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <LinearLayout
             android:id="@+id/ll_search"
@@ -20,17 +20,31 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_hot_search"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="10dp"
+                android:background="#f2f2f2" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="15dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
+                android:text="热门搜索"
+                android:textColor="#999999"
+                android:textSize="12sp" />
 
-            <!--<android.support.v7.widget.RecyclerView-->
-                <!--android:id="@+id/rv_hot_search"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="@dimen/bj_100dp"-->
-                <!--android:padding="10dp" />-->
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/flex_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/bj_10dp"
+                android:paddingLeft="@dimen/bj_10dp" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:background="#f2f2f2" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_historical_search"
@@ -41,10 +55,7 @@
 
         </LinearLayout>
 
-
-
     </android.support.v4.widget.NestedScrollView>
-
 
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout

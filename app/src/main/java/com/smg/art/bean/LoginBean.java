@@ -10,7 +10,7 @@ public class LoginBean {
     /**
      * status : 1
      * msg : 登录成功
-     * data : {"memberNo":"15303450529","JSESSIONID_SHIRO":"90c90f9d-3585-411d-9336-70f9159a6053","JSESSIONID":"90c90f9d-3585-411d-9336-70f9159a6053","memberId":62,"RCToken":"WSLHy2CezIYsklI9Ax5KXq1337bdbXhGRi763MOs+4RbTn9GvosS7TE7CTadSlk/zR0F3LIhjc8="}
+     * data : {"memberNo":"15324886309","headImg":"/static/uploads/image/defaultHeadImg.png","JSESSIONID_SHIRO":"1a13a563-486f-4354-8539-d3d3b2fe701f","JSESSIONID":"1a13a563-486f-4354-8539-d3d3b2fe701f","memberId":79,"RCToken":"b9n9IEfFQuM5HNaqJLXWGK1337bdbXhGRi763MOs+4QH2GNeODKQH4RuiaK/5KCqVnw6JxqSbKQ="}
      */
 
     private int status;
@@ -43,14 +43,16 @@ public class LoginBean {
 
     public static class DataBean {
         /**
-         * memberNo : 15303450529
-         * JSESSIONID_SHIRO : 90c90f9d-3585-411d-9336-70f9159a6053
-         * JSESSIONID : 90c90f9d-3585-411d-9336-70f9159a6053
-         * memberId : 62
-         * RCToken : WSLHy2CezIYsklI9Ax5KXq1337bdbXhGRi763MOs+4RbTn9GvosS7TE7CTadSlk/zR0F3LIhjc8=
+         * memberNo : 15324886309
+         * headImg : /static/uploads/image/defaultHeadImg.png
+         * JSESSIONID_SHIRO : 1a13a563-486f-4354-8539-d3d3b2fe701f
+         * JSESSIONID : 1a13a563-486f-4354-8539-d3d3b2fe701f
+         * memberId : 79
+         * RCToken : b9n9IEfFQuM5HNaqJLXWGK1337bdbXhGRi763MOs+4QH2GNeODKQH4RuiaK/5KCqVnw6JxqSbKQ=
          */
 
         private String memberNo;
+        private String headImg;
         private String JSESSIONID_SHIRO;
         private String JSESSIONID;
         private int memberId;
@@ -62,6 +64,14 @@ public class LoginBean {
 
         public void setMemberNo(String memberNo) {
             this.memberNo = memberNo;
+        }
+
+        public String getHeadImg() {
+            return headImg;
+        }
+
+        public void setHeadImg(String headImg) {
+            this.headImg = headImg;
         }
 
         public String getJSESSIONID_SHIRO() {
