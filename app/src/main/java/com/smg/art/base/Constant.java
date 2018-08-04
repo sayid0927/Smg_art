@@ -136,6 +136,9 @@ public class Constant {
     //修改交易密码
     public static final String UPDATETRADEPWD = "member/updateTradePwd";
 
+    //拍卖列表
+    public static final String GETAUCTIONLISTBYNAME = "homePage/getAuctionListByName";
+
 
     public static String LOCAL_APP_CONFIG_FILE_NAME = "smgconfig";//本地应用配置文件名，存储些全局变量
 

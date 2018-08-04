@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.utils.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -23,8 +24,8 @@ import com.smg.art.presenter.impl.fragment.AuctionPresenter;
 import com.smg.art.ui.activity.AuctionDeatilActivity;
 import com.smg.art.ui.activity.MainActivity;
 import com.smg.art.ui.adapter.AuctionGoodsListApadter;
-import com.smg.art.utils.TimerItemUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -47,25 +48,20 @@ public class AuctionFragment extends BaseFragment implements AuctionContract.Vie
     RecyclerView rvGoods;
     @BindView(R.id.srl)
     SmartRefreshLayout srl;
-
+    int p = 1;
+    int count = 10;
     private AuctionGoodsListApadter mAdapter;
-    private AuctionGoodsBean auctionGoodsBean;
-    private List<AuctionGoodsBean> auctionGoodsBeans;
+    private List<AuctionGoodsBean.DataBean.RowsBean> list = new ArrayList<AuctionGoodsBean.DataBean.RowsBean>();
 
     @Override
     protected void initView(Bundle bundle) {
         super.initView(bundle);
         ivToolbarNavigation.setVisibility(View.GONE);
-
-      /*  auctionGoodsBeans = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            AuctionGoodsBean auctionGoodsBean = new AuctionGoodsBean();
-            auctionGoodsBeans.add(auctionGoodsBean);
-        }*/
         srl.setPrimaryColorsId(R.color.main_color);
         srl.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
+                getData(p = 1);
                 srl.finishRefresh();
             }
 
@@ -73,12 +69,12 @@ public class AuctionFragment extends BaseFragment implements AuctionContract.Vie
         srl.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
+                getData(++p);
                 srl.finishLoadmore();
             }
         });
-        mAdapter = new AuctionGoodsListApadter(getSupportActivity(), TimerItemUtil.getTimerItemList());
-   /*     mAdapter.setOnLoadMoreListener(this, rvGoods);
-        mAdapter.setLoadMoreView(new MyLoadMoreView());*/
+        getData(p = 1);
+        mAdapter = new AuctionGoodsListApadter(getSupportActivity(), list);
         rvGoods.setLayoutManager(new LinearLayoutManager(getSupportActivity()));
         rvGoods.setAdapter(mAdapter);
 
@@ -90,6 +86,17 @@ public class AuctionFragment extends BaseFragment implements AuctionContract.Vie
             }
         });
 
+
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+    }
+
+    public void getData(int p) {
+        mPresenter.FetchAuctionListByName("status", "4", "page", String.valueOf(p), "rows", String.valueOf(count));
     }
 
     @Override
@@ -127,6 +134,20 @@ public class AuctionFragment extends BaseFragment implements AuctionContract.Vie
         super.onDestroy();
         if (mAdapter != null) {
             mAdapter.cancelAllTimers();
+        }
+    }
+
+
+    @Override
+    public void FetchAuctionListByNameSuccess(AuctionGoodsBean auctionGoodsBean) {
+        if (auctionGoodsBean.getStatus() == 1) {
+            if (p == 1) {
+                list.clear();
+            }
+            list.addAll(auctionGoodsBean.getData().getRows());
+            mAdapter.notifyDataSetChanged();
+        } else {
+            ToastUtils.showShortToast(auctionGoodsBean.getMsg());
         }
     }
 }

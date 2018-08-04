@@ -3,16 +3,18 @@ package com.smg.art.ui.adapter;
 import android.content.Context;
 import android.os.CountDownTimer;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.smg.art.R;
 import com.smg.art.bean.AuctionGoodsBean;
-import com.smg.art.bean.TimerItem;
+import com.smg.art.utils.GlideCommonUtils;
 import com.smg.art.utils.TimeTools;
 
 import java.util.List;
@@ -24,35 +26,18 @@ import java.util.List;
 
 public class AuctionGoodsListApadter extends RecyclerView.Adapter<AuctionGoodsListApadter.ViewHolder> {
 
-    private List<TimerItem> mDatas;
     //用于退出activity,避免countdown，造成资源浪费。
     private SparseArray<CountDownTimer> countDownMap;
     private Context mContext;
-    private List<AuctionGoodsBean> data;
+    private List<AuctionGoodsBean.DataBean.RowsBean> mDatas;
 
-    /*   public AuctionGoodsListApadter(List<AuctionGoodsBean> data, Context mContext) {
-           super(R.layout.item_auction_goods, data);
-           this.mContext = mContext;
-           this.data = data;
-       }
-   */
+
     private OnAuctionGoodsItemListener onAuctionGoodsItemListener;
 
- /*   @Override
-    protected void convert(BaseViewHolder helper, final AuctionGoodsBean item) {
-//        helper.setText(R.id.file_title,item.getFileName());
-//        helper.setText(R.id.down_label,item.getFilePath());
-        helper.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(onAuctionGoodsItemListener!=null)
-                onAuctionGoodsItemListener.OnAuctionGoodsItemListener(item);
-            }
-        });
-    }*/
 
-    public AuctionGoodsListApadter(Context context, List<TimerItem> datas) {
+    public AuctionGoodsListApadter(Context context, List<AuctionGoodsBean.DataBean.RowsBean> datas) {
         mDatas = datas;
+        mContext = context;
         countDownMap = new SparseArray<>();
     }
 
@@ -87,36 +72,65 @@ public class AuctionGoodsListApadter extends RecyclerView.Adapter<AuctionGoodsLi
                     onAuctionGoodsItemListener.OnAuctionGoodsItemListener(position);
             }
         });
-        final TimerItem data = mDatas.get(position);
-        //  holder.statusTv.setText(data.name);
-        long time = data.expirationTime;
-        time = time - System.currentTimeMillis();
-        //将前一个缓存清除
-        if (holder.countDownTimer != null) {
-            holder.countDownTimer.cancel();
-        }
-        if (time > 0) {
-            holder.countDownTimer = new CountDownTimer(time, 1000) {
-                public void onTick(long millisUntilFinished) {
-                    String hour = TimeTools.getCountTimeByLong(millisUntilFinished);
-                    holder.tv_hour.setText(hour.substring(0, 2));
-                    holder.tv_min.setText(hour.substring(3, 5));
-                    holder.tv_second.setText(hour.substring(6, 8));
-                }
 
-                public void onFinish() {
-                    holder.time.setVisibility(View.GONE);
-                    holder.end_text.setVisibility(View.VISIBLE);
-                    holder.immediately_auction.setVisibility(View.GONE);
-                }
-            }.start();
-
-            countDownMap.put(holder.tv_hour.hashCode(), holder.countDownTimer);
+        final AuctionGoodsBean.DataBean.RowsBean data = mDatas.get(position);
+        long time;
+        if (data.getSysDate() > 0) {
+            time = data.getSysDate();
         } else {
-            holder.time.setVisibility(View.GONE);
-            holder.end_text.setVisibility(View.VISIBLE);
-            holder.immediately_auction.setVisibility(View.GONE);
+            time = System.currentTimeMillis();//获取系统时间的10位的时间戳
         }
+        if (time < data.getEndTime()) {
+            long countTime = data.getEndTime() - time;
+            //将前一个缓存清除
+            if (holder.countDownTimer != null) {
+                holder.countDownTimer.cancel();
+            }
+            if (countTime > 0) {
+                holder.countDownTimer = new CountDownTimer(countTime, 1000) {
+                    public void onTick(long millisUntilFinished) {
+                        String hour = TimeTools.getCountTimeByLong(millisUntilFinished);
+                        String[] array = hour.split(":");
+                        holder.tv_hour.setText(array[0]);
+                        holder.tv_min.setText(array[1]);
+                        holder.tv_second.setText(array[2]);
+
+                    }
+
+                    public void onFinish() {
+                        holder.tv_hour.setText("00");
+                        holder.tv_min.setText("00");
+                        holder.tv_second.setText("00");
+                        holder.detail.setText("拍卖结束");
+                    }
+                }.start();
+
+                countDownMap.put(holder.tv_hour.hashCode(), holder.countDownTimer);
+            } else {
+                holder.tv_hour.setText("00");
+                holder.tv_min.setText("00");
+                holder.tv_second.setText("00");
+                holder.detail.setText("拍卖结束");
+                holder.time.setVisibility(View.GONE);
+            }
+        } else if (time > data.getEndTime()) {
+            holder.tv_hour.setText("00");
+            holder.tv_min.setText("00");
+            holder.tv_second.setText("00");
+            holder.detail.setText("拍卖结束");
+            holder.time.setVisibility(View.GONE);
+        }
+        if (!TextUtils.isEmpty(data.getPictureUrl())) {
+            GlideCommonUtils.showSquarePic(mContext, data.getPictureUrl(), holder.shop_iv);
+        } else {
+            holder.shop_iv.setImageResource(R.mipmap.defaut_square);
+        }
+        holder.auction_name.setText(data.getActionName());
+        if (TextUtils.isEmpty(data.getAuctionDesc())) {
+            holder.auction_tv.setText("拍卖方:" + data.getAuctionDesc());
+        }
+        holder.auction_num.setText("编码: " + data.getBidNo());
+
     }
 
     @Override
@@ -145,9 +159,16 @@ public class AuctionGoodsListApadter extends RecyclerView.Adapter<AuctionGoodsLi
         public LinearLayout time;
         public TextView end_text;
         public LinearLayout immediately_auction;
+        public ImageView shop_iv;
+        public TextView detail;
+        TextView auction_name;
+        TextView auction_tv;
+        TextView auction_num;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
+            shop_iv = (ImageView) itemView.findViewById(R.id.shop_iv);
             item_list = (LinearLayout) itemView.findViewById(R.id.item_list);
             tv_hour = (TextView) itemView.findViewById(R.id.tv_hour);
             tv_min = (TextView) itemView.findViewById(R.id.tv_min);
@@ -155,6 +176,10 @@ public class AuctionGoodsListApadter extends RecyclerView.Adapter<AuctionGoodsLi
             end_text = (TextView) itemView.findViewById(R.id.end_text);
             time = (LinearLayout) itemView.findViewById(R.id.time);
             immediately_auction = (LinearLayout) itemView.findViewById(R.id.immediately_auction);
+            detail = (TextView) itemView.findViewById(R.id.detail);
+            auction_name = (TextView) itemView.findViewById(R.id.auction_name);
+            auction_tv = (TextView) itemView.findViewById(R.id.auction_tv);
+            auction_num = (TextView) itemView.findViewById(R.id.auction_num);
         }
     }
 

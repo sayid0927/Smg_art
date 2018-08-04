@@ -27,6 +27,7 @@ import com.smg.art.base.HomePageImgBean;
 import com.smg.art.bean.AddBankCardBean;
 import com.smg.art.bean.AddFriendBean;
 import com.smg.art.bean.AddressBookFriendsBean;
+import com.smg.art.bean.AuctionGoodsBean;
 import com.smg.art.bean.AuctionOrderBean;
 import com.smg.art.bean.BalanceOfPayBean;
 import com.smg.art.bean.CashDepositiBean;
@@ -347,6 +348,13 @@ public class Api {
      */
     public Observable<ChangeTraderPasswordBean> FetchChangeTraderPassword(String... s) {
         return service.FetchChangeTraderPassword(getMap(s));
+    }
+
+    /**
+     * 修改交易密码
+     */
+    public Observable<AuctionGoodsBean> FetchAuctionList(String... s) {
+        return service.FetchAuctionList(getMap(s));
     }
 
 

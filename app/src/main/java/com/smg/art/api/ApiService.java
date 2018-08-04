@@ -24,6 +24,7 @@ import com.smg.art.base.HomePageImgBean;
 import com.smg.art.bean.AddBankCardBean;
 import com.smg.art.bean.AddFriendBean;
 import com.smg.art.bean.AddressBookFriendsBean;
+import com.smg.art.bean.AuctionGoodsBean;
 import com.smg.art.bean.AuctionOrderBean;
 import com.smg.art.bean.BalanceOfPayBean;
 import com.smg.art.bean.CashDepositiBean;
@@ -261,6 +262,13 @@ public interface ApiService {
      */
     @POST(Constant.UPDATETRADEPWD)
     Observable<ChangeTraderPasswordBean> FetchChangeTraderPassword(@QueryMap Map<String, String> map);
+
+    /**
+     * 拍卖列表
+     */
+    @GET(Constant.GETAUCTIONLISTBYNAME)
+    Observable<AuctionGoodsBean> FetchAuctionList(@QueryMap Map<String, String> map);
+
 
 
 }
