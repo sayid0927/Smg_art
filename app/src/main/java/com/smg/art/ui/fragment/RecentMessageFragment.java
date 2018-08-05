@@ -75,6 +75,7 @@ public class RecentMessageFragment extends BaseFragment implements RecentMessage
     public void onResume() {
         super.onResume();
         mPresenter.getConversationList();
+
     }
 
     @Override
