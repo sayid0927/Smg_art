@@ -28,10 +28,14 @@ import com.smg.art.base.HomePageImgBean;
 import com.smg.art.bean.AddBankCardBean;
 import com.smg.art.bean.AddFriendBean;
 import com.smg.art.bean.AddressBookFriendsBean;
+import com.smg.art.bean.AuctionGoodsBean;
 import com.smg.art.bean.AuctionOrderBean;
 import com.smg.art.bean.BalanceOfPayBean;
 import com.smg.art.bean.CashDepositiBean;
+import com.smg.art.bean.ChangeMobilePhoneBean;
 import com.smg.art.bean.ChangeNickBean;
+import com.smg.art.bean.ChangePassWordBean;
+import com.smg.art.bean.ChangeTraderPasswordBean;
 import com.smg.art.bean.CheckBankCardBean;
 import com.smg.art.bean.CollectionBean;
 import com.smg.art.bean.CreatWordsBean;
@@ -41,6 +45,7 @@ import com.smg.art.bean.HotWordsListBean;
 import com.smg.art.bean.LoginBean;
 import com.smg.art.bean.PersonalCenterBean;
 import com.smg.art.bean.PhoneVerifyCodeBean;
+import com.smg.art.bean.ProofreadCodeBean;
 import com.smg.art.bean.ReChargeBean;
 import com.smg.art.bean.RegisterBean;
 import com.smg.art.bean.SaveCollectsBean;
@@ -366,6 +371,40 @@ public class Api {
         return service.FetchChangeNick(getMap(s));
     }
 
+    /**
+     * 修改手机号
+     */
+    public Observable<ChangeMobilePhoneBean> FetchChangeMobilePhone(String... s) {
+        return service.FetchChangeMobilePhone(getMap(s));
+    }
+
+    /**
+     * 校对验证码
+     */
+    public Observable<ProofreadCodeBean> FetchProofreadCode(String... s) {
+        return service.FetchProofreadCode(getMap(s));
+    }
+
+    /**
+     * 修改登录密码
+     */
+    public Observable<ChangePassWordBean> FetchChangePassWord(String... s) {
+        return service.FetchChangePassWord(getMap(s));
+    }
+
+    /**
+     * 修改交易密码
+     */
+    public Observable<ChangeTraderPasswordBean> FetchChangeTraderPassword(String... s) {
+        return service.FetchChangeTraderPassword(getMap(s));
+    }
+
+    /**
+     * 修改交易密码
+     */
+    public Observable<AuctionGoodsBean> FetchAuctionList(String... s) {
+        return service.FetchAuctionList(getMap(s));
+    }
 
 
 }

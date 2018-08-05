@@ -25,10 +25,14 @@ import com.smg.art.base.HomePageImgBean;
 import com.smg.art.bean.AddBankCardBean;
 import com.smg.art.bean.AddFriendBean;
 import com.smg.art.bean.AddressBookFriendsBean;
+import com.smg.art.bean.AuctionGoodsBean;
 import com.smg.art.bean.AuctionOrderBean;
 import com.smg.art.bean.BalanceOfPayBean;
 import com.smg.art.bean.CashDepositiBean;
+import com.smg.art.bean.ChangeMobilePhoneBean;
 import com.smg.art.bean.ChangeNickBean;
+import com.smg.art.bean.ChangePassWordBean;
+import com.smg.art.bean.ChangeTraderPasswordBean;
 import com.smg.art.bean.CheckBankCardBean;
 import com.smg.art.bean.CollectionBean;
 import com.smg.art.bean.CreatWordsBean;
@@ -38,6 +42,7 @@ import com.smg.art.bean.HotWordsListBean;
 import com.smg.art.bean.LoginBean;
 import com.smg.art.bean.PersonalCenterBean;
 import com.smg.art.bean.PhoneVerifyCodeBean;
+import com.smg.art.bean.ProofreadCodeBean;
 import com.smg.art.bean.ReChargeBean;
 import com.smg.art.bean.RegisterBean;
 import com.smg.art.bean.SaveCollectsBean;
@@ -268,6 +273,37 @@ public interface ApiService {
      */
     @POST(Constant.UPDATEMEMBERNAME)
     Observable<ChangeNickBean> FetchChangeNick(@QueryMap Map<String, String> map);
+
+    /**
+     * 修改手机
+     */
+    @POST(Constant.UPDATEPHONE)
+    Observable<ChangeMobilePhoneBean> FetchChangeMobilePhone(@QueryMap Map<String, String> map);
+
+    /**
+     * 修改手机
+     */
+    @POST(Constant.VALIDATECODE)
+    Observable<ProofreadCodeBean> FetchProofreadCode(@QueryMap Map<String, String> map);
+
+    /**
+     * 修改昵称
+     */
+    @POST(Constant.UPDATELOGINPWD)
+    Observable<ChangePassWordBean> FetchChangePassWord(@QueryMap Map<String, String> map);
+
+    /**
+     * 修改交易密码
+     */
+    @POST(Constant.UPDATETRADEPWD)
+    Observable<ChangeTraderPasswordBean> FetchChangeTraderPassword(@QueryMap Map<String, String> map);
+
+    /**
+     * 拍卖列表
+     */
+    @GET(Constant.GETAUCTIONLISTBYNAME)
+    Observable<AuctionGoodsBean> FetchAuctionList(@QueryMap Map<String, String> map);
+
 
 
 }

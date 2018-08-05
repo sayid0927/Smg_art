@@ -21,11 +21,15 @@ import com.smg.art.ui.login.LoginActivity;
 import com.smg.art.ui.login.RegisterActivity;
 import com.smg.art.ui.personalcenter.AddBankCardActivity;
 import com.smg.art.ui.personalcenter.AuthenticationActivity;
+import com.smg.art.ui.personalcenter.BindingPhoneActivity;
 import com.smg.art.ui.personalcenter.CashDepositActivity;
 import com.smg.art.ui.personalcenter.ChangeNickNameActivity;
+import com.smg.art.ui.personalcenter.ChangePasswordActivity;
+import com.smg.art.ui.personalcenter.ChangeTradersPasswordActivity;
 import com.smg.art.ui.personalcenter.MyCollectionActivity;
 import com.smg.art.ui.personalcenter.MyWalletActivity;
 import com.smg.art.ui.personalcenter.RechargeActivity;
+import com.smg.art.ui.personalcenter.SendMobilePhoneActivity;
 import com.smg.art.ui.personalcenter.SettingActivity;
 import com.smg.art.ui.personalcenter.WithdrawActivity;
 import com.smg.art.ui.personalcenter.fragemnt.AuctionOrderFragment;
@@ -94,5 +98,11 @@ public interface MainComponent {
 
     ChangeNickNameActivity inject(ChangeNickNameActivity changeNickNameActivity);
 
+    SendMobilePhoneActivity inject(SendMobilePhoneActivity sendMobilePhoneActivity);
 
+    BindingPhoneActivity inject(BindingPhoneActivity bindingPhoneActivity);
+
+    ChangePasswordActivity inject(ChangePasswordActivity changePasswordActivity);
+
+    ChangeTradersPasswordActivity inject(ChangeTradersPasswordActivity changeTradersPasswordActivity);
 }

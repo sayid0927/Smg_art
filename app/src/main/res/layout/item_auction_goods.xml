@@ -22,6 +22,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/shop_iv"
                 android:layout_width="77dp"
                 android:layout_height="109dp"
                 android:layout_marginLeft="@dimen/bj_20dp"
@@ -38,30 +39,33 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/auction_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:text="青铜器 洛阳钟鼎古代艺术研究院"
-                android:textColor="@color/black"
+                android:textColor="@color/grey_e6000000"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
 
             <TextView
+                android:id="@+id/auction_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="拍卖方：雅昌艺术"
-                android:textColor="@color/black"
+                android:textColor="@color/grey_e6000000"
                 android:textSize="13sp" />
 
 
             <TextView
+                android:id="@+id/auction_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="编码：180611001"
-                android:textColor="@color/black"
+                android:textColor="@color/grey_e6000000"
                 android:textSize="13sp" />
 
             <RelativeLayout

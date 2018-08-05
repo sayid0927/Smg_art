@@ -95,6 +95,14 @@ public class AuctionOrderFragment extends BaseFragment implements AuctionOrderCo
         listView.setAdapter(auctionAdapter);
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (listView != null && isVisibleToUser) {
+            getData(p = 1);
+        }
+    }
+
     public void getData(int p) {
         mPresenter.FetchAuctionOrder("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()), "type", String.valueOf(type), "page", String.valueOf(p), "rows", String.valueOf(count));
     }
@@ -107,6 +115,9 @@ public class AuctionOrderFragment extends BaseFragment implements AuctionOrderCo
     @Override
     public void FetchAuctionOrderSuccess(AuctionOrderBean auctionOrderBean) {
         if (auctionOrderBean.getStatus() == 1) {
+            if (p == 1) {
+                list.clear();
+            }
             list.addAll(auctionOrderBean.getData());
             if (list.size() > 0) {
                 srl.setVisibility(View.VISIBLE);

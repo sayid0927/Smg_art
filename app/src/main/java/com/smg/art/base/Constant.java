@@ -142,6 +142,21 @@ public class Constant {
     //修改昵称
     public static final String UPDATEMEMBERNAME = "member/updateMemberName";
 
+    //修改手机号
+    public static final String UPDATEPHONE = "member/updatePhone";
+
+    //校对验证码
+    public static final String VALIDATECODE = "member/validateCode";
+
+    //修改登录
+    public static final String UPDATELOGINPWD = "member/updateLoginPwd";
+
+    //修改交易密码
+    public static final String UPDATETRADEPWD = "member/updateTradePwd";
+
+    //拍卖列表
+    public static final String GETAUCTIONLISTBYNAME = "homePage/getAuctionListByName";
+
 
     public static String LOCAL_APP_CONFIG_FILE_NAME = "smgconfig";//本地应用配置文件名，存储些全局变量
 

@@ -120,10 +120,10 @@ public class AuctionOrderBean {
         private double startPrice;
         private double stepSize;
         private double nowprice;
-        private int buyerMemberId;
+        private String buyerMemberId;
         private int bidCount;
-        private String startTime;
-        private String endTime;
+        private Long startTime;
+        private Long endTime;
         private int stepTime;
         private int deferredTime;
         private String status;
@@ -223,11 +223,11 @@ public class AuctionOrderBean {
             this.nowprice = nowprice;
         }
 
-        public int getBuyerMemberId() {
+        public String getBuyerMemberId() {
             return buyerMemberId;
         }
 
-        public void setBuyerMemberId(int buyerMemberId) {
+        public void setBuyerMemberId(String buyerMemberId) {
             this.buyerMemberId = buyerMemberId;
         }
 
@@ -239,19 +239,19 @@ public class AuctionOrderBean {
             this.bidCount = bidCount;
         }
 
-        public String getStartTime() {
+        public Long getStartTime() {
             return startTime;
         }
 
-        public void setStartTime(String startTime) {
+        public void setStartTime(Long startTime) {
             this.startTime = startTime;
         }
 
-        public String getEndTime() {
+        public Long getEndTime() {
             return endTime;
         }
 
-        public void setEndTime(String endTime) {
+        public void setEndTime(Long endTime) {
             this.endTime = endTime;
         }
 

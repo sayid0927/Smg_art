@@ -1,6 +1,7 @@
 package com.smg.art.ui.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -116,11 +117,6 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
         mPresenter.attachView(this, getActivity());
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        getdata();
-    }
 
     private void getdata() {
 //        mPresenter.FetchPersonalCenter("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
@@ -129,6 +125,12 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
         DaggerMainComponent.builder().appComponent(appComponent).build().inject(this);
+    }
+
+    @Override
+    protected void initView(Bundle bundle) {
+        super.initView(bundle);
+        getdata();
     }
 
     @OnClick({R.id.check_all, R.id.compete, R.id.for_the_delivery, R.id.is_the_delivery, R.id.after_sale, R.id.my_wallte, R.id.my_bond, R.id.my_collection, R.id.realnameauthentication, R.id.setting})
