@@ -61,7 +61,6 @@ public class ConversationActivity extends FragmentActivity {
             MemberId = getIntent().getStringExtra("MemberId");
             MemberName = getIntent().getStringExtra("MemberName");
         }
-        MemberId ="78";
         ConversationFragment fragment = new ConversationFragment();
 
         Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()

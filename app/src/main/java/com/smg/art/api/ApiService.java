@@ -51,6 +51,7 @@ import java.util.Map;
 
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
@@ -86,6 +87,13 @@ public interface ApiService {
      */
     @POST(Constant.MEMBER_LOGIN)
     Observable<LoginBean> FetchLogin(@QueryMap Map<String, String> map);
+
+    /**
+     * 重新获取Token
+     */
+    @POST(Constant.MEMBER_LOGIN)
+    Call<LoginBean> FetchreFreshToken(@QueryMap Map<String, String> map);
+
 
     /**
      * 忘记密码

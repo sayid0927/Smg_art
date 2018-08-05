@@ -1,5 +1,6 @@
 package com.smg.art.ui.personalcenter;
 
+import android.net.Uri;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -23,6 +24,8 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.UserInfo;
 
 /**
  * Created by Mervin on 2018/7/26 0026.
@@ -85,6 +88,10 @@ public class ChangeNickNameActivity extends BaseActivity implements ChangeNickCo
                     ToastUtils.showShortToast("请输入昵称");
                 } else {
                     mPresenter.FetchChangeNick("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()), "memberName", editText.getText().toString());
+                    LocalAppConfigUtil.getInstance().setRongUserName(editText.getText().toString());
+                    RongIM.getInstance().refreshUserInfoCache(new UserInfo(
+                            LocalAppConfigUtil.getInstance().getRongUserId(),LocalAppConfigUtil.getInstance().getRongUserName(), Uri.parse(LocalAppConfigUtil.getInstance().getRongUserHeadImg())
+                    ));
                 }
                 break;
         }

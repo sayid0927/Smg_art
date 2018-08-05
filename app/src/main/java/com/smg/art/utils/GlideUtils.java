@@ -70,6 +70,15 @@ public class GlideUtils {
         Glide.with(context).load(imgUrl).fitCenter().thumbnail(0.1f).into(iv);
     }
 
+    /**
+     * 网络基本图片加载
+     *  * 使用fitCenter是利用图片图填充ImageView设置的大小
+     */
+
+    public static void loadFitCenter(Context context, String imgUrl, ImageView iv,int def) {
+        Glide.with(context).load(imgUrl).fitCenter().placeholder(def).error(def).thumbnail(0.1f).into(iv);
+    }
+
 
     /**
      * 图片自定义显示大小

@@ -31,7 +31,7 @@ public class BasePresenter<T extends BaseContract.BaseView> implements BaseContr
                 ((TextView) view.findViewById(R.id.tvTip)).setText(tip);
             mDialogWaiting = new CustomDialog(this.context, view, R.style.MyDialog);
             mDialogWaiting.show();
-            mDialogWaiting.setCancelable(false);
+            mDialogWaiting.setCancelable(true);
             return mDialogWaiting;
         }
         return  null;

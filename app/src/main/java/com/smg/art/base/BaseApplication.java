@@ -104,11 +104,7 @@ public class BaseApplication extends Application implements  RongIMClient.OnRece
         if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext())) ||
                 "io.rong.push".equals(getCurProcessName(getApplicationContext()))) {
             RongIM.init(this);
-            //监听接收到的消息
-            RongIM.setOnReceiveMessageListener(new MyReceiveMessageListener());
-//            RongIM.Li
 
-//            RongIM.getInstance().setConversationClickListener(new MyConversationClickListener());
 
         }
     }

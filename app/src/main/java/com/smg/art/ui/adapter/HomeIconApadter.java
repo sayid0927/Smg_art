@@ -35,7 +35,7 @@ public class HomeIconApadter extends BaseQuickAdapter<HomePageImgBean.DataBean.C
     protected void convert(final BaseViewHolder helper, final HomePageImgBean.DataBean.CategoryListBean item) {
 
         helper.setText(R.id.tv_title,item.getCategoryName());
-        GlideUtils.load(mContext,Constant.BaseImgUrl+item.getIco(),(ImageView)helper.getView(R.id.iv_draw));
+        GlideUtils.load(mContext,Constant.BaseImgUrl+item.getIco(),(ImageView)helper.getView(R.id.iv_draw),R.drawable.draw_def);
 
         helper.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

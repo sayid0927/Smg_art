@@ -1,6 +1,8 @@
 
 package com.smg.art.presenter.impl.activity;
 
+import android.net.Uri;
+
 import com.blankj.utilcode.utils.ToastUtils;
 import com.smg.art.api.Api;
 import com.smg.art.base.BaseApplication;
@@ -13,10 +15,12 @@ import com.smg.art.utils.UIUtils;
 
 import javax.inject.Inject;
 
+import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.UserInfo;
 
 
-public class MainActivityPresenter extends BasePresenter<MainContract.View> implements MainContract.Presenter<MainContract.View>,RongIMCStateful {
+public class MainActivityPresenter extends BasePresenter<MainContract.View> implements MainContract.Presenter<MainContract.View>, RongIMCStateful {
 
     private Api api;
 
@@ -53,9 +57,16 @@ public class MainActivityPresenter extends BasePresenter<MainContract.View> impl
 
                 @Override
                 public void onSuccess(String userid) {
+                    LocalAppConfigUtil.getInstance().setRongUserId(userid);
+                    Uri RongHeadImg = Uri.parse(LocalAppConfigUtil.getInstance().getRongUserHeadImg());
+                    String RongUserName = LocalAppConfigUtil.getInstance().getRongUserName();
+
+                    RongIM.getInstance().setCurrentUserInfo(new UserInfo(userid, RongUserName, RongHeadImg));
+                    RongIM.getInstance().setMessageAttachedUserInfo(true);
 
                     setRongIMCState(RongIMCUtils.Connect_Success);
                     LocalAppConfigUtil.getInstance().setRCMemberId(userid);
+
                 }
 
                 /**
@@ -75,7 +86,7 @@ public class MainActivityPresenter extends BasePresenter<MainContract.View> impl
 
     @Override
     public void setRongIMCState(int state) {
-          RongIMCUtils.state = state;
+        RongIMCUtils.state = state;
     }
 
 }

@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.text.TextUtils;
 
 import com.smg.art.api.Api;
 import com.smg.art.base.BaseApplication;
 import com.smg.art.base.Constant;
 import com.smg.art.ui.login.LoginActivity;
+
+import io.rong.imlib.model.UserInfo;
 
 
 /**
@@ -303,7 +306,58 @@ public class LocalAppConfigUtil {
     }
 
 
+    /**
+     * 设置当前融云用户信息头像
+     *
+     * @param HeadImg
+     *
+     */
+    public void setRongUserHeadImg(String HeadImg) {
+        editor = sp.edit();
+        editor.putString("RongHeadImg",Constant.BaseImgUrl+HeadImg);
+        editor.commit();
+    }
+
+    public String getRongUserHeadImg() {
+        return sp.getString("RongHeadImg", "");
+    }
 
 
+
+
+    /**
+     * 设置当前融云用户信息ID
+     *
+     * @param userId
+     *
+     */
+    public void setRongUserId(String userId) {
+        editor = sp.edit();
+        editor.putString("RongUserId",userId);
+        editor.commit();
+
+    }
+
+    public String getRongUserId() {
+        return sp.getString("RongUserId", "");
+    }
+
+
+    /**
+     * 设置当前融云用户信息姓名
+     *
+     * @param rongUserName
+     *
+     */
+    public void setRongUserName(String rongUserName) {
+
+        editor = sp.edit();
+        editor.putString("RongUserName",rongUserName);
+        editor.commit();
+    }
+
+    public String getRongUserName() {
+        return sp.getString("RongUserName", "");
+    }
 }
 

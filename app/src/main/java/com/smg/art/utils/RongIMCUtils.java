@@ -1,5 +1,8 @@
 package com.smg.art.utils;
 
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.UserInfo;
+
 /**
  * Created by Lenovo on 2018/7/27.
  */
@@ -18,6 +21,7 @@ public class RongIMCUtils {
     public static final int STATE_UNKNOWN = 3;
 
     public  static  int state =STATE_UNKNOWN ;
+
 
 
 }

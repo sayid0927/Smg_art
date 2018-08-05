@@ -52,6 +52,8 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.UserInfo;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -359,6 +361,10 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
     @Override
     public void FetchUploadPicSuccess(UpLoadBean upLoadBean) {
         GlideUtils.load(this, Constant.BaseImgUrl + upLoadBean.getHeadImg(), civMyPicture);
+        LocalAppConfigUtil.getInstance().setRongUserHeadImg(upLoadBean.getHeadImg());
+        RongIM.getInstance().refreshUserInfoCache(new UserInfo(
+                LocalAppConfigUtil.getInstance().getRongUserId(),LocalAppConfigUtil.getInstance().getRongUserName(), Uri.parse(LocalAppConfigUtil.getInstance().getRongUserHeadImg())
+        ));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.smg.art.ui.activity;
 
 
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
@@ -16,6 +17,7 @@ import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.jaeger.library.StatusBarUtil;
+import com.orhanobut.logger.Logger;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
 import com.smg.art.base.BaseFragmentPageAdapter;
@@ -41,9 +43,11 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.UserInfo;
 
 
-public class MainActivity extends BaseActivity implements MainContract.View, OnTabSelectListener {
+public class MainActivity extends BaseActivity implements MainContract.View, OnTabSelectListener{
 
     @Inject
     MainActivityPresenter mPresenter;
@@ -59,10 +63,10 @@ public class MainActivity extends BaseActivity implements MainContract.View, OnT
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     private int[] mIconUnselectIds = {
-            R.drawable.home_icon_r,R.drawable.auction_icon_r,
+            R.drawable.home_icon_r, R.drawable.auction_icon_r,
             R.drawable.message_icon_r, R.drawable.me_icon_r};
     private int[] mIconSelectIds = {
-            R.drawable.home_icon_p,R.drawable.auction_icon_p,
+            R.drawable.home_icon_p, R.drawable.auction_icon_p,
             R.drawable.message_icon_p, R.drawable.me_icon_p};
 
 
@@ -116,22 +120,24 @@ public class MainActivity extends BaseActivity implements MainContract.View, OnT
 
         if (!TextUtils.isEmpty(LocalAppConfigUtil.getInstance().getRCToken()))
             mPresenter.connect(LocalAppConfigUtil.getInstance().getRCToken());
-        }
 
-        @Override
-        public void showError (String message){
 
-        }
+    }
 
-        @Override
-        protected void onDestroy () {
-            super.onDestroy();
-        }
+    @Override
+    public void showError(String message) {
 
-        @Override
-        public void connectSuccess () {
+    }
 
-        }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void connectSuccess() {
+
+    }
 
     /**
      * 再按一次退出程序
@@ -166,4 +172,5 @@ public class MainActivity extends BaseActivity implements MainContract.View, OnT
     public void onTabReselect(int position) {
 
     }
+
 }

@@ -48,7 +48,7 @@ import butterknife.Unbinder;
 import cn.bingoogolapple.bgabanner.BGABanner;
 
 
-public class HomeFragment extends BaseFragment implements HomeContract.View, BGABanner.Delegate, OnLoadmoreListener, OnRefreshListener, GoodsListApadter.OnGoodsItemListener, HomeIconApadter.OnHomeIconItemListener {
+public class HomeFragment extends BaseFragment implements HomeContract.View, BGABanner.Delegate, OnLoadmoreListener, OnRefreshListener, GoodsListApadter.OnGoodsItemListener, HomeIconApadter.OnHomeIconItemListener, HomeUnderListApadter.OnUnderItemListener {
 
     @Inject
     HomePresenter mPresenter;
@@ -99,6 +99,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
         homeIconApadter = new HomeIconApadter(categoryListBeans, getActivity());
         mAdapter = new GoodsListApadter(rowsBeans, getSupportActivity());
         underListApadter = new HomeUnderListApadter(underListBeans, getSupportActivity());
+        underListApadter.OnUnderItemListener(this);
         rvGoods.setLayoutManager(new GridLayoutManager(getSupportActivity(), 2));
         rvUnder.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvIcon.setLayoutManager(new GridLayoutManager(getSupportActivity(), 5));
@@ -111,8 +112,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
         srl.setOnRefreshListener(this);
         mAdapter.OnGoodsItemListener(this);
         homeIconApadter.OnHomeIconItemListener(this);
-        mPresenter.FetchHomePageImg();
-        mPresenter.FetchAnnouncementAuctionList("page", String.valueOf(page), "rows", String.valueOf(rows));
+
 
     }
 
@@ -120,6 +120,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
     @Override
     public void loadData() {
         setState(Constant.STATE_SUCCESS);
+        mPresenter.FetchHomePageImg();
+        mPresenter.FetchAnnouncementAuctionList("page", String.valueOf(page), "rows", String.valueOf(rows));
     }
 
 
@@ -135,7 +137,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
 
     @Override
     public void showError(String message) {
-
+        setState(Constant.STATE_SUCCESS);
     }
 
     /**
@@ -143,12 +145,13 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
      */
     @Override
     public void FetchHomePageImgSuccess(HomePageImgBean homePageImgBean) {
-
+        setState(Constant.STATE_SUCCESS);
         if (srl.isRefreshing()) {
             srl.finishRefresh();
         }
-        if (categoryListBeans.size() != 0)
-            categoryListBeans.clear();
+        if (categoryListBeans.size() != 0)categoryListBeans.clear();
+        if(upperListBeans.size()!=0) upperListBeans.clear();
+        if(underListBeans.size()!=0) underListBeans.clear();
         this.categoryListBeans = homePageImgBean.getData().getCategoryList();
         this.upperListBeans = homePageImgBean.getData().getUpperList();
         this.underListBeans = homePageImgBean.getData().getUnderList();
@@ -173,10 +176,14 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
         }
     }
 
-
+    /**
+     * 活动广告跳转详情页
+     */
     @Override
     public void onBannerItemClick(BGABanner banner, View itemView, Object model, int position) {
-        Toast.makeText(banner.getContext(), "点击了第" + (position + 1) + "页", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(getActivity(), GoodsDetailActivity.class);
+        i.putExtra("postion",this.upperListBeans.get(position).getId());
+        MainActivity.mainActivity.startActivityIn(i, getActivity());
     }
 
 
@@ -271,5 +278,15 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
             i.putExtras(bundle);
             MainActivity.mainActivity.startActivityIn(i, getActivity());
         }
+    }
+
+    /**
+     * 固定广告跳转详情页
+     */
+    @Override
+    public void OnUnderItemListener(HomePageImgBean.DataBean.UnderListBean item) {
+        Intent i = new Intent(getActivity(), GoodsDetailActivity.class);
+        i.putExtra("postion",item.getId());
+        MainActivity.mainActivity.startActivityIn(i, getActivity());
     }
 }

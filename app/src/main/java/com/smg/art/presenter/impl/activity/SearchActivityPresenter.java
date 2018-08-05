@@ -52,9 +52,9 @@ public class SearchActivityPresenter extends BasePresenter<SearchContract.View> 
                         if (mView != null && data != null && data.getStatus() == 1) {
                             mView.FetchHotWordsListSuccess(data);
                         } else {
-                            if(mView != null && data != null && data.getStatus() == 10000){
-                                 mView.onRestartLoging();
-                            }
+//                            if(mView != null && data != null && data.getStatus() == 10000){
+//                                 mView.onRestartLoging();
+//                            }
                             if (data != null && data.getMsg() != null)
                                 mView.showError(data.getMsg());
                         }
