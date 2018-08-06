@@ -16,8 +16,7 @@ import com.smg.art.presenter.contract.activity.AuctionDeatilContract;
 import com.smg.art.presenter.impl.fragment.AuctionDeatilPresenter;
 import com.smg.art.ui.fragment.AuctionCentreFragment;
 import com.smg.art.ui.fragment.AuctionDetailIntroductionFragment;
-import com.smg.art.ui.fragment.ContactsFragment;
-import com.smg.art.ui.fragment.RecentMessageFragment;
+
 
 import java.util.ArrayList;
 

@@ -5,9 +5,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blankj.utilcode.utils.ToastUtils;
 import com.smg.art.R;
@@ -22,12 +27,13 @@ import com.smg.art.presenter.contract.fragment.ContactsFragmentContract;
 import com.smg.art.presenter.impl.fragment.ContactsFragmentPresenter;
 import com.smg.art.ui.activity.ConversationActivity;
 import com.smg.art.ui.activity.MainActivity;
-import com.smg.art.ui.activity.SearchActivity;
 import com.smg.art.ui.adapter.ContactsApadter;
-import com.smg.art.utils.DividerItemDecoration;
 import com.smg.art.utils.LocalAppConfigUtil;
-import com.smg.art.utils.TitleItemDecoration;
-import com.smg.art.view.IndexBar;
+import com.smg.art.view.contactsView.ContactSortModel;
+import com.smg.art.view.contactsView.PinyinComparator;
+import com.smg.art.view.contactsView.PinyinUtils;
+import com.smg.art.view.contactsView.SideBar;
+import com.smg.art.view.contactsView.SortAdapter;
 import com.yanzhenjie.recyclerview.swipe.SwipeItemClickListener;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuBridge;
@@ -40,12 +46,14 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import io.rong.imkit.RongIM;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by Lenovo on 2018/7/25.
@@ -57,14 +65,15 @@ public class ContactsFragment extends BaseFragment implements ContactsFragmentCo
     ContactsFragmentPresenter mPresenter;
     @BindView(R.id.rv)
     SwipeMenuRecyclerView rv;
-    @BindView(R.id.indexBar)
-    IndexBar indexBar;
-    @BindView(R.id.tvSideBarHint)
-    TextView tvSideBarHint;
+    @BindView(R.id.dialog)
+    TextView dialog;
+    @BindView(R.id.sidrbar)
+    SideBar sideBar;
+
 
     private List<AddressBookFriendsBean.DataBean> mData = new ArrayList<>();
-    private ContactsApadter mAdapter;
-    private LinearLayoutManager mManager;
+    private SortAdapter adapter;
+    private List<ContactSortModel> SourceDateList;
     private int deletePostion;
 
     @Override
@@ -86,30 +95,35 @@ public class ContactsFragment extends BaseFragment implements ContactsFragmentCo
     protected void initView(Bundle bundle) {
         super.initView(bundle);
         EventBus.getDefault().register(this);
-        mManager = new LinearLayoutManager(getActivity());
-        rv.setLayoutManager(mManager);
-        mAdapter = new ContactsApadter(mData, getActivity());
+
+        initDatas();
+        setAdapter();
+
+        mPresenter.FetchAddressBookFriends("memberId", LocalAppConfigUtil.getInstance().getRCMemberId());
+
+    }
+
+    private void initDatas() {
+        sideBar.setTextView(dialog);
+    }
+
+
+    private void setAdapter() {
+//        SourceDateList = filledData(getResources().getStringArray(R.array.contacts));
+        Collections.sort(SourceDateList, new PinyinComparator());
+        adapter = new SortAdapter(getActivity(), SourceDateList);
+
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        rv.addItemDecoration(new DefaultItemDecoration(ContextCompat.getColor(getActivity(), R.color.divider_color)));
         rv.setSwipeItemClickListener(this);
         rv.setSwipeMenuCreator(swipeMenuCreator);
         rv.setSwipeMenuItemClickListener(mMenuItemClickListener);
 
-        rv.setAdapter(mAdapter);
+        rv.setAdapter(adapter);
 
-        rv.addItemDecoration(new TitleItemDecoration(getActivity(), mData));
-        //如果add两个，那么按照先后顺序，依次渲染。
-        //mRv.addItemDecoration(new TitleItemDecoration2(this,mDatas));
-        rv.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
+    }
 
-        //使用indexBar
-        indexBar.setmPressedShowTextView(tvSideBarHint)//设置HintTextView
-                .setNeedRealIndex(true)//设置需要真实的索引
-                .setmLayoutManager(mManager)//设置RecyclerView的LayoutManager
-                .setmSourceDatas(mData);//设置数据源
-
-        mPresenter.FetchAddressBookFriends("memberId", LocalAppConfigUtil.getInstance().getRCMemberId());
-
+    private void initEvents() {
+        //设置右侧触摸监听
     }
 
     @Override
@@ -131,6 +145,7 @@ public class ContactsFragment extends BaseFragment implements ContactsFragmentCo
     public void onDestroyView() {
         super.onDestroyView();
         EventBus.getDefault().unregister(this);
+
     }
 
     /**
@@ -142,19 +157,8 @@ public class ContactsFragment extends BaseFragment implements ContactsFragmentCo
             mData.clear();
         }
         mData = addressBookFriendsBean.getData();
-        mAdapter.setNewData(mData);
-        mAdapter.notifyDataSetChanged();
-
-        rv.addItemDecoration(new TitleItemDecoration(getActivity(), mData));
-        //如果add两个，那么按照先后顺序，依次渲染。
-        //mRv.addItemDecoration(new TitleItemDecoration2(this,mDatas));
-        rv.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
-
-        //使用indexBar
-        indexBar.setmPressedShowTextView(tvSideBarHint)//设置HintTextView
-                .setNeedRealIndex(true)//设置需要真实的索引
-                .setmLayoutManager(mManager)//设置RecyclerView的LayoutManager
-                .setmSourceDatas(mData);//设置数据源
+//        mAdapter.setNewData(mData);
+//        mAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -164,8 +168,8 @@ public class ContactsFragment extends BaseFragment implements ContactsFragmentCo
     public void FetchUpdateFriendRelationSuccess(AddFriendBean addFriendBean) {
         ToastUtils.showLongToast(addFriendBean.getMsg());
         mData.remove(deletePostion);
-        mAdapter.setNewData(mData);
-        mAdapter.notifyDataSetChanged();
+//        mAdapter.setNewData(mData);
+//        mAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -207,13 +211,33 @@ public class ContactsFragment extends BaseFragment implements ContactsFragmentCo
 
     @Override
     public void onItemClick(View itemView, int position) {
-        Intent i = new Intent( getActivity(),ConversationActivity.class);
-        i.putExtra("MemberId",String.valueOf(mData.get(position).getMemberId()));
-        i.putExtra("MemberName",String.valueOf(mData.get(position).getMemberName()));
-        MainActivity.mainActivity.startActivityIn(i,getActivity());
+        Intent i = new Intent(getActivity(), ConversationActivity.class);
+        i.putExtra("MemberId", String.valueOf(mData.get(position).getMemberId()));
+        i.putExtra("MemberName", String.valueOf(mData.get(position).getMemberName()));
+        MainActivity.mainActivity.startActivityIn(i, getActivity());
 
-//        RongIM.getInstance().startPrivateChat(getActivity(),
-//                String.valueOf(mData.get(position).getMemberId()), mData.get(position).getMemberName());
+    }
 
+
+    private List<ContactSortModel> filledData(String[] date) {
+        List<ContactSortModel> mSortList = new ArrayList<>();
+        ArrayList<String> indexString = new ArrayList<>();
+
+        for (int i = 0; i < date.length; i++) {
+            ContactSortModel sortModel = new ContactSortModel();
+            sortModel.setName(date[i]);
+            String pinyin = PinyinUtils.getPingYin(date[i]);
+            String sortString = pinyin.substring(0, 1).toUpperCase();
+            if (sortString.matches("[A-Z]")) {
+                sortModel.setSortLetters(sortString.toUpperCase());
+                if (!indexString.contains(sortString)) {
+                    indexString.add(sortString);
+                }
+            }
+            mSortList.add(sortModel);
+        }
+        Collections.sort(indexString);
+        sideBar.setIndexText(indexString);
+        return mSortList;
     }
 }

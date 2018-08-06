@@ -32,6 +32,9 @@ import com.smg.art.presenter.impl.activity.SearchActivityPresenter;
 import com.smg.art.ui.adapter.GoodsListApadter;
 import com.smg.art.ui.adapter.HistoricalSearchApadter;
 import com.smg.art.utils.LocalAppConfigUtil;
+import com.smg.art.view.flexbox.adapter.StringTagAdapter;
+import com.smg.art.view.flexbox.interfaces.OnFlexboxSubscribeListener;
+import com.smg.art.view.flexbox.widget.TagFlowLayout;
 
 import java.sql.DataTruncation;
 import java.util.ArrayList;
@@ -43,7 +46,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SearchActivity extends BaseActivity implements SearchContract.View, HistoricalSearchApadter.OnClearItemListener, HistoricalSearchApadter.OnWordItemListener, OnLoadmoreListener, OnRefreshListener {
+public class SearchActivity extends BaseActivity implements SearchContract.View,
+        HistoricalSearchApadter.OnClearItemListener, HistoricalSearchApadter.OnWordItemListener,
+        OnLoadmoreListener, OnRefreshListener,StringTagAdapter.OnTagViewItemListener {
 
     @Inject
     SearchActivityPresenter mPresenter;
@@ -55,7 +60,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
     @BindView(R.id.ll_search)
     LinearLayout llSearch;
     @BindView(R.id.flex_layout)
-    FlexboxLayout flexLayout;
+    TagFlowLayout flexLayout;
     @BindView(R.id.iv_search)
     ImageView ivSearch;
     @BindView(R.id.et_SearchContent)
@@ -81,6 +86,8 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
     private String status;
 
     private GoodsListApadter mAdapter;
+    private StringTagAdapter adapter;
+    private List<String> sourceData;
     private List<AnnouncementAuctionListBean.DataBean.RowsBean> rowsBeans = new ArrayList<>();
 
     @Override
@@ -118,6 +125,8 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
         srl.setOnRefreshListener(this);
         srl.setOnLoadmoreListener(this);
 
+        adapter = new StringTagAdapter(this, sourceData);
+        adapter.OnTagViewItemListener(this);
         historicalSearchApadter = new HistoricalSearchApadter(historicalSearch, this);
         historicalSearchApadter.addHeaderView(getHeaderView());
         rvHistoricalSearch.setLayoutManager(new LinearLayoutManager(this));
@@ -125,6 +134,8 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
         historicalSearchApadter.OnClearItemListener(this);
         historicalSearchApadter.OnWordItemListener(this);
         mPresenter.FetchHotWordsList();
+
+
 
     }
 
@@ -183,10 +194,13 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
 
         if (hotWordsListBean.getData().getHotWords().size() != 0) {
             for (int i = 0; i < hotWordsListBean.getData().getHotWords().size(); i++) {
+
                 View view = View.inflate(this, R.layout.company_grid_item, null);
                 TextView textView = (TextView) view.findViewById(R.id.text);
                 textView.setText(hotWordsListBean.getData().getHotWords().get(i).getWord());
                 flexLayout.addView(view);
+
+
                 int finalI = i;
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -332,6 +346,16 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
         page = 1;
+        mPresenter.FetchAuctionListByName("actionName", textWord,
+                "status", status, "page", String.valueOf(page), "rows", String.valueOf(rows));
+    }
+
+    /**
+     * 选中热门搜索
+     */
+    @Override
+    public void OnTagViewItemListener(String item) {
+        this.textWord =item;
         mPresenter.FetchAuctionListByName("actionName", textWord,
                 "status", status, "page", String.valueOf(page), "rows", String.valueOf(rows));
     }

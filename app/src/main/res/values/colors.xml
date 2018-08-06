@@ -259,4 +259,8 @@
     <color name="side_bar_pressed">#BFBFBF</color>
     <color name="gray2">#969696</color>
     <color name="partTranslucent">#39000000</color>
+
+
+    <color name="app_green">#53CAC3</color>
+    <color name="grey">#5A5A5A</color>
 </resources>

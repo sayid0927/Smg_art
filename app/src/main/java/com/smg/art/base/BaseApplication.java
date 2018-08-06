@@ -13,7 +13,6 @@ import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerAppComponent;
 import com.smg.art.module.ApiModule;
 import com.smg.art.module.AppModule;
-import com.smg.art.utils.MyReceiveMessageListener;
 import com.smg.art.utils.PreferUtil;
 
 import io.rong.imkit.RongIM;
@@ -21,7 +20,7 @@ import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Message;
 
 
-public class BaseApplication extends Application implements  RongIMClient.OnReceiveMessageListener {
+public class BaseApplication extends Application  {
 
     public  static BaseApplication baseApplication;
     private static AppComponent appComponent;
@@ -104,14 +103,6 @@ public class BaseApplication extends Application implements  RongIMClient.OnRece
         if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext())) ||
                 "io.rong.push".equals(getCurProcessName(getApplicationContext()))) {
             RongIM.init(this);
-
-
         }
-    }
-
-    @Override
-    public boolean onReceived(Message message, int i) {
-        Log.e("TAG","CCCC");
-        return false;
     }
 }
