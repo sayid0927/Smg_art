@@ -1,7 +1,6 @@
 package com.smg.art.ui.activity;
 
 
-import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,7 +13,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.utils.ToastUtils;
-import com.google.android.flexbox.FlexboxLayout;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -33,17 +31,14 @@ import com.smg.art.ui.adapter.GoodsListApadter;
 import com.smg.art.ui.adapter.HistoricalSearchApadter;
 import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.view.flexbox.adapter.StringTagAdapter;
-import com.smg.art.view.flexbox.interfaces.OnFlexboxSubscribeListener;
 import com.smg.art.view.flexbox.widget.TagFlowLayout;
 
-import java.sql.DataTruncation;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SearchActivity extends BaseActivity implements SearchContract.View,
@@ -190,7 +185,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
      * 获取搜索列表
      */
     @Override
-    public void FetchHotWordsListSuccess(HotWordsListBean hotWordsListBean) {
+    public void FetchHotWordsListSuccess(final HotWordsListBean hotWordsListBean) {
 
         if (hotWordsListBean.getData().getHotWords().size() != 0) {
             for (int i = 0; i < hotWordsListBean.getData().getHotWords().size(); i++) {
@@ -201,7 +196,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
                 flexLayout.addView(view);
 
 
-                int finalI = i;
+                final int finalI = i;
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
