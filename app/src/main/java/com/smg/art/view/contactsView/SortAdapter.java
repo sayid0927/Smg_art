@@ -24,6 +24,10 @@ public class SortAdapter extends BaseQuickAdapter<ContactSortModel, BaseViewHold
         this.list = list;
     }
 
+    public void setListDaa(List<ContactSortModel> list) {
+        this.list = list;
+    }
+
     @Override
     protected void convert(BaseViewHolder helper, ContactSortModel item) {
         int section = getSectionForPosition(helper.getPosition());

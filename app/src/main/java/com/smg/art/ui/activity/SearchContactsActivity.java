@@ -13,6 +13,7 @@ import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
 import com.smg.art.bean.AddFriendBean;
 import com.smg.art.bean.SearchMemberBean;
+import com.smg.art.bean.UpudterMessageBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.activity.SearchContactsContract;
@@ -20,6 +21,8 @@ import com.smg.art.presenter.impl.activity.SearchContactsActivityPresenter;
 import com.smg.art.ui.adapter.SearchContactsListApadter;
 import com.smg.art.utils.LocalAppConfigUtil;
 import com.zhy.autolayout.AutoRelativeLayout;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,7 +98,7 @@ public class SearchContactsActivity extends BaseActivity implements SearchContac
                 finish();
                 break;
             case R.id.tv_search:  //搜索
-                mPesenter.FetchSearchMember("memberId", LocalAppConfigUtil.getInstance().getRCMemberId(),
+                mPesenter.FetchSearchMember("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
                         "condition", etSearchContent.getText().toString().trim());
                 break;
         }
@@ -115,11 +118,13 @@ public class SearchContactsActivity extends BaseActivity implements SearchContac
 
     /**
      * 新增通讯录好友
+     *
      * @param addFriendBean
      */
     @Override
     public void FetchAddFriendSuccess(AddFriendBean addFriendBean) {
-           ToastUtils.showLongToast(addFriendBean.getMsg());
+        ToastUtils.showLongToast(addFriendBean.getMsg());
+        EventBus.getDefault().post(new UpudterMessageBean());
     }
 
     @Override
@@ -128,12 +133,13 @@ public class SearchContactsActivity extends BaseActivity implements SearchContac
     }
 
     /**
-     *  添加到通讯录
+     * 添加到通讯录
+     *
      * @param item
      */
     @Override
     public void OnAddFindsListener(SearchMemberBean.DataBean item) {
-        mPesenter.FetchAddFriend("memberId",LocalAppConfigUtil.getInstance().getRCMemberId(),
-                 "friendId",String.valueOf(item.getMemberId()));
+        mPesenter.FetchAddFriend("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
+                "friendId", String.valueOf(item.getMemberId()));
     }
 }

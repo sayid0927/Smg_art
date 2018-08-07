@@ -45,7 +45,7 @@ public class AddressBookFriendsBean {
         this.data = data;
     }
 
-    public static class DataBean extends BaseIndexPinyinBean {
+    public static class DataBean {
         /**
          * memberId : 79
          * memberName : 15118183011
@@ -59,6 +59,15 @@ public class AddressBookFriendsBean {
         private String mobilePhone;
         private String headImg;
         private String initial;
+        private String sortLetters;//显示数据拼音的首字母
+
+        public String getSortLetters() {
+            return sortLetters;
+        }
+
+        public void setSortLetters(String sortLetters) {
+            this.sortLetters = sortLetters;
+        }
 
         public int getMemberId() {
             return memberId;
@@ -100,9 +109,5 @@ public class AddressBookFriendsBean {
             this.initial = initial;
         }
 
-        @Override
-        public String getTarget() {
-            return memberName;
-        }
     }
 }

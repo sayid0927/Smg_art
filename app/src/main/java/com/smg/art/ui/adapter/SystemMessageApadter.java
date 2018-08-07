@@ -16,40 +16,22 @@ import java.util.List;
  * Created by wengmf on 2018/3/22.
  */
 
-public class SystemMessageApadter extends BaseQuickAdapter<SystemMessageBean, BaseViewHolder> {
+public class SystemMessageApadter extends BaseQuickAdapter<SystemMessageBean.DataBean.RowsBean, BaseViewHolder> {
 
     private Context mContext;
-    private List<SystemMessageBean> data;
+    private List<SystemMessageBean.DataBean.RowsBean> data;
 
-    public SystemMessageApadter(List<SystemMessageBean> data, Context mContext) {
+    public SystemMessageApadter(List<SystemMessageBean.DataBean.RowsBean> data, Context mContext) {
         super(R.layout.item_system_message, data);
         this.mContext = mContext;
         this.data = data;
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, final SystemMessageBean item) {
-//        helper.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if(onMessageItemListener!=null)
-//                    onMessageItemListener.OnMessageItemListener(item);
-//            }
-//        });
+    protected void convert(BaseViewHolder helper, final SystemMessageBean.DataBean.RowsBean item) {
+        helper.setText(R.id.tv_time,item.getPublishTime());
+        helper.setText(R.id.tv_newsTitle,item.getNewsTitle());
+        helper.setText(R.id.tv_summary,item.getSummary());
+        helper.setText(R.id.tv_detailContent,item.getDetailContent());
     }
-
-
-
-//    private  OnMessageItemListener  onMessageItemListener;
-//
-//    public void OnMessageItemListener (OnMessageItemListener  onMessageItemListener){
-//        this.onMessageItemListener =onMessageItemListener;
-//    }
-//
-//    public  interface  OnMessageItemListener {
-//        void  OnMessageItemListener(SystemMessageBean item);
-//    }
-
-
-
 }

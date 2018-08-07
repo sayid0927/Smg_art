@@ -4,6 +4,15 @@ public class ContactSortModel {
 
     private String name;//显示的数据
     private String sortLetters;//显示数据拼音的首字母
+    private int memberId;
+
+    public int getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(int memberId) {
+        this.memberId = memberId;
+    }
 
     public String getName() {
         return name;

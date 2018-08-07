@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.smg.art.R;
 import com.smg.art.ui.activity.ConversationActivity;
+import com.smg.art.ui.activity.OrderMessageActivity;
 import com.smg.art.ui.activity.SystemMessageActivity;
 
 import io.rong.imkit.MainActivity;
@@ -82,6 +83,7 @@ public class MyRecentMessageFragment extends Fragment {
          * @return 如果用户自己处理了点击后的逻辑处理，则返回 true，否则返回 false，false 走融云默认处理方式。
          */
         public boolean onConversationPortraitClick(Context context, Conversation.ConversationType conversationType, String targetId){
+
             return false;
         }
 
@@ -94,6 +96,7 @@ public class MyRecentMessageFragment extends Fragment {
          * @return 如果用户自己处理了点击后的逻辑处理，则返回 true，否则返回 false，false 走融云默认处理方式。
          */
         public boolean onConversationPortraitLongClick(Context context, Conversation.ConversationType conversationType, String targetId){
+
             return false;
         }
         /**
@@ -122,12 +125,10 @@ public class MyRecentMessageFragment extends Fragment {
 
             if(uiConversation.getConversationTargetId().equals("1")){
                 Intent i = new Intent( getActivity(),SystemMessageActivity.class);
-                i.putExtra("type",1);
                 com.smg.art.ui.activity.MainActivity.mainActivity.startActivityIn(i,getActivity());
                 return  true;
             }else if(uiConversation.getConversationTargetId().equals("2")){
-                Intent i = new Intent( getActivity(),SystemMessageActivity.class);
-                i.putExtra("type",2);
+                Intent i = new Intent( getActivity(),OrderMessageActivity.class);
                 com.smg.art.ui.activity.MainActivity.mainActivity.startActivityIn(i,getActivity());
                 return  true;
             }else {

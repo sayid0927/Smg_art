@@ -32,6 +32,7 @@
         <com.smg.art.view.contactsView.SideBar
             android:id="@+id/sidrbar"
             android:layout_width="24dp"
+            android:visibility="gone"
             android:layout_height="match_parent"
             android:layout_gravity="right|center" />
     </FrameLayout>

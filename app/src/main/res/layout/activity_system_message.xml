@@ -9,6 +9,10 @@
 
     <include layout="@layout/actionbar_root_layout"/>
 
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/srl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
 
@@ -19,6 +23,6 @@
         android:layout_height="wrap_content"/>
 
 
-
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </com.zhy.autolayout.AutoLinearLayout>

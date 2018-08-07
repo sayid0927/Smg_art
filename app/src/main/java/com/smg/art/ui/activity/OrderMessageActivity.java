@@ -1,8 +1,5 @@
 package com.smg.art.ui.activity;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -15,31 +12,29 @@ import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
-import com.smg.art.bean.GoodsBean;
 import com.smg.art.bean.SystemMessageBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
+import com.smg.art.presenter.contract.activity.OrderMessageActivityContract;
 import com.smg.art.presenter.contract.activity.SystemMessageActivityContract;
+import com.smg.art.presenter.impl.activity.OrderMeesagePresenter;
 import com.smg.art.presenter.impl.activity.SystemMeesagePresenter;
-import com.smg.art.ui.adapter.GoodsListApadter;
 import com.smg.art.ui.adapter.SystemMessageApadter;
 import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.view.MyLoadMoreView;
 import com.zhy.autolayout.AutoRelativeLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SystemMessageActivity extends BaseActivity implements SystemMessageActivityContract.View, OnLoadmoreListener, OnRefreshListener {
+public class OrderMessageActivity extends BaseActivity implements OrderMessageActivityContract.View, OnLoadmoreListener, OnRefreshListener {
 
     @Inject
-    SystemMeesagePresenter mPresenter;
+    OrderMeesagePresenter mPresenter;
 
     @BindView(R.id.rl_back)
     AutoRelativeLayout rlBack;
@@ -79,17 +74,16 @@ public class SystemMessageActivity extends BaseActivity implements SystemMessage
     @Override
     public void initView() {
         setSwipeBackEnable(true);
-        actionbarTitle.setText(R.string.system_message);
+        actionbarTitle.setText(R.string.order_message);
 
         mAdapter = new SystemMessageApadter(systemMessageBeans, this);
-
         mAdapter.setLoadMoreView(new MyLoadMoreView());
         rlSystemMessage.setLayoutManager(new LinearLayoutManager(this));
         rlSystemMessage.setAdapter(mAdapter);
         srl.setOnLoadmoreListener(this);
         srl.setOnRefreshListener(this);
 
-          mPresenter.FetchGetListFront("page",String.valueOf(page),"rows",String.valueOf(rows),
+          mPresenter.FetchOrderLidtFront("page",String.valueOf(page),"rows",String.valueOf(rows),
                   "memberId",String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
 
     }
@@ -109,7 +103,7 @@ public class SystemMessageActivity extends BaseActivity implements SystemMessage
      * 获取系统消息列表
      */
     @Override
-    public void FetchGetListFrontSuccess(SystemMessageBean systemMessageBean) {
+    public void FetchOrderLidtFrontSuccess(SystemMessageBean systemMessageBean) {
         if(srl.isLoading()){
             mAdapter.addData(systemMessageBean.getData().getRows());
             srl.finishLoadmore();
@@ -131,7 +125,7 @@ public class SystemMessageActivity extends BaseActivity implements SystemMessage
     public void onLoadmore(RefreshLayout refreshlayout) {
         // 加载更多
         page++;
-        mPresenter.FetchGetListFront("page",String.valueOf(page),"rows",String.valueOf(rows),
+        mPresenter.FetchOrderLidtFront("page",String.valueOf(page),"rows",String.valueOf(rows),
                 "memberId",String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
     }
 
@@ -139,7 +133,8 @@ public class SystemMessageActivity extends BaseActivity implements SystemMessage
     public void onRefresh(RefreshLayout refreshlayout) {
         //下拉刷新
         page = 1;
-        mPresenter.FetchGetListFront("page",String.valueOf(page),"rows",String.valueOf(rows),
+        mPresenter.FetchOrderLidtFront("page",String.valueOf(page),"rows",String.valueOf(rows),
                 "memberId",String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
     }
+
 }

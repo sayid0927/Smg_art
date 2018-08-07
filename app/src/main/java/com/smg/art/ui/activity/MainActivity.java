@@ -121,7 +121,6 @@ public class MainActivity extends BaseActivity implements MainContract.View, OnT
         if (!TextUtils.isEmpty(LocalAppConfigUtil.getInstance().getRCToken()))
             mPresenter.connect(LocalAppConfigUtil.getInstance().getRCToken());
 
-
     }
 
     @Override

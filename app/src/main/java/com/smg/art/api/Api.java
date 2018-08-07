@@ -24,10 +24,12 @@ import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.CardUrlBean;
 import com.smg.art.base.Constant;
+import com.smg.art.base.FindCustomerServiceBean;
 import com.smg.art.base.HomePageImgBean;
 import com.smg.art.bean.AddBankCardBean;
 import com.smg.art.bean.AddFriendBean;
 import com.smg.art.bean.AddressBookFriendsBean;
+import com.smg.art.bean.AuctionCenterBean;
 import com.smg.art.bean.AuctionGoodsBean;
 import com.smg.art.bean.AuctionOrderBean;
 import com.smg.art.bean.BalanceOfPayBean;
@@ -50,6 +52,7 @@ import com.smg.art.bean.ReChargeBean;
 import com.smg.art.bean.RegisterBean;
 import com.smg.art.bean.SaveCollectsBean;
 import com.smg.art.bean.SearchMemberBean;
+import com.smg.art.bean.SystemMessageBean;
 import com.smg.art.bean.UpLoadBean;
 import com.smg.art.bean.WalletBalanceBean;
 import com.smg.art.bean.WithDrawBean;
@@ -110,7 +113,7 @@ public class Api {
             }
         }
         if (!TextUtils.isEmpty(LocalAppConfigUtil.getInstance().getAccessToken())) {
-            map.put("access_token", LocalAppConfigUtil.getInstance().getAccessToken());
+            map.put("access_token", LocalAppConfigUtil.getInstance().getJsessionId());
         }
         return map;
     }
@@ -405,6 +408,35 @@ public class Api {
     public Observable<AuctionGoodsBean> FetchAuctionList(String... s) {
         return service.FetchAuctionList(getMap(s));
     }
+    /**
+     * 获取系统消息列表
+     */
+    public Observable<SystemMessageBean> FetchGetListFront(String... s) {
+        return service.FetchGetListFront(getMap(s));
+    }
 
-
+    /**
+     * 获取系统消息列表
+     */
+    public Observable<SystemMessageBean> FetchOrderLidtFront(String... s) {
+        return service.FetchOrderLidtFront(getMap(s));
+    }
+    /**
+     * 竞价列表以及最高价
+     */
+    public Observable<AuctionCenterBean> FetchAuctionCenterList(String... s) {
+        return service.FetchAuctionCenterList(getMap(s));
+    }
+    /**
+     * 竞价列表以及最高价
+     */
+    public Observable<AuctionCenterBean> FetchCreatBidding(String... s) {
+        return service.FetchCreatBidding(getMap(s));
+    }
+    /**
+     * 查询客服信息
+     */
+    public Observable<FindCustomerServiceBean> FetchFindCustomerService(String... s) {
+        return service.FetchFindCustomerService(getMap(s));
+    }
 }

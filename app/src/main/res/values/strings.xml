@@ -38,6 +38,7 @@
     <string name="recent_message">最近消息</string>
     <string name="address_list">通讯录</string>
     <string name="system_message">系统消息</string>
+    <string name="order_message">订单消息</string>
     <string name="login_hint">手机号或密码为空</string>
     <string name="login_success">恭喜你，登录成功</string>
     <string name="head_portrait">头像</string>

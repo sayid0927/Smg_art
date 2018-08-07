@@ -6,8 +6,10 @@ import com.smg.art.ui.activity.ClassifyActivity;
 import com.smg.art.ui.activity.GoodsDetailActivity;
 import com.smg.art.ui.activity.GuideActivity;
 import com.smg.art.ui.activity.MainActivity;
+import com.smg.art.ui.activity.OrderMessageActivity;
 import com.smg.art.ui.activity.SearchActivity;
 import com.smg.art.ui.activity.SearchContactsActivity;
+import com.smg.art.ui.activity.SystemMessageActivity;
 import com.smg.art.ui.fragment.AuctionCentreFragment;
 import com.smg.art.ui.fragment.AuctionDetailIntroductionFragment;
 import com.smg.art.ui.fragment.AuctionFragment;
@@ -103,4 +105,9 @@ public interface MainComponent {
     ChangePasswordActivity inject(ChangePasswordActivity changePasswordActivity);
 
     ChangeTradersPasswordActivity inject(ChangeTradersPasswordActivity changeTradersPasswordActivity);
+
+    SystemMessageActivity inject(SystemMessageActivity systemMessageActivity);
+
+    OrderMessageActivity inject (OrderMessageActivity orderMessageActivity);
+
 }

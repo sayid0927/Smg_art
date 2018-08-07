@@ -124,6 +124,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.SearchContactsActivity" />
         <activity android:name=".ui.activity.SystemMessageActivity" />
+        <activity android:name=".ui.activity.OrderMessageActivity" />
         <activity
             android:name=".ui.personalcenter.SettingActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
