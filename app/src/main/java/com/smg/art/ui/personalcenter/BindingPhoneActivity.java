@@ -55,6 +55,18 @@ public class BindingPhoneActivity extends BaseActivity implements SendMobilePhon
     Button comfirm;
     @BindView(R.id.binding)
     TextView binding;
+    @BindView(R.id.textview6)
+    TextView textview6;
+    @BindView(R.id.pic_yzm_code)
+    EditText picYzmCode;
+    @BindView(R.id.pic_yzm_del)
+    ImageView picYzmDel;
+    @BindView(R.id.pic_view1)
+    View picView1;
+    @BindView(R.id.get_iamge)
+    ImageView getIamge;
+    @BindView(R.id.pic_yzm)
+    LinearLayout picYzm;
     private TimeCount timeCount;
 
 
@@ -85,9 +97,10 @@ public class BindingPhoneActivity extends BaseActivity implements SendMobilePhon
     @Override
     public void initView() {
         actionbarTitle.setText(R.string.change_phone);
+        mPresenter.FetchPictureCode();
     }
 
-    @OnClick({R.id.rl_back, R.id.binding, R.id.comfirm})
+    @OnClick({R.id.rl_back, R.id.binding, R.id.comfirm, R.id.get_iamge})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_back:
@@ -103,9 +116,16 @@ public class BindingPhoneActivity extends BaseActivity implements SendMobilePhon
                 if (TextUtils.isEmpty(etContext.getText().toString()) || !CommonUtil.isMobileNO(etContext.getText().toString())) {
                     ToastUtils.showShortToast(R.string.input_correct_phone);
                 } else {
-                    comfirm.setClickable(false);
-                    mPresenter.FetchPhoneVerifyCode("mobilePhone", etContext.getText().toString().trim());
+                    if (TextUtils.isEmpty(picYzmCode.getText().toString())) {
+                        ToastUtils.showShortToast("请输入图形验证码");
+                    } else {
+                        comfirm.setClickable(false);
+                        mPresenter.FetchPhoneVerifyCode("mobilePhone", etContext.getText().toString().trim(), "pictureCode", picYzmCode.getText().toString());
+                    }
                 }
+                break;
+            case R.id.get_iamge:
+                mPresenter.FetchPictureCode();
                 break;
         }
     }
@@ -169,6 +189,11 @@ public class BindingPhoneActivity extends BaseActivity implements SendMobilePhon
     @Override
     public Button btn() {
         return null;
+    }
+
+    @Override
+    public ImageView iv() {
+        return getIamge;
     }
 
     @Override

@@ -9,12 +9,7 @@ import com.smg.art.base.BaseActivity;
 import com.smg.art.component.AppComponent;
 import com.smg.art.ui.login.LoginActivity;
 import com.smg.art.utils.LocalAppConfigUtil;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import io.rong.imkit.RongIM;
-import io.rong.imlib.model.Conversation;
+import com.tencent.smtt.sdk.TbsDownloader;
 
 /**
  * Created by Mervin on 2018/7/24 0024.
@@ -43,6 +38,7 @@ public class GuideActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        TbsDownloader.needDownload(this, false);
         StatusBarUtil.setTransparentForImageViewInFragment(GuideActivity.this, null);
         new Handler().postDelayed(new Runnable() {
             @Override

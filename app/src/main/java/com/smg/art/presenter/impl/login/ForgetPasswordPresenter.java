@@ -1,5 +1,7 @@
 package com.smg.art.presenter.impl.login;
 
+import android.graphics.BitmapFactory;
+
 import com.smg.art.api.Api;
 import com.smg.art.base.BasePresenter;
 import com.smg.art.bean.ForgetPasswordBean;
@@ -8,6 +10,7 @@ import com.smg.art.presenter.contract.login.ForgetPasswordContract;
 
 import javax.inject.Inject;
 
+import okhttp3.ResponseBody;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -75,6 +78,34 @@ public class ForgetPasswordPresenter extends BasePresenter<ForgetPasswordContrac
                         if (mView != null && data != null) {
                             hideWaitingDialog();
                             mView.FetchPhoneVerifyCodeSuccess(data);
+                        }
+                    }
+                }));
+    }
+
+    @Override
+    public void FetchPictureCode(String... s) {
+        showWaitingDialog("加载中...");
+        addSubscrebe(api.FetchPictureCode(s).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResponseBody>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        hideWaitingDialog();
+                        mView.showError(e.getMessage());
+                        mView.btn().setClickable(true);
+                    }
+
+                    @Override
+                    public void onNext(ResponseBody data) {
+                        if (mView != null && data != null) {
+                            hideWaitingDialog();
+                            mView.iv().setImageBitmap(BitmapFactory.decodeStream(data.byteStream()));
                         }
                     }
                 }));

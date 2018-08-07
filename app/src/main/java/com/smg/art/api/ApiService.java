@@ -51,6 +51,7 @@ import com.smg.art.bean.SaveCollectsBean;
 import com.smg.art.bean.SearchMemberBean;
 import com.smg.art.bean.SystemMessageBean;
 import com.smg.art.bean.UpLoadBean;
+import com.smg.art.bean.UserRulaBean;
 import com.smg.art.bean.WalletBalanceBean;
 import com.smg.art.bean.WithDrawBean;
 
@@ -89,6 +90,27 @@ public interface ApiService {
      */
     @POST(Constant.MEMBER_GETPHONEVERIFYCODE)
     Observable<PhoneVerifyCodeBean> FetchPhoneVerifyCode(@QueryMap Map<String, String> map);
+
+    /**
+     * 获取图形验证码
+     * @param map
+     */
+/*    @GET(Constant.PICTURECODE)
+  //  Observable<PictureCodeBean> FetchPictureCode(@QueryMap Map<String, String> map);*/
+
+    /**
+     * 查询客服信息
+     */
+    @GET(Constant.PICTURECODE)
+    Observable<ResponseBody> FetchPictureCode(@QueryMap Map<String, String> map);
+
+
+    /**
+     * 获取用户协议
+     */
+    @GET(Constant.TOREGISTERRULEPAGE)
+    Observable<UserRulaBean> FetchUserRulaCode(@QueryMap Map<String, String> map);
+
 
     /**
      * 会员登录

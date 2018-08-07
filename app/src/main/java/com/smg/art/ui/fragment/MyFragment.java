@@ -187,9 +187,18 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
                 break;
             case R.id.setting:
                 intent = new Intent(getActivity(), SettingActivity.class);
-                MainActivity.mainActivity.startActivityIn(intent, getActivity());
+                startActivityForResult(intent, 10);
+                //  MainActivity.mainActivity.startActivityIn(intent, getActivity());
                 break;
 
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 10) {
+            getdata();
         }
     }
 
@@ -198,7 +207,7 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
     public void FetchPersonalCenterSuccess(PersonalCenterBean announcementAuctionListBean) {
         if (announcementAuctionListBean.getStatus() == 1) {
             userName.setText(announcementAuctionListBean.getData().getMemberName());
-            userId.setText("ID: " + announcementAuctionListBean.getData().getMemberNo());
+            userId.setText("ID: " + announcementAuctionListBean.getData().getMemberId());
             GlideCommonUtils.showHead(getActivity(), announcementAuctionListBean.getData().getHeadImg(), mineHead);
         } else {
             ToastUtils.showShortToast(announcementAuctionListBean.getMsg());

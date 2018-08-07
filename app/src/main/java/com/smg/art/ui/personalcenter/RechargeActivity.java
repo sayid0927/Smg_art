@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.utils.ToastUtils;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
+import com.smg.art.base.CardUrlBean;
 import com.smg.art.bean.CheckBankCardBean;
 import com.smg.art.bean.ReChargeBean;
 import com.smg.art.component.AppComponent;
@@ -34,9 +35,12 @@ import butterknife.OnClick;
  */
 
 public class RechargeActivity extends BaseActivity implements ReChargeContract.View {
+    //请求相机
+    private static final int REQUEST_CAPTURE = 100;
+    //请求写入外部存储
+    private static final int WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 104;
     @Inject
     ReChargePresenter mPresenter;
-
     @BindView(R.id.rl_back)
     AutoRelativeLayout rlBack;
     @BindView(R.id.left_title)
@@ -143,7 +147,7 @@ public class RechargeActivity extends BaseActivity implements ReChargeContract.V
         ivDel.setVisibility(visible);
     }
 
-    @OnClick({R.id.rl_back, R.id.confirm})
+    @OnClick({R.id.rl_back, R.id.confirm, R.id.up_pic})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_back:
@@ -157,6 +161,9 @@ public class RechargeActivity extends BaseActivity implements ReChargeContract.V
                     mPresenter.FetchReCharge("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()), "cardNo", mCheckBankCardBean.getData().getCardNo(),
                             "amount", etContext.getText().toString(), "voucherUrl", "http://baidu.com");
                 }
+                break;
+            case R.id.up_pic:
+
                 break;
         }
     }
@@ -177,6 +184,11 @@ public class RechargeActivity extends BaseActivity implements ReChargeContract.V
         } else {
             ToastUtils.showShortToast(checkBankCardBean.getMsg());
         }
+    }
+
+    @Override
+    public void FetchUploadFileSuccess(CardUrlBean cardUrlBean) {
+
     }
 
     @Override

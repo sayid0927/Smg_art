@@ -36,6 +36,12 @@ public class Constant {
      */
     public static final String MEMBER_GETPHONEVERIFYCODE = "member/getPhoneVerifyCode";
 
+    //图形验证码
+    public static final String PICTURECODE = "member/pictureCode";
+
+    //用户协议
+    public static final String TOREGISTERRULEPAGE = "member/toRegisterRulePage";
+
     /**
      * 会员登录
      */

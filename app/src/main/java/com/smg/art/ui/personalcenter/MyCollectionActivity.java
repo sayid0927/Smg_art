@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.utils.ToastUtils;
@@ -49,6 +50,8 @@ public class MyCollectionActivity extends BaseActivity implements MyCollectionCo
     ImageView ivRight;
     @BindView(R.id.actionbar_text_action)
     TextView actionbarTextAction;
+    @BindView(R.id.no_data)
+    LinearLayout noData;
 
     @BindView(R.id.srl)
     SmartRefreshLayout srl;
@@ -137,7 +140,14 @@ public class MyCollectionActivity extends BaseActivity implements MyCollectionCo
     public void FetchMyCollectionSuccess(CollectionBean collectionBean) {
         if (collectionBean.getStatus() == 1) {
             list.addAll(collectionBean.getData());
-            myCollectionAdapter.notifyDataSetChanged();
+            if (list.size() > 0) {
+                srl.setVisibility(View.VISIBLE);
+                noData.setVisibility(View.GONE);
+                myCollectionAdapter.notifyDataSetChanged();
+            } else {
+                srl.setVisibility(View.GONE);
+                noData.setVisibility(View.VISIBLE);
+            }
         } else {
             ToastUtils.showShortToast(collectionBean.getMsg());
         }

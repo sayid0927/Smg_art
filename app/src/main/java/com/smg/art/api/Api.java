@@ -54,6 +54,7 @@ import com.smg.art.bean.SaveCollectsBean;
 import com.smg.art.bean.SearchMemberBean;
 import com.smg.art.bean.SystemMessageBean;
 import com.smg.art.bean.UpLoadBean;
+import com.smg.art.bean.UserRulaBean;
 import com.smg.art.bean.WalletBalanceBean;
 import com.smg.art.bean.WithDrawBean;
 import com.smg.art.utils.LocalAppConfigUtil;
@@ -66,15 +67,9 @@ import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
-import retrofit2.http.Multipart;
-import retrofit2.http.POST;
-import retrofit2.http.Part;
-import retrofit2.http.QueryMap;
 import rx.Observable;
 
 public class Api {
@@ -131,6 +126,23 @@ public class Api {
     public Observable<PhoneVerifyCodeBean> FetchPhoneVerifyCode(String... s) {
         return service.FetchPhoneVerifyCode(getMap(s));
     }
+
+    /**
+     * 获取图形验证码
+     *
+     * @param
+     */
+    public Observable<ResponseBody> FetchPictureCode(String... s) {
+        return service.FetchPictureCode(getMap(s));
+    }
+
+    /**
+     * 获取用户协议
+     */
+    public Observable<UserRulaBean> FetchUserRulaCode(String... s) {
+        return service.FetchUserRulaCode(getMap(s));
+    }
+
 
     /**
      * 会员登录

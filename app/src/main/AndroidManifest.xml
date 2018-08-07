@@ -183,6 +183,12 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.personalcenter.AuthenticationActivity"></activity>
+
+        <activity
+            android:name="com.smg.art.view.webview.PublicWebViewActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.smg.art.presenter.contract.login;
 
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.smg.art.base.BaseContract;
 import com.smg.art.bean.ForgetPasswordBean;
@@ -24,6 +25,7 @@ public interface ForgetPasswordContract {
          */
         void FetchPhoneVerifyCodeSuccess(PhoneVerifyCodeBean phoneVerifyCodeBean);
 
+        ImageView iv();
         Button btn();
     }
 
@@ -37,6 +39,12 @@ public interface ForgetPasswordContract {
          * 获取短信验证码
          */
         void FetchPhoneVerifyCode(String... s);
+
+        /**
+         * 图形验证码
+         */
+        void FetchPictureCode(String... s);
+
 
     }
 }

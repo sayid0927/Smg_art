@@ -27,14 +27,13 @@ import com.smg.art.bean.PersonalCenterBean;
 import com.smg.art.bean.UpLoadBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
-import com.smg.art.photo.CircleImageView;
 import com.smg.art.photo.ClipImageActivity;
 import com.smg.art.presenter.contract.activity.SettingContract;
 import com.smg.art.presenter.impl.activity.SettingActivityPresenter;
 import com.smg.art.ui.login.LoginActivity;
 import com.smg.art.utils.ClipFileUtil;
-import com.smg.art.utils.GlideUtils;
 import com.smg.art.utils.GlideCommonUtils;
+import com.smg.art.utils.GlideUtils;
 import com.smg.art.utils.ImageFormartUtils;
 import com.smg.art.utils.KeyBoardUtils;
 import com.smg.art.utils.L;
@@ -201,6 +200,14 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
         mPresenter.FetchPersonalCenter("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Intent intent = getIntent();
+        this.setResult(10, intent);
+        finish();
+    }
+
     /**
      * 上传头像
      */
@@ -363,7 +370,7 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
         GlideUtils.load(this, Constant.BaseImgUrl + upLoadBean.getHeadImg(), civMyPicture);
         LocalAppConfigUtil.getInstance().setRongUserHeadImg(upLoadBean.getHeadImg());
         RongIM.getInstance().refreshUserInfoCache(new UserInfo(
-                LocalAppConfigUtil.getInstance().getRongUserId(),LocalAppConfigUtil.getInstance().getRongUserName(), Uri.parse(LocalAppConfigUtil.getInstance().getRongUserHeadImg())
+                LocalAppConfigUtil.getInstance().getRongUserId(), LocalAppConfigUtil.getInstance().getRongUserName(), Uri.parse(LocalAppConfigUtil.getInstance().getRongUserHeadImg())
         ));
     }
 

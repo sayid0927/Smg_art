@@ -119,15 +119,21 @@ public class BalanceFragment extends BaseFragment implements BalanceContract.Vie
             if (p == 1) {
                 list.clear();
             }
-            list.addAll(balanceOfPayBean.getData());
-            if (list.size() > 0) {
-                srl.setVisibility(View.VISIBLE);
-                noData.setVisibility(View.GONE);
-                fragmentAdapter.notifyDataSetChanged();
+            if (balanceOfPayBean.getData() != null) {
+                if (list.size() > 0) {
+                    srl.setVisibility(View.VISIBLE);
+                    noData.setVisibility(View.GONE);
+                    fragmentAdapter.notifyDataSetChanged();
+                } else {
+                    srl.setVisibility(View.GONE);
+                    noData.setVisibility(View.VISIBLE);
+                }
             } else {
                 srl.setVisibility(View.GONE);
                 noData.setVisibility(View.VISIBLE);
             }
+            list.addAll(balanceOfPayBean.getData());
+
 
         } else {
             ToastUtils.showShortToast(balanceOfPayBean.getMsg());
