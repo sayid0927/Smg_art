@@ -120,6 +120,7 @@ public class BalanceFragment extends BaseFragment implements BalanceContract.Vie
                 list.clear();
             }
             if (balanceOfPayBean.getData() != null) {
+                list.addAll(balanceOfPayBean.getData());
                 if (list.size() > 0) {
                     srl.setVisibility(View.VISIBLE);
                     noData.setVisibility(View.GONE);
@@ -132,7 +133,6 @@ public class BalanceFragment extends BaseFragment implements BalanceContract.Vie
                 srl.setVisibility(View.GONE);
                 noData.setVisibility(View.VISIBLE);
             }
-            list.addAll(balanceOfPayBean.getData());
 
 
         } else {

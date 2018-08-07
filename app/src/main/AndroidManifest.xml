@@ -53,6 +53,16 @@
             android:name="design_height"
             android:value="1280" />
 
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.smg.art.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <!-- 会话界面 -->
         <activity
             android:name=".ui.activity.ConversationActivity"

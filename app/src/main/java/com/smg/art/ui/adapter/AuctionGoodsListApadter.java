@@ -126,8 +126,8 @@ public class AuctionGoodsListApadter extends RecyclerView.Adapter<AuctionGoodsLi
             holder.shop_iv.setImageResource(R.mipmap.defaut_square);
         }
         holder.auction_name.setText(data.getActionName());
-        if (TextUtils.isEmpty(data.getAuctionDesc())) {
-            holder.auction_tv.setText("拍卖方:" + data.getAuctionDesc());
+        if (!TextUtils.isEmpty(data.getSellerMemberName())) {
+            holder.auction_tv.setText("拍卖方:" + data.getSellerMemberName());
         }
         holder.auction_num.setText("编码: " + data.getBidNo());
 
