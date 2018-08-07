@@ -111,7 +111,7 @@ public class AuctionAdapter extends BaseAdapter {
                 viewHolder.price.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", dataBean.getNowprice()))));
                 viewHolder.detail.setVisibility(View.VISIBLE);
                 viewHolder.complaint_btn.setVisibility(View.GONE);
-            } else if ("4".equals(dataBean.getStatus())) {//参拍中) {
+            } else if ("4".equals(dataBean.getStatus())) {//参拍中
                 viewHolder.auction.setVisibility(View.VISIBLE);
                 viewHolder.complaint.setVisibility(View.GONE);
                 if (!TextUtils.isEmpty(dataBean.getPictureUrl())) {
@@ -138,13 +138,16 @@ public class AuctionAdapter extends BaseAdapter {
                     }
                 }
 
-                if (dataBean.getBuyerMemberId().equals(String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()))) {
-                    viewHolder.detail.setText("已中标");
-                    viewHolder.detail.setBackgroundResource(R.drawable.shape_red);
-                } else {
-                    viewHolder.detail.setText("未中标");
-                    viewHolder.shop_status.setBackgroundResource(R.drawable.shape_faint_yellow);
+                if (!TextUtils.isEmpty(dataBean.getBuyerMemberId())) {
+                    if (dataBean.getBuyerMemberId().equals(String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()))) {
+                        viewHolder.detail.setText("已中标");
+                        viewHolder.detail.setBackgroundResource(R.drawable.shape_red);
+                    } else {
+                        viewHolder.detail.setText("未中标");
+                        viewHolder.shop_status.setBackgroundResource(R.drawable.shape_faint_yellow);
+                    }
                 }
+
                 viewHolder.shop_name.setText(dataBean.getActionName());
                 viewHolder.end_time.setText("结束时间: " + dataBean.getEndTime());
                 viewHolder.price.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", dataBean.getNowprice()))));
