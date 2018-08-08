@@ -24,10 +24,12 @@ import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.CardUrlBean;
 import com.smg.art.base.Constant;
+import com.smg.art.base.FindCustomerServiceBean;
 import com.smg.art.base.HomePageImgBean;
 import com.smg.art.bean.AddBankCardBean;
 import com.smg.art.bean.AddFriendBean;
 import com.smg.art.bean.AddressBookFriendsBean;
+import com.smg.art.bean.AuctionCenterBean;
 import com.smg.art.bean.AuctionGoodsBean;
 import com.smg.art.bean.AuctionOrderBean;
 import com.smg.art.bean.BalanceOfPayBean;
@@ -50,7 +52,9 @@ import com.smg.art.bean.ReChargeBean;
 import com.smg.art.bean.RegisterBean;
 import com.smg.art.bean.SaveCollectsBean;
 import com.smg.art.bean.SearchMemberBean;
+import com.smg.art.bean.SystemMessageBean;
 import com.smg.art.bean.UpLoadBean;
+import com.smg.art.bean.UserRulaBean;
 import com.smg.art.bean.WalletBalanceBean;
 import com.smg.art.bean.WithDrawBean;
 import com.smg.art.utils.LocalAppConfigUtil;
@@ -63,15 +67,9 @@ import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
-import retrofit2.http.Multipart;
-import retrofit2.http.POST;
-import retrofit2.http.Part;
-import retrofit2.http.QueryMap;
 import rx.Observable;
 
 public class Api {
@@ -110,7 +108,7 @@ public class Api {
             }
         }
         if (!TextUtils.isEmpty(LocalAppConfigUtil.getInstance().getAccessToken())) {
-            map.put("access_token", LocalAppConfigUtil.getInstance().getAccessToken());
+            map.put("access_token", LocalAppConfigUtil.getInstance().getJsessionId());
         }
         return map;
     }
@@ -128,6 +126,23 @@ public class Api {
     public Observable<PhoneVerifyCodeBean> FetchPhoneVerifyCode(String... s) {
         return service.FetchPhoneVerifyCode(getMap(s));
     }
+
+    /**
+     * 获取图形验证码
+     *
+     * @param
+     */
+    public Observable<ResponseBody> FetchPictureCode(String... s) {
+        return service.FetchPictureCode(getMap(s));
+    }
+
+    /**
+     * 获取用户协议
+     */
+    public Observable<UserRulaBean> FetchUserRulaCode(String... s) {
+        return service.FetchUserRulaCode(getMap(s));
+    }
+
 
     /**
      * 会员登录
@@ -405,6 +420,35 @@ public class Api {
     public Observable<AuctionGoodsBean> FetchAuctionList(String... s) {
         return service.FetchAuctionList(getMap(s));
     }
+    /**
+     * 获取系统消息列表
+     */
+    public Observable<SystemMessageBean> FetchGetListFront(String... s) {
+        return service.FetchGetListFront(getMap(s));
+    }
 
-
+    /**
+     * 获取系统消息列表
+     */
+    public Observable<SystemMessageBean> FetchOrderLidtFront(String... s) {
+        return service.FetchOrderLidtFront(getMap(s));
+    }
+    /**
+     * 竞价列表以及最高价
+     */
+    public Observable<AuctionCenterBean> FetchAuctionCenterList(String... s) {
+        return service.FetchAuctionCenterList(getMap(s));
+    }
+    /**
+     * 竞价列表以及最高价
+     */
+    public Observable<AuctionCenterBean> FetchCreatBidding(String... s) {
+        return service.FetchCreatBidding(getMap(s));
+    }
+    /**
+     * 查询客服信息
+     */
+    public Observable<FindCustomerServiceBean> FetchFindCustomerService(String... s) {
+        return service.FetchFindCustomerService(getMap(s));
+    }
 }

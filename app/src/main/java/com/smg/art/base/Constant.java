@@ -36,6 +36,12 @@ public class Constant {
      */
     public static final String MEMBER_GETPHONEVERIFYCODE = "member/getPhoneVerifyCode";
 
+    //图形验证码
+    public static final String PICTURECODE = "member/pictureCode";
+
+    //用户协议
+    public static final String TOREGISTERRULEPAGE = "member/toRegisterRulePage";
+
     /**
      * 会员登录
      */
@@ -156,6 +162,18 @@ public class Constant {
 
     //拍卖列表
     public static final String GETAUCTIONLISTBYNAME = "homePage/getAuctionListByName";
+
+    //获取系统消息列表
+    public static final String NEWSFRONT_GETLISTFRONT = "newsFront/getListFront";
+    //获取订单消息列表
+    public static final String AUCTIONNEWSFRONT_GETLISTFRONT = "auctionNewsFront/getListFront";
+    //竞价列表以及最高价
+    public static final String AUCTIONBIDDING_GETAUCTIONCENTERLIST = "auctionBidding/getAuctionCenterList";
+    //竞价
+    public static final String AUCTIONBIDDING_CREATBIDDING = "auctionBidding/creatBidding";
+    //查询客服信息
+    public static final String MEMBER_FINDCUSTOMERSERVICE = "member/findCustomerService";
+
 
 
     public static String LOCAL_APP_CONFIG_FILE_NAME = "smgconfig";//本地应用配置文件名，存储些全局变量

@@ -2,17 +2,17 @@ package com.smg.art.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.utils.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.gson.Gson;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -30,13 +30,13 @@ import com.smg.art.ui.activity.MainActivity;
 import com.smg.art.ui.activity.SearchActivity;
 import com.smg.art.ui.adapter.AuctionGoodsListApadter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
@@ -103,6 +103,7 @@ public class AuctionFragment extends BaseFragment implements AuctionContract.Vie
             @Override
             public void OnAuctionGoodsItemListener(int item) {
                 Intent i = new Intent(getActivity(), AuctionDeatilActivity.class);
+                i.putExtra("data", new Gson().toJson(list.get(item)));
                 MainActivity.mainActivity.startActivityIn(i, getActivity());
             }
         });
@@ -113,7 +114,9 @@ public class AuctionFragment extends BaseFragment implements AuctionContract.Vie
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-
+        if (srl != null && isVisibleToUser) {
+            getData(p = 1);
+        }
     }
 
     public void getData(int p) {

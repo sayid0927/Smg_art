@@ -1,36 +1,28 @@
 package com.smg.art.ui.activity;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.utils.TimeUtils;
 import com.blankj.utilcode.utils.ToastUtils;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
-import com.github.lzyzsd.jsbridge.BridgeWebView;
-import com.github.lzyzsd.jsbridge.BridgeWebViewClient;
+import com.google.gson.Gson;
 import com.smg.art.R;
 import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.BaseActivity;
 import com.smg.art.base.Constant;
 import com.smg.art.bean.SaveCollectsBean;
+import com.smg.art.bean.UpudterMessageBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.activity.GoodsDetailContract;
@@ -43,19 +35,19 @@ import com.smg.art.view.MyBridgeWebView;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.PermissionListener;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bingoogolapple.bgabanner.BGABanner;
 
@@ -126,6 +118,7 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
 
     @Override
     public void initView() {
+        EventBus.getDefault().register(this);
         setSwipeBackEnable(true);
         webview.setBackgroundColor(0);
         postion = getIntent().getIntExtra("postion", 0);
@@ -196,37 +189,42 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
         tvActionName.setText(auctionDetailBean.getData().getActionName());
         tvStartPrice.setText("￥ " + String.valueOf(auctionDetailBean.getData().getStartPrice()));
         tvFrontMoneyAmount.setText("￥ " + String.valueOf(auctionDetailBean.getData().getFrontMoneyAmount()));
-
-        if (!ValidateTime.TimeCompare(TimeUtils.getNowTimeString(), auctionDetailBean.getData().getStartTime())) {
-            String timfe = ValidateTime.getDistanceTime(auctionDetailBean.getData().getStartTime(), TimeUtils.getNowTimeString());
-            String[] times = timfe.split(",");
-            tvShow.setText("预展中");
-            tvAuction.setText("距拍卖开始");
-            if (times.length == 3) {
-                if (Integer.valueOf(times[0]) < 10) {
-                    tvHh.setText("0" + times[0]);
-                } else {
-                    tvHh.setText(times[0]);
-                }
-                if (Integer.valueOf(times[1]) < 10) {
-                    tvMm.setText("0" + times[1]);
-                } else {
-                    tvMm.setText(times[1]);
-                }
-                if (Integer.valueOf(times[2]) < 10) {
-                    tvSs.setText("0" + times[2]);
-                } else {
-                    tvSs.setText(times[2]);
-                }
-            }
-        } else {
-            tvShow.setText("预展结束");
-            tvAuction.setText("拍卖结束");
-            tvHh.setText("00");
-            tvMm.setText("00");
-            tvSs.setText("00");
-
+        if(detailBean.getData().getDepositStatus()==0){
+            btAuction.setText("交保证金参与");
+        }else {
+            btAuction.setText("保证金已支付");
         }
+
+//        if (!ValidateTime.TimeCompare(TimeUtils.getNowTimeString(), auctionDetailBean.getData().getStartTime())) {
+//            String timfe = ValidateTime.getDistanceTime(auctionDetailBean.getData().getStartTime(), TimeUtils.getNowTimeString());
+//            String[] times = timfe.split(",");
+//            tvShow.setText("预展中");
+//            tvAuction.setText("距拍卖开始");
+//            if (times.length == 3) {
+//                if (Integer.valueOf(times[0]) < 10) {
+//                    tvHh.setText("0" + times[0]);
+//                } else {
+//                    tvHh.setText(times[0]);
+//                }
+//                if (Integer.valueOf(times[1]) < 10) {
+//                    tvMm.setText("0" + times[1]);
+//                } else {
+//                    tvMm.setText(times[1]);
+//                }
+//                if (Integer.valueOf(times[2]) < 10) {
+//                    tvSs.setText("0" + times[2]);
+//                } else {
+//                    tvSs.setText(times[2]);
+//                }
+//            }
+//        } else {
+//            tvShow.setText("预展结束");
+//            tvAuction.setText("拍卖结束");
+//            tvHh.setText("00");
+//            tvMm.setText("00");
+//            tvSs.setText("00");
+//
+//        }
 
         String[] split = auctionDetailBean.getData().getPictureUrl().split(",");
         List<String> imgUrls = new ArrayList<>();
@@ -238,7 +236,7 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
         banner.setAdapter(new BGABanner.Adapter<ImageView, String>() {
             @Override
             public void fillBannerItem(BGABanner banner, ImageView itemView, String model, int position) {
-              GlideUtils.loadFitCenter(GoodsDetailActivity.this,model,itemView);
+                GlideUtils.loadFitCenter(GoodsDetailActivity.this, model, itemView);
             }
         });
         banner.setData(imgUrls, null);
@@ -251,6 +249,12 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
         webview.destroy();
         webview = null;
         super.finish();
+    }
+
+    @Subscribe
+    public void getEventBus(AuctionBuyerDepositBean auctionBuyerDepositBean) {
+        //支付保证金回来
+        btAuction.setText("保证金已支付");
     }
 
     @SuppressLint("MissingPermission")
@@ -266,12 +270,11 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
                             "goodsId", String.valueOf(detailBean.getData().getGoodsId()));
                 break;
             case R.id.bt_auction:  // 交保证金参与
-                if (detailBean != null) {
-                    mPresenter.FetchAuctionBuyerDeposit("auctionId", String.valueOf(detailBean.getData().getId()),
-                            "goodsId", String.valueOf(detailBean.getData().getGoodsId()),
-                            "memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
-                            "amount", String.valueOf(detailBean.getData().getFrontMoneyAmount()));
-                }
+
+                Intent intent = new Intent(this, AuctionBuyerDepositActivity.class);
+                intent.putExtra("data",new Gson().toJson(detailBean));
+                startActivityIn(intent, this);
+
                 break;
 
             case R.id.phone_service:  //客服

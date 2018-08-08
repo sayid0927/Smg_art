@@ -1,6 +1,7 @@
 package com.smg.art.presenter.contract.activity;
 
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.smg.art.base.BaseContract;
 import com.smg.art.bean.ChangeMobilePhoneBean;
@@ -24,6 +25,8 @@ public interface SendMobilePhoneContract {
         void FetchPhoneVerifyCodeSuccess(PhoneVerifyCodeBean phoneVerifyCodeBean);
 
         Button btn();
+
+        ImageView iv();
     }
 
     interface Presenter<T> extends BaseContract.BasePresenter<T> {
@@ -37,5 +40,10 @@ public interface SendMobilePhoneContract {
          * 获取短信验证码
          */
         void FetchPhoneVerifyCode(String... s);
+
+        /**
+         * 图形验证码
+         */
+        void FetchPictureCode(String... s);
     }
 }

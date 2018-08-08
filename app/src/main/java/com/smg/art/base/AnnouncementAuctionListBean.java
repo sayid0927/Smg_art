@@ -1,5 +1,7 @@
 package com.smg.art.base;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 import java.util.List;
 
 /**
@@ -68,7 +70,7 @@ public class AnnouncementAuctionListBean {
             this.rows = rows;
         }
 
-        public static class RowsBean {
+        public static class RowsBean   implements MultiItemEntity {
             /**
              * id : 4
              * sellerMemberId : null
@@ -111,45 +113,51 @@ public class AnnouncementAuctionListBean {
              * categoryId : null
              */
 
+            public static final int  GOODS= 1;
+            public static final int AUCTION = 2;
+
             private int id;
-            private Object sellerMemberId;
+            private String sellerMemberId;
             private String sellerMemberName;
-            private Object goodsId;
+            private String goodsId;
             private String bidNo;
             private String actionName;
-            private Object startPrice;
-            private Object stepSize;
-            private Object nowprice;
-            private Object buyerMemberId;
-            private Object bidCount;
-            private String startTime;
-            private String endTime;
-            private Object stepTime;
-            private Object deferredTime;
+            private String startPrice;
+            private String stepSize;
+            private String nowprice;
+            private String buyerMemberId;
+            private String bidCount;
+            private long startTime;
+            private long endTime;
+            private String stepTime;
+            private String deferredTime;
             private int status;
-            private Object feeStatus;
-            private Object feeAmount;
-            private Object returnFrontMoneyStatus;
-            private Object frontMoneyAmount;
-            private Object deliveryStatus;
-            private Object approvalStatus;
-            private Object applyStatus;
-            private Object frontMoneyStatus;
+            private String feeStatus;
+            private String feeAmount;
+            private String returnFrontMoneyStatus;
+            private String frontMoneyAmount;
+            private String deliveryStatus;
+            private String approvalStatus;
+            private String applyStatus;
+            private String frontMoneyStatus;
             private String pictureUrl;
-            private Object auctionDesc;
-            private Object certificateUrl;
-            private Object complainFlag;
-            private Object complainStatus;
-            private Object complain;
-            private Object complainResult;
-            private Object createTime;
-            private Object returnFrontMoneyTime;
-            private Object descn;
-            private Object startCreateDate;
-            private Object endCreateDate;
-            private Object sysDate;
-            private Object buyerEnsureAmount;
-            private Object categoryId;
+            private String auctionDesc;
+            private String certificateUrl;
+            private String complainStatus;
+            private String complain;
+            private String complainResult;
+            private String createTime;
+            private String returnFrontMoneyTime;
+            private String descn;
+            private String startCreateDate;
+            private String endCreateDate;
+            private long sysDate;
+            private String buyerEnsureAmount;
+            private String categoryId;
+            private String depositStatus;
+            private String deliveryTime;
+            private String finishTime;
+            private  int type;
 
             public int getId() {
                 return id;
@@ -159,11 +167,11 @@ public class AnnouncementAuctionListBean {
                 this.id = id;
             }
 
-            public Object getSellerMemberId() {
+            public String getSellerMemberId() {
                 return sellerMemberId;
             }
 
-            public void setSellerMemberId(Object sellerMemberId) {
+            public void setSellerMemberId(String sellerMemberId) {
                 this.sellerMemberId = sellerMemberId;
             }
 
@@ -175,11 +183,11 @@ public class AnnouncementAuctionListBean {
                 this.sellerMemberName = sellerMemberName;
             }
 
-            public Object getGoodsId() {
+            public String getGoodsId() {
                 return goodsId;
             }
 
-            public void setGoodsId(Object goodsId) {
+            public void setGoodsId(String goodsId) {
                 this.goodsId = goodsId;
             }
 
@@ -199,75 +207,75 @@ public class AnnouncementAuctionListBean {
                 this.actionName = actionName;
             }
 
-            public Object getStartPrice() {
+            public String getStartPrice() {
                 return startPrice;
             }
 
-            public void setStartPrice(Object startPrice) {
+            public void setStartPrice(String startPrice) {
                 this.startPrice = startPrice;
             }
 
-            public Object getStepSize() {
+            public String getStepSize() {
                 return stepSize;
             }
 
-            public void setStepSize(Object stepSize) {
+            public void setStepSize(String stepSize) {
                 this.stepSize = stepSize;
             }
 
-            public Object getNowprice() {
+            public String getNowprice() {
                 return nowprice;
             }
 
-            public void setNowprice(Object nowprice) {
+            public void setNowprice(String nowprice) {
                 this.nowprice = nowprice;
             }
 
-            public Object getBuyerMemberId() {
+            public String getBuyerMemberId() {
                 return buyerMemberId;
             }
 
-            public void setBuyerMemberId(Object buyerMemberId) {
+            public void setBuyerMemberId(String buyerMemberId) {
                 this.buyerMemberId = buyerMemberId;
             }
 
-            public Object getBidCount() {
+            public String getBidCount() {
                 return bidCount;
             }
 
-            public void setBidCount(Object bidCount) {
+            public void setBidCount(String bidCount) {
                 this.bidCount = bidCount;
             }
 
-            public String getStartTime() {
+            public long getStartTime() {
                 return startTime;
             }
 
-            public void setStartTime(String startTime) {
+            public void setStartTime(long startTime) {
                 this.startTime = startTime;
             }
 
-            public String getEndTime() {
+            public long getEndTime() {
                 return endTime;
             }
 
-            public void setEndTime(String endTime) {
+            public void setEndTime(long endTime) {
                 this.endTime = endTime;
             }
 
-            public Object getStepTime() {
+            public String getStepTime() {
                 return stepTime;
             }
 
-            public void setStepTime(Object stepTime) {
+            public void setStepTime(String stepTime) {
                 this.stepTime = stepTime;
             }
 
-            public Object getDeferredTime() {
+            public String getDeferredTime() {
                 return deferredTime;
             }
 
-            public void setDeferredTime(Object deferredTime) {
+            public void setDeferredTime(String deferredTime) {
                 this.deferredTime = deferredTime;
             }
 
@@ -279,67 +287,67 @@ public class AnnouncementAuctionListBean {
                 this.status = status;
             }
 
-            public Object getFeeStatus() {
+            public String getFeeStatus() {
                 return feeStatus;
             }
 
-            public void setFeeStatus(Object feeStatus) {
+            public void setFeeStatus(String feeStatus) {
                 this.feeStatus = feeStatus;
             }
 
-            public Object getFeeAmount() {
+            public String getFeeAmount() {
                 return feeAmount;
             }
 
-            public void setFeeAmount(Object feeAmount) {
+            public void setFeeAmount(String feeAmount) {
                 this.feeAmount = feeAmount;
             }
 
-            public Object getReturnFrontMoneyStatus() {
+            public String getReturnFrontMoneyStatus() {
                 return returnFrontMoneyStatus;
             }
 
-            public void setReturnFrontMoneyStatus(Object returnFrontMoneyStatus) {
+            public void setReturnFrontMoneyStatus(String returnFrontMoneyStatus) {
                 this.returnFrontMoneyStatus = returnFrontMoneyStatus;
             }
 
-            public Object getFrontMoneyAmount() {
+            public String getFrontMoneyAmount() {
                 return frontMoneyAmount;
             }
 
-            public void setFrontMoneyAmount(Object frontMoneyAmount) {
+            public void setFrontMoneyAmount(String frontMoneyAmount) {
                 this.frontMoneyAmount = frontMoneyAmount;
             }
 
-            public Object getDeliveryStatus() {
+            public String getDeliveryStatus() {
                 return deliveryStatus;
             }
 
-            public void setDeliveryStatus(Object deliveryStatus) {
+            public void setDeliveryStatus(String deliveryStatus) {
                 this.deliveryStatus = deliveryStatus;
             }
 
-            public Object getApprovalStatus() {
+            public String getApprovalStatus() {
                 return approvalStatus;
             }
 
-            public void setApprovalStatus(Object approvalStatus) {
+            public void setApprovalStatus(String approvalStatus) {
                 this.approvalStatus = approvalStatus;
             }
 
-            public Object getApplyStatus() {
+            public String getApplyStatus() {
                 return applyStatus;
             }
 
-            public void setApplyStatus(Object applyStatus) {
+            public void setApplyStatus(String applyStatus) {
                 this.applyStatus = applyStatus;
             }
 
-            public Object getFrontMoneyStatus() {
+            public String getFrontMoneyStatus() {
                 return frontMoneyStatus;
             }
 
-            public void setFrontMoneyStatus(Object frontMoneyStatus) {
+            public void setFrontMoneyStatus(String frontMoneyStatus) {
                 this.frontMoneyStatus = frontMoneyStatus;
             }
 
@@ -351,117 +359,141 @@ public class AnnouncementAuctionListBean {
                 this.pictureUrl = pictureUrl;
             }
 
-            public Object getAuctionDesc() {
+            public String getAuctionDesc() {
                 return auctionDesc;
             }
 
-            public void setAuctionDesc(Object auctionDesc) {
+            public void setAuctionDesc(String auctionDesc) {
                 this.auctionDesc = auctionDesc;
             }
 
-            public Object getCertificateUrl() {
+            public String getCertificateUrl() {
                 return certificateUrl;
             }
 
-            public void setCertificateUrl(Object certificateUrl) {
+            public void setCertificateUrl(String certificateUrl) {
                 this.certificateUrl = certificateUrl;
             }
 
-            public Object getComplainFlag() {
-                return complainFlag;
-            }
-
-            public void setComplainFlag(Object complainFlag) {
-                this.complainFlag = complainFlag;
-            }
-
-            public Object getComplainStatus() {
+            public String getComplainStatus() {
                 return complainStatus;
             }
 
-            public void setComplainStatus(Object complainStatus) {
+            public void setComplainStatus(String complainStatus) {
                 this.complainStatus = complainStatus;
             }
 
-            public Object getComplain() {
+            public String getComplain() {
                 return complain;
             }
 
-            public void setComplain(Object complain) {
+            public void setComplain(String complain) {
                 this.complain = complain;
             }
 
-            public Object getComplainResult() {
+            public String getComplainResult() {
                 return complainResult;
             }
 
-            public void setComplainResult(Object complainResult) {
+            public void setComplainResult(String complainResult) {
                 this.complainResult = complainResult;
             }
 
-            public Object getCreateTime() {
+            public String getCreateTime() {
                 return createTime;
             }
 
-            public void setCreateTime(Object createTime) {
+            public void setCreateTime(String createTime) {
                 this.createTime = createTime;
             }
 
-            public Object getReturnFrontMoneyTime() {
+            public String getReturnFrontMoneyTime() {
                 return returnFrontMoneyTime;
             }
 
-            public void setReturnFrontMoneyTime(Object returnFrontMoneyTime) {
+            public void setReturnFrontMoneyTime(String returnFrontMoneyTime) {
                 this.returnFrontMoneyTime = returnFrontMoneyTime;
             }
 
-            public Object getDescn() {
+            public String getDescn() {
                 return descn;
             }
 
-            public void setDescn(Object descn) {
+            public void setDescn(String descn) {
                 this.descn = descn;
             }
 
-            public Object getStartCreateDate() {
+            public String getStartCreateDate() {
                 return startCreateDate;
             }
 
-            public void setStartCreateDate(Object startCreateDate) {
+            public void setStartCreateDate(String startCreateDate) {
                 this.startCreateDate = startCreateDate;
             }
 
-            public Object getEndCreateDate() {
+            public String getEndCreateDate() {
                 return endCreateDate;
             }
 
-            public void setEndCreateDate(Object endCreateDate) {
+            public void setEndCreateDate(String endCreateDate) {
                 this.endCreateDate = endCreateDate;
             }
 
-            public Object getSysDate() {
+            public long getSysDate() {
                 return sysDate;
             }
 
-            public void setSysDate(Object sysDate) {
+            public void setSysDate(long sysDate) {
                 this.sysDate = sysDate;
             }
 
-            public Object getBuyerEnsureAmount() {
+            public String getBuyerEnsureAmount() {
                 return buyerEnsureAmount;
             }
 
-            public void setBuyerEnsureAmount(Object buyerEnsureAmount) {
+            public void setBuyerEnsureAmount(String buyerEnsureAmount) {
                 this.buyerEnsureAmount = buyerEnsureAmount;
             }
 
-            public Object getCategoryId() {
+            public String getCategoryId() {
                 return categoryId;
             }
 
-            public void setCategoryId(Object categoryId) {
+            public void setCategoryId(String categoryId) {
                 this.categoryId = categoryId;
             }
+
+            public String getDepositStatus() {
+                return depositStatus;
+            }
+
+            public void setDepositStatus(String depositStatus) {
+                this.depositStatus = depositStatus;
+            }
+
+            public String getDeliveryTime() {
+                return deliveryTime;
+            }
+
+            public void setDeliveryTime(String deliveryTime) {
+                this.deliveryTime = deliveryTime;
+            }
+
+            public String getFinishTime() {
+                return finishTime;
+            }
+
+            public void setFinishTime(String finishTime) {
+                this.finishTime = finishTime;
+            }
+            @Override
+            public int getItemType() {
+                return type;
+            }
+            public void setType(int type) {
+                this.type = type;
+            }
+
         }
     }
 }

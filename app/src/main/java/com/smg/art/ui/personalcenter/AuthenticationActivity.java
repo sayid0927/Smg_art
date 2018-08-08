@@ -2,7 +2,6 @@ package com.smg.art.ui.personalcenter;
 
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -51,6 +50,10 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 public class AuthenticationActivity extends BaseActivity implements AuthenticationContract.View {
+    //请求相机
+    private static final int REQUEST_CAPTURE = 100;
+    //请求写入外部存储
+    private static final int WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 104;
     @Inject
     AuthenticationActivityPresenter mPresenter;
     @BindView(R.id.rl_back)
@@ -85,17 +88,9 @@ public class AuthenticationActivity extends BaseActivity implements Authenticati
     Button btPost;
     @BindView(R.id.ll_post)
     LinearLayout llPost;
-
     private String name, CardNum;
-
     private File tempMainFile, tempBackFile, tempHandFile;
     private int type;
-
-    //请求相机
-    private static final int REQUEST_CAPTURE = 100;
-    //请求写入外部存储
-    private static final int WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 104;
-
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -179,13 +174,15 @@ public class AuthenticationActivity extends BaseActivity implements Authenticati
     }
 
     private void Camera() {
-        if (ContextCompat.checkSelfPermission(AuthenticationActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            //申请WRITE_EXTERNAL_STORAGE权限
-            //申请WRITE_EXTERNAL_STORAGE权限
-            ActivityCompat.requestPermissions(AuthenticationActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
+        if (Build.VERSION.SDK_INT >= 23) {
+            int checkCallPhonePermission = ContextCompat.checkSelfPermission(AuthenticationActivity.this, Manifest.permission.CAMERA);
+            if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(AuthenticationActivity.this, new String[]{Manifest.permission.CAMERA}, WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
+                return;
+            } else {
+                gotoCamera();
+            }
         } else {
-            //跳转到调用系统相机
             gotoCamera();
         }
     }

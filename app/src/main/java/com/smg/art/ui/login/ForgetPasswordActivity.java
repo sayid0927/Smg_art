@@ -18,6 +18,7 @@ import android.widget.ToggleButton;
 import com.blankj.utilcode.utils.ToastUtils;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
+import com.smg.art.base.Constant;
 import com.smg.art.bean.ForgetPasswordBean;
 import com.smg.art.bean.PhoneVerifyCodeBean;
 import com.smg.art.component.AppComponent;
@@ -27,6 +28,7 @@ import com.smg.art.presenter.impl.login.ForgetPasswordPresenter;
 import com.smg.art.utils.CommonUtil;
 import com.smg.art.utils.KeyBoardUtils;
 import com.smg.art.utils.TimeCount;
+import com.smg.art.view.webview.PublicWebViewActivity;
 
 import javax.inject.Inject;
 
@@ -86,6 +88,13 @@ public class ForgetPasswordActivity extends BaseActivity implements ForgetPasswo
     TextView login;
     @BindView(R.id.login_text)
     LinearLayout loginText;
+    @BindView(R.id.user_rule)
+    TextView userRule;
+    @BindView(R.id.get_iamge)
+    ImageView getIamge;
+    @BindView(R.id.pic_yzm_code)
+    EditText picYzmCode;
+    private String code;
 
 
     private TimeCount timeCount;
@@ -160,6 +169,7 @@ public class ForgetPasswordActivity extends BaseActivity implements ForgetPasswo
                 }
             }
         });
+        mPresenter.FetchPictureCode();
     }
 
     @Override
@@ -172,15 +182,19 @@ public class ForgetPasswordActivity extends BaseActivity implements ForgetPasswo
         }
     }
 
-    @OnClick({R.id.comfirm, R.id.affirm, R.id.login})
+    @OnClick({R.id.comfirm, R.id.affirm, R.id.login, R.id.user_rule, R.id.get_iamge})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.comfirm:
                 if (TextUtils.isEmpty(etContext.getText().toString()) || !CommonUtil.isMobileNO(etContext.getText().toString())) {
                     ToastUtils.showShortToast(R.string.input_correct_phone);
                 } else {
-                    comfirm.setClickable(false);
-                    mPresenter.FetchPhoneVerifyCode("mobilePhone", etContext.getText().toString().trim());
+                    if (TextUtils.isEmpty(picYzmCode.getText().toString())) {
+                        ToastUtils.showShortToast("请输入图形验证码");
+                    } else {
+                        comfirm.setClickable(false);
+                        mPresenter.FetchPhoneVerifyCode("mobilePhone", etContext.getText().toString().trim(), "pictureCode", picYzmCode.getText().toString());
+                    }
                 }
                 break;
             case R.id.affirm:
@@ -191,6 +205,15 @@ public class ForgetPasswordActivity extends BaseActivity implements ForgetPasswo
             case R.id.login:
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
+                break;
+            case R.id.user_rule:
+                Intent intent = new Intent(this, PublicWebViewActivity.class);
+                intent.putExtra("url", Constant.API_BASE_URL + Constant.TOREGISTERRULEPAGE);
+                intent.putExtra("title", getString(R.string.user_agreement));
+                startActivity(intent);
+                break;
+            case R.id.get_iamge:
+                mPresenter.FetchPictureCode();
                 break;
         }
     }
@@ -214,6 +237,11 @@ public class ForgetPasswordActivity extends BaseActivity implements ForgetPasswo
             ToastUtils.showShortToast(getString(R.string.sms_success));
             startTime();
         }
+    }
+
+    @Override
+    public ImageView iv() {
+        return getIamge;
     }
 
     @Override
@@ -264,4 +292,5 @@ public class ForgetPasswordActivity extends BaseActivity implements ForgetPasswo
 
         return true;
     }
+
 }

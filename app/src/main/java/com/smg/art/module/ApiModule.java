@@ -172,7 +172,7 @@ public class ApiModule {
                         FormBody.Builder builder = new FormBody.Builder();
                         builder.add("account", LocalAppConfigUtil.getInstance().getUserTelephone());
                         builder.add("password", LocalAppConfigUtil.getInstance().getPassword());
-                        RequestBody     requestBody = builder.build();
+                        RequestBody requestBody = builder.build();
 
                         Request tokRequest = new Request.Builder()
                                 .url(Constant.API_BASE_URL + Constant.MEMBER_LOGIN)
@@ -185,23 +185,18 @@ public class ApiModule {
                         LoginBean newToken = new Gson().fromJson(responseStr, LoginBean.class);
 
                         if (newToken.getData() != null && newToken.getData().getRCToken() != null) {
-//                           LocalAppConfigUtil.getInstance().setRCToken(newToken.getData().getRCToken());
-                            Logger.t("TAG").e(newToken.getMsg());
-                           Logger.t("TAG").e("lod  Token>>>>>   "+LocalAppConfigUtil.getInstance().getAccessToken());
-                            Logger.t("TAG").e("new  Token>>>>>   "+newToken.getData().getRCToken());
+                           LocalAppConfigUtil.getInstance().setJsessionId(newToken.getData().getJSESSIONID());
                             HttpUrl originalHttpUrl = request.url();
-                            Logger.t("TAG").e("lod  Url>>>>>   "+originalHttpUrl);
                             HttpUrl url = originalHttpUrl.newBuilder()
-                                    .setQueryParameter("access_token",newToken.getData().getRCToken())
+                                    .setQueryParameter("access_token",newToken.getData().getJSESSIONID())
                                     .build();
-
-                            Logger.t("TAG").e("new Url>>>>>   "+url);
 
                             Request newRequest = request.newBuilder()
                                     .url(url)
                                     .build();
 
                             return chain.proceed(newRequest);
+
                         }
                     }
                 }

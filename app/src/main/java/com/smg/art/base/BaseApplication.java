@@ -6,6 +6,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.util.Log;
 
+import com.blankj.utilcode.utils.ThreadPoolUtils;
 import com.blankj.utilcode.utils.Utils;
 import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
@@ -35,6 +36,7 @@ public class BaseApplication extends Application  {
      *
      * @return
      */
+    public  static ThreadPoolUtils MAIN_EXECUTOR =   new ThreadPoolUtils(ThreadPoolUtils.Type.FixedThread,5);
 
     public static BaseApplication getBaseApplication() {
         return baseApplication;

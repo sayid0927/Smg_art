@@ -1,8 +1,13 @@
 package com.smg.art.presenter.contract.activity;
 
 import com.smg.art.base.BaseContract;
+import com.smg.art.base.CardUrlBean;
 import com.smg.art.bean.CheckBankCardBean;
 import com.smg.art.bean.ReChargeBean;
+
+import java.util.List;
+
+import okhttp3.MultipartBody;
 
 /**
  * Created by Mervin on 2018/8/3 0003.
@@ -21,6 +26,11 @@ public interface ReChargeContract {
          */
         void FetchCheckBankCardSuccess(CheckBankCardBean checkBankCardBean);
 
+        /**
+         * 上传图片
+         */
+        void FetchUploadFileSuccess(CardUrlBean cardUrlBean);
+
     }
 
     interface Presenter<T> extends BaseContract.BasePresenter<T> {
@@ -33,5 +43,7 @@ public interface ReChargeContract {
          * 查询银行卡
          */
         void FetchCheckBankCard(String... s);
+
+        void FetchUploadFile(List<MultipartBody.Part> parts);
     }
 }

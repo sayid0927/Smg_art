@@ -57,15 +57,13 @@ public class MainActivityPresenter extends BasePresenter<MainContract.View> impl
 
                 @Override
                 public void onSuccess(String userid) {
+
                     LocalAppConfigUtil.getInstance().setRongUserId(userid);
                     Uri RongHeadImg = Uri.parse(LocalAppConfigUtil.getInstance().getRongUserHeadImg());
                     String RongUserName = LocalAppConfigUtil.getInstance().getRongUserName();
-
                     RongIM.getInstance().setCurrentUserInfo(new UserInfo(userid, RongUserName, RongHeadImg));
                     RongIM.getInstance().setMessageAttachedUserInfo(true);
-
                     setRongIMCState(RongIMCUtils.Connect_Success);
-                    LocalAppConfigUtil.getInstance().setRCMemberId(userid);
 
                 }
 

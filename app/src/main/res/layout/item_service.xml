@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:background="@color/white">
+
+
+    <LinearLayout
+        android:background="@color/white"
+        android:id="@+id/ll_more_draw"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.smg.art.view.RoundImageView
+            android:id="@+id/iv_draw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/draw_def" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="客服2号"
+            android:layout_marginLeft="@dimen/bj_10dp"
+            android:textColor="#333333"
+            android:textSize="@dimen/wz_16sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_below="@+id/ll_more_draw"
+        android:layout_marginTop="@dimen/bj_5dp"
+        android:background="#e5e5e5"
+        android:layout_marginLeft="@dimen/bj_15dp"
+        android:layout_marginRight="@dimen/bj_15dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bj_1dp"/>
+
+</RelativeLayout>

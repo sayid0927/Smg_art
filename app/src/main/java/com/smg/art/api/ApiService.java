@@ -21,10 +21,12 @@ import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.CardUrlBean;
 import com.smg.art.base.Constant;
+import com.smg.art.base.FindCustomerServiceBean;
 import com.smg.art.base.HomePageImgBean;
 import com.smg.art.bean.AddBankCardBean;
 import com.smg.art.bean.AddFriendBean;
 import com.smg.art.bean.AddressBookFriendsBean;
+import com.smg.art.bean.AuctionCenterBean;
 import com.smg.art.bean.AuctionGoodsBean;
 import com.smg.art.bean.AuctionOrderBean;
 import com.smg.art.bean.BalanceOfPayBean;
@@ -47,7 +49,9 @@ import com.smg.art.bean.ReChargeBean;
 import com.smg.art.bean.RegisterBean;
 import com.smg.art.bean.SaveCollectsBean;
 import com.smg.art.bean.SearchMemberBean;
+import com.smg.art.bean.SystemMessageBean;
 import com.smg.art.bean.UpLoadBean;
+import com.smg.art.bean.UserRulaBean;
 import com.smg.art.bean.WalletBalanceBean;
 import com.smg.art.bean.WithDrawBean;
 
@@ -86,6 +90,27 @@ public interface ApiService {
      */
     @POST(Constant.MEMBER_GETPHONEVERIFYCODE)
     Observable<PhoneVerifyCodeBean> FetchPhoneVerifyCode(@QueryMap Map<String, String> map);
+
+    /**
+     * 获取图形验证码
+     * @param map
+     */
+/*    @GET(Constant.PICTURECODE)
+  //  Observable<PictureCodeBean> FetchPictureCode(@QueryMap Map<String, String> map);*/
+
+    /**
+     * 查询客服信息
+     */
+    @GET(Constant.PICTURECODE)
+    Observable<ResponseBody> FetchPictureCode(@QueryMap Map<String, String> map);
+
+
+    /**
+     * 获取用户协议
+     */
+    @GET(Constant.TOREGISTERRULEPAGE)
+    Observable<UserRulaBean> FetchUserRulaCode(@QueryMap Map<String, String> map);
+
 
     /**
      * 会员登录
@@ -303,6 +328,39 @@ public interface ApiService {
      */
     @GET(Constant.GETAUCTIONLISTBYNAME)
     Observable<AuctionGoodsBean> FetchAuctionList(@QueryMap Map<String, String> map);
+
+
+    /**
+     * 获取系统消息列表
+     */
+    @POST(Constant.NEWSFRONT_GETLISTFRONT)
+    Observable<SystemMessageBean> FetchGetListFront(@QueryMap Map<String, String> map);
+
+
+    /**
+     * 获取订单消息列表
+     */
+    @POST(Constant.AUCTIONNEWSFRONT_GETLISTFRONT)
+    Observable<SystemMessageBean> FetchOrderLidtFront(@QueryMap Map<String, String> map);
+
+
+    /**
+     * 竞价列表以及最高价
+     */
+    @GET(Constant.AUCTIONBIDDING_GETAUCTIONCENTERLIST)
+    Observable<AuctionCenterBean> FetchAuctionCenterList(@QueryMap Map<String, String> map);
+    /**
+     * 竞价
+     */
+    @POST(Constant.AUCTIONBIDDING_CREATBIDDING)
+    Observable<AuctionCenterBean> FetchCreatBidding(@QueryMap Map<String, String> map);
+
+    /**
+     * 查询客服信息
+     */
+    @GET(Constant.MEMBER_FINDCUSTOMERSERVICE)
+    Observable<FindCustomerServiceBean> FetchFindCustomerService(@QueryMap Map<String, String> map);
+
 
 
 

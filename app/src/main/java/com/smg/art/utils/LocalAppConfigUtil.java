@@ -269,26 +269,6 @@ public class LocalAppConfigUtil {
     }
 
 
-
-    /**
-     * 设置当前融云用户ID
-     *
-     * @param userid
-     *
-     */
-    public void setRCMemberId(String userid) {
-        editor = sp.edit();
-        editor.putString("RCMemberId", userid);
-        editor.commit();
-    }
-
-    public String getRCMemberId() {
-        return sp.getString("RCMemberId", "");
-    }
-
-
-
-
     /**
      * 设置当前融云用户ID
      *

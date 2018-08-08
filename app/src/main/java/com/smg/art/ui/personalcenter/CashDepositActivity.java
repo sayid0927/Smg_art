@@ -2,6 +2,7 @@ package com.smg.art.ui.personalcenter;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -52,6 +53,8 @@ public class CashDepositActivity extends BaseActivity implements CashDepositCont
     ImageView ivRight;
     @BindView(R.id.actionbar_text_action)
     TextView actionbarTextAction;
+    @BindView(R.id.no_data)
+    LinearLayout noData;
     int p = 1;
     private CashDepositAdapter cashDepositAdapter;
     private int count = 10;
@@ -122,7 +125,14 @@ public class CashDepositActivity extends BaseActivity implements CashDepositCont
     public void FetchCashDepositSuccess(CashDepositiBean cashDepositiBean) {
         if (cashDepositiBean.getStatus() == 1) {
             list.addAll(cashDepositiBean.getData());
-            cashDepositAdapter.notifyDataSetChanged();
+            if (list.size() > 0) {
+                srl.setVisibility(View.VISIBLE);
+                noData.setVisibility(View.GONE);
+                cashDepositAdapter.notifyDataSetChanged();
+            } else {
+                srl.setVisibility(View.GONE);
+                noData.setVisibility(View.VISIBLE);
+            }
         } else {
             ToastUtils.showShortToast(cashDepositiBean.getMsg());
         }

@@ -15,15 +15,70 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:paddingLeft="@dimen/bj_25dp"
             android:paddingRight="@dimen/bj_25dp">
+
+            <TextView
+                android:id="@+id/nick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="@dimen/bj_8dp"
+                android:text="昵称"
+                android:textColor="@color/grey_e6333333"
+                android:textSize="@dimen/wz_15sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/nick_ll"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:layout_below="@+id/nick"
+                android:layout_marginTop="@dimen/bj_5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/nick_name"
+                        style="@style/BigBlackTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="请设置用户名"
+                        android:maxLength="13"
+                        android:singleLine="true"
+                        android:textColor="@color/grey_e6333333"
+                        android:textColorHint="@color/grey_66000000"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view0"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/nick_ll"
+                android:layout_marginRight="@dimen/bj_42dp"
+                android:background="@color/grey_e5e5e5" />
+
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="53dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/view0"
+                android:layout_marginTop="@dimen/bj_15dp"
                 android:text="手机号"
                 android:textColor="@color/grey_e6333333"
                 android:textSize="@dimen/wz_15sp"
@@ -85,6 +140,79 @@
                 android:layout_below="@+id/input_phone"
                 android:layout_marginTop="@dimen/bj_15dp"
                 android:gravity="center"
+                android:text="图形验证码"
+                android:textColor="@color/grey_e6333333"
+                android:textSize="@dimen/wz_15sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/pic_yzm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textview2"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/pic_yzm_code"
+                            style="@style/BigBlackTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:hint="请输入"
+                            android:maxLength="13"
+                            android:singleLine="true"
+                            android:textColor="@color/grey_e6333333"
+                            android:textColorHint="@color/grey_66000000"
+                            android:textSize="12sp" />
+
+                        <ImageView
+                            android:id="@+id/pic_yzm_del"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="?android:selectableItemBackground"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/delete" />
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/pic_view1"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/grey_e5e5e5" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/get_iamge"
+                    android:layout_width="94dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/bj_35dp"
+                    android:textColor="#F2302F"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textview5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/pic_yzm"
+                android:layout_marginTop="@dimen/bj_15dp"
+                android:gravity="center"
                 android:text="验证码"
                 android:textColor="@color/grey_e6333333"
                 android:textSize="@dimen/wz_15sp"
@@ -94,7 +222,7 @@
                 android:id="@+id/yzm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textview2"
+                android:layout_below="@+id/textview5"
                 android:layout_marginTop="5dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -151,6 +279,7 @@
                     android:textSize="13sp" />
 
             </LinearLayout>
+
 
             <TextView
                 android:id="@+id/textview3"
@@ -261,7 +390,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/trade_pwd"
-                android:layout_marginTop="@dimen/bj_50dp"
+                android:layout_marginTop="@dimen/bj_38dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -299,7 +428,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/login_text"
-                android:layout_marginTop="@dimen/bj_52dp"
+                android:layout_marginTop="@dimen/bj_25dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -311,6 +440,7 @@
                     android:textSize="@dimen/wz_12sp" />
 
                 <TextView
+                    android:id="@+id/user_rule"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="《用户协议》"

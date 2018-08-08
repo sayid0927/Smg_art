@@ -7,9 +7,11 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.flyco.tablayout.SlidingTabLayout;
+import com.google.gson.Gson;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
 import com.smg.art.base.BaseFragmentPageAdapter;
+import com.smg.art.bean.AuctionGoodsBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.activity.AuctionDeatilContract;
@@ -42,6 +44,7 @@ public class AuctionDeatilActivity extends BaseActivity implements AuctionDeatil
 
     private ArrayList<String> mTitleList = new ArrayList<>();
     private ArrayList<Fragment> mFragments = new ArrayList<>();
+    public  static  AuctionDeatilActivity auctionDeatilActivity;
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -66,25 +69,41 @@ public class AuctionDeatilActivity extends BaseActivity implements AuctionDeatil
     @Override
     public void initView() {
 
+        String bookJson=getIntent().getStringExtra("data");
+        AuctionGoodsBean.DataBean.RowsBean data=new Gson().fromJson(bookJson,AuctionGoodsBean.DataBean.RowsBean.class);
+
         mTitleList.add(getString(R.string.DetailIntroduction));
         mTitleList.add(getString(R.string.AuctionCentre));
 
-        mFragments.add(new AuctionDetailIntroductionFragment());
-        mFragments.add(new AuctionCentreFragment());
+
+        mFragments.add(AuctionDetailIntroductionFragment.getInstance(data));
+        mFragments.add(AuctionCentreFragment.getInstance(data));
 
         BaseFragmentPageAdapter myAdapter = new BaseFragmentPageAdapter(getSupportFragmentManager(), mFragments, mTitleList);
         vp.setAdapter(myAdapter);
         myAdapter.notifyDataSetChanged();
         tabLayout.setViewPager(vp);
+        auctionDeatilActivity = this;
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        auctionDeatilActivity = null;
+    }
+
+    public  void  setCurrentItem(int postion){
+        vp.setCurrentItem(postion);
+    }
+
 
     @Override
     public void showError(String message) {
 
     }
 
-    @OnClick({ R.id.rl_back})
+    @OnClick({R.id.rl_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_back:

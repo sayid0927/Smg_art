@@ -38,6 +38,7 @@
     <string name="recent_message">最近消息</string>
     <string name="address_list">通讯录</string>
     <string name="system_message">系统消息</string>
+    <string name="order_message">订单消息</string>
     <string name="login_hint">手机号或密码为空</string>
     <string name="login_success">恭喜你，登录成功</string>
     <string name="head_portrait">头像</string>
@@ -49,6 +50,7 @@
     <string name="expenditure">支出</string>
     <string name="cart_yuan_dol">¥</string>
     <string name="real_name">真实姓名</string>
+    <string name="user_agreement">用户协议</string>
     <string-array name="balance_title">
         <item>全部</item>
         <item>收入</item>

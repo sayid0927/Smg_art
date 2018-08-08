@@ -53,6 +53,16 @@
             android:name="design_height"
             android:value="1280" />
 
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.smg.art.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <!-- 会话界面 -->
         <activity
             android:name=".ui.activity.ConversationActivity"
@@ -124,6 +134,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.SearchContactsActivity" />
         <activity android:name=".ui.activity.SystemMessageActivity" />
+        <activity android:name=".ui.activity.OrderMessageActivity" />
         <activity
             android:name=".ui.personalcenter.SettingActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -181,7 +192,15 @@
             android:name=".photo.ClipImageActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.personalcenter.AuthenticationActivity" />
+        <activity android:name=".ui.activity.AuctionBuyerDepositActivity"></activity>
         <activity android:name=".ui.personalcenter.AuthenticationActivity"></activity>
+
+        <activity
+            android:name="com.smg.art.view.webview.PublicWebViewActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

@@ -19,7 +19,9 @@ import com.blankj.utilcode.utils.ToastUtils;
 import com.orhanobut.logger.Logger;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
+import com.smg.art.base.Constant;
 import com.smg.art.bean.PhoneVerifyCodeBean;
+import com.smg.art.bean.PictureCodeBean;
 import com.smg.art.bean.RegisterBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
@@ -28,6 +30,7 @@ import com.smg.art.presenter.impl.login.RegisterActivityPresenter;
 import com.smg.art.utils.CommonUtil;
 import com.smg.art.utils.KeyBoardUtils;
 import com.smg.art.utils.TimeCount;
+import com.smg.art.view.webview.PublicWebViewActivity;
 
 import javax.inject.Inject;
 
@@ -84,6 +87,44 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
     TextView login;
     @BindView(R.id.yzm_code)
     EditText yzmCode;
+    @BindView(R.id.user_rule)
+    TextView userRule;
+    @BindView(R.id.nick)
+    TextView nick;
+    @BindView(R.id.nick_ll)
+    LinearLayout nickLl;
+    @BindView(R.id.view0)
+    View view0;
+    @BindView(R.id.textview2)
+    TextView textview2;
+    @BindView(R.id.pic_yzm_code)
+    EditText picYzmCode;
+    @BindView(R.id.pic_yzm_del)
+    ImageView picYzmDel;
+    @BindView(R.id.pic_view1)
+    View picView1;
+    @BindView(R.id.get_iamge)
+    ImageView getIamge;
+    @BindView(R.id.pic_yzm)
+    LinearLayout picYzm;
+    @BindView(R.id.textview5)
+    TextView textview5;
+    @BindView(R.id.yzm)
+    LinearLayout yzm;
+    @BindView(R.id.textview3)
+    TextView textview3;
+    @BindView(R.id.textview4)
+    TextView textview4;
+    @BindView(R.id.trade_pwd)
+    LinearLayout tradePwd;
+    @BindView(R.id.register_btn)
+    LinearLayout registerBtn;
+    @BindView(R.id.login_text)
+    LinearLayout loginText;
+    @BindView(R.id.nick_name)
+    EditText nickName;
+
+
     private TimeCount timeCount;
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
@@ -156,6 +197,7 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
                 }
             }
         });
+        mPresenter.FetchPictureCode();
     }
 
     @Override
@@ -191,8 +233,18 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
     }
 
     @Override
+    public void FetchPictureCodeSuccess(PictureCodeBean pictureCodeBean) {
+
+    }
+
+    @Override
     public Button btn() {
         return comfirm;
+    }
+
+    @Override
+    public ImageView iv() {
+        return getIamge;
     }
 
     @Override
@@ -200,26 +252,40 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
 
     }
 
-    @OnClick({R.id.comfirm, R.id.register, R.id.login})
+    @OnClick({R.id.comfirm, R.id.register, R.id.login, R.id.user_rule, R.id.get_iamge})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.comfirm:
                 if (TextUtils.isEmpty(etContext.getText().toString()) || !CommonUtil.isMobileNO(etContext.getText().toString())) {
                     ToastUtils.showShortToast(R.string.input_correct_phone);
                 } else {
-                    comfirm.setClickable(false);
-                    mPresenter.FetchPhoneVerifyCode("mobilePhone", etContext.getText().toString().trim());
+                    if (TextUtils.isEmpty(picYzmCode.getText().toString())) {
+                        ToastUtils.showShortToast("请输入图形验证码");
+                    } else {
+                        comfirm.setClickable(false);
+                        mPresenter.FetchPhoneVerifyCode("mobilePhone", etContext.getText().toString().trim(), "pictureCode", picYzmCode.getText().toString());
+                    }
+
                 }
                 break;
             case R.id.register:
                 if (checkUp()) {
                     mPresenter.FetchRegister("account", etContext.getText().toString().trim(), "password", etPayPwd.getText().toString().trim(),
-                            "tradingPassword", ethelp.getText().toString().trim(), "verifyCode", yzmCode.getText().toString());
+                            "tradingPassword", ethelp.getText().toString().trim(), "verifyCode", yzmCode.getText().toString(), "memberName", nickName.getText().toString());
                 }
                 break;
             case R.id.login:
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
+                break;
+            case R.id.user_rule:
+                Intent intent = new Intent(this, PublicWebViewActivity.class);
+                intent.putExtra("url", Constant.API_BASE_URL + Constant.TOREGISTERRULEPAGE);
+                intent.putExtra("title", getString(R.string.user_agreement));
+                startActivity(intent);
+                break;
+            case R.id.get_iamge:
+                mPresenter.FetchPictureCode();
                 break;
         }
     }
@@ -240,6 +306,11 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
      * @return
      */
     private boolean checkUp() {
+        if (TextUtils.isEmpty(nickName.getText().toString())) {
+            ToastUtils.showShortToast("请输入昵称");
+            return false;
+        }
+
         if (TextUtils.isEmpty(etContext.getText().toString())) {
             ToastUtils.showShortToast("请输入手机号");
             return false;
@@ -267,4 +338,5 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
 
         return true;
     }
+
 }

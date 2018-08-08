@@ -56,6 +56,20 @@ public class SendMobilePhoneActivity extends BaseActivity implements ProofreadCo
     Button comfirm;
     @BindView(R.id.next)
     TextView next;
+    /*    @BindView(R.id.action_bar_root)
+        AutoRelativeLayout actionBarRoot;*/
+    @BindView(R.id.textview6)
+    TextView textview6;
+    @BindView(R.id.pic_yzm_code)
+    EditText picYzmCode;
+    @BindView(R.id.pic_yzm_del)
+    ImageView picYzmDel;
+    @BindView(R.id.pic_view1)
+    View picView1;
+    @BindView(R.id.get_iamge)
+    ImageView getIamge;
+    @BindView(R.id.pic_yzm)
+    LinearLayout picYzm;
     private TimeCount timeCount;
 
 
@@ -86,9 +100,10 @@ public class SendMobilePhoneActivity extends BaseActivity implements ProofreadCo
     public void initView() {
         actionbarTitle.setText(R.string.change_phone);
         etContext.setText(LocalAppConfigUtil.getInstance().getUserTelephone());
+        mPresenter.FetchPictureCode();
     }
 
-    @OnClick({R.id.rl_back, R.id.next, R.id.comfirm})
+    @OnClick({R.id.rl_back, R.id.next, R.id.comfirm, R.id.get_iamge})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_back:
@@ -104,9 +119,16 @@ public class SendMobilePhoneActivity extends BaseActivity implements ProofreadCo
                 if (TextUtils.isEmpty(etContext.getText().toString()) || !CommonUtil.isMobileNO(etContext.getText().toString())) {
                     ToastUtils.showShortToast(R.string.input_correct_phone);
                 } else {
-                    comfirm.setClickable(false);
-                    mPresenter.FetchPhoneVerifyCode("mobilePhone", etContext.getText().toString().trim());
+                    if (TextUtils.isEmpty(picYzmCode.getText().toString())) {
+                        ToastUtils.showShortToast("请输入图形验证码");
+                    } else {
+                        comfirm.setClickable(false);
+                        mPresenter.FetchPhoneVerifyCode("mobilePhone", etContext.getText().toString().trim(), "pictureCode", picYzmCode.getText().toString());
+                    }
                 }
+                break;
+            case R.id.get_iamge:
+                mPresenter.FetchPictureCode();
                 break;
         }
     }
@@ -154,6 +176,11 @@ public class SendMobilePhoneActivity extends BaseActivity implements ProofreadCo
             ToastUtils.showShortToast(getString(R.string.sms_success));
             startTime();
         }
+    }
+
+    @Override
+    public ImageView iv() {
+        return getIamge;
     }
 
     /**
