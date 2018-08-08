@@ -8,13 +8,11 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.smg.art.R;
 import com.smg.art.base.AnnouncementAuctionListBean;
 import com.smg.art.base.AnnouncementAuctionListBean.DataBean.RowsBean;
 import com.smg.art.base.Constant;
-import com.smg.art.bean.AuctionCenterBean;
 import com.smg.art.utils.GlideCommonUtils;
 import com.smg.art.utils.GlideUtils;
 import com.smg.art.utils.TimeTools;
@@ -42,7 +40,7 @@ public class SearchGoodsListApadter extends BaseMultiItemQuickAdapter<Announceme
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, AnnouncementAuctionListBean.DataBean.RowsBean item) {
+    protected void convert(final BaseViewHolder helper, final AnnouncementAuctionListBean.DataBean.RowsBean item) {
 
         switch (helper.getItemViewType()) {
             case RowsBean.GOODS:
@@ -104,7 +102,7 @@ public class SearchGoodsListApadter extends BaseMultiItemQuickAdapter<Announceme
                     helper.getView(R.id.tv_time).setVisibility(View.GONE);
                 }
                 if (!TextUtils.isEmpty(item.getPictureUrl())) {
-                    GlideCommonUtils.showSquarePic(mContext, item.getPictureUrl(),  helper.getView(R.id.shop_iv));
+                    GlideCommonUtils.showSquarePic(mContext, item.getPictureUrl(), (ImageView) helper.getView(R.id.shop_iv));
                 } else {
                     helper.setImageResource(R.id.shop_iv,R.mipmap.defaut_square);
                 }

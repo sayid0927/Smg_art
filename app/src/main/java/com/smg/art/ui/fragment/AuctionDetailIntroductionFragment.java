@@ -1,12 +1,12 @@
 package com.smg.art.ui.fragment;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,9 +41,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import cn.bingoogolapple.bgabanner.BGABanner;
 
 /**
@@ -118,6 +116,13 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
         super.initView(bundle);
         webview.setBackgroundColor(0);
         mPresenter.FetchHomepageGetauctiondetail("id", String.valueOf(data.getId()));
+
+        //解决页面渲染闪烁问题.
+        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED, WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+        webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        }
     }
 
     @Override
@@ -199,7 +204,7 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
                     }
                 });
                 rv.setAdapter(apadter);
-                CustomDialog mDialogWaiting = new CustomDialog(getActivity(), dialogview, R.style.MyDialog);
+                final CustomDialog mDialogWaiting = new CustomDialog(getActivity(), dialogview, R.style.MyDialog);
                 mDialogWaiting.show();
                 mDialogWaiting.setCancelable(true);
                 mPresenter.FetchFindCustomerService();
