@@ -100,7 +100,7 @@ public class SendMobilePhoneActivity extends BaseActivity implements ProofreadCo
     public void initView() {
         actionbarTitle.setText(R.string.change_phone);
         etContext.setText(LocalAppConfigUtil.getInstance().getUserTelephone());
-        mPresenter.FetchPictureCode();
+        mPresenter.FetchPictureCode("mobilePhone", etContext.getText().toString().trim());
     }
 
     @OnClick({R.id.rl_back, R.id.next, R.id.comfirm, R.id.get_iamge})
@@ -128,7 +128,7 @@ public class SendMobilePhoneActivity extends BaseActivity implements ProofreadCo
                 }
                 break;
             case R.id.get_iamge:
-                mPresenter.FetchPictureCode();
+                mPresenter.FetchPictureCode("mobilePhone", etContext.getText().toString().trim());
                 break;
         }
     }

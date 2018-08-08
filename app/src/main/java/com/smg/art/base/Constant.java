@@ -25,8 +25,6 @@ public class Constant {
     public static final String BaseImgUrl = "http://192.168.1.56:8080/art-world";
     public static final String API_BASE_URL = "http://192.168.1.56:8080/art-world/";
 
-
-
     /**
      * 会员注册
      */
@@ -75,45 +73,45 @@ public class Constant {
     /**
      * 搜索平台会员
      */
-    public static final String  ADDRESSBOOK_SEARCHMEMBER = "AddressBook/searchMember";
+    public static final String ADDRESSBOOK_SEARCHMEMBER = "AddressBook/searchMember";
     /**
      * 新增通讯录好友
      */
-    public static final String  ADDRESSBOOK_ADDFRIEND = "AddressBook/addFriend";
+    public static final String ADDRESSBOOK_ADDFRIEND = "AddressBook/addFriend";
     /**
      * 查询通讯录好友列表
      */
-    public static final String  ADDRESSBOOK_GETADDRESSBOOKFRIENDS = "AddressBook/getAddressBookFriends";
+    public static final String ADDRESSBOOK_GETADDRESSBOOKFRIENDS = "AddressBook/getAddressBookFriends";
     /**
      * 删除通讯录好友
      */
-    public static final String  ADDRESSBOOK_UPDATEFRIENDRELATION = "AddressBook/updateFriendRelation";
+    public static final String ADDRESSBOOK_UPDATEFRIENDRELATION = "AddressBook/updateFriendRelation";
     /**
      * 首页公告期分页查询
      */
-    public static final String  HOMEPAGE_GETANNOUNCEMENTAUCTIONLIST = "homePage/getAnnouncementAuctionList";
+    public static final String HOMEPAGE_GETANNOUNCEMENTAUCTIONLIST = "homePage/getAnnouncementAuctionList";
     /**
      * 首页搜索框查询
      */
-    public static final String  HOMEPAGE_GETAUCTIONLISTBYNAME = "homePage/getAuctionListByName";
+    public static final String HOMEPAGE_GETAUCTIONLISTBYNAME = "homePage/getAuctionListByName";
     /**
      * 新增热门搜索字段
      */
-    public static final String   HOMEPAGE_CREATWORDS = "homePage/creatWords";
+    public static final String HOMEPAGE_CREATWORDS = "homePage/creatWords";
     /**
      * 搜索字段删除接口
      */
-    public static final String   HOMEPAGE_DELETEWORDBYID = "homePage/deleteWordById";
+    public static final String HOMEPAGE_DELETEWORDBYID = "homePage/deleteWordById";
 
     /**
      * 上传图片
      */
-    public static final String   UPLOAD_UPLOADFILE = "upload/uploadFile";
+    public static final String UPLOAD_UPLOADFILE = "upload/uploadFile";
 
     /**
      * 新增实名认证
      */
-    public static final String   MEMBERAUTH_SAVE = "memberAuth/save";
+    public static final String MEMBERAUTH_SAVE = "memberAuth/save";
 
     //个人中心
     public static final String QUERYSETTINGPARAM = "member/querySettingParam";
@@ -173,7 +171,6 @@ public class Constant {
     public static final String AUCTIONBIDDING_CREATBIDDING = "auctionBidding/creatBidding";
     //查询客服信息
     public static final String MEMBER_FINDCUSTOMERSERVICE = "member/findCustomerService";
-
 
 
     public static String LOCAL_APP_CONFIG_FILE_NAME = "smgconfig";//本地应用配置文件名，存储些全局变量

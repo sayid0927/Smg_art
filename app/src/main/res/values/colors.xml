@@ -134,6 +134,8 @@
 
     <!--黄色-->
     <color name="yellow_ff9a00">#FF9a00</color>
+    <color name="yellow_fecb67">#FECB67</color>
+
 
     <!--红色-->
     <color name="red_b20002">#b20002</color>

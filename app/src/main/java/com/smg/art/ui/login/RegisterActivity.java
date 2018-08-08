@@ -197,7 +197,7 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
                 }
             }
         });
-        mPresenter.FetchPictureCode();
+        mPresenter.FetchPictureCode("mobilePhone", etContext.getText().toString().trim());
     }
 
     @Override
@@ -285,7 +285,7 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
                 startActivity(intent);
                 break;
             case R.id.get_iamge:
-                mPresenter.FetchPictureCode();
+                mPresenter.FetchPictureCode("mobilePhone", etContext.getText().toString().trim());
                 break;
         }
     }

@@ -99,7 +99,7 @@ public class ChangeTradersPasswordActivity extends BaseActivity implements Chang
     @Override
     public void initView() {
         actionbarTitle.setText(R.string.change_trader_password);
-        mPresenter.FetchPictureCode();
+        mPresenter.FetchPictureCode("mobilePhone", etContext.getText().toString().trim());
     }
 
     @OnClick({R.id.rl_back, R.id.save, R.id.comfirm, R.id.get_iamge})
@@ -127,7 +127,7 @@ public class ChangeTradersPasswordActivity extends BaseActivity implements Chang
                 }
                 break;
             case R.id.get_iamge:
-                mPresenter.FetchPictureCode();
+                mPresenter.FetchPictureCode("mobilePhone", etContext.getText().toString().trim());
                 break;
         }
     }

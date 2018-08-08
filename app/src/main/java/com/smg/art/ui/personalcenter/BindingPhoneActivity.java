@@ -97,7 +97,7 @@ public class BindingPhoneActivity extends BaseActivity implements SendMobilePhon
     @Override
     public void initView() {
         actionbarTitle.setText(R.string.change_phone);
-        mPresenter.FetchPictureCode();
+        mPresenter.FetchPictureCode("mobilePhone", etContext.getText().toString().trim());
     }
 
     @OnClick({R.id.rl_back, R.id.binding, R.id.comfirm, R.id.get_iamge})
@@ -125,7 +125,7 @@ public class BindingPhoneActivity extends BaseActivity implements SendMobilePhon
                 }
                 break;
             case R.id.get_iamge:
-                mPresenter.FetchPictureCode();
+                mPresenter.FetchPictureCode("mobilePhone", etContext.getText().toString().trim());
                 break;
         }
     }

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/bidding_failure"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="319dp"
+            android:layout_height="@dimen/bj_105dp"
+            android:layout_marginTop="@dimen/bj_20dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/bj_22dp"
+                    android:layout_height="@dimen/bj_22dp"
+                    android:background="@drawable/failure" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/bj_6dp"
+                    android:text="竞拍失败"
+                    android:textColor="@color/black_212121"
+                    android:textSize="19sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/bj_15dp"
+                android:text="保证金和实付金额已退还至钱包"
+                android:textColor="@color/yellow_fecb67" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="319dp"
+            android:layout_height="@dimen/bj_91dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/bj_59dp"
+                android:layout_height="@dimen/bj_59dp"
+                android:layout_marginLeft="@dimen/bj_11dp"
+                android:background="@mipmap/defaut_square" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/bj_59dp"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/bj_6dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="冰种玉佛翡翠"
+                    android:textSize="@dimen/wz_15sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

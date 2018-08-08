@@ -111,14 +111,12 @@ public class AuctionGoodsListApadter extends RecyclerView.Adapter<AuctionGoodsLi
                 holder.tv_min.setText("00");
                 holder.tv_second.setText("00");
                 holder.detail.setText("拍卖结束");
-                holder.time.setVisibility(View.GONE);
             }
         } else if (time > data.getEndTime()) {
             holder.tv_hour.setText("00");
             holder.tv_min.setText("00");
             holder.tv_second.setText("00");
             holder.detail.setText("拍卖结束");
-            holder.time.setVisibility(View.GONE);
         }
         if (!TextUtils.isEmpty(data.getPictureUrl())) {
             GlideCommonUtils.showSquarePic(mContext, data.getPictureUrl(), holder.shop_iv);

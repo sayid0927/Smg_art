@@ -169,7 +169,7 @@ public class ForgetPasswordActivity extends BaseActivity implements ForgetPasswo
                 }
             }
         });
-        mPresenter.FetchPictureCode();
+        mPresenter.FetchPictureCode("mobilePhone", etContext.getText().toString().trim());
     }
 
     @Override
@@ -213,7 +213,7 @@ public class ForgetPasswordActivity extends BaseActivity implements ForgetPasswo
                 startActivity(intent);
                 break;
             case R.id.get_iamge:
-                mPresenter.FetchPictureCode();
+                mPresenter.FetchPictureCode("mobilePhone", etContext.getText().toString().trim());
                 break;
         }
     }

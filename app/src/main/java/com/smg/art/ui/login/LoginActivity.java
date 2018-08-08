@@ -1,7 +1,6 @@
 package com.smg.art.ui.login;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -28,13 +27,10 @@ import com.smg.art.presenter.impl.login.LoginActivityPresenter;
 import com.smg.art.ui.activity.MainActivity;
 import com.smg.art.utils.CommonUtil;
 import com.smg.art.utils.LocalAppConfigUtil;
-import com.smg.art.utils.RongIMCUtils;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import io.rong.imkit.RongIM;
-import io.rong.imlib.model.UserInfo;
 
 /**
  * Created by Mervin on 2018/7/24 0024.
@@ -83,38 +79,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View, V
         @Override
         public void onTextChanged(CharSequence s, int start, int before,
                                   int count) {
-
-            if (s == null || s.length() == 0)
-                return;
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < s.length(); i++) {
-                if (i != 3 && i != 8 && s.charAt(i) == ' ') {
-                    continue;
-                } else {
-                    sb.append(s.charAt(i));
-                    if ((sb.length() == 4 || sb.length() == 9)
-                            && sb.charAt(sb.length() - 1) != ' ') {
-                        sb.insert(sb.length() - 1, ' ');
-                    }
-                }
-            }
-            if (!sb.toString().equals(s.toString())) {
-                int index = start + 1;
-                if (sb.charAt(start) == ' ') {
-                    if (before == 0) {
-                        index++;
-                    } else {
-                        index--;
-                    }
-                } else {
-                    if (before == 1) {
-                        index--;
-                    }
-                }
-                etContext.setText(sb.toString());
-                etContext.setSelection(index);
-            }
-
         }
 
         @Override
