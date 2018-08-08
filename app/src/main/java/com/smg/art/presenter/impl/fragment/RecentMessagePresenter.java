@@ -4,7 +4,7 @@ package com.smg.art.presenter.impl.fragment;
 import com.blankj.utilcode.utils.LogUtils;
 import com.smg.art.api.Api;
 import com.smg.art.base.BasePresenter;
-import com.smg.art.presenter.contract.activity.RecentMessageContract;
+import com.smg.art.presenter.contract.fragment.RecentMessageContract;
 
 import java.util.List;
 
