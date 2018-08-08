@@ -19,6 +19,7 @@ import com.smg.art.ui.fragment.ContactsFragment;
 import com.smg.art.ui.fragment.HomeFragment;
 import com.smg.art.ui.fragment.MyFragment;
 
+import com.smg.art.ui.fragment.RecentMessageFragment;
 import com.smg.art.ui.login.ForgetPasswordActivity;
 import com.smg.art.ui.login.LoginActivity;
 import com.smg.art.ui.login.RegisterActivity;
@@ -112,5 +113,7 @@ public interface MainComponent {
     OrderMessageActivity inject (OrderMessageActivity orderMessageActivity);
 
     AuctionBuyerDepositActivity inject(AuctionBuyerDepositActivity auctionBuyerDepositActivity);
+
+    RecentMessageFragment inject (RecentMessageFragment recentMessageFragment);
 
 }
