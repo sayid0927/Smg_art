@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 import com.smg.art.R;
 import com.smg.art.ui.activity.ConversationActivity;
 import com.smg.art.ui.activity.OrderMessageActivity;
@@ -20,6 +22,7 @@ import io.rong.imkit.MainActivity;
 import io.rong.imkit.RongContext;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationListFragment;
+import io.rong.imkit.model.Event;
 import io.rong.imkit.model.UIConversation;
 import io.rong.imkit.widget.adapter.ConversationListAdapter;
 import io.rong.imlib.model.Conversation;
@@ -41,6 +44,7 @@ public class MyRecentMessageFragment extends Fragment {
         ConversationListFragment fragment = new ConversationListFragment();
         fragment.setAdapter(new ConversationListAdapterEx(RongContext.getInstance()));
 
+
         Uri uri = Uri.parse("rong://" + getActivity().getApplicationInfo().packageName).buildUpon()
                 .appendPath("conversationlist")
                 .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), "false")        //设置私聊会话非聚合显示
@@ -53,6 +57,7 @@ public class MyRecentMessageFragment extends Fragment {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.rong_content, fragment);
         transaction.commit();
+        fragment.onEventMainThread(new Event.ConversationTopEvent(Conversation.ConversationType.PRIVATE,"5",true));
         return view;
 
     }
@@ -69,11 +74,16 @@ public class MyRecentMessageFragment extends Fragment {
 
         @Override
         protected void bindView(View v, int position, UIConversation data) {
+
+
+
+
+
             super.bindView(v, position, data);
         }
     }
 
-    private class MyConversationListBehaviorListener implements RongIM.ConversationListBehaviorListener{
+    private class MyConversationListBehaviorListener implements RongIM.ConversationListBehaviorListener {
         /**
          * 当点击会话头像后执行。
          *
@@ -82,7 +92,7 @@ public class MyRecentMessageFragment extends Fragment {
          * @param targetId         被点击的用户id。
          * @return 如果用户自己处理了点击后的逻辑处理，则返回 true，否则返回 false，false 走融云默认处理方式。
          */
-        public boolean onConversationPortraitClick(Context context, Conversation.ConversationType conversationType, String targetId){
+        public boolean onConversationPortraitClick(Context context, Conversation.ConversationType conversationType, String targetId) {
 
             return false;
         }
@@ -95,10 +105,11 @@ public class MyRecentMessageFragment extends Fragment {
          * @param targetId         被点击的用户id。
          * @return 如果用户自己处理了点击后的逻辑处理，则返回 true，否则返回 false，false 走融云默认处理方式。
          */
-        public boolean onConversationPortraitLongClick(Context context, Conversation.ConversationType conversationType, String targetId){
+        public boolean onConversationPortraitLongClick(Context context, Conversation.ConversationType conversationType, String targetId) {
 
             return false;
         }
+
         /**
          * 长按会话列表中的 item 时执行。
          *
@@ -123,20 +134,20 @@ public class MyRecentMessageFragment extends Fragment {
         @Override
         public boolean onConversationClick(Context context, View view, UIConversation uiConversation) {
 
-            if(uiConversation.getConversationTargetId().equals("1")){
-                Intent i = new Intent( getActivity(),SystemMessageActivity.class);
-                com.smg.art.ui.activity.MainActivity.mainActivity.startActivityIn(i,getActivity());
-                return  true;
-            }else if(uiConversation.getConversationTargetId().equals("2")){
-                Intent i = new Intent( getActivity(),OrderMessageActivity.class);
-                com.smg.art.ui.activity.MainActivity.mainActivity.startActivityIn(i,getActivity());
-                return  true;
-            }else {
-                Intent i = new Intent( getActivity(),ConversationActivity.class);
-                i.putExtra("MemberId",uiConversation.getConversationTargetId());
-                i.putExtra("MemberName",uiConversation.getUIConversationTitle());
-                com.smg.art.ui.activity.MainActivity.mainActivity.startActivityIn(i,getActivity());
-                return  true;
+            if (uiConversation.getConversationTargetId().equals("1")) {
+                Intent i = new Intent(getActivity(), SystemMessageActivity.class);
+                com.smg.art.ui.activity.MainActivity.mainActivity.startActivityIn(i, getActivity());
+                return true;
+            } else if (uiConversation.getConversationTargetId().equals("2")) {
+                Intent i = new Intent(getActivity(), OrderMessageActivity.class);
+                com.smg.art.ui.activity.MainActivity.mainActivity.startActivityIn(i, getActivity());
+                return true;
+            } else {
+                Intent i = new Intent(getActivity(), ConversationActivity.class);
+                i.putExtra("MemberId", uiConversation.getConversationTargetId());
+                i.putExtra("MemberName", uiConversation.getUIConversationTitle());
+                com.smg.art.ui.activity.MainActivity.mainActivity.startActivityIn(i, getActivity());
+                return true;
             }
         }
     }

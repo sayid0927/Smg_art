@@ -1,6 +1,8 @@
 package com.smg.art.ui.fragment;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +23,11 @@ import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.fragment.AuctionDeatilIntroductionContract;
 import com.smg.art.presenter.impl.fragment.AuctionDetailIntroductionPresenter;
 import com.smg.art.ui.activity.AuctionDeatilActivity;
+import com.smg.art.ui.adapter.ServiceDialogApadter;
 import com.smg.art.utils.CallPhone;
 import com.smg.art.utils.GlideUtils;
 import com.smg.art.utils.LocalAppConfigUtil;
+import com.smg.art.view.CustomDialog;
 import com.smg.art.view.MyBridgeWebView;
 
 import org.jsoup.Jsoup;
@@ -74,6 +78,8 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
 
 
     private AuctionGoodsBean.DataBean.RowsBean data;
+    private List<FindCustomerServiceBean.DataBean> serviceDatas = new ArrayList<>();
+    private ServiceDialogApadter apadter;
 
     public static AuctionDetailIntroductionFragment getInstance(AuctionGoodsBean.DataBean.RowsBean data) {
         AuctionDetailIntroductionFragment sf = new AuctionDetailIntroductionFragment();
@@ -104,7 +110,7 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
 
     @Override
     public void showError(String message) {
-
+        ToastUtils.showLongToast(message);
     }
 
     @Override
@@ -133,27 +139,22 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
         tvNowprice.setText(String.valueOf(auctionDetailBean.getData().getNowprice()));
         tvActionName.setText(String.valueOf(auctionDetailBean.getData().getActionName()));
 
-
         String[] split = auctionDetailBean.getData().getPictureUrl().split(",");
         List<String> imgUrls = new ArrayList<>();
 
         for (int i = 0; i < split.length; i++) {
             imgUrls.add(Constant.BaseImgUrl + split[i]);
         }
-
         banner.setAdapter(new BGABanner.Adapter<ImageView, String>() {
             @Override
             public void fillBannerItem(BGABanner banner, ImageView itemView, String model, int position) {
                 GlideUtils.loadFitCenter(getActivity(), model, itemView);
             }
         });
-
         banner.setData(imgUrls, null);
-
         webview.loadDataWithBaseURL(null, getNewContent(auctionDetailBean.getData().getAuctionDesc()), "text/html", "utf-8", null);
-
-
     }
+
     /**
      * 新增收藏商品
      */
@@ -167,7 +168,9 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
      */
     @Override
     public void FetchFindCustomerServiceSuccess(FindCustomerServiceBean findCustomerServiceBean) {
-
+        if (this.serviceDatas.size() != 0) serviceDatas.clear();
+        serviceDatas = findCustomerServiceBean.getData();
+        apadter.setNewData(serviceDatas);
     }
 
     private String getNewContent(String htmltext) {
@@ -180,14 +183,33 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
     }
 
 
-
     @OnClick({R.id.tv_collectioin, R.id.phone_service, R.id.tv_phone, R.id.tv_now_action})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_collectioin:   //  客服
+            case R.id.tv_collectioin:  //  客服
 
-
-
+                apadter = new ServiceDialogApadter(serviceDatas, getActivity());
+                View dialogview = View.inflate(getActivity(), R.layout.dialog_service, null);
+                RecyclerView rv = dialogview.findViewById(R.id.rv_service);
+                rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+                apadter.OnServiceItemListener(new ServiceDialogApadter.OnServiceItemListener() {
+                    @Override
+                    public void OnServiceItemListener(FindCustomerServiceBean.DataBean item) {
+                        // TODO
+                    }
+                });
+                rv.setAdapter(apadter);
+                CustomDialog mDialogWaiting = new CustomDialog(getActivity(), dialogview, R.style.MyDialog);
+                mDialogWaiting.show();
+                mDialogWaiting.setCancelable(true);
+                mPresenter.FetchFindCustomerService();
+                TextView tvCencl = dialogview.findViewById(R.id.tv_cencl);
+                tvCencl.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (mDialogWaiting != null) mDialogWaiting.dismiss();
+                    }
+                });
                 break;
             case R.id.phone_service: //电话
 

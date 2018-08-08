@@ -29,6 +29,7 @@ import com.smg.art.presenter.contract.activity.SearchContract;
 import com.smg.art.presenter.impl.activity.SearchActivityPresenter;
 import com.smg.art.ui.adapter.GoodsListApadter;
 import com.smg.art.ui.adapter.HistoricalSearchApadter;
+import com.smg.art.ui.adapter.SearchGoodsListApadter;
 import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.view.flexbox.adapter.StringTagAdapter;
 import com.smg.art.view.flexbox.widget.TagFlowLayout;
@@ -43,7 +44,7 @@ import butterknife.OnClick;
 
 public class SearchActivity extends BaseActivity implements SearchContract.View,
         HistoricalSearchApadter.OnClearItemListener, HistoricalSearchApadter.OnWordItemListener,
-        OnLoadmoreListener, OnRefreshListener,StringTagAdapter.OnTagViewItemListener {
+        OnLoadmoreListener, OnRefreshListener, StringTagAdapter.OnTagViewItemListener {
 
     @Inject
     SearchActivityPresenter mPresenter;
@@ -80,7 +81,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
     private String textWord;
     private String status;
 
-    private GoodsListApadter mAdapter;
+    private SearchGoodsListApadter mAdapter;
     private StringTagAdapter adapter;
     private List<String> sourceData;
     private List<AnnouncementAuctionListBean.DataBean.RowsBean> rowsBeans = new ArrayList<>();
@@ -110,9 +111,11 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
         setSwipeBackEnable(true);
         status = getIntent().getStringExtra("status");
 
-        if (status.equals("3")) {
-            mAdapter = new GoodsListApadter(rowsBeans, this);
+        mAdapter = new SearchGoodsListApadter(this,rowsBeans);
+        if(status.equals("3")){
             rvGoods.setLayoutManager(new GridLayoutManager(this, 2));
+        }else if(status.equals("4")){
+            rvGoods.setLayoutManager(new LinearLayoutManager(this));
         }
 
         rvGoods.setAdapter(mAdapter);
@@ -130,8 +133,6 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
         historicalSearchApadter.OnWordItemListener(this);
         mPresenter.FetchHotWordsList();
 
-
-
     }
 
     private View getHeaderView() {
@@ -141,7 +142,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
             @Override
             public void onClick(View view) {
                 isClearAll = true;
-                mPresenter.FetchDeleteWordById("word", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
+                mPresenter.FetchDeleteWordById("word", textWord);
             }
         });
         return headerView;
@@ -168,6 +169,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
                 if (nsv.getVisibility() == View.GONE && srl.getVisibility() == View.VISIBLE) {
                     nsv.setVisibility(View.VISIBLE);
                     srl.setVisibility(View.GONE);
+                    mPresenter.FetchHotWordsList();
                     rowsBeans.clear();
                     mAdapter.setNewData(rowsBeans);
                     mAdapter.notifyDataSetChanged();
@@ -194,8 +196,6 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
                 TextView textView = (TextView) view.findViewById(R.id.text);
                 textView.setText(hotWordsListBean.getData().getHotWords().get(i).getWord());
                 flexLayout.addView(view);
-
-
                 final int finalI = i;
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -244,33 +244,38 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
 
     /**
      * 首页搜索框查询
-     *
-     * @param announcementAuctionListBean
      */
     @Override
     public void FetchAuctionListByNameSuccess(AnnouncementAuctionListBean announcementAuctionListBean) {
+
         mPresenter.FetchCreatWordsBean("word", textWord);
         if (nsv.getVisibility() == View.VISIBLE && srl.getVisibility() == View.GONE) {
             if (tvSearch.getVisibility() == View.GONE && etSearchContent.getVisibility() == View.VISIBLE) {
                 tvSearch.setVisibility(View.VISIBLE);
+                tvSearch.setText(textWord);
                 etSearchContent.setVisibility(View.GONE);
             }
             nsv.setVisibility(View.GONE);
             srl.setVisibility(View.VISIBLE);
         }
-        if (status.equals("3")) {
-            if (srl.isLoading()) {
-                mAdapter.addData(announcementAuctionListBean.getData().getRows());
-                srl.finishLoadmore();
-            } else {
-                if (rowsBeans.size() != 0) rowsBeans.clear();
-                if (srl.isRefreshing()) srl.finishRefresh();
-                rowsBeans = announcementAuctionListBean.getData().getRows();
-                mAdapter.setNewData(rowsBeans);
+
+        if (srl.isLoading()) {
+            mAdapter.addData(announcementAuctionListBean.getData().getRows());
+            srl.finishLoadmore();
+        } else {
+            if (rowsBeans.size() != 0) rowsBeans.clear();
+            if (srl.isRefreshing()) srl.finishRefresh();
+            rowsBeans = announcementAuctionListBean.getData().getRows();
+            if(status.equals("3")) {
+                for (int i = 0; i < announcementAuctionListBean.getData().getRows().size(); i++) {
+                    announcementAuctionListBean.getData().getRows().get(i).setType(AnnouncementAuctionListBean.DataBean.RowsBean.GOODS);
+                }
+            }else if(status.equals("4")){
+                for (int i = 0; i < announcementAuctionListBean.getData().getRows().size(); i++) {
+                    announcementAuctionListBean.getData().getRows().get(i).setType(AnnouncementAuctionListBean.DataBean.RowsBean.AUCTION);
+                }
             }
-        } else if (status.equals("4")) {
-
-
+            mAdapter.setNewData(rowsBeans);
         }
     }
 
@@ -307,7 +312,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
         this.postion = postion;
         this.isClearAll = false;
         mPresenter.FetchDeleteWordById("id", String.valueOf(item.getId()),
-                "word", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
+                "word", item.getWord());
     }
 
     /**
@@ -323,8 +328,6 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
 
     /**
      * 加载更多
-     *
-     * @param refreshlayout
      */
     @Override
     public void onLoadmore(RefreshLayout refreshlayout) {
@@ -335,8 +338,6 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
 
     /**
      * 刷新
-     *
-     * @param refreshlayout
      */
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
@@ -350,7 +351,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
      */
     @Override
     public void OnTagViewItemListener(String item) {
-        this.textWord =item;
+        this.textWord = item;
         mPresenter.FetchAuctionListByName("actionName", textWord,
                 "status", status, "page", String.valueOf(page), "rows", String.valueOf(rows));
     }

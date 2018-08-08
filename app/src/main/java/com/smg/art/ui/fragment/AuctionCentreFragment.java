@@ -185,6 +185,11 @@ public class AuctionCentreFragment extends BaseFragment implements AuctionCentre
     public void onDestroyView() {
         if (scheduledFuture != null)
             scheduledFuture.cancel(false);
+        if(webview!=null) {
+            webview.removeAllViews();
+            webview.destroy();
+            webview = null;
+        }
         super.onDestroyView();
     }
 
@@ -197,5 +202,4 @@ public class AuctionCentreFragment extends BaseFragment implements AuctionCentre
         }
         return doc.toString();
     }
-
 }

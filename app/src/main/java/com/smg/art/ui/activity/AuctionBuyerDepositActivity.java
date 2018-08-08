@@ -1,0 +1,113 @@
+package com.smg.art.ui.activity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.TextView;
+
+import com.blankj.utilcode.utils.ToastUtils;
+import com.google.gson.Gson;
+import com.smg.art.R;
+import com.smg.art.base.AuctionBuyerDepositBean;
+import com.smg.art.base.AuctionDetailBean;
+import com.smg.art.base.BaseActivity;
+import com.smg.art.bean.UpudterMessageBean;
+import com.smg.art.component.AppComponent;
+import com.smg.art.component.DaggerMainComponent;
+import com.smg.art.presenter.contract.activity.AuctionBuyerDepositContract;
+import com.smg.art.presenter.impl.activity.AuctionBuyerDepositPresenter;
+import com.smg.art.utils.LocalAppConfigUtil;
+import com.zhy.autolayout.AutoRelativeLayout;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class AuctionBuyerDepositActivity extends BaseActivity implements AuctionBuyerDepositContract.View {
+    @Inject
+    AuctionBuyerDepositPresenter mPresenter;
+    @BindView(R.id.rl_back)
+    AutoRelativeLayout rlBack;
+    @BindView(R.id.actionbar_title)
+    TextView actionbarTitle;
+    @BindView(R.id.tv_frontMoneyAmount)
+    TextView tvFrontMoneyAmount;
+    @BindView(R.id.bt_post)
+    Button btPost;
+
+    @BindView(R.id.checkbox)
+    CheckBox checkBox;
+    private AuctionDetailBean data;
+
+    @Override
+    protected void setupActivityComponent(AppComponent appComponent) {
+        DaggerMainComponent.builder().appComponent(appComponent).build().inject(this);
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_auction_buyer_deposit;
+    }
+
+    @Override
+    public void attachView() {
+        mPresenter.attachView(this, this);
+    }
+
+    @Override
+    public void detachView() {
+        mPresenter.detachView();
+    }
+
+    @Override
+    public void initView() {
+
+        String bookJson = getIntent().getStringExtra("data");
+        data = new Gson().fromJson(bookJson, AuctionDetailBean.class);
+        tvFrontMoneyAmount.setText(String.valueOf(data.getData().getFrontMoneyAmount()));
+    }
+
+    /**
+     * 保证金支付
+     */
+    @Override
+    public void FetchAuctionBuyerDepositSuccess(AuctionBuyerDepositBean auctionBuyerDepositBean) {
+        ToastUtils.showLongToast(auctionBuyerDepositBean.getMsg());
+        EventBus.getDefault().post(auctionBuyerDepositBean);
+        finish();
+    }
+
+    @Override
+    public void showError(String message) {
+        ToastUtils.showLongToast(message);
+    }
+
+
+    @OnClick({R.id.rl_back, R.id.bt_post})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.rl_back:
+                finish();
+                break;
+            case R.id.bt_post:
+                if (checkBox.isChecked()) {
+                    if (data != null) {
+                        mPresenter.FetchAuctionBuyerDeposit("auctionId", String.valueOf(data.getData().getId()),
+                                "goodsId", String.valueOf(data.getData().getGoodsId()),
+                                "memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
+                                "amount", String.valueOf(data.getData().getFrontMoneyAmount()));
+                    }
+                } else {
+                    ToastUtils.showLongToast("请选择支付方式");
+                }
+                break;
+        }
+    }
+
+}

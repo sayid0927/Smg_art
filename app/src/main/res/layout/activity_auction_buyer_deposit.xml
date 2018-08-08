@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.smg.art.ui.activity.AuctionBuyerDepositActivity">
+
+
+    <include layout="@layout/actionbar_root_layout" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bj_150dp"
+        android:background="#341c1c">
+
+        <LinearLayout
+            android:id="@+id/ll_concu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/bj_46dp"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="保证金"
+                android:textColor="@color/white"
+                android:textSize="@dimen/wz_15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥"
+                android:textColor="#fecb67"
+                android:textSize="@dimen/wz_9sp" />
+
+            <TextView
+                android:id="@+id/tv_frontMoneyAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="500"
+                android:textColor="#fecb67"
+                android:textSize="@dimen/wz_20sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_concu"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/bj_10dp"
+            android:text="保证金拍卖结束后将退回到个人账户"
+            android:textColor="#999999"
+            android:textSize="@dimen/wz_13sp" />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#362828">
+
+
+        <RelativeLayout
+            android:id="@+id/rl_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bj_50dp"
+            android:layout_marginTop="@dimen/bj_16dp"
+            android:background="#4a3939"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/iv_def"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/bj_13dp"
+                android:src="@drawable/auction_def" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/bj_10dp"
+                android:layout_toRightOf="@+id/iv_def"
+                android:text="钱包余额"
+                android:textColor="@color/white"
+                android:textSize="@dimen/wz_15sp" />
+
+
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/bj_10dp" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/bt_post"
+            android:layout_marginTop="@dimen/bj_100dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="确 认"
+            android:textColor="@color/white"
+            android:textSize="@dimen/wz_15sp"
+            android:background="@drawable/btn_bg"
+            android:layout_marginRight="@dimen/bj_50dp"
+            android:layout_marginLeft="@dimen/bj_50dp"
+            android:layout_below="@+id/rl_btn" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

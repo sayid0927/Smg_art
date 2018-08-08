@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/translucent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:layout_width="@dimen/bj_300dp"
+        android:layout_height="@dimen/bj_200dp"
+        android:background="@drawable/dialog_service"
+        android:orientation="vertical">
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/dialog_service_rl">
+
+            <TextView
+                android:id="@+id/tv_cencl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/bj_15dp"
+                android:padding="@dimen/bj_5dp"
+                android:text="取消"
+                android:textColor="@color/white"
+                android:textSize="@dimen/wz_14sp" />
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_service"
+            android:layout_marginTop="@dimen/bj_5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+    </LinearLayout>
+</RelativeLayout>
