@@ -82,6 +82,9 @@
     <string name="auction_order">拍卖订单</string>
     <string name="authentication">实名认证</string>
 
+    <string name="order_detail">订单详情</string>
+    <string name="complaint_detail">投诉详情</string>
+
 
     <!--最近会话-->
     <string name="draft">[草稿]</string>

@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 import com.smg.art.R;
 import com.smg.art.base.BaseApplication;
 import com.smg.art.utils.GlideUtils;
-import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.utils.UIUtils;
 
 import java.util.List;
@@ -37,6 +36,7 @@ public class RecentMessageApadter extends BaseQuickAdapter<Conversation, BaseVie
 
     private Context mContext;
     private List<Conversation> data;
+    private OnMessageItemListener onMessageItemListener;
 
     public RecentMessageApadter(List<Conversation> data, Context mContext) {
         super(R.layout.item_recent_message, data);

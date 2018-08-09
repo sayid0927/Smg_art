@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.smg.art.R;
 import com.smg.art.bean.AuctionOrderBean;
 import com.smg.art.utils.CommonDpUtils;
+import com.smg.art.utils.DateFormatUtil;
 import com.smg.art.utils.GlideCommonUtils;
 import com.smg.art.utils.LocalAppConfigUtil;
 
@@ -86,7 +87,7 @@ public class AuctionAdapter extends BaseAdapter {
                         }
                         viewHolder.shop_status.setText("已交割");
                         viewHolder.shop_name.setText(dataBean.getActionName());
-                        viewHolder.end_time.setText("结束时间: " + dataBean.getEndTime());
+                        viewHolder.end_time.setText("结束时间: " + DateFormatUtil.toHour(dataBean.getEndTime()));
                         viewHolder.price.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", dataBean.getNowprice()))));
                         viewHolder.detail.setVisibility(View.VISIBLE);
                         viewHolder.complaint_btn.setVisibility(View.VISIBLE);
@@ -107,7 +108,7 @@ public class AuctionAdapter extends BaseAdapter {
                 }
                 viewHolder.shop_status.setText("待交割");
                 viewHolder.shop_name.setText(dataBean.getActionName());
-                viewHolder.end_time.setText("结束时间: " + dataBean.getEndTime());
+                viewHolder.end_time.setText("结束时间: " + DateFormatUtil.toHour(dataBean.getEndTime()));
                 viewHolder.price.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", dataBean.getNowprice()))));
                 viewHolder.detail.setVisibility(View.VISIBLE);
                 viewHolder.complaint_btn.setVisibility(View.GONE);
@@ -122,34 +123,44 @@ public class AuctionAdapter extends BaseAdapter {
                 }
 
                 if (dataBean.getSysDate() != null) {
-                    if (dataBean.getSysDate() > dataBean.getEndTime()) {
+                    if (dataBean.getSysDate() < dataBean.getEndTime()) {
                         viewHolder.shop_status.setText("拍卖中");
+                        viewHolder.shop_status.setBackgroundResource(R.drawable.shape_re_red);
                     } else {
                         viewHolder.shop_status.setText("已结束");
-                        viewHolder.shop_status.setBackgroundResource(R.drawable.shape_faint_yellow);
+                        viewHolder.shop_status.setBackgroundResource(R.drawable.shape_yellow);
+                        if (!TextUtils.isEmpty(dataBean.getBuyerMemberId())) {
+                            if (dataBean.getBuyerMemberId().equals(String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()))) {
+                                viewHolder.detail.setText("已中标");
+                                viewHolder.detail.setBackgroundResource(R.drawable.shape_red);
+                            } else {
+                                viewHolder.detail.setText("未中标");
+                                viewHolder.detail.setBackgroundResource(R.drawable.shape_faint_yellow);
+                            }
+                        }
                     }
                 } else {
                     long time = System.currentTimeMillis();
-                    if (time > dataBean.getEndTime()) {
+                    if (time < dataBean.getEndTime()) {
                         viewHolder.shop_status.setText("拍卖中");
+                        viewHolder.shop_status.setBackgroundResource(R.drawable.shape_re_red);
                     } else {
                         viewHolder.shop_status.setText("已结束");
-                        viewHolder.shop_status.setBackgroundResource(R.drawable.shape_faint_yellow);
-                    }
-                }
-
-                if (!TextUtils.isEmpty(dataBean.getBuyerMemberId())) {
-                    if (dataBean.getBuyerMemberId().equals(String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()))) {
-                        viewHolder.detail.setText("已中标");
-                        viewHolder.detail.setBackgroundResource(R.drawable.shape_red);
-                    } else {
-                        viewHolder.detail.setText("未中标");
-                        viewHolder.shop_status.setBackgroundResource(R.drawable.shape_faint_yellow);
+                        viewHolder.shop_status.setBackgroundResource(R.drawable.shape_yellow);
+                        if (!TextUtils.isEmpty(dataBean.getBuyerMemberId())) {
+                            if (dataBean.getBuyerMemberId().equals(String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()))) {
+                                viewHolder.detail.setText("已中标");
+                                viewHolder.detail.setBackgroundResource(R.drawable.shape_red);
+                            } else {
+                                viewHolder.detail.setText("未中标");
+                                viewHolder.detail.setBackgroundResource(R.drawable.shape_faint_yellow);
+                            }
+                        }
                     }
                 }
 
                 viewHolder.shop_name.setText(dataBean.getActionName());
-                viewHolder.end_time.setText("结束时间: " + dataBean.getEndTime());
+                viewHolder.end_time.setText("结束时间: " + DateFormatUtil.toHour(dataBean.getEndTime()));
                 viewHolder.price.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", dataBean.getNowprice()))));
                 viewHolder.detail.setVisibility(View.VISIBLE);
                 viewHolder.complaint_btn.setVisibility(View.GONE);

@@ -267,7 +267,7 @@ public class RechargeActivity extends BaseActivity implements ReChargeContract.V
     @Override
     public void FetchReChargeSuccess(ReChargeBean reChargeBean) {
         if (reChargeBean.getStatus() == 1) {
-            ToastUtils.showShortToast("充值成功!");
+            ToastUtils.showShortToast("充值申请成功!");
             finish();
         } else {
             ToastUtils.showShortToast(reChargeBean.getMsg());
