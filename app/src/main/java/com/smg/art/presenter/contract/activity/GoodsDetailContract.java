@@ -5,6 +5,7 @@ import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.BaseContract;
 import com.smg.art.base.Constant;
+import com.smg.art.base.FindCustomerServiceBean;
 import com.smg.art.bean.SaveCollectsBean;
 
 import java.util.Map;
@@ -32,7 +33,10 @@ public interface GoodsDetailContract {
          */
         void  FetchAuctionBuyerDepositSuccess(AuctionBuyerDepositBean auctionBuyerDepositBean);
 
-
+        /**
+         * 查询客服信息
+         */
+        void  FetchFindCustomerServiceSuccess(FindCustomerServiceBean findCustomerServiceBean);
     }
 
     interface Presenter<T> extends BaseContract.BasePresenter<T> {
@@ -51,5 +55,9 @@ public interface GoodsDetailContract {
          */
         void  FetchAuctionBuyerDeposit(String ...s);
 
+        /**
+         * 查询客服信息
+         */
+        void   FetchFindCustomerService(String ...s);
     }
 }

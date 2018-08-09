@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.smg.art.R;
 import com.smg.art.base.BaseApplication;
 import com.smg.art.utils.GlideUtils;
+import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.utils.UIUtils;
 
 import java.util.List;
@@ -64,9 +65,14 @@ public class RecentMessageApadter extends BaseQuickAdapter<Conversation, BaseVie
                     }
                     String str = RongDateUtils.getConversationListFormatDate(data.getReceivedTime(),BaseApplication.getBaseApplication());
                     helper.setText(R.id.tv_time, str);
-                    helper.setText(R.id.tv_name, data.getLatestMessage().getUserInfo().getName());
-                    String urlImg = String.valueOf(data.getLatestMessage().getUserInfo().getPortraitUri());
-                    GlideUtils.loadFitCenter(mContext, urlImg,helper.getView(R.id.ivHeader));
+
+                    if(!data.getLatestMessage().getUserInfo().getUserId().equals(LocalAppConfigUtil.getInstance().getRongUserId())){
+                        String urlImg = String.valueOf(data.getLatestMessage().getUserInfo().getPortraitUri());
+                        helper.setText(R.id.tv_name, data.getLatestMessage().getUserInfo().getName());
+                        GlideUtils.loadFitCenter(mContext, urlImg,helper.getView(R.id.ivHeader));
+                    }else {
+                        helper.setText(R.id.tv_name, data.getTargetId());
+                    }
 
                     helper.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -74,6 +80,16 @@ public class RecentMessageApadter extends BaseQuickAdapter<Conversation, BaseVie
                             if(onMessageItemListener!=null){
                                 onMessageItemListener.OnMessageItemListener(data);
                             }
+                        }
+                    });
+
+                    helper.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View view) {
+                            if(onMessageItemLongListener!=null){
+                                onMessageItemLongListener.OnMessageItemLongListener(data);
+                            }
+                            return false;
                         }
                     });
                 }
@@ -90,5 +106,16 @@ public class RecentMessageApadter extends BaseQuickAdapter<Conversation, BaseVie
 
     public interface OnMessageItemListener {
         void OnMessageItemListener(Conversation item);
+    }
+
+
+    private OnMessageItemLongListener onMessageItemLongListener;
+
+    public void OnMessageItemLongListener(OnMessageItemLongListener onMessageItemLongListener) {
+        this.onMessageItemLongListener = onMessageItemLongListener;
+    }
+
+    public interface OnMessageItemLongListener {
+        void OnMessageItemLongListener(Conversation item);
     }
 }

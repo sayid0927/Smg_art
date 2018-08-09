@@ -5,8 +5,9 @@
     android:background="#f2f2f2"
     android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+    android:id="@+id/rv"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
+
 </LinearLayout>

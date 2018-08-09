@@ -4,6 +4,7 @@
     android:id="@id/rc_item_conversation"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/bj_15dp"
     android:background="@android:color/transparent"
     android:gravity="center_vertical">
 
@@ -141,6 +142,14 @@
 
     </RelativeLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bj_1dp"
+        android:layout_below="@+id/rl_system_message"
+        android:layout_marginLeft="@dimen/bj_15dp"
+        android:layout_marginRight="@dimen/bj_15dp"
+        android:background="#e5e5e5" />
+
     <RelativeLayout
         android:layout_below="@+id/rl_system_message"
         android:id="@+id/rl_order_message"
@@ -275,5 +284,13 @@
         </FrameLayout>
 
     </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bj_1dp"
+        android:layout_below="@+id/rl_order_message"
+        android:layout_marginLeft="@dimen/bj_15dp"
+        android:layout_marginRight="@dimen/bj_15dp"
+        android:background="#e5e5e5" />
+
 
 </RelativeLayout>

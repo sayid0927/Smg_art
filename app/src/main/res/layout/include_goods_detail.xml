@@ -89,7 +89,7 @@
                     android:layout_gravity="center"
                     android:background="@drawable/text_red_bg"
                     android:padding="10px"
-                    android:text="距拍卖结束"
+                    android:text="距拍卖开始"
                     android:textColor="@color/white"
                     android:textSize="13sp" />
 

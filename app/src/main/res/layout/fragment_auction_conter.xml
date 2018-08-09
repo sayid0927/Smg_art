@@ -7,14 +7,13 @@
     android:orientation="vertical">
 
 
-
-
     <com.smg.art.view.MyBridgeWebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:visibility="gone" />
 
 
     <RelativeLayout
@@ -29,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/bj_12dp"
+            android:layout_marginTop="@dimen/bj_30dp"
             android:src="@drawable/draw_def" />
 
         <TextView
@@ -89,6 +88,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="bottom"
                 android:text=".00"
+                android:visibility="gone"
                 android:textColor="#fecb67"
                 android:textSize="@dimen/wz_10sp" />
 
@@ -105,10 +105,10 @@
         android:orientation="horizontal">
 
 
-
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/grey_e6000000">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_acution"

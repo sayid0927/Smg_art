@@ -5,6 +5,7 @@ import com.smg.art.api.Api;
 import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.BasePresenter;
+import com.smg.art.base.FindCustomerServiceBean;
 import com.smg.art.bean.SaveCollectsBean;
 import com.smg.art.presenter.contract.activity.ClassifyContract;
 import com.smg.art.presenter.contract.activity.GoodsDetailContract;
@@ -111,6 +112,36 @@ public class GoodsDetailActivityPresenter extends BasePresenter<GoodsDetailContr
                         hideWaitingDialog();
                         if (mView != null && data != null && data.getStatus() == 1) {
                             mView.FetchAuctionBuyerDepositSuccess(data);
+                        } else {
+                            if (data != null && data.getMsg() != null)
+                                mView.showError(data.getMsg());
+                        }
+                    }
+                }));
+    }
+
+    @Override
+    public void FetchFindCustomerService(String... s) {
+        showWaitingDialog("加载中...");
+        addSubscrebe(api.FetchFindCustomerService(s).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<FindCustomerServiceBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        hideWaitingDialog();
+                        mView.showError(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(FindCustomerServiceBean data) {
+                        hideWaitingDialog();
+                        if (mView != null && data != null && data.getStatus() == 1) {
+                            mView.FetchFindCustomerServiceSuccess(data);
                         } else {
                             if (data != null && data.getMsg() != null)
                                 mView.showError(data.getMsg());

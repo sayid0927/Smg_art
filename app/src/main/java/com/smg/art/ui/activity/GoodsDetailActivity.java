@@ -4,8 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.net.Uri;
+import android.os.CountDownTimer;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
@@ -21,16 +24,20 @@ import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.BaseActivity;
 import com.smg.art.base.Constant;
+import com.smg.art.base.FindCustomerServiceBean;
 import com.smg.art.bean.SaveCollectsBean;
 import com.smg.art.bean.UpudterMessageBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.activity.GoodsDetailContract;
 import com.smg.art.presenter.impl.activity.GoodsDetailActivityPresenter;
+import com.smg.art.ui.adapter.ServiceDialogApadter;
 import com.smg.art.utils.CallPhone;
 import com.smg.art.utils.GlideUtils;
 import com.smg.art.utils.LocalAppConfigUtil;
+import com.smg.art.utils.TimeTools;
 import com.smg.art.utils.ValidateTime;
+import com.smg.art.view.CustomDialog;
 import com.smg.art.view.MyBridgeWebView;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.PermissionListener;
@@ -42,7 +49,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -50,6 +60,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.bingoogolapple.bgabanner.BGABanner;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.CSCustomServiceInfo;
 
 public class GoodsDetailActivity extends BaseActivity implements GoodsDetailContract.View {
 
@@ -94,6 +106,8 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
 
     private int postion;
     private AuctionDetailBean detailBean;
+    private List<FindCustomerServiceBean.DataBean> serviceDatas = new ArrayList<>();
+    private ServiceDialogApadter apadter;
 
 
     @Override
@@ -181,6 +195,16 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
     }
 
     /**
+     * 查询客服信息
+     */
+    @Override
+    public void FetchFindCustomerServiceSuccess(FindCustomerServiceBean findCustomerServiceBean) {
+        if (this.serviceDatas.size() != 0) serviceDatas.clear();
+        serviceDatas = findCustomerServiceBean.getData();
+        apadter.setNewData(serviceDatas);
+    }
+
+    /**
      * 拍卖品详情
      */
     @Override
@@ -195,36 +219,42 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
             btAuction.setText("保证金已支付");
         }
 
-//        if (!ValidateTime.TimeCompare(TimeUtils.getNowTimeString(), auctionDetailBean.getData().getStartTime())) {
-//            String timfe = ValidateTime.getDistanceTime(auctionDetailBean.getData().getStartTime(), TimeUtils.getNowTimeString());
-//            String[] times = timfe.split(",");
-//            tvShow.setText("预展中");
-//            tvAuction.setText("距拍卖开始");
-//            if (times.length == 3) {
-//                if (Integer.valueOf(times[0]) < 10) {
-//                    tvHh.setText("0" + times[0]);
-//                } else {
-//                    tvHh.setText(times[0]);
-//                }
-//                if (Integer.valueOf(times[1]) < 10) {
-//                    tvMm.setText("0" + times[1]);
-//                } else {
-//                    tvMm.setText(times[1]);
-//                }
-//                if (Integer.valueOf(times[2]) < 10) {
-//                    tvSs.setText("0" + times[2]);
-//                } else {
-//                    tvSs.setText(times[2]);
-//                }
-//            }
-//        } else {
-//            tvShow.setText("预展结束");
-//            tvAuction.setText("拍卖结束");
-//            tvHh.setText("00");
-//            tvMm.setText("00");
-//            tvSs.setText("00");
-//
-//        }
+
+        long time;
+        if (auctionDetailBean.getData().getSysDate() > 0) {
+            time = auctionDetailBean.getData().getSysDate();
+        } else {
+            time = System.currentTimeMillis();//获取系统时间的10位的时间戳
+        }
+
+        if (time < auctionDetailBean.getData().getStartTime()) {
+            long countTime =auctionDetailBean.getData().getStartTime()- time;
+            //将前一个缓存清除
+            if (countTime > 0) {
+                CountDownTimer countDownTimer = new CountDownTimer(countTime, 1000) {
+                    public void onTick(long millisUntilFinished) {
+                        String hour = TimeTools.getCountTimeByLong(millisUntilFinished);
+                        String[] array = hour.split(":");
+                        tvHh.setText(array[0]);
+                        tvMm.setText(array[1]);
+                         tvSs.setText(array[2]);
+                    }
+                    public void onFinish() {
+                        tvHh.setText("00");
+                        tvSs.setText("00");
+                        tvMm.setText("00");
+                    }
+                }.start();
+            } else {
+                tvHh.setText("00");
+                tvSs.setText("00");
+                tvMm.setText("00");
+            }
+        } else if (time > auctionDetailBean.getData().getStartTime()) {
+            tvHh.setText("00");
+            tvSs.setText("00");
+            tvMm.setText("00");
+        }
 
         String[] split = auctionDetailBean.getData().getPictureUrl().split(",");
         List<String> imgUrls = new ArrayList<>();
@@ -287,15 +317,35 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
                 break;
 
             case R.id.phone_service:  //客服
-                if (LocalAppConfigUtil.getInstance().isLogin()) {
-                    if (!TextUtils.isEmpty(LocalAppConfigUtil.getInstance().getServiceTel())) {
-                        CallPhone.callPhone(this, LocalAppConfigUtil.getInstance().getServiceTel());
-                    } else {
-                        CallPhone.callPhone(this, "0755-82714092");
+
+                apadter = new ServiceDialogApadter(serviceDatas,GoodsDetailActivity.this);
+                View dialogview = View.inflate(GoodsDetailActivity.this, R.layout.dialog_service, null);
+                RecyclerView rv = dialogview.findViewById(R.id.rv_service);
+                rv.setLayoutManager(new LinearLayoutManager(GoodsDetailActivity.this));
+
+                rv.setAdapter(apadter);
+                final CustomDialog mDialogWaiting = new CustomDialog(GoodsDetailActivity.this, dialogview, R.style.MyDialog);
+                mDialogWaiting.show();
+                mDialogWaiting.setCancelable(true);
+                mPresenter.FetchFindCustomerService();
+                TextView tvCencl = dialogview.findViewById(R.id.tv_cencl);
+                tvCencl.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (mDialogWaiting != null) mDialogWaiting.dismiss();
                     }
-                } else {
-                    CallPhone.callPhone(this, "0755-82714092");
-                }
+                });
+
+                apadter.OnServiceItemListener(new ServiceDialogApadter.OnServiceItemListener() {
+                    @Override
+                    public void OnServiceItemListener(FindCustomerServiceBean.DataBean item) {
+                        CSCustomServiceInfo.Builder csBuilder = new CSCustomServiceInfo.Builder();
+                        CSCustomServiceInfo csInfo = csBuilder
+                                .nickName("融云").build();
+                        RongIM.getInstance().startCustomerServiceChat(GoodsDetailActivity.this, item.getMemberNo(), item.getMemberName(), csInfo);
+                        if (mDialogWaiting != null) mDialogWaiting.dismiss();
+                    }
+                });
                 break;
         }
     }
@@ -338,5 +388,32 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
 
         }
     };
+
+    /**
+     * 判断2个时间大小
+     * yyyy-MM-dd HH:mm 格式
+     * @param startTime
+     * @param nowTime
+     * @return
+     */
+    public static int getTimeCompareSize(String startTime, String nowTime){
+        int i=0;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");//年-月-日 时-分
+        try {
+            Date date1 = dateFormat.parse(startTime);//开始时间
+            Date date2 = dateFormat.parse(nowTime);//现在时间
+            // 1 现在时间小于开始时间 2 开始时间与现在时间 3 现在时间大于开始时间
+            if (date2.getTime()<date1.getTime()){
+                i= 1;
+            }else if (date2.getTime()==date1.getTime()){
+                i= 2;
+            }else if (date2.getTime()>date1.getTime()){
+                i= 3;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return  i;
+    }
 
 }

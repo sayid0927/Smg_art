@@ -13,12 +13,14 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/bj_10dp"
         android:layout_marginTop="@dimen/bj_7dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/bj_15dp"
+        android:paddingTop="@dimen/bj_15dp">
 
         <com.smg.art.view.RoundImageView
             android:id="@+id/iv_head"
-            android:layout_width="@dimen/bj_38dp"
-            android:layout_height="@dimen/bj_38dp"
+            android:layout_width="@dimen/bj_50dp"
+            android:layout_height="@dimen/bj_50dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:src="@drawable/draw_def" />
@@ -28,26 +30,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/bj_13dp"
+            android:layout_marginTop="@dimen/bj_10dp"
             android:layout_toRightOf="@+id/iv_head"
             android:text="凝丝思萱"
             android:textColor="#999999"
             android:textSize="@dimen/wz_13sp" />
 
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_name"
             android:layout_marginLeft="@dimen/bj_13dp"
             android:layout_toRightOf="@+id/iv_head"
-            android:orientation="horizontal">
+            android:background="@drawable/auction_item_bg">
 
             <TextView
                 android:id="@+id/tv_pic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:layout_centerVertical="true"
                 android:text="出价: "
+                android:paddingLeft="@dimen/bj_25dp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/wz_13sp" />
 
@@ -55,11 +59,14 @@
                 android:id="@+id/tv_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/tv_pic"
                 android:text="200"
+                android:paddingRight="@dimen/bj_5dp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/wz_13sp" />
 
-        </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
 
 </LinearLayout>
