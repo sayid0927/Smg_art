@@ -193,6 +193,7 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.personalcenter.AuthenticationActivity" />
+
         <activity android:name=".ui.activity.AuctionBuyerDepositActivity"></activity>
         <activity android:name=".ui.personalcenter.AuthenticationActivity"></activity>
 

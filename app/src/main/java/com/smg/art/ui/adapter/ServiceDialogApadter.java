@@ -33,7 +33,7 @@ public class ServiceDialogApadter extends BaseItemDraggableAdapter<FindCustomerS
     @Override
     protected void convert(BaseViewHolder helper, final FindCustomerServiceBean.DataBean item) {
         helper.setText(R.id.tv_title,item.getMemberName());
-        GlideUtils.load(mContext, Constant.BaseImgUrl + item.getHeadImg(), (ImageView) helper.getView(R.id.iv_draw));
+        GlideUtils.loadFitCenter(mContext, Constant.BaseImgUrl + item.getHeadImg(), (ImageView) helper.getView(R.id.iv_draw),R.drawable.draw_def);
         helper.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

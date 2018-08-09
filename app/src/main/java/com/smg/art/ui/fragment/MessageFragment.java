@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.smg.art.R;
@@ -47,7 +48,7 @@ public class MessageFragment extends BaseFragment {
     NoScrollViewPager vp;
 
     @BindView(R.id.ll_addfriend)
-    AutoLinearLayout llAddfriend;
+    LinearLayout llAddfriend;
 
     private ArrayList<String> mTitleList = new ArrayList<>();
     private ArrayList<Fragment> mFragments = new ArrayList<>();
@@ -59,7 +60,7 @@ public class MessageFragment extends BaseFragment {
         mTitleList.add(getString(R.string.recent_message));
         mTitleList.add(getString(R.string.address_list));
 
-        mFragments.add(new MyRecentMessageFragment());
+        mFragments.add(new RecentMessageFragment());
         mFragments.add(new ContactsFragment());
 
         BaseFragmentPageAdapter myAdapter = new BaseFragmentPageAdapter(getChildFragmentManager(), mFragments, mTitleList);

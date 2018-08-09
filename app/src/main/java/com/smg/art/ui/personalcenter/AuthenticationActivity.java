@@ -91,6 +91,10 @@ public class AuthenticationActivity extends BaseActivity implements Authenticati
     private String name, CardNum;
     private File tempMainFile, tempBackFile, tempHandFile;
     private int type;
+    private int postType = 0;
+    private String mainUri, backUri, handUri;
+    private MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+    private List<MultipartBody.Part> parts;
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -131,7 +135,7 @@ public class AuthenticationActivity extends BaseActivity implements Authenticati
                 finish();
                 break;
             case R.id.bt_net:  //下一步
-                if (checkUp()) {
+//                if (checkUp()) {
                     name = edName.getText().toString().trim();
                     CardNum = edCardNum.getText().toString().trim();
                     if (llNet.getVisibility() == View.VISIBLE && llPost.getVisibility() == View.GONE) {
@@ -139,7 +143,7 @@ public class AuthenticationActivity extends BaseActivity implements Authenticati
                         llPost.setVisibility(View.VISIBLE);
                         ivTick1.setBackground(this.getResources().getDrawable(R.drawable.tick_renzheng_green));
                     }
-                }
+//                }
                 break;
             case R.id.iv_main:  // 正面昭
                 type = 1;
@@ -154,19 +158,12 @@ public class AuthenticationActivity extends BaseActivity implements Authenticati
                 Camera();
                 break;
             case R.id.bt_post://提交
-
-                MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM); //表单类型
+                postType = 1;
                 File Mainfile = new File(String.valueOf(tempMainFile));
-                File Backfile = new File(String.valueOf(tempBackFile));
-                File Headfile = new File(String.valueOf(tempHandFile));
-                RequestBody Mainbody = RequestBody.create(MediaType.parse("multipart/form-data"), Mainfile);//表单类型
-                RequestBody Backbody = RequestBody.create(MediaType.parse("multipart/form-data"), Backfile);//表单类型
-                RequestBody Headbody = RequestBody.create(MediaType.parse("multipart/form-data"), Headfile);//表单类型
-                builder.addFormDataPart("type", "member");//传入服务器需要的key，和相应value值
-                builder.addFormDataPart("upfile", Mainfile.getName(), Mainbody); //添加图片数据，body创建的请求体
-                builder.addFormDataPart("upfile", Mainfile.getName(), Backbody); //添加图片数据，body创建的请求体
-                builder.addFormDataPart("upfile", Mainfile.getName(), Headbody); //添加图片数据，body创建的请求体
-                List<MultipartBody.Part> parts = builder.build().parts();
+                RequestBody Mainbody = RequestBody.create(MediaType.parse("multipart/form-data"), Mainfile);
+                builder.addFormDataPart("type", "member");
+                builder.addFormDataPart("upfile", Mainfile.getName(), Mainbody);
+                parts = builder.build().parts();
                 mPresenter.FetchUploadFile(parts);
 
                 break;
@@ -205,7 +202,6 @@ public class AuthenticationActivity extends BaseActivity implements Authenticati
                 tempHandFile = new File(ClipFileUtil.checkDirPath(Environment.getExternalStorageDirectory().getPath() + "/image/"), System.currentTimeMillis() + ".jpg");
                 break;
         }
-
 
         //跳转到调用系统相机
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -287,14 +283,44 @@ public class AuthenticationActivity extends BaseActivity implements Authenticati
         }
         return true;
     }
+
     /**
      * 上传图片
      */
     @Override
     public void FetchUploadFileSuccess(CardUrlBean cardUrlBean) {
-        mPresenter.FetchMemberAuthSave("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
-                "realName", name, "cardNo", CardNum, "cardUrl", Constant.BaseImgUrl + cardUrlBean.getData());
+        switch (postType) {
+            case 1:
+
+                postType = 2;
+                File Backfile = new File(String.valueOf(tempBackFile));
+                RequestBody Backbody = RequestBody.create(MediaType.parse("multipart/form-data"), Backfile);
+                builder.addFormDataPart("type", "member");
+                builder.addFormDataPart("upfile", Backfile.getName(), Backbody);
+                parts = builder.build().parts();
+                mainUri =  cardUrlBean.getData();
+                mPresenter.FetchUploadFile(parts);
+
+                break;
+            case 2:
+                postType = 3;
+                File Headfile = new File(String.valueOf(tempHandFile));
+                RequestBody Headbody = RequestBody.create(MediaType.parse("multipart/form-data"), Headfile);
+                builder.addFormDataPart("type", "member");
+                builder.addFormDataPart("upfile", Headfile.getName(), Headbody);
+                parts = builder.build().parts();
+                backUri = cardUrlBean.getData();
+                mPresenter.FetchUploadFile(parts);
+                break;
+            case 3:
+                handUri =cardUrlBean.getData();
+                mPresenter.FetchMemberAuthSave("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
+                        "realName", name, "cardNo", CardNum, "cardUrl", mainUri + ";" + backUri + ";" + handUri);
+                postType = 0;
+                break;
+        }
     }
+
     /**
      * 新增实名认证
      */

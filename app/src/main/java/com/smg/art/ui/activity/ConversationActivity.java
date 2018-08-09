@@ -32,6 +32,7 @@ import io.rong.imlib.model.Conversation;
  */
 
 public class ConversationActivity extends FragmentActivity {
+
     @BindView(R.id.rl_back)
     AutoRelativeLayout rlBack;
     @BindView(R.id.actionbar_title)

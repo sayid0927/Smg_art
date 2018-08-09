@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/appBar"
     android:layout_width="match_parent"
-    android:layout_height="80px"
+    android:layout_height="@dimen/bj_40dp"
     android:background="@color/colorPrimaryDark">
 
     <RelativeLayout
         android:id="@+id/rl_back"
-        android:layout_width="70px"
+        android:layout_width="@dimen/bj_50dp"
         android:layout_centerVertical="true"
         android:layout_height="match_parent"
         android:background="?android:selectableItemBackground">
@@ -17,7 +17,7 @@
         <ImageView
             android:layout_centerVertical="true"
             android:id="@+id/actionbar_back"
-            android:layout_marginLeft="24px"
+            android:layout_marginLeft="@dimen/bj_12dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/arrow_back" />
@@ -28,7 +28,7 @@
 
     <com.flyco.tablayout.SlidingTabLayout
         android:id="@+id/tab_layout"
-        android:layout_width="400px"
+        android:layout_width="@dimen/bj_200dp"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:background="@color/colorPrimaryDark"

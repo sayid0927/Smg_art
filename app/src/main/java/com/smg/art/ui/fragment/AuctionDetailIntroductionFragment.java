@@ -1,6 +1,7 @@
 package com.smg.art.ui.fragment;
 
 import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.utils.ToastUtils;
+import com.google.gson.Gson;
 import com.smg.art.R;
+import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.BaseFragment;
 import com.smg.art.base.Constant;
@@ -22,6 +25,7 @@ import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.fragment.AuctionDeatilIntroductionContract;
 import com.smg.art.presenter.impl.fragment.AuctionDetailIntroductionPresenter;
+import com.smg.art.ui.activity.AuctionBuyerDepositActivity;
 import com.smg.art.ui.activity.AuctionDeatilActivity;
 import com.smg.art.ui.adapter.ServiceDialogApadter;
 import com.smg.art.utils.CallPhone;
@@ -30,6 +34,8 @@ import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.view.CustomDialog;
 import com.smg.art.view.MyBridgeWebView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -43,6 +49,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.bingoogolapple.bgabanner.BGABanner;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.CSCustomServiceInfo;
 
 /**
  * Created by Lenovo on 2018/7/26.
@@ -74,7 +82,7 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
     @BindView(R.id.tv_now_action)
     TextView tvNowAction;
 
-
+   private  AuctionDetailBean auctionDetailBean;
     private AuctionGoodsBean.DataBean.RowsBean data;
     private List<FindCustomerServiceBean.DataBean> serviceDatas = new ArrayList<>();
     private ServiceDialogApadter apadter;
@@ -106,6 +114,7 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
         DaggerMainComponent.builder().appComponent(appComponent).build().inject(this);
     }
 
+
     @Override
     public void showError(String message) {
         ToastUtils.showLongToast(message);
@@ -114,6 +123,7 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
     @Override
     protected void initView(Bundle bundle) {
         super.initView(bundle);
+        EventBus.getDefault().register(this);
         webview.setBackgroundColor(0);
         mPresenter.FetchHomepageGetauctiondetail("id", String.valueOf(data.getId()));
 
@@ -138,11 +148,17 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
      */
     @Override
     public void FetchHomepageGetauctiondetailSuccess(AuctionDetailBean auctionDetailBean) {
-
+         this.auctionDetailBean = auctionDetailBean;
         tvStartPrice.setText(String.valueOf(auctionDetailBean.getData().getStartPrice()));
         tvFrontMoneyAmount.setText(String.valueOf(auctionDetailBean.getData().getFrontMoneyAmount()));
         tvNowprice.setText(String.valueOf(auctionDetailBean.getData().getNowprice()));
         tvActionName.setText(String.valueOf(auctionDetailBean.getData().getActionName()));
+
+        if (auctionDetailBean.getData().getDepositStatus() == 0) {
+            tvNowAction.setText("交保证金参与");
+        } else {
+            tvNowAction.setText("保证金已支付");
+        }
 
         String[] split = auctionDetailBean.getData().getPictureUrl().split(",");
         List<String> imgUrls = new ArrayList<>();
@@ -150,6 +166,7 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
         for (int i = 0; i < split.length; i++) {
             imgUrls.add(Constant.BaseImgUrl + split[i]);
         }
+
         banner.setAdapter(new BGABanner.Adapter<ImageView, String>() {
             @Override
             public void fillBannerItem(BGABanner banner, ImageView itemView, String model, int position) {
@@ -188,6 +205,8 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
     }
 
 
+
+
     @OnClick({R.id.tv_collectioin, R.id.phone_service, R.id.tv_phone, R.id.tv_now_action})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -197,12 +216,7 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
                 View dialogview = View.inflate(getActivity(), R.layout.dialog_service, null);
                 RecyclerView rv = dialogview.findViewById(R.id.rv_service);
                 rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-                apadter.OnServiceItemListener(new ServiceDialogApadter.OnServiceItemListener() {
-                    @Override
-                    public void OnServiceItemListener(FindCustomerServiceBean.DataBean item) {
-                        // TODO
-                    }
-                });
+
                 rv.setAdapter(apadter);
                 final CustomDialog mDialogWaiting = new CustomDialog(getActivity(), dialogview, R.style.MyDialog);
                 mDialogWaiting.show();
@@ -212,6 +226,17 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
                 tvCencl.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        if (mDialogWaiting != null) mDialogWaiting.dismiss();
+                    }
+                });
+
+                apadter.OnServiceItemListener(new ServiceDialogApadter.OnServiceItemListener() {
+                    @Override
+                    public void OnServiceItemListener(FindCustomerServiceBean.DataBean item) {
+                        CSCustomServiceInfo.Builder csBuilder = new CSCustomServiceInfo.Builder();
+                        CSCustomServiceInfo csInfo = csBuilder
+                                .nickName("融云").build();
+                        RongIM.getInstance().startCustomerServiceChat(getActivity(), item.getMemberNo(), item.getMemberName(), csInfo);
                         if (mDialogWaiting != null) mDialogWaiting.dismiss();
                     }
                 });
@@ -236,9 +261,20 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
                             "goodsId", String.valueOf(data.getGoodsId()));
 
                 break;
-            case R.id.tv_now_action:  // 立即出价
-                AuctionDeatilActivity.auctionDeatilActivity.setCurrentItem(1);
+            case R.id.tv_now_action:  // 交保证金参与
+                if (data != null) {
+                    Intent intent = new Intent(getActivity(), AuctionBuyerDepositActivity.class);
+                    intent.putExtra("data", new Gson().toJson(auctionDetailBean));
+                    intent.putExtra("type",2);
+                    AuctionDeatilActivity.auctionDeatilActivity.startActivityIn(intent, getActivity());
+                }
                 break;
         }
+    }
+
+    @Subscribe
+    public void getEventBus(AuctionBuyerDepositBean auctionBuyerDepositBean) {
+        //支付保证金回来
+        tvNowAction.setText("保证金已支付");
     }
 }

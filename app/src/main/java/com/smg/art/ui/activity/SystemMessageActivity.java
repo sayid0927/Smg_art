@@ -51,7 +51,7 @@ public class SystemMessageActivity extends BaseActivity implements SystemMessage
     SmartRefreshLayout srl;
 
     private SystemMessageApadter mAdapter;
-    private List<SystemMessageBean.DataBean.RowsBean> systemMessageBeans;
+    private List<SystemMessageBean.DataBean.RowsBean> systemMessageBeans = new ArrayList<>();
     private  int page = 1;
     private  int rows =10;
 

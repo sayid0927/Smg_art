@@ -78,6 +78,7 @@ public class AuctionCentreFragment extends BaseFragment implements AuctionCentre
     private List<AuctionCenterBean.DataBean.ListBean> rowsBeans = new ArrayList<>();
     private AuctionCentreListApadter apadter;
     private ScheduledFuture scheduledFuture;
+    private  boolean isFst= false;
 
     public static AuctionCentreFragment getInstance(AuctionGoodsBean.DataBean.RowsBean data) {
         AuctionCentreFragment sf = new AuctionCentreFragment();
@@ -132,7 +133,11 @@ public class AuctionCentreFragment extends BaseFragment implements AuctionCentre
     @Override
     public void FetchAuctionCenterListSuccess(AuctionCenterBean auctionCenterBean) {
         this.maxMoneyBean = auctionCenterBean.getData().getMaxMoney();
-        initMaxMoneyView(maxMoneyBean);
+        if(!isFst){
+            initMaxMoneyView(maxMoneyBean);
+            isFst = true;
+        }
+
         if (rowsBeans.size() != 0) rowsBeans.clear();
         this.rowsBeans = auctionCenterBean.getData().getList();
         for (int i = 0; i < rowsBeans.size(); i++) {
@@ -143,7 +148,7 @@ public class AuctionCentreFragment extends BaseFragment implements AuctionCentre
             }
         }
         apadter.setNewData(rowsBeans);
-        rvAcution.smoothScrollToPosition(apadter.getItemCount() - 1);
+//        rvAcution.smoothScrollToPosition(apadter.getItemCount() - 1);
     }
 
     /**

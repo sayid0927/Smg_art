@@ -12,7 +12,7 @@ import com.smg.art.R;
 import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.BaseActivity;
-import com.smg.art.bean.UpudterMessageBean;
+import com.smg.art.bean.AuctionGoodsBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.activity.AuctionBuyerDepositContract;
@@ -21,7 +21,6 @@ import com.smg.art.utils.LocalAppConfigUtil;
 import com.zhy.autolayout.AutoRelativeLayout;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import javax.inject.Inject;
 
@@ -43,7 +42,8 @@ public class AuctionBuyerDepositActivity extends BaseActivity implements Auction
 
     @BindView(R.id.checkbox)
     CheckBox checkBox;
-    private AuctionDetailBean data;
+    private AuctionDetailBean goodsData;
+    private int type;
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -68,9 +68,12 @@ public class AuctionBuyerDepositActivity extends BaseActivity implements Auction
     @Override
     public void initView() {
 
+        actionbarTitle.setText("支付");
         String bookJson = getIntent().getStringExtra("data");
-        data = new Gson().fromJson(bookJson, AuctionDetailBean.class);
-        tvFrontMoneyAmount.setText(String.valueOf(data.getData().getFrontMoneyAmount()));
+        type = getIntent().getIntExtra("type", 1);
+        goodsData = new Gson().fromJson(bookJson, AuctionDetailBean.class);
+        tvFrontMoneyAmount.setText(String.valueOf(goodsData.getData().getFrontMoneyAmount()));
+
     }
 
     /**
@@ -97,11 +100,11 @@ public class AuctionBuyerDepositActivity extends BaseActivity implements Auction
                 break;
             case R.id.bt_post:
                 if (checkBox.isChecked()) {
-                    if (data != null) {
-                        mPresenter.FetchAuctionBuyerDeposit("auctionId", String.valueOf(data.getData().getId()),
-                                "goodsId", String.valueOf(data.getData().getGoodsId()),
+                    if (goodsData != null) {
+                        mPresenter.FetchAuctionBuyerDeposit("auctionId", String.valueOf(goodsData.getData().getId()),
+                                "goodsId", String.valueOf(goodsData.getData().getGoodsId()),
                                 "memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
-                                "amount", String.valueOf(data.getData().getFrontMoneyAmount()));
+                                "amount", String.valueOf(goodsData.getData().getFrontMoneyAmount()));
                     }
                 } else {
                     ToastUtils.showLongToast("请选择支付方式");
@@ -109,5 +112,4 @@ public class AuctionBuyerDepositActivity extends BaseActivity implements Auction
                 break;
         }
     }
-
 }

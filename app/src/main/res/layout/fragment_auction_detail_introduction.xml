@@ -305,7 +305,7 @@
             android:background="@drawable/text_red_bg"
             android:gravity="center"
             android:padding="10px"
-            android:text="立即出价"
+            android:text="交保证金参与"
             android:textColor="@color/white"
             android:textSize="36px" />
 

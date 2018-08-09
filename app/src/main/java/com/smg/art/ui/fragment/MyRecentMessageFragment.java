@@ -25,6 +25,7 @@ import io.rong.imkit.fragment.ConversationListFragment;
 import io.rong.imkit.model.Event;
 import io.rong.imkit.model.UIConversation;
 import io.rong.imkit.widget.adapter.ConversationListAdapter;
+import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 
 /**
@@ -74,10 +75,6 @@ public class MyRecentMessageFragment extends Fragment {
 
         @Override
         protected void bindView(View v, int position, UIConversation data) {
-
-
-
-
 
             super.bindView(v, position, data);
         }

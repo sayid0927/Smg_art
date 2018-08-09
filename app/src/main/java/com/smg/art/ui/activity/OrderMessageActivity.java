@@ -24,6 +24,7 @@ import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.view.MyLoadMoreView;
 import com.zhy.autolayout.AutoRelativeLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -46,7 +47,7 @@ public class OrderMessageActivity extends BaseActivity implements OrderMessageAc
     SmartRefreshLayout srl;
 
     private SystemMessageApadter mAdapter;
-    private List<SystemMessageBean.DataBean.RowsBean> systemMessageBeans;
+    private List<SystemMessageBean.DataBean.RowsBean> systemMessageBeans= new ArrayList<>();
     private  int page = 1;
     private  int rows =10;
 

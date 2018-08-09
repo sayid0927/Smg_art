@@ -16,12 +16,13 @@ import com.smg.art.module.ApiModule;
 import com.smg.art.module.AppModule;
 import com.smg.art.utils.PreferUtil;
 
+import io.rong.eventbus.EventBus;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Message;
 
 
-public class BaseApplication extends Application  {
+public class BaseApplication extends Application {
 
     public  static BaseApplication baseApplication;
     private static AppComponent appComponent;
@@ -105,6 +106,8 @@ public class BaseApplication extends Application  {
         if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext())) ||
                 "io.rong.push".equals(getCurProcessName(getApplicationContext()))) {
             RongIM.init(this);
+
         }
     }
+
 }

@@ -189,9 +189,9 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
         tvActionName.setText(auctionDetailBean.getData().getActionName());
         tvStartPrice.setText("￥ " + String.valueOf(auctionDetailBean.getData().getStartPrice()));
         tvFrontMoneyAmount.setText("￥ " + String.valueOf(auctionDetailBean.getData().getFrontMoneyAmount()));
-        if(detailBean.getData().getDepositStatus()==0){
+        if (detailBean.getData().getDepositStatus() == 0) {
             btAuction.setText("交保证金参与");
-        }else {
+        } else {
             btAuction.setText("保证金已支付");
         }
 
@@ -245,9 +245,11 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
 
     @Override
     public void finish() {
-        webview.removeAllViews();
-        webview.destroy();
-        webview = null;
+        if (webview != null) {
+            webview.removeAllViews();
+            webview.destroy();
+            webview = null;
+        }
         super.finish();
     }
 
@@ -255,6 +257,12 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
     public void getEventBus(AuctionBuyerDepositBean auctionBuyerDepositBean) {
         //支付保证金回来
         btAuction.setText("保证金已支付");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @SuppressLint("MissingPermission")
@@ -270,11 +278,12 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
                             "goodsId", String.valueOf(detailBean.getData().getGoodsId()));
                 break;
             case R.id.bt_auction:  // 交保证金参与
-
-                Intent intent = new Intent(this, AuctionBuyerDepositActivity.class);
-                intent.putExtra("data",new Gson().toJson(detailBean));
-                startActivityIn(intent, this);
-
+                if (detailBean != null) {
+                    Intent intent = new Intent(this, AuctionBuyerDepositActivity.class);
+                    intent.putExtra("data", new Gson().toJson(detailBean));
+                    intent.putExtra("type", 1);
+                    startActivityIn(intent, this);
+                }
                 break;
 
             case R.id.phone_service:  //客服

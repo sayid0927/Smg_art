@@ -48,7 +48,7 @@ public class AuctionConterPresenter extends BasePresenter<AuctionCentreContract.
                     @Override
                     public void onNext(AuctionCenterBean data) {
                         hideWaitingDialog();
-                        if (mView != null && data != null && data.getStatus() == 1) {
+                        if (mView != null && data != null && data.getStatus() == 1 && data.getData().getList()!=null && data.getData().getMaxMoney()!=null ) {
                             mView.FetchAuctionCenterListSuccess(data);
                         } else {
                             if (data != null && data.getMsg() != null)
