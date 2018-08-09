@@ -30,13 +30,13 @@ import com.smg.art.base.BaseActivity;
 import com.smg.art.base.CardUrlBean;
 import com.smg.art.bean.CheckBankCardBean;
 import com.smg.art.bean.ReChargeBean;
-import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.activity.ReChargeContract;
-import com.smg.art.presenter.impl.activity.ReChargePresenter;
 import com.smg.art.utils.ClipFileUtil;
 import com.smg.art.utils.KeyBoardUtils;
+import com.smg.art.utils.L;
 import com.smg.art.utils.LocalAppConfigUtil;
+import com.smg.art.view.PopDialog;
 import com.zhy.autolayout.AutoRelativeLayout;
 
 import java.io.File;
@@ -57,6 +57,10 @@ import okhttp3.RequestBody;
 public class RechargeActivity extends BaseActivity implements ReChargeContract.View {
     //请求相机
     private static final int REQUEST_CAPTURE = 100;
+    //请求相册
+    private static final int REQUEST_PICK = 101;
+    //请求截图
+    private static final int REQUEST_CROP_PHOTO = 102;
     //请求访问外部存储
     private static final int READ_EXTERNAL_STORAGE_REQUEST_CODE = 103;
     //请求写入外部存储
@@ -92,7 +96,10 @@ public class RechargeActivity extends BaseActivity implements ReChargeContract.V
     CheckBankCardBean mCheckBankCardBean;
     String url;
     private int type;
-    private File tempMainFile;
+  //  private File tempMainFile;
+    PopDialog popDialog;
+    //调用照相机返回图片文件
+    private File tempFile;
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void onTextChanged(CharSequence s, int start, int before,
@@ -183,9 +190,8 @@ public class RechargeActivity extends BaseActivity implements ReChargeContract.V
                 if (TextUtils.isEmpty(etContext.getText().toString())) {
                     ToastUtils.showShortToast("请输入充值金额");
                 } else {
-
                     MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM); //表单类型
-                    File Mainfile = new File(String.valueOf(tempMainFile));
+                    File Mainfile = new File(String.valueOf(tempFile));
                     RequestBody Mainbody = RequestBody.create(MediaType.parse("multipart/form-data"), Mainfile);//表单类型
                     builder.addFormDataPart("type", "wallet");//传入服务器需要的key，和相应value值
                     builder.addFormDataPart("upfile", Mainfile.getName(), Mainbody); //添加图片数据，body创建的请求体
@@ -195,7 +201,8 @@ public class RechargeActivity extends BaseActivity implements ReChargeContract.V
                 break;
             case R.id.up_pic:
                 type = 1;
-                if (Build.VERSION.SDK_INT >= 23) {
+                uploadHeadImage();
+           /*     if (Build.VERSION.SDK_INT >= 23) {
                     int checkCallPhonePermission = ContextCompat.checkSelfPermission(RechargeActivity.this, Manifest.permission.CAMERA);
                     if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(RechargeActivity.this, new String[]{Manifest.permission.CAMERA}, WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
@@ -205,16 +212,111 @@ public class RechargeActivity extends BaseActivity implements ReChargeContract.V
                     }
                 } else {
                     gotoCamera();
-                }
+                }*/
 
                 break;
         }
     }
 
     /**
+     * 上传头像
+     */
+    private void uploadHeadImage() {
+        popDialog = new PopDialog(this, R.layout.layout_popupwindow);
+        popDialog.show();
+        popDialog.findViewById(R.id.btn_camera).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //权限判断
+                if (ContextCompat.checkSelfPermission(RechargeActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    //申请WRITE_EXTERNAL_STORAGE权限
+                    //申请WRITE_EXTERNAL_STORAGE权限
+                    ActivityCompat.requestPermissions(RechargeActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
+                } else {
+                    //跳转到调用系统相机
+                    gotoCamera();
+                }
+                popDialog.dismiss();
+            }
+        });
+        popDialog.findViewById(R.id.btn_photo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //权限判断
+                if (ContextCompat.checkSelfPermission(RechargeActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    //申请READ_EXTERNAL_STORAGE权限
+                    ActivityCompat.requestPermissions(RechargeActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            READ_EXTERNAL_STORAGE_REQUEST_CODE);
+                } else {
+                    //跳转到相册
+                    gotoPhoto();
+                }
+                popDialog.dismiss();
+            }
+        });
+        popDialog.findViewById(R.id.btn_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popDialog.dismiss();
+            }
+        });
+    }
+
+    /**
+     * 外部存储权限申请返回
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == WRITE_EXTERNAL_STORAGE_REQUEST_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission Granted
+                gotoCamera();
+            }
+        } else if (requestCode == READ_EXTERNAL_STORAGE_REQUEST_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission Granted
+                gotoPhoto();
+            }
+        }
+    }
+
+    /**
+     * 跳转到相册
+     */
+    private void gotoPhoto() {
+        L.e("evan", "*****************打开图库********************");
+        //跳转到调用系统图库
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(Intent.createChooser(intent, "请选择图片"), REQUEST_PICK);
+    }
+
+    /**
      * 跳转到照相机
      */
     private void gotoCamera() {
+        Log.d("evan", "*****************打开相机********************");
+        //创建拍照存储的图片文件
+        tempFile = new File(ClipFileUtil.checkDirPath(Environment.getExternalStorageDirectory().getPath() + "/image/"), System.currentTimeMillis() + ".jpg");
+
+        //跳转到调用系统相机
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            //设置7.0中共享文件，分享路径定义在xml/file_paths.xml
+            intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            Uri contentUri = FileProvider.getUriForFile(RechargeActivity.this, BuildConfig.APPLICATION_ID + ".fileProvider", tempFile);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
+        } else {
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempFile));
+        }
+        startActivityForResult(intent, REQUEST_CAPTURE);
+    }
+
+    /**
+     * 跳转到照相机
+     */
+   /* private void gotoCamera() {
         Log.d("evan", "*****************打开相机********************");
         //创建拍照存储的图片文件
 
@@ -247,7 +349,7 @@ public class RechargeActivity extends BaseActivity implements ReChargeContract.V
 
         }
         startActivityForResult(intent, REQUEST_CAPTURE);
-    }
+    }*/
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -256,7 +358,21 @@ public class RechargeActivity extends BaseActivity implements ReChargeContract.V
                 if (resultCode == RESULT_OK) {
                     switch (type) {
                         case 1:
-                            Glide.with(this).load(tempMainFile).into(upPic);
+                            Glide.with(this).load(tempFile).into(upPic);
+                            break;
+                    }
+                }
+                break;
+            case REQUEST_PICK:  //调用系统相册返回
+                if (resultCode ==RESULT_OK) {
+                    Uri uri = intent.getData();
+                    if (uri == null) {
+                        return;
+                    }
+                    tempFile = new File((ClipFileUtil.getRealFilePathFromUri(getApplicationContext(), uri)));
+                    switch (type) {
+                        case 1:
+                            Glide.with(this).load(tempFile).into(upPic);
                             break;
                     }
                 }

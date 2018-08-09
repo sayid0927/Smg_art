@@ -16,11 +16,8 @@ import com.smg.art.R;
 import com.smg.art.base.BaseFragment;
 import com.smg.art.base.Constant;
 import com.smg.art.bean.AuctionOrderBean;
-import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.fragment.AuctionOrderConstrat;
-import com.smg.art.presenter.impl.fragment.AuctionOrderPresenter;
-import com.smg.art.ui.personalcenter.OrderdetailActivity;
 import com.smg.art.ui.personalcenter.adapter.AuctionAdapter;
 import com.smg.art.utils.LocalAppConfigUtil;
 
@@ -121,6 +118,7 @@ public class AuctionOrderFragment extends BaseFragment implements AuctionOrderCo
             getData(p = 1);
         }
     }
+
 
     public void getData(int p) {
         mPresenter.FetchAuctionOrder("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()), "type", String.valueOf(type), "page", String.valueOf(p), "rows", String.valueOf(count));

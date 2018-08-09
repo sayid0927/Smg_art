@@ -2,7 +2,6 @@ package com.smg.art.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -30,7 +29,6 @@ import com.smg.art.ui.activity.MainActivity;
 import com.smg.art.ui.activity.SearchActivity;
 import com.smg.art.ui.adapter.AuctionGoodsListApadter;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,6 +102,7 @@ public class AuctionFragment extends BaseFragment implements AuctionContract.Vie
             public void OnAuctionGoodsItemListener(int item) {
                 Intent i = new Intent(getActivity(), AuctionDeatilActivity.class);
                 i.putExtra("data", new Gson().toJson(list.get(item)));
+                i.putExtra("type",1);
                 MainActivity.mainActivity.startActivityIn(i, getActivity());
             }
         });

@@ -8,7 +8,7 @@
     <LinearLayout
         android:id="@+id/auction"
         android:layout_width="match_parent"
-        android:layout_height="108dp"
+        android:layout_height="118dp"
         android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -59,7 +59,7 @@
                 android:id="@+id/end_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/bj_8dp"
+                android:layout_marginTop="@dimen/bj_5dp"
                 android:text="结拍时间 2018-12-12"
                 android:textColor="@color/grey_e6333333"
                 android:textSize="@dimen/wz_13sp" />
@@ -67,7 +67,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/bj_8dp"
+                android:layout_marginTop="@dimen/bj_5dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -102,6 +102,14 @@
                     android:textColor="@color/red_b20002"
                     android:textSize="@dimen/wz_20sp" />
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="right"
+                >
                 <TextView
                     android:id="@+id/complaint_btn"
                     android:layout_width="@dimen/bj_75dp"
@@ -112,7 +120,8 @@
                     android:text="发起投诉"
                     android:textColor="@color/white"
                     android:textSize="@dimen/wz_13sp"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                   />
 
                 <TextView
                     android:id="@+id/detail"
@@ -124,7 +133,8 @@
                     android:text="查看详情"
                     android:textColor="@color/white"
                     android:textSize="@dimen/wz_13sp"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                   />
             </LinearLayout>
         </LinearLayout>
 

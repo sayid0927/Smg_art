@@ -1,6 +1,7 @@
 package com.smg.art.ui.personalcenter.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,7 +61,7 @@ public class AuctionAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        AuctionOrderBean.DataBean dataBean = mList.get(position);
+        final AuctionOrderBean.DataBean dataBean = mList.get(position);
         if (!TextUtils.isEmpty(dataBean.getStatus())) {
             if (("6").equals(dataBean.getStatus())) {//已交割或投诉
                 if (!TextUtils.isEmpty(dataBean.getComplainStatus())) {
@@ -91,6 +92,15 @@ public class AuctionAdapter extends BaseAdapter {
                         viewHolder.price.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", dataBean.getNowprice()))));
                         viewHolder.detail.setVisibility(View.VISIBLE);
                         viewHolder.complaint_btn.setVisibility(View.VISIBLE);
+                        viewHolder.complaint_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(mContext, StartComplaintActivity.class);
+                                intent.putExtra("auctionId", dataBean.getId());
+                                intent.putExtra("goodsId",dataBean.getGoodsId());
+                                mContext.startActivity(intent);
+                            }
+                        });
                     }
                 } else {
                     viewHolder.auction.setVisibility(View.GONE);

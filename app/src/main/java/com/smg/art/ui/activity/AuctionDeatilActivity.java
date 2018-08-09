@@ -1,6 +1,5 @@
 package com.smg.art.ui.activity;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -19,13 +18,11 @@ import com.smg.art.presenter.impl.fragment.AuctionDeatilPresenter;
 import com.smg.art.ui.fragment.AuctionCentreFragment;
 import com.smg.art.ui.fragment.AuctionDetailIntroductionFragment;
 
-
 import java.util.ArrayList;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class AuctionDeatilActivity extends BaseActivity implements AuctionDeatilContract.View {
@@ -45,6 +42,8 @@ public class AuctionDeatilActivity extends BaseActivity implements AuctionDeatil
     private ArrayList<String> mTitleList = new ArrayList<>();
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     public  static  AuctionDeatilActivity auctionDeatilActivity;
+    int type;
+    int id;
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -68,16 +67,21 @@ public class AuctionDeatilActivity extends BaseActivity implements AuctionDeatil
 
     @Override
     public void initView() {
+        type =getIntent().getIntExtra("type",0);
+        id=getIntent().getIntExtra("id",0);
+        if(type==1){
+            String bookJson=getIntent().getStringExtra("data");
+            AuctionGoodsBean.DataBean.RowsBean data=new Gson().fromJson(bookJson,AuctionGoodsBean.DataBean.RowsBean.class);
+            mFragments.add(AuctionDetailIntroductionFragment.getInstance(data));
+            mFragments.add(AuctionCentreFragment.getInstance(data));
+        }else if(type==2) {
+            mFragments.add(AuctionDetailIntroductionFragment.getInstance(id));
+            mFragments.add(AuctionDetailIntroductionFragment.getInstance(id));
+        }
 
-        String bookJson=getIntent().getStringExtra("data");
-        AuctionGoodsBean.DataBean.RowsBean data=new Gson().fromJson(bookJson,AuctionGoodsBean.DataBean.RowsBean.class);
 
         mTitleList.add(getString(R.string.DetailIntroduction));
         mTitleList.add(getString(R.string.AuctionCentre));
-
-
-        mFragments.add(AuctionDetailIntroductionFragment.getInstance(data));
-        mFragments.add(AuctionCentreFragment.getInstance(data));
 
         BaseFragmentPageAdapter myAdapter = new BaseFragmentPageAdapter(getSupportFragmentManager(), mFragments, mTitleList);
         vp.setAdapter(myAdapter);

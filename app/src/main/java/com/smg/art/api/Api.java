@@ -40,6 +40,7 @@ import com.smg.art.bean.ChangePassWordBean;
 import com.smg.art.bean.ChangeTraderPasswordBean;
 import com.smg.art.bean.CheckBankCardBean;
 import com.smg.art.bean.CollectionBean;
+import com.smg.art.bean.ComplaintBean;
 import com.smg.art.bean.CreatWordsBean;
 import com.smg.art.bean.CurrencyExchangeRateBean;
 import com.smg.art.bean.ForgetPasswordBean;
@@ -469,5 +470,11 @@ public class Api {
     }
 
 
+    /**
+     * 投诉
+     */
+    public Observable<ComplaintBean> FetchComplaintService(String... s) {
+        return service.FetchComplaintService(getMap(s));
+    }
 
 }

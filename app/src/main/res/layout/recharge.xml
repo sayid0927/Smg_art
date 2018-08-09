@@ -151,6 +151,7 @@
             android:layout_height="@dimen/bj_70dp"
             android:layout_marginLeft="@dimen/bj_18dp"
             android:layout_marginTop="@dimen/bj_20dp"
+            android:scaleType="centerCrop"
             android:background="@drawable/default_up_pic" />
 
         <LinearLayout

@@ -1,7 +1,7 @@
 package com.smg.art.ui.fragment;
 
-import android.os.Build;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -82,14 +82,21 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
     @BindView(R.id.tv_now_action)
     TextView tvNowAction;
 
-   private  AuctionDetailBean auctionDetailBean;
+    private AuctionDetailBean auctionDetailBean;
     private AuctionGoodsBean.DataBean.RowsBean data;
     private List<FindCustomerServiceBean.DataBean> serviceDatas = new ArrayList<>();
     private ServiceDialogApadter apadter;
+    private int id;
 
     public static AuctionDetailIntroductionFragment getInstance(AuctionGoodsBean.DataBean.RowsBean data) {
         AuctionDetailIntroductionFragment sf = new AuctionDetailIntroductionFragment();
         sf.data = data;
+        return sf;
+    }
+
+    public static AuctionDetailIntroductionFragment getInstance(int id) {
+        AuctionDetailIntroductionFragment sf = new AuctionDetailIntroductionFragment();
+        sf.id = id;
         return sf;
     }
 
@@ -125,7 +132,12 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
         super.initView(bundle);
         EventBus.getDefault().register(this);
         webview.setBackgroundColor(0);
-        mPresenter.FetchHomepageGetauctiondetail("id", String.valueOf(data.getId()));
+        if(id>0){
+            mPresenter.FetchHomepageGetauctiondetail("id", String.valueOf(id));
+        }else {
+            mPresenter.FetchHomepageGetauctiondetail("id", String.valueOf(data.getId()));
+        }
+
 
         //解决页面渲染闪烁问题.
         getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED, WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
@@ -148,7 +160,7 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
      */
     @Override
     public void FetchHomepageGetauctiondetailSuccess(AuctionDetailBean auctionDetailBean) {
-         this.auctionDetailBean = auctionDetailBean;
+        this.auctionDetailBean = auctionDetailBean;
         tvStartPrice.setText(String.valueOf(auctionDetailBean.getData().getStartPrice()));
         tvFrontMoneyAmount.setText(String.valueOf(auctionDetailBean.getData().getFrontMoneyAmount()));
         tvNowprice.setText(String.valueOf(auctionDetailBean.getData().getNowprice()));
@@ -203,8 +215,6 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
         }
         return doc.toString();
     }
-
-
 
 
     @OnClick({R.id.tv_collectioin, R.id.phone_service, R.id.tv_phone, R.id.tv_now_action})
@@ -265,7 +275,7 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
                 if (data != null) {
                     Intent intent = new Intent(getActivity(), AuctionBuyerDepositActivity.class);
                     intent.putExtra("data", new Gson().toJson(auctionDetailBean));
-                    intent.putExtra("type",2);
+                    intent.putExtra("type", 2);
                     AuctionDeatilActivity.auctionDeatilActivity.startActivityIn(intent, getActivity());
                 }
                 break;
