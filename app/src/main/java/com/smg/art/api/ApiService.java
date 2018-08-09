@@ -42,10 +42,12 @@ import com.smg.art.bean.CurrencyExchangeRateBean;
 import com.smg.art.bean.ForgetPasswordBean;
 import com.smg.art.bean.HotWordsListBean;
 import com.smg.art.bean.LoginBean;
+import com.smg.art.bean.OderDetailBean;
 import com.smg.art.bean.PersonalCenterBean;
 import com.smg.art.bean.PhoneVerifyCodeBean;
 import com.smg.art.bean.ProofreadCodeBean;
 import com.smg.art.bean.ReChargeBean;
+import com.smg.art.bean.RefundBean;
 import com.smg.art.bean.RegisterBean;
 import com.smg.art.bean.SaveCollectsBean;
 import com.smg.art.bean.SearchMemberBean;
@@ -360,6 +362,18 @@ public interface ApiService {
      */
     @GET(Constant.MEMBER_FINDCUSTOMERSERVICE)
     Observable<FindCustomerServiceBean> FetchFindCustomerService(@QueryMap Map<String, String> map);
+
+    /**
+     * 查询单个拍卖记录
+     */
+    @GET(Constant.QUERYAUCTIONINFO)
+    Observable<OderDetailBean> FetchQueryAuctionInfoService(@QueryMap Map<String, String> map);
+
+    /**
+     * 查看单个投诉记录
+     */
+    @GET(Constant.QUERYCOMPLAINAUCTIONINFO)
+    Observable<RefundBean> FetchRefundService(@QueryMap Map<String, String> map);
 
 
 

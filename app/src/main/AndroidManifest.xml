@@ -115,7 +115,8 @@
             android:name=".ui.login.LoginActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeMain" />
+            android:theme="@style/AppThemeMain"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.login.RegisterActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -199,6 +200,11 @@
 
         <activity
             android:name="com.smg.art.view.webview.PublicWebViewActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.personalcenter.OrderdetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
 

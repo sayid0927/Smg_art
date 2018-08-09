@@ -143,6 +143,13 @@ public class DateFormatUtil {
         return date;
     }
 
+    public static String toHour(long timestamp) {
+        Date date = new Date(timestamp);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM月dd日 HH:mm");
+        String dateString = simpleDateFormat.format(date);
+        return dateString;
+    }
+
     public static String getTimestampString(Date date) {
         String formatStr = null;
         formatStr = "M-d HH:mm";

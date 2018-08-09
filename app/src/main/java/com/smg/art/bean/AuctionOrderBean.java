@@ -150,6 +150,15 @@ public class AuctionOrderBean {
         private Long sysDate;
         private double buyerEnsureAmount;
         private String categoryId;
+        private int complainId;
+
+        public int getComplainId() {
+            return complainId;
+        }
+
+        public void setComplainId(int complainId) {
+            this.complainId = complainId;
+        }
 
         public int getId() {
             return id;

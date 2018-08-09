@@ -18,7 +18,6 @@ import com.smg.art.ui.fragment.ClassifyChildFragment;
 import com.smg.art.ui.fragment.ContactsFragment;
 import com.smg.art.ui.fragment.HomeFragment;
 import com.smg.art.ui.fragment.MyFragment;
-
 import com.smg.art.ui.fragment.RecentMessageFragment;
 import com.smg.art.ui.login.ForgetPasswordActivity;
 import com.smg.art.ui.login.LoginActivity;
@@ -32,6 +31,7 @@ import com.smg.art.ui.personalcenter.ChangePasswordActivity;
 import com.smg.art.ui.personalcenter.ChangeTradersPasswordActivity;
 import com.smg.art.ui.personalcenter.MyCollectionActivity;
 import com.smg.art.ui.personalcenter.MyWalletActivity;
+import com.smg.art.ui.personalcenter.OrderdetailActivity;
 import com.smg.art.ui.personalcenter.RechargeActivity;
 import com.smg.art.ui.personalcenter.SendMobilePhoneActivity;
 import com.smg.art.ui.personalcenter.SettingActivity;
@@ -116,4 +116,5 @@ public interface MainComponent {
 
     RecentMessageFragment inject (RecentMessageFragment recentMessageFragment);
 
+    OrderdetailActivity inject(OrderdetailActivity orderdetailActivity);
 }

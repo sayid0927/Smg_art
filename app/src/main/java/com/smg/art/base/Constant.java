@@ -171,6 +171,11 @@ public class Constant {
     public static final String AUCTIONBIDDING_CREATBIDDING = "auctionBidding/creatBidding";
     //查询客服信息
     public static final String MEMBER_FINDCUSTOMERSERVICE = "member/findCustomerService";
+    //查看单个拍卖记录
+    public static final String QUERYAUCTIONINFO = "auctionpage/queryAuctionInfo";
+    //查看单个投诉记录
+    public static final String QUERYCOMPLAINAUCTIONINFO = "auctionpage/queryComplainAuctionInfo";
+
 
 
     public static String LOCAL_APP_CONFIG_FILE_NAME = "smgconfig";//本地应用配置文件名，存储些全局变量

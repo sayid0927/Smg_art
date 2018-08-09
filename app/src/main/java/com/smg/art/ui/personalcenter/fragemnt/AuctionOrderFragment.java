@@ -1,7 +1,9 @@
 package com.smg.art.ui.personalcenter.fragemnt;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -18,6 +20,7 @@ import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.fragment.AuctionOrderConstrat;
 import com.smg.art.presenter.impl.fragment.AuctionOrderPresenter;
+import com.smg.art.ui.personalcenter.OrderdetailActivity;
 import com.smg.art.ui.personalcenter.adapter.AuctionAdapter;
 import com.smg.art.utils.LocalAppConfigUtil;
 
@@ -93,6 +96,22 @@ public class AuctionOrderFragment extends BaseFragment implements AuctionOrderCo
         getData(p = 1);
         auctionAdapter = new AuctionAdapter(getActivity(), list);
         listView.setAdapter(auctionAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (type == 4) {
+                    Intent intent = new Intent(getActivity(), OrderdetailActivity.class);
+                    intent.putExtra("id", list.get(i).getComplainId());
+                    intent.putExtra("typeId", 1);//1代表投诉
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getActivity(), OrderdetailActivity.class);
+                    intent.putExtra("id", list.get(i).getId());
+                    intent.putExtra("typeId", 2);//2代表不是投诉
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override

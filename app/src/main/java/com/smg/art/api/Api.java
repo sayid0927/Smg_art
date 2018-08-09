@@ -45,10 +45,12 @@ import com.smg.art.bean.CurrencyExchangeRateBean;
 import com.smg.art.bean.ForgetPasswordBean;
 import com.smg.art.bean.HotWordsListBean;
 import com.smg.art.bean.LoginBean;
+import com.smg.art.bean.OderDetailBean;
 import com.smg.art.bean.PersonalCenterBean;
 import com.smg.art.bean.PhoneVerifyCodeBean;
 import com.smg.art.bean.ProofreadCodeBean;
 import com.smg.art.bean.ReChargeBean;
+import com.smg.art.bean.RefundBean;
 import com.smg.art.bean.RegisterBean;
 import com.smg.art.bean.SaveCollectsBean;
 import com.smg.art.bean.SearchMemberBean;
@@ -451,4 +453,21 @@ public class Api {
     public Observable<FindCustomerServiceBean> FetchFindCustomerService(String... s) {
         return service.FetchFindCustomerService(getMap(s));
     }
+
+    /**
+     * 查询单个拍卖记录
+     */
+    public Observable<OderDetailBean> FetchQueryAuctionInfoService(String... s) {
+        return service.FetchQueryAuctionInfoService(getMap(s));
+    }
+
+    /**
+     * 查看单个投诉记录
+     */
+    public Observable<RefundBean> FetchRefundService(String... s) {
+        return service.FetchRefundService(getMap(s));
+    }
+
+
+
 }

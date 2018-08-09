@@ -2,10 +2,10 @@ package com.smg.art.ui.adapter;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.google.gson.Gson;
 import com.smg.art.R;
 import com.smg.art.base.BaseApplication;
 import com.smg.art.utils.GlideUtils;
@@ -13,17 +13,10 @@ import com.smg.art.utils.UIUtils;
 
 import java.util.List;
 
-import io.rong.common.RLog;
-import io.rong.imkit.RongContext;
 import io.rong.imkit.emoticon.AndroidEmoji;
-import io.rong.imkit.model.ConversationProviderTag;
-import io.rong.imkit.model.UIConversation;
 import io.rong.imkit.utils.RongDateUtils;
-import io.rong.imkit.widget.adapter.ConversationListAdapter;
-import io.rong.imkit.widget.provider.IContainerItemProvider;
 import io.rong.imlib.model.Conversation;
 import io.rong.message.ImageMessage;
-import io.rong.message.LocationMessage;
 import io.rong.message.TextMessage;
 import io.rong.message.VoiceMessage;
 
@@ -36,6 +29,7 @@ public class RecentMessageApadter extends BaseQuickAdapter<Conversation, BaseVie
 
     private Context mContext;
     private List<Conversation> data;
+    private OnMessageItemListener onMessageItemListener;
 
     public RecentMessageApadter(List<Conversation> data, Context mContext) {
         super(R.layout.item_recent_message, data);
@@ -66,7 +60,7 @@ public class RecentMessageApadter extends BaseQuickAdapter<Conversation, BaseVie
                     helper.setText(R.id.tv_time, str);
                     helper.setText(R.id.tv_name, data.getLatestMessage().getUserInfo().getName());
                     String urlImg = String.valueOf(data.getLatestMessage().getUserInfo().getPortraitUri());
-                    GlideUtils.loadFitCenter(mContext, urlImg,helper.getView(R.id.ivHeader));
+                    GlideUtils.loadFitCenter(mContext, urlImg, (ImageView) helper.getView(R.id.ivHeader));
 
                     helper.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -80,9 +74,6 @@ public class RecentMessageApadter extends BaseQuickAdapter<Conversation, BaseVie
             }
         }
     }
-
-
-    private OnMessageItemListener onMessageItemListener;
 
     public void OnMessageItemListener(OnMessageItemListener onMessageItemListener) {
         this.onMessageItemListener = onMessageItemListener;
