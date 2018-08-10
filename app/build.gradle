@@ -100,5 +100,5 @@ dependencies {
     implementation 'com.google.android:flexbox:0.2.5'
     compile files('libs/tbs_sdk_thirdapp_v3.6.0.1183_43604_sharewithdownload_withoutGame_obfs_20180211_105126.jar')
     implementation project(':IMKit')
-
+    implementation project(':imageselectorbrowser')
 }

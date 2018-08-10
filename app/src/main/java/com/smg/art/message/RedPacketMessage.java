@@ -23,6 +23,7 @@ public class RedPacketMessage extends MessageContent {
     private String content;
     private String Bribery_ID;
     private String Bribery_Name;
+
     private String Bribery_Message;
     public static final Creator<RedPacketMessage> CREATOR = new Creator() {
         public RedPacketMessage createFromParcel(Parcel var1) {
