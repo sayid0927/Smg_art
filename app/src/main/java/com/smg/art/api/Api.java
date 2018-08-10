@@ -476,4 +476,12 @@ public class Api {
         return service.FetchvalidteTradePwd(getMap(s));
     }
 
+
+    /**
+     * 投诉
+     */
+    public Observable<ComplaintBean> FetchComplaintService(String... s) {
+        return service.FetchComplaintService(getMap(s));
+    }
+
 }

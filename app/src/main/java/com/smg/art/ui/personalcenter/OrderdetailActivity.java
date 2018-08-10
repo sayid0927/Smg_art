@@ -140,6 +140,7 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
     TextView complaintContent;
     GridViewAdapter gridViewAdapter;
     private List<String> images = new ArrayList<>();
+    OderDetailBean.DataBean orderDataBean;
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -189,7 +190,10 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
                 finish();
                 break;
             case R.id.check_auction:
-                ToastUtils.showShortToast("查看竞拍");
+        /*        Intent i = new Intent(this, AuctionDeatilActivity.class);
+                i.putExtra("type",2);
+                i.putExtra("id",orderDataBean.getId());
+                startActivityIn(i,this);*/
                 break;
         }
     }
@@ -242,11 +246,11 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
     }
 
     private void setData(OderDetailBean oderDetailBean) {
-        OderDetailBean.DataBean dataBean = oderDetailBean.getData();
-        if (!TextUtils.isEmpty(dataBean.getStatus())) {
-            if (("6").equals(dataBean.getStatus())) {//已交割或投诉
-                if (!TextUtils.isEmpty(dataBean.getComplainStatus())) {
-                    if (dataBean.getComplainStatus().equals("1")) {//1代表已投诉
+        orderDataBean = oderDetailBean.getData();
+        if (!TextUtils.isEmpty(orderDataBean.getStatus())) {
+            if (("6").equals(orderDataBean.getStatus())) {//已交割或投诉
+                if (!TextUtils.isEmpty(orderDataBean.getComplainStatus())) {
+                    if (orderDataBean.getComplainStatus().equals("1")) {//1代表已投诉
 
                     } else {//0代表未投诉  或者dataBean.getComplainFlag()
                         isTheDelivery.setVisibility(View.VISIBLE);
@@ -254,88 +258,88 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
                         biddingSuccess.setVisibility(View.GONE);
                         biddingFailure.setVisibility(View.GONE);
                         onSale.setVisibility(View.GONE);
-                        if (!TextUtils.isEmpty(dataBean.getPictureUrl())) {
-                            String[] pic = dataBean.getPictureUrl().split(",");
+                        if (!TextUtils.isEmpty(orderDataBean.getPictureUrl())) {
+                            String[] pic = orderDataBean.getPictureUrl().split(",");
                             GlideCommonUtils.showSquarePic(this, pic[0], deliveryPic);
                         } else {
                             deliveryPic.setImageResource(R.mipmap.defaut_square);
                         }
-                        deliveryShopName.setText(dataBean.getActionName());
-                        deliveryPrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", dataBean.getNowprice()))));
+                        deliveryShopName.setText(orderDataBean.getActionName());
+                        deliveryPrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getNowprice()))));
                         //交易单号
-                        deliveryOderNum.setText(dataBean.getBidNo());
+                        deliveryOderNum.setText(orderDataBean.getBidNo());
                         //下单时间
-                        deliveryOrderTime.setText(dataBean.getCreateTime());
+                        deliveryOrderTime.setText(orderDataBean.getCreateTime());
                         //交割时间
-                        deliveryTime.setText(DateFormatUtil.getFormatDate(dataBean.getDeliveryTime(), "yyyy-MM-dd HH:mm:ss"));
+                        deliveryTime.setText(DateFormatUtil.getFormatDate(orderDataBean.getDeliveryTime(), "yyyy-MM-dd HH:mm:ss"));
                     }
                 } else {
                     /*viewHolder.auction.setVisibility(View.GONE);
                     viewHolder.complaint.setVisibility(View.GONE);*/
                 }
 
-            } else if (("5").equals(dataBean.getStatus())) {//待交割
+            } else if (("5").equals(orderDataBean.getStatus())) {//待交割
                 biddingSuccess.setVisibility(View.VISIBLE);
                 refundSuccess.setVisibility(View.GONE);
                 biddingFailure.setVisibility(View.GONE);
                 isTheDelivery.setVisibility(View.GONE);
                 onSale.setVisibility(View.GONE);
-                if (!TextUtils.isEmpty(dataBean.getPictureUrl())) {
-                    String[] pic = dataBean.getPictureUrl().split(",");
+                if (!TextUtils.isEmpty(orderDataBean.getPictureUrl())) {
+                    String[] pic = orderDataBean.getPictureUrl().split(",");
                     GlideCommonUtils.showSquarePic(this, pic[0], successPic);
                 } else {
                     successPic.setImageResource(R.mipmap.defaut_square);
                 }
-                successShopName.setText(dataBean.getActionName());
-                successPrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", dataBean.getNowprice()))));
+                successShopName.setText(orderDataBean.getActionName());
+                successPrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getNowprice()))));
                 //交易单号
-                successOderNum.setText(dataBean.getBidNo());
+                successOderNum.setText(orderDataBean.getBidNo());
                 //下单时间
-                successOrderTime.setText(dataBean.getCreateTime());
-            } else if ("4".equals(dataBean.getStatus())) {//参拍中
-                if (dataBean.getSysDate() != null) {
-                    if (dataBean.getSysDate() < dataBean.getEndTime()) {
+                successOrderTime.setText(orderDataBean.getCreateTime());
+            } else if ("4".equals(orderDataBean.getStatus())) {//参拍中
+                if (orderDataBean.getSysDate() != null) {
+                    if (orderDataBean.getSysDate() < orderDataBean.getEndTime()) {
                         biddingSuccess.setVisibility(View.GONE);
                         biddingFailure.setVisibility(View.GONE);
                         isTheDelivery.setVisibility(View.GONE);
                         refundSuccess.setVisibility(View.GONE);
                         onSale.setVisibility(View.VISIBLE);
-                        long countTime = dataBean.getEndTime() - dataBean.getSysDate();
+                        long countTime = orderDataBean.getEndTime() - orderDataBean.getSysDate();
                         if (countTime > 0) {
                             countDown(countTime);
                             timer.start();
                         }
-                        if (!TextUtils.isEmpty(dataBean.getPictureUrl())) {
-                            String[] pic = dataBean.getPictureUrl().split(",");
+                        if (!TextUtils.isEmpty(orderDataBean.getPictureUrl())) {
+                            String[] pic = orderDataBean.getPictureUrl().split(",");
                             GlideCommonUtils.showSquarePic(this, pic[0], onSalePic);
                         } else {
                             onSalePic.setImageResource(R.mipmap.defaut_square);
                         }
-                        onSaleShopName.setText(dataBean.getActionName());
-                        onSalePrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", dataBean.getNowprice()))));
+                        onSaleShopName.setText(orderDataBean.getActionName());
+                        onSalePrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getNowprice()))));
                         //交易单号
-                        onSaleOderNum.setText(dataBean.getBidNo());
+                        onSaleOderNum.setText(orderDataBean.getBidNo());
                         //下单时间
-                        onSaleOrderTime.setText(dataBean.getCreateTime());
+                        onSaleOrderTime.setText(orderDataBean.getCreateTime());
                     } else {
-                        if (!TextUtils.isEmpty(dataBean.getBuyerMemberId())) {
-                            if (dataBean.getBuyerMemberId().equals(String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()))) {
+                        if (!TextUtils.isEmpty(orderDataBean.getBuyerMemberId())) {
+                            if (orderDataBean.getBuyerMemberId().equals(String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()))) {
                                 biddingSuccess.setVisibility(View.VISIBLE);
                                 biddingFailure.setVisibility(View.GONE);
                                 isTheDelivery.setVisibility(View.GONE);
                                 onSale.setVisibility(View.GONE);
-                                if (!TextUtils.isEmpty(dataBean.getPictureUrl())) {
-                                    String[] pic = dataBean.getPictureUrl().split(",");
+                                if (!TextUtils.isEmpty(orderDataBean.getPictureUrl())) {
+                                    String[] pic = orderDataBean.getPictureUrl().split(",");
                                     GlideCommonUtils.showSquarePic(this, pic[0], successPic);
                                 } else {
                                     successPic.setImageResource(R.mipmap.defaut_square);
                                 }
-                                successShopName.setText(dataBean.getActionName());
-                                successPrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", dataBean.getNowprice()))));
+                                successShopName.setText(orderDataBean.getActionName());
+                                successPrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getNowprice()))));
                                 //交易单号
-                                successOderNum.setText(dataBean.getBidNo());
+                                successOderNum.setText(orderDataBean.getBidNo());
                                 //下单时间
-                                successOrderTime.setText(dataBean.getCreateTime());
+                                successOrderTime.setText(orderDataBean.getCreateTime());
                                 //  viewHolder.detail.setText("已中标");
                                 // viewHolder.detail.setBackgroundResource(R.drawable.shape_red);
                             } else {
@@ -344,20 +348,20 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
                                 biddingFailure.setVisibility(View.VISIBLE);
                                 isTheDelivery.setVisibility(View.GONE);
                                 onSale.setVisibility(View.GONE);
-                                if (!TextUtils.isEmpty(dataBean.getPictureUrl())) {
-                                    String[] pic = dataBean.getPictureUrl().split(",");
+                                if (!TextUtils.isEmpty(orderDataBean.getPictureUrl())) {
+                                    String[] pic = orderDataBean.getPictureUrl().split(",");
                                     GlideCommonUtils.showSquarePic(this, pic[0], failurePic);
                                 } else {
                                     failurePic.setImageResource(R.mipmap.defaut_square);
                                 }
-                                failureShopName.setText(dataBean.getActionName());
-                                failurePrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", dataBean.getNowprice()))));
+                                failureShopName.setText(orderDataBean.getActionName());
+                                failurePrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getNowprice()))));
                                 //交易单号
-                                failureOderNum.setText(dataBean.getBidNo());
+                                failureOderNum.setText(orderDataBean.getBidNo());
                                 //下单时间
-                                failureOrderTime.setText(dataBean.getCreateTime());
+                                failureOrderTime.setText(orderDataBean.getCreateTime());
                                 //退款时间
-                                failureRefundTime.setText(dataBean.getReturnFrontMoneyTime());
+                                failureRefundTime.setText(orderDataBean.getReturnFrontMoneyTime());
                                 // viewHolder.detail.setText("未中标");
                                 // viewHolder.detail.setBackgroundResource(R.drawable.shape_faint_yellow);
                             }
@@ -365,49 +369,49 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
                     }
                 } else {
                     long time = System.currentTimeMillis();
-                    if (time < dataBean.getEndTime()) {
+                    if (time < orderDataBean.getEndTime()) {
                         biddingSuccess.setVisibility(View.GONE);
                         refundSuccess.setVisibility(View.GONE);
                         biddingFailure.setVisibility(View.GONE);
                         isTheDelivery.setVisibility(View.GONE);
                         onSale.setVisibility(View.VISIBLE);
-                        long countTime = dataBean.getEndTime() - time;
+                        long countTime = orderDataBean.getEndTime() - time;
                         if (countTime > 0) {
                             countDown(countTime);
                             timer.start();
                         }
-                        if (!TextUtils.isEmpty(dataBean.getPictureUrl())) {
-                            String[] pic = dataBean.getPictureUrl().split(",");
+                        if (!TextUtils.isEmpty(orderDataBean.getPictureUrl())) {
+                            String[] pic = orderDataBean.getPictureUrl().split(",");
                             GlideCommonUtils.showSquarePic(this, pic[0], onSalePic);
                         } else {
                             onSalePic.setImageResource(R.mipmap.defaut_square);
                         }
-                        onSaleShopName.setText(dataBean.getActionName());
-                        onSalePrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", dataBean.getNowprice()))));
+                        onSaleShopName.setText(orderDataBean.getActionName());
+                        onSalePrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getNowprice()))));
                         //交易单号
-                        onSaleOderNum.setText(dataBean.getBidNo());
+                        onSaleOderNum.setText(orderDataBean.getBidNo());
                         //下单时间
-                        onSaleOrderTime.setText(dataBean.getCreateTime());
+                        onSaleOrderTime.setText(orderDataBean.getCreateTime());
                     } else {
-                        if (!TextUtils.isEmpty(dataBean.getBuyerMemberId())) {
-                            if (dataBean.getBuyerMemberId().equals(String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()))) {
+                        if (!TextUtils.isEmpty(orderDataBean.getBuyerMemberId())) {
+                            if (orderDataBean.getBuyerMemberId().equals(String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()))) {
                                 biddingSuccess.setVisibility(View.VISIBLE);
                                 refundSuccess.setVisibility(View.GONE);
                                 biddingFailure.setVisibility(View.GONE);
                                 isTheDelivery.setVisibility(View.GONE);
                                 onSale.setVisibility(View.GONE);
-                                if (!TextUtils.isEmpty(dataBean.getPictureUrl())) {
-                                    String[] pic = dataBean.getPictureUrl().split(",");
+                                if (!TextUtils.isEmpty(orderDataBean.getPictureUrl())) {
+                                    String[] pic = orderDataBean.getPictureUrl().split(",");
                                     GlideCommonUtils.showSquarePic(this, pic[0], successPic);
                                 } else {
                                     successPic.setImageResource(R.mipmap.defaut_square);
                                 }
-                                successShopName.setText(dataBean.getActionName());
-                                successPrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", dataBean.getNowprice()))));
+                                successShopName.setText(orderDataBean.getActionName());
+                                successPrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getNowprice()))));
                                 //交易单号
-                                successOderNum.setText(dataBean.getBidNo());
+                                successOderNum.setText(orderDataBean.getBidNo());
                                 //下单时间
-                                successOrderTime.setText(dataBean.getCreateTime());
+                                successOrderTime.setText(orderDataBean.getCreateTime());
                                 //  viewHolder.detail.setText("已中标");
                                 // viewHolder.detail.setBackgroundResource(R.drawable.shape_red);
                             } else {
@@ -416,20 +420,20 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
                                 biddingFailure.setVisibility(View.VISIBLE);
                                 isTheDelivery.setVisibility(View.GONE);
                                 onSale.setVisibility(View.GONE);
-                                if (!TextUtils.isEmpty(dataBean.getPictureUrl())) {
-                                    String[] pic = dataBean.getPictureUrl().split(",");
+                                if (!TextUtils.isEmpty(orderDataBean.getPictureUrl())) {
+                                    String[] pic = orderDataBean.getPictureUrl().split(",");
                                     GlideCommonUtils.showSquarePic(this, pic[0], failurePic);
                                 } else {
                                     failurePic.setImageResource(R.mipmap.defaut_square);
                                 }
-                                failureShopName.setText(dataBean.getActionName());
-                                failurePrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", dataBean.getNowprice()))));
+                                failureShopName.setText(orderDataBean.getActionName());
+                                failurePrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getNowprice()))));
                                 //交易单号
-                                failureOderNum.setText(dataBean.getBidNo());
+                                failureOderNum.setText(orderDataBean.getBidNo());
                                 //下单时间
-                                failureOrderTime.setText(dataBean.getCreateTime());
+                                failureOrderTime.setText(orderDataBean.getCreateTime());
                                 //退款时间
-                                failureRefundTime.setText(dataBean.getReturnFrontMoneyTime());
+                                failureRefundTime.setText(orderDataBean.getReturnFrontMoneyTime());
                                 // viewHolder.detail.setText("未中标");
                                 // viewHolder.detail.setBackgroundResource(R.drawable.shape_faint_yellow);
                             }

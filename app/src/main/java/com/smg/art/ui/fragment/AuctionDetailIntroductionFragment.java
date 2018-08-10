@@ -1,6 +1,7 @@
 package com.smg.art.ui.fragment;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.widget.LinearLayoutManager;
@@ -99,10 +100,17 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
     private ServiceDialogApadter apadter;
     private int depositStatus;
     private CountDownTimer countDownTimer;
+    private int id;
 
     public static AuctionDetailIntroductionFragment getInstance(AuctionGoodsBean.DataBean.RowsBean data) {
         AuctionDetailIntroductionFragment sf = new AuctionDetailIntroductionFragment();
         sf.data = data;
+        return sf;
+    }
+
+    public static AuctionDetailIntroductionFragment getInstance(int id) {
+        AuctionDetailIntroductionFragment sf = new AuctionDetailIntroductionFragment();
+        sf.id = id;
         return sf;
     }
 
@@ -138,7 +146,12 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
         super.initView(bundle);
         EventBus.getDefault().register(this);
         webview.setBackgroundColor(0);
-        mPresenter.FetchHomepageGetauctiondetail("id", String.valueOf(data.getId()));
+        if(id>0){
+            mPresenter.FetchHomepageGetauctiondetail("id", String.valueOf(id));
+        }else {
+            mPresenter.FetchHomepageGetauctiondetail("id", String.valueOf(data.getId()));
+        }
+
 
         //解决页面渲染闪烁问题.
 //        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED, WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
@@ -250,6 +263,7 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
         return doc.toString();
     }
 
+
     @OnClick({R.id.tv_collectioin, R.id.phone_service, R.id.tv_phone, R.id.tv_now_action})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -323,14 +337,5 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
     public void getEventBus(AuctionBuyerDepositBean auctionBuyerDepositBean) {
         //支付保证金回来
         tvNowAction.setText("保证金已支付");
-        depositStatus = 1;
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
     }
 }

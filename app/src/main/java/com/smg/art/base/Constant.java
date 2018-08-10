@@ -180,6 +180,8 @@ public class Constant {
     //投诉
     public static final String SAVEAUCTIONCOMPLAIN = "auctionpage/saveAuctionComplain";
 
+    //投诉
+    public static final String SAVEAUCTIONCOMPLAIN = "auctionpage/saveAuctionComplain";
 
 
 

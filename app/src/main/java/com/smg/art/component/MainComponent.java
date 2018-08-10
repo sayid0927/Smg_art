@@ -35,6 +35,7 @@ import com.smg.art.ui.personalcenter.OrderdetailActivity;
 import com.smg.art.ui.personalcenter.RechargeActivity;
 import com.smg.art.ui.personalcenter.SendMobilePhoneActivity;
 import com.smg.art.ui.personalcenter.SettingActivity;
+import com.smg.art.ui.personalcenter.StartComplaintActivity;
 import com.smg.art.ui.personalcenter.WithdrawActivity;
 import com.smg.art.ui.personalcenter.fragemnt.AuctionOrderFragment;
 import com.smg.art.ui.personalcenter.fragemnt.BalanceFragment;
@@ -117,4 +118,6 @@ public interface MainComponent {
     RecentMessageFragment inject (RecentMessageFragment recentMessageFragment);
 
     OrderdetailActivity inject(OrderdetailActivity orderdetailActivity);
+
+    StartComplaintActivity inject(StartComplaintActivity startComplaintActivity);
 }
