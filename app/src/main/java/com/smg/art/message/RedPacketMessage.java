@@ -35,6 +35,7 @@ public class RedPacketMessage extends MessageContent {
         }
     };
 
+
     public byte[] encode() {
         JSONObject var1 = new JSONObject();
 
