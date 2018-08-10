@@ -72,6 +72,8 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.POST;
+import retrofit2.http.QueryMap;
 import rx.Observable;
 
 public class Api {
@@ -467,7 +469,11 @@ public class Api {
     public Observable<RefundBean> FetchRefundService(String... s) {
         return service.FetchRefundService(getMap(s));
     }
-
-
+    /**
+     * 验证交易密码(Gumq)
+     */
+    public Observable<RefundBean> FetchvalidteTradePwd(String... s) {
+        return service.FetchvalidteTradePwd(getMap(s));
+    }
 
 }

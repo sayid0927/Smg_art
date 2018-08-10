@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import com.smg.art.base.BaseFragment;
 import com.smg.art.base.Constant;
 import com.smg.art.bean.AuctionCenterBean;
 import com.smg.art.bean.AuctionGoodsBean;
+import com.smg.art.bean.RefundBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.fragment.AuctionCentreContract;
@@ -27,6 +29,7 @@ import com.smg.art.presenter.impl.fragment.AuctionConterPresenter;
 import com.smg.art.ui.adapter.AuctionCentreListApadter;
 import com.smg.art.utils.GlideUtils;
 import com.smg.art.utils.LocalAppConfigUtil;
+import com.smg.art.view.CustomDialog;
 import com.smg.art.view.MyBridgeWebView;
 import com.smg.art.view.RoundImageView;
 
@@ -78,7 +81,7 @@ public class AuctionCentreFragment extends BaseFragment implements AuctionCentre
     private List<AuctionCenterBean.DataBean.ListBean> rowsBeans = new ArrayList<>();
     private AuctionCentreListApadter apadter;
     private ScheduledFuture scheduledFuture;
-    private  boolean isFst= false;
+    private boolean isFst = false;
 
     public static AuctionCentreFragment getInstance(AuctionGoodsBean.DataBean.RowsBean data) {
         AuctionCentreFragment sf = new AuctionCentreFragment();
@@ -109,7 +112,7 @@ public class AuctionCentreFragment extends BaseFragment implements AuctionCentre
 
     @Override
     public void showError(String message) {
-        ToastUtils.showLongToast(message);
+
     }
 
     @Override
@@ -132,11 +135,8 @@ public class AuctionCentreFragment extends BaseFragment implements AuctionCentre
      */
     @Override
     public void FetchAuctionCenterListSuccess(AuctionCenterBean auctionCenterBean) {
-        this.maxMoneyBean = auctionCenterBean.getData().getMaxMoney();
-        if(!isFst){
-            initMaxMoneyView(maxMoneyBean);
-            isFst = true;
-        }
+
+        initMaxMoneyView(auctionCenterBean.getData().getMaxMoney());
 
         if (rowsBeans.size() != 0) rowsBeans.clear();
         this.rowsBeans = auctionCenterBean.getData().getList();
@@ -148,7 +148,6 @@ public class AuctionCentreFragment extends BaseFragment implements AuctionCentre
             }
         }
         apadter.setNewData(rowsBeans);
-//        rvAcution.smoothScrollToPosition(apadter.getItemCount() - 1);
     }
 
     /**
@@ -166,38 +165,76 @@ public class AuctionCentreFragment extends BaseFragment implements AuctionCentre
     @Override
     public void FetchHomepageGetauctiondetailSuccess(AuctionDetailBean auctionDetailBean) {
         webview.loadDataWithBaseURL(null, getNewContent(auctionDetailBean.getData().getAuctionDesc()), "text/html", "utf-8", null);
+    }
 
+    /**
+     * 验证交易密码(Gumq)
+     */
+    @Override
+    public void FetchvalidteTradePwdSuccess(RefundBean refundBean) {
+
+        mPresenter.FetchCreatBidding("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
+                "auctionId", String.valueOf(data.getId()), "amount", etCreatBidding.getText().toString().trim());
     }
 
     private void initMaxMoneyView(AuctionCenterBean.DataBean.MaxMoneyBean maxMoneyBean) {
-        GlideUtils.loadFitCenter(getActivity(), Constant.BaseImgUrl + maxMoneyBean.getMember().getHeadImg(), ivHread, R.drawable.draw_def);
-        tvName.setText(maxMoneyBean.getMember().getMemberName());
-        tvMoney.setText(String.valueOf(maxMoneyBean.getAmount()));
+
+        if (rowsBeans.size() == 0) {
+            tvMoney.setText(String.valueOf(maxMoneyBean.getStartPrice()));
+            etCreatBidding.setHint("最低加价" + String.valueOf(maxMoneyBean.getStepSize()) + "元");
+        } else {
+            tvName.setText(maxMoneyBean.getMember().getMemberName());
+            tvMoney.setText(String.valueOf(maxMoneyBean.getAmount()));
+            if (EmptyUtils.isNotEmpty(maxMoneyBean.getMember()) && EmptyUtils.isNotEmpty(maxMoneyBean.getMember().getHeadImg()))
+                GlideUtils.loadFitCenter(getActivity(), Constant.BaseImgUrl + maxMoneyBean.getMember().getHeadImg(), ivHread, R.drawable.draw_def);
+
+            if (EmptyUtils.isNotEmpty(maxMoneyBean.getStepSize()))
+                etCreatBidding.setHint("最低加价" + String.valueOf(maxMoneyBean.getStepSize()) + "元");
+        }
+        this.maxMoneyBean = maxMoneyBean;
     }
 
     @OnClick(R.id.ll_creatBidding)
     public void onViewClicked() {
-        String creatBidding = etCreatBidding.getText().toString().trim();
-        if (!TextUtils.isEmpty(creatBidding)) {
-            mPresenter.FetchCreatBidding("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
-                    "auctionId", String.valueOf(data.getId()), "amount", creatBidding);
-        } else {
-            ToastUtils.showLongToast("请出价高干200元");
+
+        if (EmptyUtils.isEmpty(etCreatBidding.getText().toString().trim())) {
+            ToastUtils.showLongToast("请输入金额");
+            return;
         }
+
+        View dialogview = View.inflate(getActivity(), R.layout.dialog_validtetradepwd, null);
+        Button btPost = dialogview.findViewById(R.id.bt_post);
+        EditText edPwd = dialogview.findViewById(R.id.ed_pwd);
+        final CustomDialog mDialogWaiting = new CustomDialog(getActivity(), dialogview, R.style.MyDialog);
+        mDialogWaiting.show();
+        mDialogWaiting.setCancelable(true);
+        btPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String pwd = edPwd.getText().toString().trim();
+                if (EmptyUtils.isNotEmpty(pwd)) {
+                    mPresenter.FetchvalidteTradePwd("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
+                            "tradePwd", pwd);
+                    mDialogWaiting.dismiss();
+                } else {
+                    ToastUtils.showLongToast("请输入交易密码");
+                }
+            }
+        });
+
     }
 
     @Override
     public void onDestroyView() {
         if (scheduledFuture != null)
             scheduledFuture.cancel(false);
-        if(webview!=null) {
+        if (webview != null) {
             webview.removeAllViews();
             webview.destroy();
             webview = null;
         }
         super.onDestroyView();
     }
-
 
     private String getNewContent(String htmltext) {
         Document doc = Jsoup.parse(htmltext);

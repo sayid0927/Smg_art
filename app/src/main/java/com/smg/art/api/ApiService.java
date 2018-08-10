@@ -375,7 +375,11 @@ public interface ApiService {
     @GET(Constant.QUERYCOMPLAINAUCTIONINFO)
     Observable<RefundBean> FetchRefundService(@QueryMap Map<String, String> map);
 
-
+    /**
+     * 验证交易密码(Gumq)
+     */
+    @POST(Constant.MEMBER_VALIDTETRADEPWD)
+    Observable<RefundBean> FetchvalidteTradePwd(@QueryMap Map<String, String> map);
 
 
 }

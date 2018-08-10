@@ -34,13 +34,13 @@ public class AuctionCentreListApadter extends BaseMultiItemQuickAdapter<AuctionC
             case AuctionCenterBean.DataBean.ListBean.LEFT:
                 GlideUtils.loadFitCenter(mContext, Constant.BaseImgUrl + item.getMember().getHeadImg(), (ImageView) helper.getView(R.id.iv_head), R.drawable.draw_def);
                 helper.setText(R.id.tv_name, item.getMember().getMemberName());
-                helper.setText(R.id.tv_amount,String.valueOf(item.getAmount()));
+                helper.setText(R.id.tv_amount,"出价: "+String.valueOf(item.getAmount()));
                 break;
 
             case AuctionCenterBean.DataBean.ListBean.RIGHT:
                 GlideUtils.loadFitCenter(mContext, Constant.BaseImgUrl + item.getMember().getHeadImg(), (ImageView) helper.getView(R.id.iv_head), R.drawable.draw_def);
-                helper.setText(R.id.tv_name, item.getMember().getMemberName());
-                helper.setText(R.id.tv_amount,String.valueOf(item.getAmount()));
+                helper.setText(R.id.tv_name,  item.getMember().getMemberName());
+                helper.setText(R.id.tv_amount,"出价: "+ String.valueOf(item.getAmount()));
                 break;
         }
     }

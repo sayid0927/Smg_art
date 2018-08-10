@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/translucent">
+
+    <LinearLayout
+        android:layout_width="@dimen/bj_300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/dialog_service"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bj_35dp"
+            android:background="@drawable/dialog_service_rl">
+
+            <TextView
+                android:id="@+id/tv_cencl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/bj_15dp"
+                android:padding="@dimen/bj_5dp"
+                android:text="取消"
+                android:textColor="@color/white"
+                android:textSize="@dimen/wz_14sp"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/bj_10dp">
+
+            <EditText
+                android:id="@+id/ed_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/bj_30dp"
+                android:background="@null"
+                android:hint="请输入验证交易密码"
+                android:paddingLeft="@dimen/bj_10dp"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="@dimen/bj_13dp" />
+
+
+            <Button
+                android:id="@+id/bt_post"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/bj_35dp"
+                android:layout_below="@+id/ed_pwd"
+                android:layout_marginLeft="@dimen/bj_20dp"
+                android:layout_marginRight="@dimen/bj_20dp"
+                android:layout_marginTop="@dimen/bj_30dp"
+                android:background="#a61110"
+                android:text="确定"
+                android:textColor="@color/white"
+                android:textSize="@dimen/bj_13dp" />
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

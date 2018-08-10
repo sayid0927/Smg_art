@@ -173,8 +173,13 @@ public class Constant {
     public static final String MEMBER_FINDCUSTOMERSERVICE = "member/findCustomerService";
     //查看单个拍卖记录
     public static final String QUERYAUCTIONINFO = "auctionpage/queryAuctionInfo";
+    //验证交易密码(Gumq)
+    public static final String MEMBER_VALIDTETRADEPWD = "member/validteTradePwd";
     //查看单个投诉记录
     public static final String QUERYCOMPLAINAUCTIONINFO = "auctionpage/queryComplainAuctionInfo";
+    //投诉
+    public static final String SAVEAUCTIONCOMPLAIN = "auctionpage/saveAuctionComplain";
+
 
 
 

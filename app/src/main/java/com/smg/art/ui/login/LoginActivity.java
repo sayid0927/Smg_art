@@ -1,6 +1,7 @@
 package com.smg.art.ui.login;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -27,10 +28,14 @@ import com.smg.art.presenter.impl.login.LoginActivityPresenter;
 import com.smg.art.ui.activity.MainActivity;
 import com.smg.art.utils.CommonUtil;
 import com.smg.art.utils.LocalAppConfigUtil;
+import com.smg.art.utils.RongIMCUtils;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.UserInfo;
 
 /**
  * Created by Mervin on 2018/7/24 0024.
@@ -185,9 +190,9 @@ public class LoginActivity extends BaseActivity implements LoginContract.View, V
             LocalAppConfigUtil.getInstance().setUserTelephone(etContext.getText().toString().replace(" ", ""));
             LocalAppConfigUtil.getInstance().setPassword(etPayPwd.getText().toString());
 
-
             LocalAppConfigUtil.getInstance().setRongUserHeadImg(loginBean.getData().getHeadImg());
             LocalAppConfigUtil.getInstance().setRongUserName(loginBean.getData().getMemberNo());
+
 
             startActivityIn(new Intent(this, MainActivity.class),this);
             finish();
@@ -224,6 +229,5 @@ public class LoginActivity extends BaseActivity implements LoginContract.View, V
 
         return true;
     }
-
 
 }

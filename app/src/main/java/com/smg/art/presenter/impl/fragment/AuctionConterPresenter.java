@@ -1,11 +1,13 @@
 
 package com.smg.art.presenter.impl.fragment;
 
+import com.blankj.utilcode.utils.ToastUtils;
 import com.smg.art.api.Api;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.BasePresenter;
 import com.smg.art.bean.AddressBookFriendsBean;
 import com.smg.art.bean.AuctionCenterBean;
+import com.smg.art.bean.RefundBean;
 import com.smg.art.bean.SystemMessageBean;
 import com.smg.art.presenter.contract.fragment.AuctionCentreContract;
 import com.smg.art.presenter.contract.fragment.AuctionContract;
@@ -28,8 +30,8 @@ public class AuctionConterPresenter extends BasePresenter<AuctionCentreContract.
     }
 
     @Override
-    public void FetchAuctionCenterList(String ...s) {
-//        showWaitingDialog("加载中...");
+    public void FetchAuctionCenterList(String... s) {
+//    showWaitingDialog("加载中...");
         addSubscrebe(api.FetchAuctionCenterList(s).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<AuctionCenterBean>() {
@@ -48,11 +50,8 @@ public class AuctionConterPresenter extends BasePresenter<AuctionCentreContract.
                     @Override
                     public void onNext(AuctionCenterBean data) {
                         hideWaitingDialog();
-                        if (mView != null && data != null && data.getStatus() == 1 && data.getData().getList()!=null && data.getData().getMaxMoney()!=null ) {
+                        if (mView != null && data != null && data.getStatus() == 1) {
                             mView.FetchAuctionCenterListSuccess(data);
-                        } else {
-                            if (data != null && data.getMsg() != null)
-                                mView.showError(data.getMsg());
                         }
                     }
                 }));
@@ -114,6 +113,36 @@ public class AuctionConterPresenter extends BasePresenter<AuctionCentreContract.
                         } else {
                             if (data != null && data.getMsg() != null)
                                 mView.showError(data.getMsg());
+                        }
+                    }
+                }));
+    }
+
+    @Override
+    public void FetchvalidteTradePwd(String... s) {
+        addSubscrebe(api.FetchvalidteTradePwd(s).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<RefundBean>() {
+
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        hideWaitingDialog();
+                        ToastUtils.showLongToast("验证交易密码失败");
+                    }
+
+                    @Override
+                    public void onNext(RefundBean data) {
+                        hideWaitingDialog();
+                        if (mView != null && data != null && data.getStatus() == 1) {
+                            mView.FetchvalidteTradePwdSuccess(data);
+                        } else {
+                            if (mView != null && data != null && data.getMsg() != null)
+                                ToastUtils.showLongToast(data.getMsg());
                         }
                     }
                 }));

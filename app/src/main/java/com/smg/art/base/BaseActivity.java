@@ -45,7 +45,18 @@ public abstract class BaseActivity extends SwipeBackActivity {
         }
     }
 
-
+    public void killAll() {
+        // 复制了一份mActivities 集合Å
+        List<AppCompatActivity> copy;
+        synchronized (mActivities) {
+            copy = new LinkedList<>(mActivities);
+        }
+        for (AppCompatActivity activity : copy) {
+            activity.finish();
+        }
+        // 杀死当前的进程
+//        android.os.Process.killProcess(android.os.Process.myPid());
+    }
 
 
     @Override

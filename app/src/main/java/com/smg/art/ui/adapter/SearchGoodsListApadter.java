@@ -2,6 +2,7 @@ package com.smg.art.ui.adapter;
 
 import android.content.Context;
 import android.os.CountDownTimer;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.View;
@@ -29,6 +30,8 @@ public class SearchGoodsListApadter extends BaseMultiItemQuickAdapter<Announceme
 
     private List<AnnouncementAuctionListBean.DataBean.RowsBean> data;
     private OnGoodsItemListener onGoodsItemListener;
+    private OnAuctionItemListener onAuctionItemListener;
+    private   CountDownTimer countDownTimer = null;
 
     //用于退出activity,避免countdown，造成资源浪费。
     private SparseArray<CountDownTimer> countDownMap = new SparseArray<>();
@@ -37,6 +40,23 @@ public class SearchGoodsListApadter extends BaseMultiItemQuickAdapter<Announceme
         super(data);
         addItemType(RowsBean.GOODS, R.layout.item_goods);
         addItemType(RowsBean.AUCTION, R.layout.item_auction_goods);
+    }
+
+
+    /**
+     * 清空资源
+     */
+    public void cancelAllTimers() {
+        if (countDownMap == null) {
+            return;
+        }
+        //  Log.e("TAG",  "size :  " + countDownMap.size());
+        for (int i = 0, length = countDownMap.size(); i < length; i++) {
+            CountDownTimer cdt = countDownMap.get(countDownMap.keyAt(i));
+            if (cdt != null) {
+                cdt.cancel();
+            }
+        }
     }
 
     @Override
@@ -57,7 +77,7 @@ public class SearchGoodsListApadter extends BaseMultiItemQuickAdapter<Announceme
                 break;
 
             case RowsBean.AUCTION:
-                CountDownTimer countDownTimer = null;
+
                 long time;
                 if (item.getSysDate() > 0) {
                     time = item.getSysDate();
@@ -66,56 +86,68 @@ public class SearchGoodsListApadter extends BaseMultiItemQuickAdapter<Announceme
                 }
                 if (time < item.getEndTime()) {
                     long countTime = item.getEndTime() - time;
-                    //将前一个缓存清除
-                    if (countDownTimer != null) {
-                        countDownTimer.cancel();
-                    }
+                 
                     if (countTime > 0) {
-                        countDownTimer = new CountDownTimer(countTime, 1000) {
+                       countDownTimer = new CountDownTimer(countTime, 1000) {
                             public void onTick(long millisUntilFinished) {
                                 String hour = TimeTools.getCountTimeByLong(millisUntilFinished);
                                 String[] array = hour.split(":");
-                                helper.setText(R.id.tv_hour,array[0]);
-                                helper.setText(R.id.tv_min,array[1]);
-                                helper.setText(R.id.tv_second,array[2]);
+                                helper.setText(R.id.tv_hour, array[0]);
+                                helper.setText(R.id.tv_min, array[1]);
+                                helper.setText(R.id.tv_second, array[2]);
                             }
+
                             public void onFinish() {
-                                helper.setText(R.id.tv_hour,"00");
-                                helper.setText(R.id.tv_min,"00");
-                                helper.setText(R.id.tv_second,"00");
-                                helper.setText(R.id.detail,"拍卖结束");
+                                helper.setText(R.id.tv_hour, "00");
+                                helper.setText(R.id.tv_min, "00");
+                                helper.setText(R.id.tv_second, "00");
+                                helper.setText(R.id.detail, "拍卖结束");
                             }
                         }.start();
                         countDownMap.put(helper.getView(R.id.tv_hour).hashCode(), countDownTimer);
                     } else {
-                        helper.setText(R.id.tv_hour,"00");
-                        helper.setText(R.id.tv_min,"00");
-                        helper.setText(R.id.tv_second,"00");
-                        helper.setText(R.id.detail,"拍卖结束");
+                        helper.setText(R.id.tv_hour, "00");
+                        helper.setText(R.id.tv_min, "00");
+                        helper.setText(R.id.tv_second, "00");
+                        helper.setText(R.id.detail, "拍卖结束");
                         helper.getView(R.id.tv_time).setVisibility(View.GONE);
                     }
                 } else if (time > item.getEndTime()) {
-                    helper.setText(R.id.tv_hour,"00");
-                    helper.setText(R.id.tv_min,"00");
-                    helper.setText(R.id.tv_second,"00");
-                    helper.setText(R.id.detail,"拍卖结束");
+                    helper.setText(R.id.tv_hour, "00");
+                    helper.setText(R.id.tv_min, "00");
+                    helper.setText(R.id.tv_second, "00");
+                    helper.setText(R.id.detail, "拍卖结束");
                     helper.getView(R.id.tv_time).setVisibility(View.GONE);
                 }
                 if (!TextUtils.isEmpty(item.getPictureUrl())) {
                     GlideCommonUtils.showSquarePic(mContext, item.getPictureUrl(), (ImageView) helper.getView(R.id.shop_iv));
                 } else {
-                    helper.setImageResource(R.id.shop_iv,R.mipmap.defaut_square);
+                    helper.setImageResource(R.id.shop_iv, R.mipmap.defaut_square);
                 }
-                helper.setText(R.id.auction_name,item.getActionName());
+                helper.setText(R.id.auction_name, item.getActionName());
 
                 if (TextUtils.isEmpty(item.getAuctionDesc())) {
-                    helper.setText(R.id.auction_tv,"拍卖方:" + item.getAuctionDesc());
+                    helper.setText(R.id.auction_tv, "拍卖方:" + item.getAuctionDesc());
                 }
-                helper.setText(R.id.auction_num,"编码: " + item.getBidNo());
+                helper.setText(R.id.auction_num, "编码: " + item.getBidNo());
+                helper.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (onAuctionItemListener != null)
+                            onAuctionItemListener.OnAuctionItemListener(item);
+                    }
+                });
+
                 break;
         }
     }
+    public class ViewHolder extends BaseViewHolder{
 
+        public ViewHolder(View view) {
+            super(view);
+        }
+
+    }
 
 
     public void OnGoodsItemListener(OnGoodsItemListener onGoodsItemListener) {
@@ -125,5 +157,18 @@ public class SearchGoodsListApadter extends BaseMultiItemQuickAdapter<Announceme
     public interface OnGoodsItemListener {
         void OnGoodsItemListener(RowsBean item);
     }
+
+
+    public void OnAuctionItemListener(OnAuctionItemListener onAuctionItemListener) {
+        this.onAuctionItemListener = onAuctionItemListener;
+    }
+
+    public interface OnAuctionItemListener {
+        void OnAuctionItemListener(RowsBean item);
+    }
+
+
+
+
 
 }

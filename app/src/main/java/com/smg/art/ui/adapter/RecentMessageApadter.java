@@ -3,12 +3,14 @@ package com.smg.art.ui.adapter;
 import android.content.Context;
 import android.view.View;
 
+import com.blankj.utilcode.utils.EmptyUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
 import com.smg.art.R;
 import com.smg.art.base.BaseApplication;
 import com.smg.art.utils.GlideUtils;
+import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.utils.UIUtils;
 
 import java.util.List;
@@ -36,7 +38,7 @@ public class RecentMessageApadter extends BaseQuickAdapter<Conversation, BaseVie
 
     private Context mContext;
     private List<Conversation> data;
-    private OnMessageItemListener onMessageItemListener;
+
 
     public RecentMessageApadter(List<Conversation> data, Context mContext) {
         super(R.layout.item_recent_message, data);
@@ -57,27 +59,29 @@ public class RecentMessageApadter extends BaseQuickAdapter<Conversation, BaseVie
                     } else if (data.getLatestMessage() instanceof VoiceMessage) {
                         helper.setText(R.id.tv_content, "[" + UIUtils.getString(R.string.voice) + "]");
                     }
-                    if(data.getUnreadMessageCount()>0){
+                    if (data.getUnreadMessageCount() > 0) {
                         helper.getView(R.id.tvCount).setVisibility(View.VISIBLE);
-                        helper.setText(R.id.tvCount,String.valueOf(data.getUnreadMessageCount()));
-                    }else {
+                        helper.setText(R.id.tvCount, String.valueOf(data.getUnreadMessageCount()));
+                    } else {
                         helper.getView(R.id.tvCount).setVisibility(View.GONE);
                     }
-                    String str = RongDateUtils.getConversationListFormatDate(data.getReceivedTime(),BaseApplication.getBaseApplication());
+                    String str = RongDateUtils.getConversationListFormatDate(data.getReceivedTime(), BaseApplication.getBaseApplication());
                     helper.setText(R.id.tv_time, str);
 
-                    if(!data.getLatestMessage().getUserInfo().getUserId().equals(LocalAppConfigUtil.getInstance().getRongUserId())){
+                    if (EmptyUtils.isNotEmpty(data.getLatestMessage().getUserInfo())) {
                         String urlImg = String.valueOf(data.getLatestMessage().getUserInfo().getPortraitUri());
+                        if (EmptyUtils.isNotEmpty(urlImg))
+                            GlideUtils.loadFitCenter(mContext, urlImg, helper.getView(R.id.ivHeader));
+                        if (EmptyUtils.isNotEmpty(data.getLatestMessage().getUserInfo().getName()))
                         helper.setText(R.id.tv_name, data.getLatestMessage().getUserInfo().getName());
-                        GlideUtils.loadFitCenter(mContext, urlImg,helper.getView(R.id.ivHeader));
-                    }else {
+                    } else {
                         helper.setText(R.id.tv_name, data.getTargetId());
                     }
 
                     helper.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            if(onMessageItemListener!=null){
+                            if (onMessageItemListener != null) {
                                 onMessageItemListener.OnMessageItemListener(data);
                             }
                         }
@@ -86,7 +90,7 @@ public class RecentMessageApadter extends BaseQuickAdapter<Conversation, BaseVie
                     helper.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                         @Override
                         public boolean onLongClick(View view) {
-                            if(onMessageItemLongListener!=null){
+                            if (onMessageItemLongListener != null) {
                                 onMessageItemLongListener.OnMessageItemLongListener(data);
                             }
                             return false;

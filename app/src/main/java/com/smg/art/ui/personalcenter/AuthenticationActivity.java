@@ -158,14 +158,17 @@ public class AuthenticationActivity extends BaseActivity implements Authenticati
                 Camera();
                 break;
             case R.id.bt_post://提交
-                postType = 1;
-                File Mainfile = new File(String.valueOf(tempMainFile));
-                RequestBody Mainbody = RequestBody.create(MediaType.parse("multipart/form-data"), Mainfile);
-                builder.addFormDataPart("type", "member");
-                builder.addFormDataPart("upfile", Mainfile.getName(), Mainbody);
-                parts = builder.build().parts();
-                mPresenter.FetchUploadFile(parts);
-
+                if(tempMainFile!=null && tempBackFile !=null && tempHandFile !=null){
+                    postType = 1;
+                    File Mainfile = new File(String.valueOf(tempMainFile));
+                    RequestBody Mainbody = RequestBody.create(MediaType.parse("multipart/form-data"), Mainfile);
+                    builder.addFormDataPart("type", "member");
+                    builder.addFormDataPart("upfile", Mainfile.getName(), Mainbody);
+                    parts = builder.build().parts();
+                    mPresenter.FetchUploadFile(parts);
+                }else {
+                    ToastUtils.showLongToast("请选择照片");
+                }
                 break;
         }
     }

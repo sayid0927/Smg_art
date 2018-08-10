@@ -88,6 +88,24 @@ public class AuctionCenterBean {
             private double amount;
             private double bided;
             private long createTime;
+            private  int stepSize;
+            private  int startPrice;
+
+            public int getStartPrice() {
+                return startPrice;
+            }
+
+            public void setStartPrice(int startPrice) {
+                this.startPrice = startPrice;
+            }
+
+            public int getStepSize() {
+                return stepSize;
+            }
+
+            public void setStepSize(int stepSize) {
+                this.stepSize = stepSize;
+            }
 
             public int getId() {
                 return id;

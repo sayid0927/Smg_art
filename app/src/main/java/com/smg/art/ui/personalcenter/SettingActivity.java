@@ -52,6 +52,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.UserInfo;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -173,6 +174,7 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
                 popDialog.findViewById(R.id.roll_out_submit).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        RongIM.getInstance().logout();
                         LocalAppConfigUtil.getInstance().setAccessToken("");
                         LocalAppConfigUtil.getInstance().setCurrentMerberId(0);
                         LocalAppConfigUtil.getInstance().setCurrentMerberNo("");
@@ -181,9 +183,9 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
                         LocalAppConfigUtil.getInstance().setRCToken("");
                         LocalAppConfigUtil.getInstance().setUserTelephone("");
                         LocalAppConfigUtil.getInstance().setPassword("");
+                        killAll();
                         intent = new Intent(SettingActivity.this, LoginActivity.class);
                         startActivityIn(intent, SettingActivity.this);
-                        finish();
                     }
                 });
                 break;

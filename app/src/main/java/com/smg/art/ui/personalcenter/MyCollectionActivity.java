@@ -22,6 +22,7 @@ import com.smg.art.presenter.contract.activity.MyCollectionContract;
 import com.smg.art.presenter.impl.activity.MyCollectionPresenter;
 import com.smg.art.ui.personalcenter.adapter.MyCollectionAdapter;
 import com.smg.art.utils.KeyBoardUtils;
+import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.view.RecyclerViewDivider;
 import com.zhy.autolayout.AutoRelativeLayout;
 
@@ -113,8 +114,7 @@ public class MyCollectionActivity extends BaseActivity implements MyCollectionCo
     }
 
     private void getData(int p) {
-        //String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId())
-        mPresenter.FetchMyCollection("memberId", "78", "page", String.valueOf(p), "rows", String.valueOf(count));
+        mPresenter.FetchMyCollection("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()), "page", String.valueOf(p), "rows", String.valueOf(count));
     }
 
     @OnClick({R.id.rl_back})

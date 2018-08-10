@@ -33,6 +33,7 @@ import com.smg.art.ui.fragment.HomeFragment;
 import com.smg.art.ui.fragment.MessageFragment;
 import com.smg.art.ui.fragment.MyFragment;
 import com.smg.art.utils.LocalAppConfigUtil;
+import com.smg.art.utils.RongIMCUtils;
 import com.smg.art.utils.UIUtils;
 import com.smg.art.view.NoScrollViewPager;
 
@@ -44,10 +45,11 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.UserInfo;
 
 
-public class MainActivity extends BaseActivity implements MainContract.View, OnTabSelectListener{
+public class MainActivity extends BaseActivity implements MainContract.View, OnTabSelectListener {
 
     @Inject
     MainActivityPresenter mPresenter;
@@ -120,8 +122,9 @@ public class MainActivity extends BaseActivity implements MainContract.View, OnT
 
         if (!TextUtils.isEmpty(LocalAppConfigUtil.getInstance().getRCToken()))
             mPresenter.connect(LocalAppConfigUtil.getInstance().getRCToken());
-
     }
+
+
 
     @Override
     public void showError(String message) {

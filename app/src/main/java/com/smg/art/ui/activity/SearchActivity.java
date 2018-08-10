@@ -1,6 +1,7 @@
 package com.smg.art.ui.activity;
 
 
+import android.content.Intent;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.utils.ToastUtils;
+import com.google.gson.Gson;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -44,7 +46,7 @@ import butterknife.OnClick;
 
 public class SearchActivity extends BaseActivity implements SearchContract.View,
         HistoricalSearchApadter.OnClearItemListener, HistoricalSearchApadter.OnWordItemListener,
-        OnLoadmoreListener, OnRefreshListener, StringTagAdapter.OnTagViewItemListener {
+        OnLoadmoreListener, OnRefreshListener, StringTagAdapter.OnTagViewItemListener, SearchGoodsListApadter.OnAuctionItemListener, SearchGoodsListApadter.OnGoodsItemListener {
 
     @Inject
     SearchActivityPresenter mPresenter;
@@ -85,6 +87,8 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
     private StringTagAdapter adapter;
     private List<String> sourceData;
     private List<AnnouncementAuctionListBean.DataBean.RowsBean> rowsBeans = new ArrayList<>();
+    private List<HotWordsListBean.DataBean.HotWordsBean> hotWordsBeans = new ArrayList<>();
+    private  boolean isView=false;
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -131,6 +135,8 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
         rvHistoricalSearch.setAdapter(historicalSearchApadter);
         historicalSearchApadter.OnClearItemListener(this);
         historicalSearchApadter.OnWordItemListener(this);
+        mAdapter.OnAuctionItemListener(this);
+        mAdapter.OnGoodsItemListener(this);
         mPresenter.FetchHotWordsList();
 
     }
@@ -142,7 +148,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
             @Override
             public void onClick(View view) {
                 isClearAll = true;
-                mPresenter.FetchDeleteWordById("word", textWord);
+                mPresenter.FetchDeleteWordById("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
             }
         });
         return headerView;
@@ -161,6 +167,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
                         "status", status, "page", String.valueOf(page), "rows", String.valueOf(rows));
                 break;
             case R.id.tv_search:  // 搜索框
+
                 if (tvSearch.getVisibility() == View.VISIBLE && etSearchContent.getVisibility() == View.GONE) {
                     tvSearch.setVisibility(View.GONE);
                     etSearchContent.setVisibility(View.VISIBLE);
@@ -180,7 +187,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
 
     @Override
     public void showError(String message) {
-        ToastUtils.showLongToast(message);
+//        ToastUtils.showLongToast(message);
     }
 
     /**
@@ -188,26 +195,28 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
      */
     @Override
     public void FetchHotWordsListSuccess(final HotWordsListBean hotWordsListBean) {
-
-        if (hotWordsListBean.getData().getHotWords().size() != 0) {
-            for (int i = 0; i < hotWordsListBean.getData().getHotWords().size(); i++) {
-
-                View view = View.inflate(this, R.layout.company_grid_item, null);
-                TextView textView = (TextView) view.findViewById(R.id.text);
-                textView.setText(hotWordsListBean.getData().getHotWords().get(i).getWord());
-                flexLayout.addView(view);
-                final int finalI = i;
-                view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        textWord = hotWordsListBean.getData().getHotWords().get(finalI).getWord();
-                        mPresenter.FetchAuctionListByName("actionName", textWord,
-                                "status", status, "page", String.valueOf(page), "rows", String.valueOf(rows));
-                    }
-                });
+        if(!isView) {
+            if (hotWordsBeans.size() != 0) hotWordsBeans.clear();
+            this.hotWordsBeans = hotWordsListBean.getData().getHotWords();
+            if (hotWordsBeans.size() != 0) {
+                for (int i = 0; i < hotWordsBeans.size(); i++) {
+                    isView = true;
+                    View view = View.inflate(this, R.layout.company_grid_item, null);
+                    TextView textView = (TextView) view.findViewById(R.id.text);
+                    textView.setText(hotWordsBeans.get(i).getWord());
+                    flexLayout.addView(view);
+                    final int finalI = i;
+                    view.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            textWord = hotWordsBeans.get(finalI).getWord();
+                            mPresenter.FetchAuctionListByName("actionName", textWord,
+                                    "status", status, "page", String.valueOf(page), "rows", String.valueOf(rows));
+                        }
+                    });
+                }
             }
         }
-
         if (hotWordsListBean.getData().getRecentlyWords().size() != 0) {
             if (historicalSearch.size() != 0) historicalSearch.clear();
             historicalSearch = hotWordsListBean.getData().getRecentlyWords();
@@ -260,6 +269,15 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
         }
 
         if (srl.isLoading()) {
+            if(status.equals("3")) {
+                for (int i = 0; i < announcementAuctionListBean.getData().getRows().size(); i++) {
+                    announcementAuctionListBean.getData().getRows().get(i).setType(AnnouncementAuctionListBean.DataBean.RowsBean.GOODS);
+                }
+            }else if(status.equals("4")){
+                for (int i = 0; i < announcementAuctionListBean.getData().getRows().size(); i++) {
+                    announcementAuctionListBean.getData().getRows().get(i).setType(AnnouncementAuctionListBean.DataBean.RowsBean.AUCTION);
+                }
+            }
             mAdapter.addData(announcementAuctionListBean.getData().getRows());
             srl.finishLoadmore();
         } else {
@@ -302,6 +320,12 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
             historicalSearchApadter.setNewData(historicalSearch);
             historicalSearchApadter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mAdapter.cancelAllTimers();
     }
 
     /**
@@ -354,5 +378,19 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
         this.textWord = item;
         mPresenter.FetchAuctionListByName("actionName", textWord,
                 "status", status, "page", String.valueOf(page), "rows", String.valueOf(rows));
+    }
+
+    @Override
+    public void OnAuctionItemListener(AnnouncementAuctionListBean.DataBean.RowsBean item) {
+        Intent i = new Intent(this, AuctionDeatilActivity.class);
+        i.putExtra("data", new Gson().toJson(item));
+        MainActivity.mainActivity.startActivityIn(i, this);
+    }
+
+    @Override
+    public void OnGoodsItemListener(AnnouncementAuctionListBean.DataBean.RowsBean item) {
+        Intent i = new Intent(this, GoodsDetailActivity.class);
+        i.putExtra("postion", item.getId());
+        MainActivity.mainActivity.startActivityIn(i, this);
     }
 }

@@ -1,13 +1,14 @@
 package com.smg.art.ui.fragment;
 
-import android.os.Build;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,6 +32,7 @@ import com.smg.art.ui.adapter.ServiceDialogApadter;
 import com.smg.art.utils.CallPhone;
 import com.smg.art.utils.GlideUtils;
 import com.smg.art.utils.LocalAppConfigUtil;
+import com.smg.art.utils.TimeTools;
 import com.smg.art.view.CustomDialog;
 import com.smg.art.view.MyBridgeWebView;
 
@@ -47,7 +49,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import cn.bingoogolapple.bgabanner.BGABanner;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.model.CSCustomServiceInfo;
@@ -81,11 +85,20 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
     TextView tvPhone;
     @BindView(R.id.tv_now_action)
     TextView tvNowAction;
+    @BindView(R.id.tv_hh)
+    TextView tvHh;
+    @BindView(R.id.tv_mm)
+    TextView tvMm;
+    @BindView(R.id.tv_ss)
+    TextView tvSs;
+    Unbinder unbinder;
 
-   private  AuctionDetailBean auctionDetailBean;
+    private AuctionDetailBean auctionDetailBean;
     private AuctionGoodsBean.DataBean.RowsBean data;
     private List<FindCustomerServiceBean.DataBean> serviceDatas = new ArrayList<>();
     private ServiceDialogApadter apadter;
+    private int depositStatus;
+    private CountDownTimer countDownTimer;
 
     public static AuctionDetailIntroductionFragment getInstance(AuctionGoodsBean.DataBean.RowsBean data) {
         AuctionDetailIntroductionFragment sf = new AuctionDetailIntroductionFragment();
@@ -128,19 +141,24 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
         mPresenter.FetchHomepageGetauctiondetail("id", String.valueOf(data.getId()));
 
         //解决页面渲染闪烁问题.
-        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED, WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
-        webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        }
+//        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED, WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+//        webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+//            webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+//        }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        webview.removeAllViews();
-        webview.destroy();
-        webview = null;
+        if (webview != null) {
+            webview.removeAllViews();
+            webview.destroy();
+            webview = null;
+        }
+
+        countDownTimer = null;
+        unbinder.unbind();
     }
 
     /**
@@ -148,13 +166,41 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
      */
     @Override
     public void FetchHomepageGetauctiondetailSuccess(AuctionDetailBean auctionDetailBean) {
-         this.auctionDetailBean = auctionDetailBean;
+        this.auctionDetailBean = auctionDetailBean;
         tvStartPrice.setText(String.valueOf(auctionDetailBean.getData().getStartPrice()));
         tvFrontMoneyAmount.setText(String.valueOf(auctionDetailBean.getData().getFrontMoneyAmount()));
         tvNowprice.setText(String.valueOf(auctionDetailBean.getData().getNowprice()));
         tvActionName.setText(String.valueOf(auctionDetailBean.getData().getActionName()));
+        depositStatus = auctionDetailBean.getData().getDepositStatus();
 
-        if (auctionDetailBean.getData().getDepositStatus() == 0) {
+        long time;
+        if (auctionDetailBean.getData().getSysDate() > 0) {
+            time = auctionDetailBean.getData().getSysDate();
+        } else {
+            time = System.currentTimeMillis();//获取系统时间的10位的时间戳
+        }
+        if (time < auctionDetailBean.getData().getEndTime()) {
+            long countTime = auctionDetailBean.getData().getEndTime() - time;
+            countDownTimer = new CountDownTimer(countTime, 1000) {
+                public void onTick(long millisUntilFinished) {
+                    String hour = TimeTools.getCountTimeByLong(millisUntilFinished);
+                    String[] array = hour.split(":");
+                    tvHh.setText(array[0]);
+                    tvMm.setText(array[1]);
+                    tvSs.setText(array[2]);
+                }
+                public void onFinish() {
+                    tvHh.setText("00");
+                    tvSs.setText("00");
+                    tvMm.setText("00");
+                }
+            }.start();
+        } else if (time > auctionDetailBean.getData().getStartTime()) {
+            tvHh.setText("00");
+            tvSs.setText("00");
+            tvMm.setText("00");
+        }
+        if (depositStatus == 0) {
             tvNowAction.setText("交保证金参与");
         } else {
             tvNowAction.setText("保证金已支付");
@@ -203,9 +249,6 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
         }
         return doc.toString();
     }
-
-
-
 
     @OnClick({R.id.tv_collectioin, R.id.phone_service, R.id.tv_phone, R.id.tv_now_action})
     public void onViewClicked(View view) {
@@ -263,10 +306,14 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
                 break;
             case R.id.tv_now_action:  // 交保证金参与
                 if (data != null) {
-                    Intent intent = new Intent(getActivity(), AuctionBuyerDepositActivity.class);
-                    intent.putExtra("data", new Gson().toJson(auctionDetailBean));
-                    intent.putExtra("type",2);
-                    AuctionDeatilActivity.auctionDeatilActivity.startActivityIn(intent, getActivity());
+                    if (depositStatus == 0) {
+                        Intent intent = new Intent(getActivity(), AuctionBuyerDepositActivity.class);
+                        intent.putExtra("data", new Gson().toJson(auctionDetailBean));
+                        intent.putExtra("type", 2);
+                        AuctionDeatilActivity.auctionDeatilActivity.startActivityIn(intent, getActivity());
+                    } else {
+                        AuctionDeatilActivity.auctionDeatilActivity.setCurrentItem(1);
+                    }
                 }
                 break;
         }
@@ -276,5 +323,14 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
     public void getEventBus(AuctionBuyerDepositBean auctionBuyerDepositBean) {
         //支付保证金回来
         tvNowAction.setText("保证金已支付");
+        depositStatus = 1;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
     }
 }

@@ -6,6 +6,7 @@ import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.BaseContract;
 import com.smg.art.base.Constant;
 import com.smg.art.bean.AuctionCenterBean;
+import com.smg.art.bean.RefundBean;
 
 import java.util.Map;
 
@@ -31,6 +32,12 @@ public interface AuctionCentreContract {
          */
         void  FetchHomepageGetauctiondetailSuccess(AuctionDetailBean auctionDetailBean);
 
+
+        /**
+         * 验证交易密码
+         */
+        void  FetchvalidteTradePwdSuccess(RefundBean refundBean);
+
     }
 
     interface Presenter<T> extends BaseContract.BasePresenter<T> {
@@ -49,6 +56,11 @@ public interface AuctionCentreContract {
          * 拍卖品详情
          */
         void  FetchHomepageGetauctiondetail(String ...s);
-    }
+        /**
+         * 验证交易密码
+         */
+        void  FetchvalidteTradePwd(String ...s);
 
+
+    }
 }

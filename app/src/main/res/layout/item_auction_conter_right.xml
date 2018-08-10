@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/flow_text"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/grey_e6000000"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -43,8 +44,26 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_name"
             android:layout_marginRight="@dimen/bj_13dp"
-            android:layout_toLeftOf="@+id/iv_head"
-            android:background="@drawable/auction_item_bg">
+            android:layout_toLeftOf="@+id/iv_head">
+
+
+            <com.smg.art.view.bubbleview.BubbleTextVew
+                android:id="@+id/tv_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text=""
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                app:angle="5dp"
+                android:textSize="@dimen/sp_16"
+                app:arrowCenter="true"
+                app:arrowHeight="10dp"
+                app:arrowLocation="right"
+                app:arrowPosition="13dp"
+                app:arrowWidth="10dp"
+                app:strokeColor= "#6F533F"
+                app:bubbleColor="#6F533F" />
 
             <TextView
                 android:id="@+id/tv_pic"
@@ -52,20 +71,22 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:text=":价出 "
+                android:visibility="gone"
                 android:paddingLeft="@dimen/bj_25dp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/wz_13sp" />
 
-            <TextView
-                android:id="@+id/tv_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+            <!--<TextView-->
+                <!--android:visibility="gone"-->
+                <!--android:id="@+id/tv_amount"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerVertical="true"-->
 
-                android:text="200"
-                android:paddingRight="@dimen/bj_5dp"
-                android:textColor="@color/white"
-                android:textSize="@dimen/wz_13sp" />
+                <!--android:text="200"-->
+                <!--android:paddingRight="@dimen/bj_5dp"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textSize="@dimen/wz_13sp" />-->
 
         </RelativeLayout>
     </RelativeLayout>

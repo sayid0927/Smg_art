@@ -8,14 +8,13 @@
     <LinearLayout
         android:layout_centerInParent="true"
         android:layout_width="@dimen/bj_300dp"
-        android:layout_height="@dimen/bj_200dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/dialog_service"
         android:orientation="vertical">
 
         <RelativeLayout
-
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/bj_35dp"
             android:background="@drawable/dialog_service_rl">
 
             <TextView
@@ -26,6 +25,7 @@
                 android:layout_marginRight="@dimen/bj_15dp"
                 android:padding="@dimen/bj_5dp"
                 android:text="取消"
+                android:layout_centerVertical="true"
                 android:textColor="@color/white"
                 android:textSize="@dimen/wz_14sp" />
 
@@ -35,8 +35,9 @@
             android:id="@+id/rv_service"
             android:layout_marginTop="@dimen/bj_5dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
+            android:layout_marginBottom="@dimen/bj_10dp"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
+
 </RelativeLayout>

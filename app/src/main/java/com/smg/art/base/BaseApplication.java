@@ -3,10 +3,14 @@ package com.smg.art.base;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.multidex.MultiDex;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.blankj.utilcode.utils.ThreadPoolUtils;
+import com.blankj.utilcode.utils.ToastUtils;
 import com.blankj.utilcode.utils.Utils;
 import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
@@ -14,17 +18,23 @@ import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerAppComponent;
 import com.smg.art.module.ApiModule;
 import com.smg.art.module.AppModule;
+import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.utils.PreferUtil;
+import com.smg.art.utils.RongIMCUtils;
+import com.smg.art.utils.UIUtils;
 
 import io.rong.eventbus.EventBus;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Message;
+import io.rong.imlib.model.UserInfo;
+
+import static io.rong.imlib.RongIMClient.ConnectionStatusListener.ConnectionStatus.*;
 
 
 public class BaseApplication extends Application {
 
-    public  static BaseApplication baseApplication;
+    public static BaseApplication baseApplication;
     private static AppComponent appComponent;
 
 
@@ -37,7 +47,7 @@ public class BaseApplication extends Application {
      *
      * @return
      */
-    public  static ThreadPoolUtils MAIN_EXECUTOR =   new ThreadPoolUtils(ThreadPoolUtils.Type.FixedThread,5);
+    public static ThreadPoolUtils MAIN_EXECUTOR = new ThreadPoolUtils(ThreadPoolUtils.Type.FixedThread, 5);
 
     public static BaseApplication getBaseApplication() {
         return baseApplication;
@@ -105,9 +115,9 @@ public class BaseApplication extends Application {
          */
         if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext())) ||
                 "io.rong.push".equals(getCurProcessName(getApplicationContext()))) {
+
             RongIM.init(this);
 
         }
     }
-
 }
