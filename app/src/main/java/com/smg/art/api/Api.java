@@ -40,6 +40,7 @@ import com.smg.art.bean.ChangePassWordBean;
 import com.smg.art.bean.ChangeTraderPasswordBean;
 import com.smg.art.bean.CheckBankCardBean;
 import com.smg.art.bean.CollectionBean;
+import com.smg.art.bean.ComplaintBean;
 import com.smg.art.bean.CreatWordsBean;
 import com.smg.art.bean.CurrencyExchangeRateBean;
 import com.smg.art.bean.ForgetPasswordBean;
@@ -72,8 +73,6 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.POST;
-import retrofit2.http.QueryMap;
 import rx.Observable;
 
 public class Api {
