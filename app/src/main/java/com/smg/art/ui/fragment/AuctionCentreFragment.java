@@ -3,10 +3,7 @@ package com.smg.art.ui.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -46,9 +43,7 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * Created by Lenovo on 2018/7/26.
@@ -204,7 +199,7 @@ public class AuctionCentreFragment extends BaseFragment implements AuctionCentre
 
         View dialogview = View.inflate(getActivity(), R.layout.dialog_validtetradepwd, null);
         Button btPost = dialogview.findViewById(R.id.bt_post);
-        EditText edPwd = dialogview.findViewById(R.id.ed_pwd);
+        final EditText edPwd = dialogview.findViewById(R.id.ed_pwd);
         final CustomDialog mDialogWaiting = new CustomDialog(getActivity(), dialogview, R.style.MyDialog);
         mDialogWaiting.show();
         mDialogWaiting.setCancelable(true);
