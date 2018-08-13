@@ -95,6 +95,7 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
     @BindView(R.id.setting)
     RelativeLayout setting;
     Intent intent;
+    int isReal = 0;
 
 
     @Override
@@ -182,8 +183,12 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
                 MainActivity.mainActivity.startActivityIn(intent, getActivity());
                 break;
             case R.id.realnameauthentication:
-                intent = new Intent(getActivity(), AuthenticationActivity.class);
-                MainActivity.mainActivity.startActivityIn(intent, getActivity());
+                if (isReal == 1) {
+                    ToastUtils.showShortToast("您已认证");
+                } else {
+                    intent = new Intent(getActivity(), AuthenticationActivity.class);
+                    MainActivity.mainActivity.startActivityIn(intent, getActivity());
+                }
                 break;
             case R.id.setting:
                 intent = new Intent(getActivity(), SettingActivity.class);
@@ -209,6 +214,7 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
             userName.setText(announcementAuctionListBean.getData().getMemberName());
             userId.setText("ID: " + announcementAuctionListBean.getData().getMemberId());
             GlideCommonUtils.showHead(getActivity(), announcementAuctionListBean.getData().getHeadImg(), mineHead);
+            isReal = announcementAuctionListBean.getData().getIsReal();
         } else {
             ToastUtils.showShortToast(announcementAuctionListBean.getMsg());
         }
