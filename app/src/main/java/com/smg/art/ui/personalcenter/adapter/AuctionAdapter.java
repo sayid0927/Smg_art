@@ -89,7 +89,7 @@ public class AuctionAdapter extends BaseAdapter {
                         }
                         viewHolder.shop_status.setText("已交割");
                         viewHolder.shop_name.setText(dataBean.getActionName());
-                        viewHolder.end_time.setText("结束时间: " + DateFormatUtil.toHour(dataBean.getEndTime()));
+                        viewHolder.end_time.setText("结束时间: " + DateFormatUtil.forString(dataBean.getEndTime(), "MM月dd日 HH:mm"));
                         viewHolder.price.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", dataBean.getNowprice()))));
                         viewHolder.detail.setVisibility(View.VISIBLE);
                         viewHolder.complaint_btn.setVisibility(View.VISIBLE);
@@ -119,7 +119,7 @@ public class AuctionAdapter extends BaseAdapter {
                 }
                 viewHolder.shop_status.setText("待交割");
                 viewHolder.shop_name.setText(dataBean.getActionName());
-                viewHolder.end_time.setText("结束时间: " + DateFormatUtil.toHour(dataBean.getEndTime()));
+                viewHolder.end_time.setText("结束时间: " + DateFormatUtil.forString(dataBean.getEndTime(), "MM月dd日 HH:mm"));
                 viewHolder.price.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", dataBean.getNowprice()))));
                 viewHolder.detail.setVisibility(View.VISIBLE);
                 viewHolder.complaint_btn.setVisibility(View.GONE);
@@ -171,7 +171,7 @@ public class AuctionAdapter extends BaseAdapter {
                 }
 
                 viewHolder.shop_name.setText(dataBean.getActionName());
-                viewHolder.end_time.setText("结束时间: " + DateFormatUtil.toHour(dataBean.getEndTime()));
+                viewHolder.end_time.setText("结束时间: " + DateFormatUtil.forString(dataBean.getEndTime(), "MM月dd日 HH:mm"));
                 viewHolder.price.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", dataBean.getNowprice()))));
                 viewHolder.detail.setVisibility(View.VISIBLE);
                 viewHolder.complaint_btn.setVisibility(View.GONE);

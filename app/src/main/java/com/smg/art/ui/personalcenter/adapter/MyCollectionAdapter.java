@@ -70,7 +70,7 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
             time = System.currentTimeMillis();//获取系统时间的10位的时间戳
         }
         if (time < data.getStartTime()) {
-            holder.end_time.setText("开始时间为:  " + DateFormatUtil.toHour(data.getStartTime() / 1000) + "将开始");
+            holder.end_time.setText("开始时间为:  " + DateFormatUtil.forString(data.getStartTime(), "MM月dd日 HH:mm") + "将开始");
             holder.time.setVisibility(View.GONE);
             holder.shop_status.setText("展览中");
         } else if (time > data.getStartTime() && time < data.getEndTime()) {
@@ -94,7 +94,7 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
                     public void onFinish() {
                         holder.time.setVisibility(View.GONE);
                         // holder.end_text.setVisibility(View.VISIBLE);
-                        holder.end_time.setText("拍卖已结束: " + DateFormatUtil.toHour(data.getEndTime() / 1000) + "已结束");
+                        holder.end_time.setText("拍卖已结束: " + DateFormatUtil.forString(data.getStartTime(), "MM月dd日 HH:mm") + "已结束");
                         holder.shop_status.setText("已结束");
                     }
                 }.start();
@@ -102,12 +102,12 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
                 countDownMap.put(holder.tv_hour.hashCode(), holder.countDownTimer);
             } else {
                 holder.time.setVisibility(View.GONE);
-                holder.end_time.setText("拍卖已结束: " + DateFormatUtil.toHour(data.getEndTime() / 1000) + "已结束");
+                holder.end_time.setText("拍卖已结束: " + DateFormatUtil.forString(data.getStartTime(), "MM月dd日 HH:mm") + "已结束");
                 holder.shop_status.setText("已结束");
                 //  holder.end_text.setVisibility(View.VISIBLE);
             }
         } else if (time > data.getEndTime()) {
-            holder.end_time.setText("拍卖已结束: " + DateFormatUtil.toHour(data.getEndTime() / 1000) + "已结束");
+            holder.end_time.setText("拍卖已结束: " + DateFormatUtil.forString(data.getStartTime(), "MM月dd日 HH:mm") + "已结束");
             holder.time.setVisibility(View.GONE);
             holder.shop_status.setText("已结束");
         }
