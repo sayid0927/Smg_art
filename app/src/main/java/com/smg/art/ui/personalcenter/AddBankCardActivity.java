@@ -72,6 +72,14 @@ public class AddBankCardActivity extends BaseActivity implements View.OnClickLis
     @BindView(R.id.tvCommitWithdraw)
     TextView tvCommitWithdraw;
     private TimeCountRed timeCount;
+    @BindView(R.id.pic_yzm_code)
+    EditText picYzmCode;
+    @BindView(R.id.pic_yzm_del)
+    ImageView picYzmDel;
+    @BindView(R.id.pic_view1)
+    View picView1;
+    @BindView(R.id.get_iamge)
+    ImageView getIamge;
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -101,7 +109,8 @@ public class AddBankCardActivity extends BaseActivity implements View.OnClickLis
         actionbarTitle.setText(R.string.bank_card);
         addBankCardGetCode.setOnClickListener(this);
         tvCommitWithdraw.setOnClickListener(this);
-
+        getIamge.setOnClickListener(this);
+        mPresenter.FetchPictureCode("mobilePhone", etBankCardMobile.getText().toString().trim());
     }
 
     @Override
@@ -111,8 +120,12 @@ public class AddBankCardActivity extends BaseActivity implements View.OnClickLis
                 if (TextUtils.isEmpty(etBankCardMobile.getText().toString()) || !CommonUtil.isMobileNO(etBankCardMobile.getText().toString())) {
                     ToastUtils.showShortToast(R.string.input_correct_phone);
                 } else {
-                    addBankCardGetCode.setClickable(false);
-                    mPresenter.FetchPhoneVerifyCode("mobilePhone", etBankCardMobile.getText().toString().trim());
+                    if (TextUtils.isEmpty(picYzmCode.getText().toString())) {
+                        ToastUtils.showShortToast("请输入图形验证码");
+                    } else {
+                        addBankCardGetCode.setClickable(false);
+                        mPresenter.FetchPhoneVerifyCode("mobilePhone", etBankCardMobile.getText().toString().trim(), "pictureCode", picYzmCode.getText().toString());
+                    }
                 }
                 break;
             case R.id.tvCommitWithdraw:
@@ -121,6 +134,9 @@ public class AddBankCardActivity extends BaseActivity implements View.OnClickLis
                             "cardNo", etBankCardNO.getText().toString(), "openBankName", etBankCardBranch.getText().toString(), "mobile", etBankCardMobile.getText().toString(),
                             "verifiCode", etBankCardCode.getText().toString());
                 }
+            case R.id.get_iamge:
+                mPresenter.FetchPictureCode("mobilePhone", etBankCardMobile.getText().toString().trim());
+                break;
         }
     }
 
@@ -142,6 +158,11 @@ public class AddBankCardActivity extends BaseActivity implements View.OnClickLis
             ToastUtils.showShortToast("预留手机不能为空");
             return false;
         }
+        if (TextUtils.isEmpty(picYzmCode.getText().toString())) {
+            ToastUtils.showShortToast("请输入图形验证码");
+            return false;
+        }
+
         if (!CommonUtil.isMobileNO(etBankCardMobile.getText().toString())) {
             ToastUtils.showShortToast("手机号码不正确");
             return false;
@@ -195,6 +216,12 @@ public class AddBankCardActivity extends BaseActivity implements View.OnClickLis
             ToastUtils.showShortToast(getString(R.string.sms_success));
             startTime();
         }
+    }
+
+
+    @Override
+    public ImageView iv() {
+        return getIamge;
     }
 
     @Override

@@ -138,14 +138,17 @@ public class AuctionOrderFragment extends BaseFragment implements AuctionOrderCo
             if (p == 1) {
                 list.clear();
             }
-            list.addAll(auctionOrderBean.getData());
-            if (list.size() > 0) {
-                srl.setVisibility(View.VISIBLE);
-                noData.setVisibility(View.GONE);
-                auctionAdapter.notifyDataSetChanged();
+            if (auctionOrderBean.getData() != null) {
+                list.addAll(auctionOrderBean.getData());
             } else {
-                srl.setVisibility(View.GONE);
-                noData.setVisibility(View.VISIBLE);
+                if (list.size() > 0) {
+                    srl.setVisibility(View.VISIBLE);
+                    noData.setVisibility(View.GONE);
+                    auctionAdapter.notifyDataSetChanged();
+                } else {
+                    srl.setVisibility(View.GONE);
+                    noData.setVisibility(View.VISIBLE);
+                }
             }
         } else {
             ToastUtils.showShortToast(auctionOrderBean.getMsg());

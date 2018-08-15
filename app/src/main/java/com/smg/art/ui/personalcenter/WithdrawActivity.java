@@ -73,6 +73,8 @@ public class WithdrawActivity extends BaseActivity implements WithdrawContract.V
     TextView totalPrice;
     @BindView(R.id.all_withdraw)
     TextView allWithdraw;
+    @BindView(R.id.bank_icon)
+    ImageView bankIcon;
     CheckBankCardBean mCheckBankCardBean;
     CurrencyExchangeRateBean mCurrencyExchangeRateBean;
     private TextWatcher textWatcher = new TextWatcher() {
@@ -203,12 +205,49 @@ public class WithdrawActivity extends BaseActivity implements WithdrawContract.V
                 bankInfo.setVisibility(View.VISIBLE);
                 bankName.setText(checkBankCardBean.getData().getBank());
                 bankCard.setText("(" + checkBankCardBean.getData().getCardNo().substring(checkBankCardBean.getData().getCardNo().length() - 4, checkBankCardBean.getData().getCardNo().length()) + ")");
+                switch (checkBankCardBean.getData().getBankType()) {
+                    case "ABC":
+                        bankIcon.setBackground(getResources().getDrawable(R.mipmap.abc));
+                        break;
+                    case "BCM":
+                        bankIcon.setBackground(getResources().getDrawable(R.mipmap.bcm));
+                        break;
+                    case "BOC":
+                        bankIcon.setBackground(getResources().getDrawable(R.mipmap.boc));
+                        break;
+                    case "CCB":
+                        bankIcon.setBackground(getResources().getDrawable(R.mipmap.ccb));
+                        break;
+                    case "CEB":
+                        bankIcon.setBackground(getResources().getDrawable(R.mipmap.ceb));
+                        break;
+                    case "CMB":
+                        bankIcon.setBackground(getResources().getDrawable(R.mipmap.cmb));
+                        break;
+                    case "CMBC":
+                        bankIcon.setBackground(getResources().getDrawable(R.mipmap.cmbc));
+                        break;
+                    case "HB":
+                        bankIcon.setBackground(getResources().getDrawable(R.mipmap.hb));
+                        break;
+                    case "ICBC":
+                        bankIcon.setBackground(getResources().getDrawable(R.mipmap.icbc));
+                        break;
+                    case "PSBC":
+                        bankIcon.setBackground(getResources().getDrawable(R.mipmap.psbc));
+                        break;
+                    case "SPDB":
+                        bankIcon.setBackground(getResources().getDrawable(R.mipmap.spdb));
+                        break;
+                }
             } else {
                 addBank.setVisibility(View.VISIBLE);
                 bankInfo.setVisibility(View.GONE);
             }
         } else {
             ToastUtils.showShortToast(checkBankCardBean.getMsg());
+            addBank.setVisibility(View.VISIBLE);
+            bankInfo.setVisibility(View.GONE);
         }
     }
 

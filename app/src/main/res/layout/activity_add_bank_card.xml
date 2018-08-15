@@ -143,54 +143,83 @@
 
     </RelativeLayout>
 
-    <!--  <RelativeLayout
-          android:layout_width="match_parent"
-          android:layout_height="@dimen/bj_50dp"
-          android:background="@color/white"
-          android:paddingLeft="@dimen/bj_15dp"
-          android:paddingRight="@dimen/bj_15dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bj_50dp"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/bj_15dp"
+        android:paddingRight="@dimen/bj_15dp">
 
-          <TextView
-              android:id="@+id/tvv"
-              android:layout_width="90dp"
-              android:layout_height="wrap_content"
-              android:layout_centerVertical="true"
-              android:text="图形验证"
-              android:textColor="@color/textColor"
-              android:textSize="16sp" />
+        <LinearLayout
+            android:id="@+id/pic_yzm"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bj_56dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-          <ImageView
-              android:id="@+id/get_iamge"
-              android:layout_width="104dp"
-              android:layout_height="30dp"
-              android:layout_alignParentRight="true"
-              android:layout_centerInParent="true"
-              android:textColor="#F2302F"
-              android:textSize="15sp" />
+            <TextView
+                android:id="@+id/textview6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="图形验证码"
+                android:textColor="@color/black_151515"
+                android:textSize="@dimen/wz_15sp" />
 
-          <View
-              android:layout_width="1px"
-              android:layout_height="match_parent"
-              android:layout_marginBottom="@dimen/bj_10dp"
-              android:layout_marginTop="@dimen/bj_10dp"
-              android:layout_toStartOf="@+id/get_iamge"
-              android:background="@color/separatedColor" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/bj_15dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-          <EditText
-              android:id="@+id/graph_code"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_toEndOf="@+id/tvv"
-              android:layout_toStartOf="@+id/get_iamge"
-              android:background="@null"
-              android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-              android:hint="请输入图形验证码"
-              android:maxLength="6"
-              android:textColor="@color/textColor"
-              android:textColorHint="@color/shallow_textColor"
-              android:textSize="15sp" />
-      </RelativeLayout>
-  -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/pic_yzm_code"
+                        style="@style/BigBlackTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="请输入"
+                        android:maxLength="13"
+                        android:singleLine="true"
+                        android:textColor="@color/grey_e6333333"
+                        android:textColorHint="@color/grey_66000000"
+                        android:textSize="12sp" />
+
+                    <ImageView
+                        android:id="@+id/pic_yzm_del"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="?android:selectableItemBackground"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/delete" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/pic_view1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grey_e5e5e5" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/get_iamge"
+                android:layout_width="94dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/bj_15dp"
+                android:textColor="#F2302F"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+    </RelativeLayout>
     <!--验证码-->
     <RelativeLayout
         android:id="@+id/addBankCardCode"

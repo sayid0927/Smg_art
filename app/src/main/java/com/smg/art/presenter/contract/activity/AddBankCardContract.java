@@ -1,6 +1,7 @@
 package com.smg.art.presenter.contract.activity;
 
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.smg.art.base.BaseContract;
 import com.smg.art.bean.AddBankCardBean;
@@ -24,6 +25,9 @@ public interface AddBankCardContract {
          */
         void FetchPhoneVerifyCodeSuccess(PhoneVerifyCodeBean phoneVerifyCodeBean);
 
+
+        ImageView iv();
+
         Button btn();
     }
 
@@ -37,6 +41,11 @@ public interface AddBankCardContract {
          * 获取短信验证码
          */
         void FetchPhoneVerifyCode(String... s);
+
+        /**
+         * 图形验证码
+         */
+        void FetchPictureCode(String... s);
 
     }
 }

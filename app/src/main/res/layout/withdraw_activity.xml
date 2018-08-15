@@ -41,10 +41,11 @@
             android:visibility="gone">
 
             <ImageView
+                android:id="@+id/bank_icon"
                 android:layout_width="@dimen/bj_25dp"
                 android:layout_height="@dimen/bj_25dp"
                 android:layout_marginLeft="@dimen/bj_13dp"
-                android:background="@drawable/bankdefault" />
+                android:background="@mipmap/bankdefaults" />
 
             <TextView
                 android:id="@+id/bank_name"
