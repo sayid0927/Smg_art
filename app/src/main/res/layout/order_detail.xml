@@ -1054,6 +1054,40 @@
                         android:layout_marginRight="@dimen/bj_15dp"
                         android:background="@color/grey_e5e5e5" />
 
+                    <LinearLayout
+                        android:id="@+id/ll_dispose"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/bj_15dp"
+                            android:layout_marginTop="@dimen/bj_14dp"
+                            android:text="处理结果:"
+                            android:textColor="@color/red_ee0404"
+                            android:textSize="@dimen/wz_15sp" />
+
+                        <TextView
+                            android:id="@+id/complaint_dispose"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/bj_10dp"
+                            android:layout_marginLeft="@dimen/bj_15dp"
+                            android:layout_marginRight="@dimen/bj_15dp"
+                            android:layout_marginTop="@dimen/bj_14dp"
+                            android:textColor="@color/grey_999999"
+                            android:textSize="@dimen/wz_15sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/bj_1dp"
+                            android:layout_marginLeft="@dimen/bj_15dp"
+                            android:layout_marginRight="@dimen/bj_15dp"
+                            android:background="@color/grey_e5e5e5" />
+                    </LinearLayout>
+
                     <com.smg.art.view.NoScrollGridView
                         android:id="@+id/girdview"
                         android:layout_width="match_parent"

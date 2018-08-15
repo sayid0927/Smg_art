@@ -139,6 +139,10 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
     @BindView(R.id.complaint_content)
     TextView complaintContent;
     GridViewAdapter gridViewAdapter;
+    @BindView(R.id.ll_dispose)
+    LinearLayout llDispose;
+    @BindView(R.id.complaint_dispose)
+    TextView complaintDispose;
     private List<String> images = new ArrayList<>();
     OderDetailBean.DataBean orderDataBean;
 
@@ -233,6 +237,13 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
             complaintTime.setText(DateFormatUtil.getFormatDate(dataBean.getComplainTime(), "yyyy-MM-dd HH:mm:ss"));
             //投诉内容
             complaintContent.setText(dataBean.getComplain());
+            if (dataBean.getComplainStatus() == 0) {//未处理
+                llDispose.setVisibility(View.GONE);
+            } else {//1已处理
+                llDispose.setVisibility(View.VISIBLE);
+                //处理内容
+                complaintDispose.setText(dataBean.getComplainResult());
+            }
             if (!TextUtils.isEmpty(dataBean.getPictureUrl())) {
                 String[] pic = dataBean.getPictureUrl().split(",");
                 // String数组转List集合
