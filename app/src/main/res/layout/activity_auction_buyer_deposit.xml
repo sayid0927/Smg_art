@@ -31,17 +31,18 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/wz_15sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="￥"
-                android:textColor="#fecb67"
-                android:textSize="@dimen/wz_9sp" />
+            <ImageView
+                android:layout_width="@dimen/bj_17dp"
+                android:layout_height="@dimen/bj_17dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/bj_2dp"
+                android:background="@drawable/hammer" />
 
             <TextView
                 android:id="@+id/tv_frontMoneyAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/bj_5dp"
                 android:text="500"
                 android:textColor="#fecb67"
                 android:textSize="@dimen/wz_20sp" />
@@ -103,22 +104,23 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:button="@null"
                 android:layout_marginRight="@dimen/bj_10dp" />
 
         </RelativeLayout>
 
         <Button
             android:id="@+id/bt_post"
-            android:layout_marginTop="@dimen/bj_100dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_btn"
+            android:layout_marginLeft="@dimen/bj_50dp"
+            android:layout_marginRight="@dimen/bj_50dp"
+            android:layout_marginTop="@dimen/bj_100dp"
+            android:background="@drawable/btn_bg"
             android:text="确 认"
             android:textColor="@color/white"
-            android:textSize="@dimen/wz_15sp"
-            android:background="@drawable/btn_bg"
-            android:layout_marginRight="@dimen/bj_50dp"
-            android:layout_marginLeft="@dimen/bj_50dp"
-            android:layout_below="@+id/rl_btn" />
+            android:textSize="@dimen/wz_15sp" />
 
 
     </RelativeLayout>

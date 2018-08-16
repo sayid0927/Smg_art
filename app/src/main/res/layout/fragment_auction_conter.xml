@@ -57,6 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/bt_auction"
             android:layout_centerHorizontal="true"
+            android:gravity="center"
             android:orientation="horizontal">
 
 
@@ -68,12 +69,12 @@
                 android:textSize="@dimen/wz_13sp" />
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="￥"
-                android:textColor="#fecb67"
-                android:textSize="@dimen/wz_10sp" />
+            <ImageView
+                android:layout_width="@dimen/bj_17dp"
+                android:layout_height="@dimen/bj_17dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/bj_5dp"
+                android:src="@drawable/hammer"/>
 
             <TextView
                 android:id="@+id/tv_money"

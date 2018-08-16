@@ -64,7 +64,7 @@ public class MainActivityPresenter extends BasePresenter<MainContract.View> impl
                         Uri.parse(LocalAppConfigUtil.getInstance().getRongUserHeadImg())
                 ));
                 RongIM.getInstance().setMessageAttachedUserInfo(true);
-                setRongIMCState(RongIMCUtils.Connect_Success);
+                setRongIMCState(RongIMCUtils.CONNECTED);
             }
 
             @Override

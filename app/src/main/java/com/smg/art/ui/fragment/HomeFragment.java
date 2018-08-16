@@ -5,13 +5,10 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -42,9 +39,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import cn.bingoogolapple.bgabanner.BGABanner;
 
 
@@ -79,7 +74,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
     private List<HomePageImgBean.DataBean.CategoryListBean> categoryListBeans = new ArrayList<>();
     private List<HomePageImgBean.DataBean.UpperListBean> upperListBeans = new ArrayList<>();
     private List<HomePageImgBean.DataBean.UnderListBean> underListBeans = new ArrayList<>();
-    private ArrayList<String> mTitleList = new ArrayList<>();
     private int page = 1;
     private int rows = 10;
 
@@ -215,8 +209,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
 
     /**
      * 跳转详情页面
-     *
-     * @param item
      */
     @Override
     public void OnGoodsItemListener(AnnouncementAuctionListBean.DataBean.RowsBean item) {
@@ -227,8 +219,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
 
     /**
      * 固定广告位
-     *
-     * @param underListBeans
      */
     private void initUnder(List<HomePageImgBean.DataBean.UnderListBean> underListBeans) {
         underListApadter.setNewData(underListBeans);
@@ -237,8 +227,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
 
     /**
      * 滚动 广告图片
-     *
-     * @param upperListBeans
      */
     private void initBanner(List<HomePageImgBean.DataBean.UpperListBean> upperListBeans) {
         List<String> imgUrls = new ArrayList<>();
@@ -257,7 +245,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
 
     /***
      * 填充icon
-     * @param categoryListBeans
      */
     private void fillView(List<HomePageImgBean.DataBean.CategoryListBean> categoryListBeans) {
         HomePageImgBean.DataBean.CategoryListBean  categoryListBean = new HomePageImgBean.DataBean.CategoryListBean();
@@ -288,8 +275,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
      */
     @Override
     public void OnUnderItemListener(HomePageImgBean.DataBean.UnderListBean item) {
-        Intent i = new Intent(getActivity(), GoodsDetailActivity.class);
-        i.putExtra("postion",item.getId());
-        MainActivity.mainActivity.startActivityIn(i, getActivity());
+//        Intent i = new Intent(getActivity(), GoodsDetailActivity.class);
+//        i.putExtra("postion",item.getId());
+//        MainActivity.mainActivity.startActivityIn(i, getActivity());
     }
 }

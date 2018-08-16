@@ -11,10 +11,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.utils.LocationUtils;
+import com.blankj.utilcode.utils.ToastUtils;
 import com.jaeger.library.StatusBarUtil;
 import com.smg.art.R;
 import com.smg.art.base.BaseApplication;
 import com.smg.art.utils.LocalAppConfigUtil;
+import com.smg.art.utils.RongIMCUtils;
 import com.zhy.autolayout.AutoRelativeLayout;
 
 import java.util.Locale;
@@ -37,14 +39,11 @@ public class ConversationActivity extends FragmentActivity {
     AutoRelativeLayout rlBack;
     @BindView(R.id.actionbar_title)
     TextView actionbarTitle;
-    private String mTargetId, title;
 
-    boolean isFromPush = false;
 
     /**
      * 会话类型
      */
-    private Conversation.ConversationType mConversationType;
     private String MemberId,MemberName;
 
 
@@ -73,6 +72,12 @@ public class ConversationActivity extends FragmentActivity {
         transaction.add(R.id.conversation, fragment);
         transaction.commit();
         actionbarTitle.setText(MemberName);
+
+        switch (RongIMCUtils.state){
+            case  RongIMCUtils.KICKED_OFFLINE_BY_OTHER_CLIENT :
+                ToastUtils.showLongToast("用户账户在其他设备登录");
+                break;
+        }
 
     }
     @OnClick(R.id.rl_back)

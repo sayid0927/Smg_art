@@ -76,7 +76,6 @@ public class AuctionCentreFragment extends BaseFragment implements AuctionCentre
     private List<AuctionCenterBean.DataBean.ListBean> rowsBeans = new ArrayList<>();
     private AuctionCentreListApadter apadter;
     private ScheduledFuture scheduledFuture;
-    private boolean isFst = false;
 
     public static AuctionCentreFragment getInstance(int  id) {
         AuctionCentreFragment sf = new AuctionCentreFragment();
@@ -199,10 +198,19 @@ public class AuctionCentreFragment extends BaseFragment implements AuctionCentre
 
         View dialogview = View.inflate(getActivity(), R.layout.dialog_validtetradepwd, null);
         Button btPost = dialogview.findViewById(R.id.bt_post);
+        Button btClecn = dialogview.findViewById(R.id.bt_clecn);
         final EditText edPwd = dialogview.findViewById(R.id.ed_pwd);
         final CustomDialog mDialogWaiting = new CustomDialog(getActivity(), dialogview, R.style.MyDialog);
         mDialogWaiting.show();
         mDialogWaiting.setCancelable(true);
+
+        btClecn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDialogWaiting.dismiss();
+            }
+        });
+
         btPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -1,15 +1,11 @@
 package com.smg.art.ui.fragment;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,7 +26,6 @@ import com.smg.art.presenter.impl.fragment.AuctionDetailIntroductionPresenter;
 import com.smg.art.ui.activity.AuctionBuyerDepositActivity;
 import com.smg.art.ui.activity.AuctionDeatilActivity;
 import com.smg.art.ui.adapter.ServiceDialogApadter;
-import com.smg.art.utils.CallPhone;
 import com.smg.art.utils.GlideUtils;
 import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.utils.TimeTools;
@@ -50,9 +45,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import cn.bingoogolapple.bgabanner.BGABanner;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.model.CSCustomServiceInfo;
@@ -213,7 +206,7 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
         if (depositStatus == 0) {
             tvNowAction.setText("交保证金参与");
         } else {
-            tvNowAction.setText("保证金已支付");
+            tvNowAction.setText("立即竟价");
         }
 
         String[] split = auctionDetailBean.getData().getPictureUrl().split(",");
@@ -297,16 +290,6 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
                 break;
             case R.id.phone_service: //电话
 
-                if (LocalAppConfigUtil.getInstance().isLogin()) {
-                    if (!TextUtils.isEmpty(LocalAppConfigUtil.getInstance().getServiceTel())) {
-                        CallPhone.callPhone(getActivity(), LocalAppConfigUtil.getInstance().getServiceTel());
-                    } else {
-                        CallPhone.callPhone(getActivity(), "0755-82714092");
-                    }
-                } else {
-                    CallPhone.callPhone(getActivity(), "0755-82714092");
-                }
-
                 break;
             case R.id.tv_phone:      // 收藏
 
@@ -333,6 +316,6 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
     @Subscribe
     public void getEventBus(AuctionBuyerDepositBean auctionBuyerDepositBean) {
         //支付保证金回来
-        tvNowAction.setText("保证金已支付");
+        tvNowAction.setText("立即竟价");
     }
 }

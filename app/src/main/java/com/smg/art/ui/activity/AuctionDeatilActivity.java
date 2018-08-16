@@ -1,13 +1,18 @@
 package com.smg.art.ui.activity;
 
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.blankj.utilcode.utils.ToastUtils;
 import com.flyco.tablayout.SlidingTabLayout;
+import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 import com.smg.art.R;
+import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.BaseActivity;
 import com.smg.art.base.BaseFragmentPageAdapter;
 import com.smg.art.bean.AuctionGoodsBean;
@@ -17,6 +22,7 @@ import com.smg.art.presenter.contract.activity.AuctionDeatilContract;
 import com.smg.art.presenter.impl.fragment.AuctionDeatilPresenter;
 import com.smg.art.ui.fragment.AuctionCentreFragment;
 import com.smg.art.ui.fragment.AuctionDetailIntroductionFragment;
+import com.smg.art.view.NoScrollViewPager;
 
 import java.util.ArrayList;
 
@@ -36,7 +42,7 @@ public class AuctionDeatilActivity extends BaseActivity implements AuctionDeatil
     @BindView(R.id.tab_layout)
     SlidingTabLayout tabLayout;
     @BindView(R.id.vp)
-    ViewPager vp;
+    NoScrollViewPager vp;
 
 
     private ArrayList<String> mTitleList = new ArrayList<>();
@@ -44,6 +50,7 @@ public class AuctionDeatilActivity extends BaseActivity implements AuctionDeatil
     public  static  AuctionDeatilActivity auctionDeatilActivity;
     int type;
     int id;
+    private int depositStatus;
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -74,9 +81,11 @@ public class AuctionDeatilActivity extends BaseActivity implements AuctionDeatil
             AuctionGoodsBean.DataBean.RowsBean data=new Gson().fromJson(bookJson,AuctionGoodsBean.DataBean.RowsBean.class);
             mFragments.add(AuctionDetailIntroductionFragment.getInstance(data));
             mFragments.add(AuctionCentreFragment.getInstance(data.getId()));
+            mPresenter.FetchHomepageGetauctiondetail("id", String.valueOf(data.getId()));
         }else if(type==2) {
             mFragments.add(AuctionDetailIntroductionFragment.getInstance(id));
             mFragments.add(AuctionCentreFragment.getInstance(id));
+            mPresenter.FetchHomepageGetauctiondetail("id", String.valueOf(id));
         }
 
 
@@ -87,6 +96,31 @@ public class AuctionDeatilActivity extends BaseActivity implements AuctionDeatil
         vp.setAdapter(myAdapter);
         myAdapter.notifyDataSetChanged();
         tabLayout.setViewPager(vp);
+        vp.setNoScroll(true);
+
+        tabLayout.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelect(int position) {
+
+                if(position==1){
+                    if(depositStatus==0){
+                        ToastUtils.showLongToast("请先交保证金");
+                        vp.setCurrentItem(0);
+                        return;
+                    }else {
+                        vp.setCurrentItem(position);
+                    }
+                }else {
+                    vp.setCurrentItem(position);
+                }
+            }
+
+            @Override
+            public void onTabReselect(int position) {
+
+            }
+        });
+
         auctionDeatilActivity = this;
 
     }
@@ -115,5 +149,10 @@ public class AuctionDeatilActivity extends BaseActivity implements AuctionDeatil
                 break;
 
         }
+    }
+
+    @Override
+    public void FetchHomepageGetauctiondetailSuccess(AuctionDetailBean auctionDetailBean) {
+        depositStatus = auctionDetailBean.getData().getDepositStatus();
     }
 }

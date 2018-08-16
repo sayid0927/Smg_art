@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.utils.TimeUtils;
 import com.blankj.utilcode.utils.ToastUtils;
 import com.google.gson.Gson;
 import com.smg.art.R;
@@ -26,21 +25,16 @@ import com.smg.art.base.BaseActivity;
 import com.smg.art.base.Constant;
 import com.smg.art.base.FindCustomerServiceBean;
 import com.smg.art.bean.SaveCollectsBean;
-import com.smg.art.bean.UpudterMessageBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.activity.GoodsDetailContract;
 import com.smg.art.presenter.impl.activity.GoodsDetailActivityPresenter;
 import com.smg.art.ui.adapter.ServiceDialogApadter;
-import com.smg.art.utils.CallPhone;
 import com.smg.art.utils.GlideUtils;
 import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.utils.TimeTools;
-import com.smg.art.utils.ValidateTime;
 import com.smg.art.view.CustomDialog;
 import com.smg.art.view.MyBridgeWebView;
-import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.PermissionListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -212,8 +206,8 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
     public void FetchHomepageGetauctiondetailSuccess(AuctionDetailBean auctionDetailBean) {
         this.detailBean = auctionDetailBean;
         tvActionName.setText(auctionDetailBean.getData().getActionName());
-        tvStartPrice.setText("￥ " + String.valueOf(auctionDetailBean.getData().getStartPrice()));
-        tvFrontMoneyAmount.setText("￥ " + String.valueOf(auctionDetailBean.getData().getFrontMoneyAmount()));
+        tvStartPrice.setText( String.valueOf(auctionDetailBean.getData().getStartPrice()));
+        tvFrontMoneyAmount.setText(String.valueOf(auctionDetailBean.getData().getFrontMoneyAmount()));
         depositStatus = detailBean.getData().getDepositStatus();
 
         if (depositStatus== 0) {
@@ -367,35 +361,6 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
         }
         return doc.toString();
     }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        AndPermission.onRequestPermissionsResult(requestCode, permissions, grantResults, listener);
-    }
-
-    private PermissionListener listener = new PermissionListener() {
-        @SuppressLint("MissingPermission")
-        @Override
-        public void onSucceed(int requestCode, List<String> grantedPermissions) {
-            // 权限申请成功回调。
-            if (!TextUtils.isEmpty(LocalAppConfigUtil.getInstance().getServiceTel())) {
-
-                Intent intent = new Intent(Intent.ACTION_CALL);
-                Uri data = Uri.parse("tel:" + LocalAppConfigUtil.getInstance().getServiceTel());
-                intent.setData(data);
-                startActivity(intent);
-            } else {
-                Intent intent2 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:0755-82714092"));
-                startActivity(intent2);
-            }
-        }
-
-        @Override
-        public void onFailed(int requestCode, List<String> deniedPermissions) {
-
-        }
-    };
 
     /**
      * 判断2个时间大小

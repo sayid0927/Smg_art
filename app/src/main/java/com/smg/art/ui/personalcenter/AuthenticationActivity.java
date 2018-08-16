@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.utils.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.orhanobut.logger.Logger;
 import com.smg.art.BuildConfig;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
@@ -36,6 +37,13 @@ import com.smg.art.utils.ClipFileUtil;
 import com.smg.art.utils.CommonUtil;
 import com.smg.art.utils.KeyBoardUtils;
 import com.smg.art.utils.LocalAppConfigUtil;
+import com.yanzhenjie.alertdialog.AlertDialog;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.PermissionListener;
+import com.yanzhenjie.permission.PermissionNo;
+import com.yanzhenjie.permission.PermissionYes;
+import com.yanzhenjie.permission.Rationale;
+import com.yanzhenjie.permission.RationaleListener;
 import com.zhy.autolayout.AutoRelativeLayout;
 
 import java.io.File;
@@ -143,7 +151,7 @@ public class AuthenticationActivity extends BaseActivity implements Authenticati
                 if (llNet.getVisibility() == View.VISIBLE && llPost.getVisibility() == View.GONE) {
                     llNet.setVisibility(View.GONE);
                     llPost.setVisibility(View.VISIBLE);
-                    ivTick1.setBackground(this.getResources().getDrawable(R.drawable.tick_renzheng_green));
+                    ivTick1.setBackgroundResource(R.drawable.tick_renzheng_green);
                 }
 //                }
                 break;
@@ -172,12 +180,32 @@ public class AuthenticationActivity extends BaseActivity implements Authenticati
                     builder.addFormDataPart("upfile", Mainfile.getName(), Mainbody);
                     parts = builder.build().parts();
                     mPresenter.FetchUploadFile(parts);
+
                 } else {
                     ToastUtils.showLongToast("请选择照片");
                 }
                 break;
         }
     }
+
+
+    private PermissionListener listener = new PermissionListener() {
+        @Override
+        public void onSucceed(int requestCode, List<String> grantedPermissions) {
+            // 权限申请成功回调。
+            if(requestCode == 500) {
+                gotoCamera();
+            }
+        }
+        @Override
+        public void onFailed(int requestCode, List<String> deniedPermissions) {
+            // 权限申请失败回调。
+            if(requestCode == 500) {
+                Logger.e("CCCC");
+            }
+        }
+    };
+
 
     private void Camera() {
         if (Build.VERSION.SDK_INT >= 23) {
@@ -242,7 +270,6 @@ public class AuthenticationActivity extends BaseActivity implements Authenticati
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempHandFile));
                     break;
             }
-
         }
         startActivityForResult(intent, REQUEST_CAPTURE);
     }

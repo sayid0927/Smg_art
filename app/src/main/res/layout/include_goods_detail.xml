@@ -178,12 +178,19 @@
                     android:textColor="#999999"
                     android:textSize="13sp" />
 
+                <ImageView
+                    android:layout_width="@dimen/bj_17dp"
+                    android:layout_height="@dimen/bj_17dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/bj_2dp"
+                    android:background="@drawable/hammer" />
+
                 <TextView
                     android:id="@+id/tv_startPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/bj_3dp"
-                    android:text="￥2000"
+                    android:layout_marginLeft="@dimen/bj_5dp"
+                    android:text="2000"
                     android:textColor="#999999"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -201,12 +208,19 @@
                     android:textColor="#999999"
                     android:textSize="13sp" />
 
+                <ImageView
+                    android:layout_width="@dimen/bj_17dp"
+                    android:layout_height="@dimen/bj_17dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/bj_2dp"
+                    android:background="@drawable/hammer" />
+
                 <TextView
                     android:id="@+id/tv_frontMoneyAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/bj_3dp"
-                    android:text="￥2000"
+                    android:layout_marginLeft="@dimen/bj_5dp"
+                    android:text="2000"
                     android:textColor="#999999"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -216,12 +230,18 @@
 
     </LinearLayout>
 
-    <com.smg.art.view.MyBridgeWebView
-        android:id="@+id/webview"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:background="@color/white">
 
+        <com.smg.art.view.MyBridgeWebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="@dimen/bj_70dp" />
+    </RelativeLayout>
 
 </com.zhy.autolayout.AutoLinearLayout>

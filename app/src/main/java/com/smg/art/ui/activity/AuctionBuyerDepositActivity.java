@@ -1,11 +1,13 @@
 package com.smg.art.ui.activity;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.blankj.utilcode.utils.EmptyUtils;
 import com.blankj.utilcode.utils.ToastUtils;
 import com.google.gson.Gson;
 import com.smg.art.R;
@@ -72,8 +74,13 @@ public class AuctionBuyerDepositActivity extends BaseActivity implements Auction
         String bookJson = getIntent().getStringExtra("data");
         type = getIntent().getIntExtra("type", 1);
         goodsData = new Gson().fromJson(bookJson, AuctionDetailBean.class);
+        if( EmptyUtils.isNotEmpty(goodsData) &&  EmptyUtils.isNotEmpty(String.valueOf(goodsData.getData().getFrontMoneyAmount())))
         tvFrontMoneyAmount.setText(String.valueOf(goodsData.getData().getFrontMoneyAmount()));
-
+        Drawable drawable = this.getResources().getDrawable(R.drawable.checkbox_style);
+        //设置drawable对象的大小
+        drawable.setBounds(0, 0, 40, 40);
+         //设置CheckBox对象的位置，对应为左、上、右、下
+        checkBox.setCompoundDrawables(drawable, null, null, null);
     }
 
     /**

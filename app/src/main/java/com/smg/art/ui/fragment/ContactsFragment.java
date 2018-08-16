@@ -111,10 +111,6 @@ public class ContactsFragment extends BaseFragment implements ContactsFragmentCo
         rv.setAdapter(contactsApadter);
     }
 
-    private void initEvents() {
-        //设置右侧触摸监听
-    }
-
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
         DaggerMainComponent.builder().appComponent(appComponent).build().inject(this);

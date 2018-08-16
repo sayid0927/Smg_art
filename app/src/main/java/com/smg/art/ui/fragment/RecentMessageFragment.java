@@ -12,10 +12,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.utils.EmptyUtils;
+import com.blankj.utilcode.utils.ToastUtils;
 import com.smg.art.R;
 import com.smg.art.base.BaseApplication;
 import com.smg.art.base.BaseFragment;
 import com.smg.art.base.Constant;
+import com.smg.art.bean.RongImStateBean;
+import com.smg.art.bean.UpudterMessageBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.db.database.RongUserInfoEntityDao;
@@ -107,6 +110,7 @@ public class RecentMessageFragment extends BaseFragment implements RecentMessage
     protected void initView(Bundle bundle) {
         super.initView(bundle);
         RongIM.setOnReceiveMessageListener(this);
+        EventBus.getDefault().register(this);
         mPresenter.getConversationList();
         apadter = new RecentMessageApadter(data, getActivity());
         apadter.setHeaderView(getSystemHeaderView());
@@ -126,17 +130,26 @@ public class RecentMessageFragment extends BaseFragment implements RecentMessage
     }
 
 
+
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.getConversationList();
+        if (mPresenter != null)
+            mPresenter.getConversationList();
     }
 
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        EventBus.getDefault().unregister(this);
     }
+    
+    @Subscribe
+    public void getEventBus(RongImStateBean rongImStateBean) {
+        ToastUtils.showLongToast(rongImStateBean.getMsg());
+    }
+
 
     @Override
     public void getConversationListSuccess(List<Conversation> conversationBean) {
@@ -186,7 +199,7 @@ public class RecentMessageFragment extends BaseFragment implements RecentMessage
 
         data = conversationBean;
 
-        for(int i =0;i<data.size();i++){
+        for (int i = 0; i < data.size(); i++) {
             data.get(i).getTargetId();
         }
 
@@ -204,14 +217,14 @@ public class RecentMessageFragment extends BaseFragment implements RecentMessage
     public void onItemClick(View itemView, int position) {
 
         RongUserInfoEntity rongUserInfoEntity = collectionInfoDao.queryBuilder().where(
-                RongUserInfoEntityDao.Properties.UserId.eq(data.get(position-1).getTargetId())).unique();
+                RongUserInfoEntityDao.Properties.UserId.eq(data.get(position - 1).getTargetId())).unique();
 
-        if(EmptyUtils.isNotEmpty(rongUserInfoEntity)){
+        if (EmptyUtils.isNotEmpty(rongUserInfoEntity)) {
             Intent i = new Intent(getActivity(), ConversationActivity.class);
             i.putExtra("MemberId", data.get(position - 1).getTargetId());
             i.putExtra("MemberName", rongUserInfoEntity.getUserName());
             MainActivity.mainActivity.startActivityIn(i, getActivity());
-        }else {
+        } else {
             Intent i = new Intent(getActivity(), ConversationActivity.class);
             i.putExtra("MemberId", data.get(position - 1).getTargetId());
             i.putExtra("MemberName", data.get(position - 1).getTargetId());
@@ -225,16 +238,18 @@ public class RecentMessageFragment extends BaseFragment implements RecentMessage
     private SwipeMenuCreator swipeMenuCreator = new SwipeMenuCreator() {
         @Override
         public void onCreateMenu(SwipeMenu swipeLeftMenu, SwipeMenu swipeRightMenu, int viewType) {
-            int width = getResources().getDimensionPixelSize(R.dimen.bj_70dp);
-            int height = ViewGroup.LayoutParams.MATCH_PARENT;
-            SwipeMenuItem deleteItem = new SwipeMenuItem(getActivity())
-                    .setBackground(R.color.color_8d8686)
-                    .setText("删除")
-                    .setTextColor(Color.WHITE)
-                    .setTextSize(16)
-                    .setWidth(width)
-                    .setHeight(height);
-            swipeRightMenu.addMenuItem(deleteItem);// 添加菜单到右侧。
+            if (viewType == 0) {
+                int width = getResources().getDimensionPixelSize(R.dimen.bj_70dp);
+                int height = ViewGroup.LayoutParams.MATCH_PARENT;
+                SwipeMenuItem deleteItem = new SwipeMenuItem(getActivity())
+                        .setBackground(R.color.color_8d8686)
+                        .setText("删除")
+                        .setTextColor(Color.WHITE)
+                        .setTextSize(16)
+                        .setWidth(width)
+                        .setHeight(height);
+                swipeRightMenu.addMenuItem(deleteItem);// 添加菜单到右侧。
+            }
         }
     };
 
@@ -308,8 +323,4 @@ public class RecentMessageFragment extends BaseFragment implements RecentMessage
         });
         return headerView;
     }
-
-
-
-
 }

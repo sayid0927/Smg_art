@@ -20,6 +20,7 @@ import com.smg.art.module.ApiModule;
 import com.smg.art.module.AppModule;
 import com.smg.art.utils.GreenDaoUtil;
 import com.smg.art.utils.LocalAppConfigUtil;
+import com.smg.art.utils.MyConnectionStatusListener;
 import com.smg.art.utils.PreferUtil;
 import com.smg.art.utils.RongIMCUtils;
 import com.smg.art.utils.UIUtils;
@@ -120,6 +121,7 @@ public class BaseApplication extends Application implements RongIM.UserInfoProvi
 
             RongIM.init(this);
             RongIM.setUserInfoProvider(this,true);
+            RongIM.setConnectionStatusListener(new MyConnectionStatusListener());
 
         }
     }
