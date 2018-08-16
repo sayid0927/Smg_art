@@ -2,13 +2,9 @@ package com.smg.art.ui.adapter;
 
 import android.content.Context;
 import android.os.CountDownTimer;
-
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.SparseArray;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
@@ -72,7 +68,7 @@ public class SearchGoodsListApadter extends BaseMultiItemQuickAdapter<Announceme
     }
 
     @Override
-    protected void convert(ViewHolder helper, RowsBean item) {
+    protected void convert(final ViewHolder helper, final RowsBean item) {
 
         switch (helper.getItemViewType()) {
             case RowsBean.GOODS:
