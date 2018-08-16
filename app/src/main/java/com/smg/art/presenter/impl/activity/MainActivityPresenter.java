@@ -38,11 +38,11 @@ public class MainActivityPresenter extends BasePresenter<MainContract.View> impl
     @Override
     public void connect(String token) {
         if (UIUtils.getContext().getApplicationInfo().packageName.equals(BaseApplication.getCurProcessName(UIUtils.getContext()))) {
-
             /**
              * IMKit SDK调用第二步,建立与服务器的连接
              */
             RongIM.connect(token, getConnectCallback());
+
         }
     }
 
@@ -58,11 +58,11 @@ public class MainActivityPresenter extends BasePresenter<MainContract.View> impl
                 LocalAppConfigUtil.getInstance().setRongUserId(userid);
                 Uri RongHeadImg = Uri.parse(LocalAppConfigUtil.getInstance().getRongUserHeadImg());
                 String RongUserName = LocalAppConfigUtil.getInstance().getRongUserName();
-                /**
-                 * 设置当前用户信息，
-                 * @param userInfo 当前用户信息
-                 */
-                RongIM.getInstance().setCurrentUserInfo(new UserInfo(userid, RongUserName,RongHeadImg));
+                RongIM.getInstance().refreshUserInfoCache(new UserInfo(
+                        LocalAppConfigUtil.getInstance().getRongUserId(),
+                        LocalAppConfigUtil.getInstance().getRongUserName(),
+                        Uri.parse(LocalAppConfigUtil.getInstance().getRongUserHeadImg())
+                ));
                 RongIM.getInstance().setMessageAttachedUserInfo(true);
                 setRongIMCState(RongIMCUtils.Connect_Success);
             }

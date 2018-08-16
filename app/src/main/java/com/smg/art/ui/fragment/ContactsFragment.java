@@ -4,32 +4,30 @@ package com.smg.art.ui.fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blankj.utilcode.utils.ToastUtils;
+import com.orhanobut.logger.Logger;
 import com.smg.art.R;
 import com.smg.art.base.BaseFragment;
 import com.smg.art.base.Constant;
 import com.smg.art.bean.AddFriendBean;
 import com.smg.art.bean.AddressBookFriendsBean;
-import com.smg.art.bean.SaveCollectsBean;
+import com.smg.art.bean.MySection;
 import com.smg.art.bean.UpudterMessageBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
+import com.smg.art.db.database.RongUserInfoEntityDao;
+import com.smg.art.db.entity.RongUserInfoEntity;
 import com.smg.art.presenter.contract.fragment.ContactsFragmentContract;
 import com.smg.art.presenter.impl.fragment.ContactsFragmentPresenter;
 import com.smg.art.ui.activity.ConversationActivity;
 import com.smg.art.ui.activity.MainActivity;
 import com.smg.art.ui.adapter.ContactsApadter;
+import com.smg.art.utils.GreenDaoUtil;
 import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.view.contactsView.ContactSortModel;
 import com.smg.art.view.contactsView.PinyinComparator;
@@ -54,8 +52,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Created by Lenovo on 2018/7/25.
@@ -67,14 +63,16 @@ public class ContactsFragment extends BaseFragment implements ContactsFragmentCo
     ContactsFragmentPresenter mPresenter;
     @BindView(R.id.rv)
     SwipeMenuRecyclerView rv;
-    @BindView(R.id.dialog)
-    TextView dialog;
-    @BindView(R.id.sidrbar)
-    SideBar sideBar;
 
-    private SortAdapter adapter;
-    private List<ContactSortModel> SourceDateList = new ArrayList<>();
+    //    private SortAdapter adapter;
+//    private List<ContactSortModel> SourceDateList = new ArrayList<>();
     private int deletePostion;
+    private ContactsApadter contactsApadter;
+    private List<MySection> mySections = new ArrayList<>();
+    private List<AddressBookFriendsBean.DataBean> dataBeans = new ArrayList<>();
+
+
+    private RongUserInfoEntityDao collectionInfoDao;
 
     @Override
     public void loadData() {
@@ -95,27 +93,22 @@ public class ContactsFragment extends BaseFragment implements ContactsFragmentCo
     protected void initView(Bundle bundle) {
         super.initView(bundle);
         EventBus.getDefault().register(this);
-
-        initDatas();
+        this.collectionInfoDao = GreenDaoUtil.getDaoSession().getRongUserInfoEntityDao();
         setAdapter();
         mPresenter.FetchAddressBookFriends("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
 
     }
 
-    private void initDatas() {
-        sideBar.setTextView(dialog);
-    }
 
 
     private void setAdapter() {
-        adapter = new SortAdapter(getActivity(), SourceDateList);
 
+        contactsApadter = new ContactsApadter(mySections, getActivity());
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setSwipeItemClickListener(this);
         rv.setSwipeMenuCreator(swipeMenuCreator);
         rv.setSwipeMenuItemClickListener(mMenuItemClickListener);
-        rv.setAdapter(adapter);
-
+        rv.setAdapter(contactsApadter);
     }
 
     private void initEvents() {
@@ -148,14 +141,33 @@ public class ContactsFragment extends BaseFragment implements ContactsFragmentCo
      */
     @Override
     public void FetchAddressBookFriendsSuccess(AddressBookFriendsBean addressBookFriendsBean) {
+        dataBeans = addressBookFriendsBean.getData();
+        filledData(dataBeans);
+        Collections.sort(dataBeans, new PinyinComparator());
+        mySections = filledData(dataBeans);
+        contactsApadter.setNewData(mySections);
+        if (addressBookFriendsBean.getData().size() != 0) {
 
-        if (SourceDateList.size() != 0) SourceDateList.clear();
+            for (int i = 0; i < addressBookFriendsBean.getData().size(); i++) {
+                RongUserInfoEntity r = collectionInfoDao.queryBuilder().where(
+                        RongUserInfoEntityDao.Properties.UserId.eq(String.valueOf(addressBookFriendsBean.getData().get(i).getMemberId()))).unique();
 
-        SourceDateList = filledData(addressBookFriendsBean.getData());
-        Collections.sort(SourceDateList, new PinyinComparator());
-        adapter.setListDaa(SourceDateList);
-        adapter.setNewData(SourceDateList);
-
+                if (r != null) {
+                    RongUserInfoEntity rongUserInfoEntity = new RongUserInfoEntity();
+                    rongUserInfoEntity.setId(r.getId());
+                    rongUserInfoEntity.setUserId(String.valueOf(addressBookFriendsBean.getData().get(i).getMemberId()));
+                    rongUserInfoEntity.setUserName(addressBookFriendsBean.getData().get(i).getMemberName());
+                    rongUserInfoEntity.setUserPortraitUri(Constant.BaseImgUrl + addressBookFriendsBean.getData().get(i).getHeadImg());
+                    collectionInfoDao.update(rongUserInfoEntity);
+                } else {
+                    RongUserInfoEntity rongUserInfoEntity = new RongUserInfoEntity();
+                    rongUserInfoEntity.setUserId(String.valueOf(addressBookFriendsBean.getData().get(i).getMemberId()));
+                    rongUserInfoEntity.setUserName(addressBookFriendsBean.getData().get(i).getMemberName());
+                    rongUserInfoEntity.setUserPortraitUri(Constant.BaseImgUrl + addressBookFriendsBean.getData().get(i).getHeadImg());
+                    collectionInfoDao.insert(rongUserInfoEntity);
+                }
+            }
+        }
     }
 
     /**
@@ -163,10 +175,7 @@ public class ContactsFragment extends BaseFragment implements ContactsFragmentCo
      */
     @Override
     public void FetchUpdateFriendRelationSuccess(AddFriendBean addFriendBean) {
-        ToastUtils.showLongToast(addFriendBean.getMsg());
-        SourceDateList.remove(deletePostion);
-        adapter.setNewData(SourceDateList);
-        adapter.notifyDataSetChanged();
+        mPresenter.FetchAddressBookFriends("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
     }
 
     /**
@@ -175,17 +184,18 @@ public class ContactsFragment extends BaseFragment implements ContactsFragmentCo
     private SwipeMenuCreator swipeMenuCreator = new SwipeMenuCreator() {
         @Override
         public void onCreateMenu(SwipeMenu swipeLeftMenu, SwipeMenu swipeRightMenu, int viewType) {
-            int width = getResources().getDimensionPixelSize(R.dimen.bj_70dp);
-            int height = ViewGroup.LayoutParams.MATCH_PARENT;
-            SwipeMenuItem deleteItem = new SwipeMenuItem(getActivity())
-                    .setBackground(R.color.color_8d8686)
-                    .setText("删除")
-                    .setTextColor(Color.WHITE)
-                    .setTextSize(16)
-                    .setWidth(width)
-                    .setHeight(height);
-            swipeRightMenu.addMenuItem(deleteItem);// 添加菜单到右侧。
-
+            if (viewType == 0) {
+                int width = getResources().getDimensionPixelSize(R.dimen.bj_70dp);
+                int height = ViewGroup.LayoutParams.MATCH_PARENT;
+                SwipeMenuItem deleteItem = new SwipeMenuItem(getActivity())
+                        .setBackground(R.color.color_8d8686)
+                        .setText("删除")
+                        .setTextColor(Color.WHITE)
+                        .setTextSize(16)
+                        .setWidth(width)
+                        .setHeight(height);
+                swipeRightMenu.addMenuItem(deleteItem);// 添加菜单到右侧。
+            }
         }
     };
 
@@ -200,8 +210,9 @@ public class ContactsFragment extends BaseFragment implements ContactsFragmentCo
             int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
             if (direction == SwipeMenuRecyclerView.RIGHT_DIRECTION) {
                 deletePostion = adapterPosition;
+                Logger.e(String.valueOf(deletePostion)+">>>  " + String.valueOf(mySections.get(deletePostion).t.getMemberId()));
                 mPresenter.FetchUpdateFriendRelation("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
-                        "friendId", String.valueOf(SourceDateList.get(adapterPosition).getMemberId()));
+                        "friendId", String.valueOf(mySections.get(deletePostion).t.getMemberId()));
             }
         }
     };
@@ -209,38 +220,27 @@ public class ContactsFragment extends BaseFragment implements ContactsFragmentCo
     @Override
     public void onItemClick(View itemView, int position) {
         Intent i = new Intent(getActivity(), ConversationActivity.class);
-        i.putExtra("MemberId", String.valueOf(SourceDateList.get(position).getMemberId()));
-        i.putExtra("MemberName", String.valueOf(SourceDateList.get(position).getName()));
+        i.putExtra("MemberId", String.valueOf(mySections.get(position).t.getMemberId()));
+        i.putExtra("MemberName", String.valueOf(mySections.get(position).t.getMemberName()));
         MainActivity.mainActivity.startActivityIn(i, getActivity());
     }
 
 
-    private List<ContactSortModel> filledData(List<AddressBookFriendsBean.DataBean> date) {
-        List<ContactSortModel> mSortList = new ArrayList<>();
-        ArrayList<String> indexString = new ArrayList<>();
-
+    private List<MySection> filledData(List<AddressBookFriendsBean.DataBean> date) {
+        List<MySection> list = new ArrayList<>();
+        String tmp = "";
         for (int i = 0; i < date.size(); i++) {
-            ContactSortModel sortModel = new ContactSortModel();
-            sortModel.setName(date.get(i).getMemberName());
             String pinyin = PinyinUtils.getPingYin(date.get(i).getMemberName());
             String sortString = pinyin.substring(0, 1).toUpperCase();
-            if (sortString.matches("[A-Z]")) {
-                sortModel.setSortLetters(sortString.toUpperCase());
-                sortModel.setMemberId(date.get(i).getMemberId());
-                if (!indexString.contains(sortString)) {
-                    indexString.add(sortString);
-                }
-            } else {
-                sortModel.setSortLetters(sortString.toUpperCase());
-                sortModel.setMemberId(date.get(i).getMemberId());
-                if (!indexString.contains(sortString)) {
-                    indexString.add(sortString);
-                }
+            if (!tmp.equals(sortString)) {
+                MySection mySection = new MySection(true, sortString);
+                list.add(mySection);
+                tmp = sortString;
             }
-            mSortList.add(sortModel);
+            date.get(i).setSortLetters(sortString.toUpperCase());
+            MySection item = new MySection(date.get(i));
+            list.add(item);
         }
-        Collections.sort(indexString);
-        sideBar.setIndexText(indexString);
-        return mSortList;
+        return list;
     }
 }

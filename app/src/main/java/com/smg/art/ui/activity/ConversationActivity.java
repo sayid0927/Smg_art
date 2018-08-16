@@ -66,7 +66,7 @@ public class ConversationActivity extends FragmentActivity {
 
         Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
                 .appendPath("conversation").appendPath(io.rong.imlib.model.Conversation.ConversationType.PRIVATE.getName().toLowerCase())
-                .appendQueryParameter("targetId", MemberId).appendQueryParameter("title", "hello").build();
+                .appendQueryParameter("targetId", MemberId).build();
         fragment.setUri(uri);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

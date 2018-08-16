@@ -1,6 +1,8 @@
 package com.smg.art.utils;
 
+import android.app.Application;
 import android.content.Context;
+import android.os.Looper;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -9,15 +11,62 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.signature.StringSignature;
 import com.smg.art.R;
+import com.smg.art.base.BaseApplication;
 import com.smg.art.ui.activity.MainActivity;
 import java.io.File;
+import java.util.UUID;
 
 /**
  * Created by Administrator on 2018/7/30.
  */
 
 public class GlideUtils {
+
+    /**
+     * 清除图片磁盘缓存
+     */
+    public static void clearImageDiskCache() {
+        try {
+            if (Looper.myLooper() == Looper.getMainLooper()) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Glide.get(BaseApplication.getBaseApplication()).clearDiskCache();
+                    }
+                }).start();
+            } else {
+                Glide.get(BaseApplication.getBaseApplication()).clearDiskCache();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 清除图片内存缓存
+     */
+    public static void clearImageMemoryCache() {
+        try {
+            if (Looper.myLooper() == Looper.getMainLooper()) { //只能在主线程执行
+                Glide.get(BaseApplication.getBaseApplication()).clearMemory();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    /**
+     * 清除图片所有缓存
+     */
+    public static void clearImageAllCache() {
+        clearImageDiskCache();
+        clearImageMemoryCache();
+
+    }
 
     /**
      * 加载本地图片
@@ -49,7 +98,7 @@ public class GlideUtils {
      */
 
     public static void load(Context context, String imgUrl, ImageView iv) {
-        Glide.with(context).load(imgUrl).into(iv);
+        Glide.with(context).load(imgUrl).signature(new StringSignature(UUID.randomUUID().toString())).into(iv);
     }
     /**
      * 网络基本图片加载

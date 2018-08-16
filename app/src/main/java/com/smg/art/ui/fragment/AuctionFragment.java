@@ -179,6 +179,7 @@ public class AuctionFragment extends BaseFragment implements AuctionContract.Vie
             if (p == 1) {
                 list.clear();
             }
+
             list.addAll(auctionGoodsBean.getData().getRows());
             mAdapter.notifyDataSetChanged();
         } else {

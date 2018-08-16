@@ -108,6 +108,7 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
     private AuctionDetailBean detailBean;
     private List<FindCustomerServiceBean.DataBean> serviceDatas = new ArrayList<>();
     private ServiceDialogApadter apadter;
+    private  int depositStatus=-1;
 
 
     @Override
@@ -134,7 +135,7 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
     public void initView() {
         EventBus.getDefault().register(this);
         setSwipeBackEnable(true);
-        webview.setBackgroundColor(0);
+
         postion = getIntent().getIntExtra("postion", 0);
         mPresenter.FetchHomepageGetauctiondetail("id", String.valueOf(postion));
 
@@ -156,16 +157,16 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
                     toolbar.getBackground().setAlpha(alpha);
                     toolbarTitle.setVisibility(View.GONE);
                     if (alpha <= 126) {
-                        toolbarBack.setImageResource(R.drawable.arrow_back);
+                        toolbarBack.setImageResource(R.drawable.arrow_back_bg);
                     } else {
-                        toolbarBack.setImageResource(R.drawable.arrow_back);
+                        toolbarBack.setImageResource(R.drawable.back_goods);
                     }
                 } else if (offset >= endOffset) {
                     toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                     toolbar.getBackground().setAlpha(255);
                     toolbarTitle.setVisibility(View.VISIBLE);
                     toolbarTitle.setText("详情介绍");
-                    toolbarBack.setImageResource(R.drawable.arrow_back);
+                    toolbarBack.setImageResource(R.drawable.back_goods);
 
                 }
             }
@@ -213,10 +214,12 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
         tvActionName.setText(auctionDetailBean.getData().getActionName());
         tvStartPrice.setText("￥ " + String.valueOf(auctionDetailBean.getData().getStartPrice()));
         tvFrontMoneyAmount.setText("￥ " + String.valueOf(auctionDetailBean.getData().getFrontMoneyAmount()));
-        if (detailBean.getData().getDepositStatus() == 0) {
+        depositStatus = detailBean.getData().getDepositStatus();
+
+        if (depositStatus== 0) {
             btAuction.setText("交保证金参与");
         } else {
-            btAuction.setText("保证金已支付");
+            btAuction.setText("预展中");
         }
 
 
@@ -286,7 +289,8 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
     @Subscribe
     public void getEventBus(AuctionBuyerDepositBean auctionBuyerDepositBean) {
         //支付保证金回来
-        btAuction.setText("保证金已支付");
+        btAuction.setText("预展中");
+        depositStatus=1;
     }
 
     @Override
@@ -308,6 +312,10 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
                             "goodsId", String.valueOf(detailBean.getData().getGoodsId()));
                 break;
             case R.id.bt_auction:  // 交保证金参与
+                if(depositStatus ==1 || depositStatus==-1){
+//                   ToastUtils.showLongToast("");
+                   break;
+                }
                 if (detailBean != null) {
                     Intent intent = new Intent(this, AuctionBuyerDepositActivity.class);
                     intent.putExtra("data", new Gson().toJson(detailBean));

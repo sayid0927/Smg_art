@@ -44,6 +44,7 @@ import com.smg.art.bean.ForgetPasswordBean;
 import com.smg.art.bean.HotWordsListBean;
 import com.smg.art.bean.LoginBean;
 import com.smg.art.bean.OderDetailBean;
+import com.smg.art.bean.OrderMessageBean;
 import com.smg.art.bean.PersonalCenterBean;
 import com.smg.art.bean.PhoneVerifyCodeBean;
 import com.smg.art.bean.ProofreadCodeBean;
@@ -344,7 +345,7 @@ public interface ApiService {
      * 获取订单消息列表
      */
     @POST(Constant.AUCTIONNEWSFRONT_GETLISTFRONT)
-    Observable<SystemMessageBean> FetchOrderLidtFront(@QueryMap Map<String, String> map);
+    Observable<OrderMessageBean> FetchOrderLidtFront(@QueryMap Map<String, String> map);
 
 
     /**

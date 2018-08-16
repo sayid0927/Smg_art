@@ -2,22 +2,35 @@ package com.smg.art.ui.adapter;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.blankj.utilcode.utils.EmptyUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.google.gson.Gson;
 import com.smg.art.R;
 import com.smg.art.base.BaseApplication;
+import com.smg.art.db.database.RongUserInfoEntityDao;
+import com.smg.art.db.entity.RongUserInfoEntity;
 import com.smg.art.utils.GlideUtils;
+import com.smg.art.utils.GreenDaoUtil;
+import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.utils.UIUtils;
+
+import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.List;
 
+import io.rong.common.RLog;
+import io.rong.imkit.RongContext;
 import io.rong.imkit.emoticon.AndroidEmoji;
+import io.rong.imkit.model.ConversationProviderTag;
+import io.rong.imkit.model.UIConversation;
 import io.rong.imkit.utils.RongDateUtils;
+import io.rong.imkit.widget.adapter.ConversationListAdapter;
+import io.rong.imkit.widget.provider.IContainerItemProvider;
 import io.rong.imlib.model.Conversation;
 import io.rong.message.ImageMessage;
+import io.rong.message.LocationMessage;
 import io.rong.message.TextMessage;
 import io.rong.message.VoiceMessage;
 
@@ -30,12 +43,13 @@ public class RecentMessageApadter extends BaseQuickAdapter<Conversation, BaseVie
 
     private Context mContext;
     private List<Conversation> data;
-
+    private RongUserInfoEntityDao collectionInfoDao;
 
     public RecentMessageApadter(List<Conversation> data, Context mContext) {
         super(R.layout.item_recent_message, data);
         this.mContext = mContext;
         this.data = data;
+        this.collectionInfoDao = GreenDaoUtil.getDaoSession().getRongUserInfoEntityDao();
     }
 
     @Override
@@ -61,11 +75,48 @@ public class RecentMessageApadter extends BaseQuickAdapter<Conversation, BaseVie
                     helper.setText(R.id.tv_time, str);
 
                     if (EmptyUtils.isNotEmpty(data.getLatestMessage().getUserInfo())) {
-                        String urlImg = String.valueOf(data.getLatestMessage().getUserInfo().getPortraitUri());
-                        if (EmptyUtils.isNotEmpty(urlImg))
-                            GlideUtils.loadFitCenter(mContext, urlImg, (ImageView) helper.getView(R.id.ivHeader));
-                        if (EmptyUtils.isNotEmpty(data.getLatestMessage().getUserInfo().getName()))
-                        helper.setText(R.id.tv_name, data.getLatestMessage().getUserInfo().getName());
+
+                        if (!data.getLatestMessage().getUserInfo().getUserId().equals(LocalAppConfigUtil.getInstance().getRongUserId())) {
+                            String urlImg = String.valueOf(data.getLatestMessage().getUserInfo().getPortraitUri());
+                            if (EmptyUtils.isNotEmpty(urlImg)) {
+                                GlideUtils.loadFitCenter(mContext, urlImg, helper.getView(R.id.ivHeader));
+                            }
+                            if (EmptyUtils.isNotEmpty(data.getLatestMessage().getUserInfo().getName()))
+                                helper.setText(R.id.tv_name, data.getLatestMessage().getUserInfo().getName());
+                            //  用户信息添加到本地
+
+                            RongUserInfoEntity r = collectionInfoDao.queryBuilder().where(
+                                    RongUserInfoEntityDao.Properties.UserId.eq(data.getTargetId())).unique();
+
+                            if(r!=null){
+                                RongUserInfoEntity rongUserInfoEntity = new RongUserInfoEntity();
+                                rongUserInfoEntity.setId(r.getId());
+                                rongUserInfoEntity.setUserId(data.getLatestMessage().getUserInfo().getUserId());
+                                rongUserInfoEntity.setUserName(data.getLatestMessage().getUserInfo().getName());
+                                rongUserInfoEntity.setUserPortraitUri(String.valueOf(data.getLatestMessage().getUserInfo().getPortraitUri()));
+                                collectionInfoDao.update(rongUserInfoEntity);
+                            }else {
+                                RongUserInfoEntity rongUserInfoEntity = new RongUserInfoEntity();
+                                rongUserInfoEntity.setUserId(data.getLatestMessage().getUserInfo().getUserId());
+                                rongUserInfoEntity.setUserName(data.getLatestMessage().getUserInfo().getName());
+                                rongUserInfoEntity.setUserPortraitUri(String.valueOf(data.getLatestMessage().getUserInfo().getPortraitUri()));
+                                collectionInfoDao.insert(rongUserInfoEntity);
+                            }
+                        } else {
+                            // 在本地中查找用户信息
+                            RongUserInfoEntity r = collectionInfoDao.queryBuilder().where(
+                                    RongUserInfoEntityDao.Properties.UserId.eq(data.getTargetId())).unique();
+                            if (r!=null) {
+                                String urlImg = r.getUserPortraitUri();
+                                if (EmptyUtils.isNotEmpty(urlImg)) {
+                                    GlideUtils.loadFitCenter(mContext, urlImg, helper.getView(R.id.ivHeader));
+                                }
+                                if (EmptyUtils.isNotEmpty(r.getUserName()))
+                                    helper.setText(R.id.tv_name, r.getUserName());
+                            } else {
+                                helper.setText(R.id.tv_name, data.getTargetId());
+                            }
+                        }
                     } else {
                         helper.setText(R.id.tv_name, data.getTargetId());
                     }

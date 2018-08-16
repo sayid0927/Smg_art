@@ -92,7 +92,7 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
     TextView tvMm;
     @BindView(R.id.tv_ss)
     TextView tvSs;
-    Unbinder unbinder;
+
 
     private AuctionDetailBean auctionDetailBean;
     private AuctionGoodsBean.DataBean.RowsBean data;
@@ -145,7 +145,6 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
     protected void initView(Bundle bundle) {
         super.initView(bundle);
         EventBus.getDefault().register(this);
-        webview.setBackgroundColor(0);
         if(id>0){
             mPresenter.FetchHomepageGetauctiondetail("id", String.valueOf(id));
         }else {
@@ -169,9 +168,7 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
             webview.destroy();
             webview = null;
         }
-
         countDownTimer = null;
-        unbinder.unbind();
     }
 
     /**

@@ -18,6 +18,7 @@ import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerAppComponent;
 import com.smg.art.module.ApiModule;
 import com.smg.art.module.AppModule;
+import com.smg.art.utils.GreenDaoUtil;
 import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.utils.PreferUtil;
 import com.smg.art.utils.RongIMCUtils;
@@ -32,7 +33,7 @@ import io.rong.imlib.model.UserInfo;
 import static io.rong.imlib.RongIMClient.ConnectionStatusListener.ConnectionStatus.*;
 
 
-public class BaseApplication extends Application {
+public class BaseApplication extends Application implements RongIM.UserInfoProvider {
 
     public static BaseApplication baseApplication;
     private static AppComponent appComponent;
@@ -86,6 +87,7 @@ public class BaseApplication extends Application {
         PreferUtil.getInstance().init(this);
         //初始化融云
         initRongCloud();
+        GreenDaoUtil.initDataBase(getApplicationContext());
         //初始化红包
 //        initRedPacket();
 
@@ -117,7 +119,19 @@ public class BaseApplication extends Application {
                 "io.rong.push".equals(getCurProcessName(getApplicationContext()))) {
 
             RongIM.init(this);
+            RongIM.setUserInfoProvider(this,true);
 
         }
+    }
+
+    @Override
+    public UserInfo getUserInfo(String s) {
+
+        Uri RongHeadImg = Uri.parse(LocalAppConfigUtil.getInstance().getRongUserHeadImg());
+        String RongUserName = LocalAppConfigUtil.getInstance().getRongUserName();
+
+        UserInfo userInfo = new UserInfo(LocalAppConfigUtil.getInstance().getRongUserId(),RongUserName,RongHeadImg);
+
+        return userInfo;
     }
 }

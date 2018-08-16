@@ -21,8 +21,8 @@
 
         <com.smg.art.view.RoundImageView
             android:id="@+id/iv_draw"
-            android:layout_width="@dimen/bj_50dp"
-            android:layout_height="@dimen/bj_50dp"
+            android:layout_width="@dimen/bj_45dp"
+            android:layout_height="@dimen/bj_45dp"
             android:layout_centerInParent="true"
             android:src="@drawable/draw_def" />
 

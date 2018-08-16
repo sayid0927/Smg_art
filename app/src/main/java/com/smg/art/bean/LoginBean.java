@@ -10,7 +10,7 @@ public class LoginBean {
     /**
      * status : 1
      * msg : 登录成功
-     * data : {"memberNo":"15324886309","headImg":"/static/uploads/image/defaultHeadImg.png","JSESSIONID_SHIRO":"1a13a563-486f-4354-8539-d3d3b2fe701f","JSESSIONID":"1a13a563-486f-4354-8539-d3d3b2fe701f","memberId":79,"RCToken":"b9n9IEfFQuM5HNaqJLXWGK1337bdbXhGRi763MOs+4QH2GNeODKQH4RuiaK/5KCqVnw6JxqSbKQ="}
+     * data : {"memberNo":"15343026139","headImg":"/static/uploads/userHeadImg/15343026139.jpg","JSESSIONID_SHIRO":"3fea3df2-2960-4d8e-b2a0-c5d30a8c25af","memberName":"珐琅","JSESSIONID":"3fea3df2-2960-4d8e-b2a0-c5d30a8c25af","memberId":98,"RCToken":"27nTM8ZFYs7cc4h2moV8nKd4zGNQjLesC+4CACdACo5vg2QNJyvplRjG5tmfMUenc86W3UYJQ4qJAGarVnIJKw=="}
      */
 
     private int status;
@@ -43,17 +43,19 @@ public class LoginBean {
 
     public static class DataBean {
         /**
-         * memberNo : 15324886309
-         * headImg : /static/uploads/image/defaultHeadImg.png
-         * JSESSIONID_SHIRO : 1a13a563-486f-4354-8539-d3d3b2fe701f
-         * JSESSIONID : 1a13a563-486f-4354-8539-d3d3b2fe701f
-         * memberId : 79
-         * RCToken : b9n9IEfFQuM5HNaqJLXWGK1337bdbXhGRi763MOs+4QH2GNeODKQH4RuiaK/5KCqVnw6JxqSbKQ=
+         * memberNo : 15343026139
+         * headImg : /static/uploads/userHeadImg/15343026139.jpg
+         * JSESSIONID_SHIRO : 3fea3df2-2960-4d8e-b2a0-c5d30a8c25af
+         * memberName : 珐琅
+         * JSESSIONID : 3fea3df2-2960-4d8e-b2a0-c5d30a8c25af
+         * memberId : 98
+         * RCToken : 27nTM8ZFYs7cc4h2moV8nKd4zGNQjLesC+4CACdACo5vg2QNJyvplRjG5tmfMUenc86W3UYJQ4qJAGarVnIJKw==
          */
 
         private String memberNo;
         private String headImg;
         private String JSESSIONID_SHIRO;
+        private String memberName;
         private String JSESSIONID;
         private int memberId;
         private String RCToken;
@@ -80,6 +82,14 @@ public class LoginBean {
 
         public void setJSESSIONID_SHIRO(String JSESSIONID_SHIRO) {
             this.JSESSIONID_SHIRO = JSESSIONID_SHIRO;
+        }
+
+        public String getMemberName() {
+            return memberName;
+        }
+
+        public void setMemberName(String memberName) {
+            this.memberName = memberName;
         }
 
         public String getJSESSIONID() {

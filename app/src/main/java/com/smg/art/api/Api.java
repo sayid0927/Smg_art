@@ -47,6 +47,7 @@ import com.smg.art.bean.ForgetPasswordBean;
 import com.smg.art.bean.HotWordsListBean;
 import com.smg.art.bean.LoginBean;
 import com.smg.art.bean.OderDetailBean;
+import com.smg.art.bean.OrderMessageBean;
 import com.smg.art.bean.PersonalCenterBean;
 import com.smg.art.bean.PhoneVerifyCodeBean;
 import com.smg.art.bean.ProofreadCodeBean;
@@ -431,9 +432,9 @@ public class Api {
     }
 
     /**
-     * 获取系统消息列表
+     * 获取订单消息列表
      */
-    public Observable<SystemMessageBean> FetchOrderLidtFront(String... s) {
+    public Observable<OrderMessageBean> FetchOrderLidtFront(String... s) {
         return service.FetchOrderLidtFront(getMap(s));
     }
     /**
@@ -474,7 +475,6 @@ public class Api {
     public Observable<RefundBean> FetchvalidteTradePwd(String... s) {
         return service.FetchvalidteTradePwd(getMap(s));
     }
-
 
     /**
      * 投诉

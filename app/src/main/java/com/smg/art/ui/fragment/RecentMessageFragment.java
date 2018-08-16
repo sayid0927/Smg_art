@@ -5,17 +5,21 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.utils.EmptyUtils;
 import com.smg.art.R;
 import com.smg.art.base.BaseApplication;
 import com.smg.art.base.BaseFragment;
 import com.smg.art.base.Constant;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
+import com.smg.art.db.database.RongUserInfoEntityDao;
+import com.smg.art.db.entity.RongUserInfoEntity;
 import com.smg.art.presenter.contract.fragment.RecentMessageContract;
 import com.smg.art.presenter.impl.fragment.RecentMessagePresenter;
 import com.smg.art.ui.activity.ConversationActivity;
@@ -23,6 +27,7 @@ import com.smg.art.ui.activity.MainActivity;
 import com.smg.art.ui.activity.OrderMessageActivity;
 import com.smg.art.ui.activity.SystemMessageActivity;
 import com.smg.art.ui.adapter.RecentMessageApadter;
+import com.smg.art.utils.GreenDaoUtil;
 import com.smg.art.utils.LocalAppConfigUtil;
 import com.yanzhenjie.recyclerview.swipe.SwipeItemClickListener;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
@@ -36,17 +41,22 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.emoticon.AndroidEmoji;
+import io.rong.imkit.model.UIConversation;
 import io.rong.imkit.utils.RongDateUtils;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
+import io.rong.imlib.model.UserInfo;
 import io.rong.message.TextMessage;
 
 /**
@@ -70,6 +80,8 @@ public class RecentMessageFragment extends BaseFragment implements RecentMessage
     private String SYSTEMID;
     private String ORDERID;
     private Conversation.ConversationType SYSTEMTYPE, ORDERTYPE;
+
+    private RongUserInfoEntityDao collectionInfoDao;
 
     @Override
     public void loadData() {
@@ -97,13 +109,14 @@ public class RecentMessageFragment extends BaseFragment implements RecentMessage
         RongIM.setOnReceiveMessageListener(this);
         mPresenter.getConversationList();
         apadter = new RecentMessageApadter(data, getActivity());
-        apadter.addHeaderView(getHeaderView());
+        apadter.setHeaderView(getSystemHeaderView());
+        apadter.addHeaderView(getOrderHeaderView());
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setSwipeItemClickListener(this);
         rv.setSwipeMenuCreator(swipeMenuCreator);
         rv.setSwipeMenuItemClickListener(mMenuItemClickListener);
         rv.setAdapter(apadter);
-
+        this.collectionInfoDao = GreenDaoUtil.getDaoSession().getRongUserInfoEntityDao();
     }
 
     @Override
@@ -112,14 +125,22 @@ public class RecentMessageFragment extends BaseFragment implements RecentMessage
         return false;
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
         mPresenter.getConversationList();
     }
 
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
     @Override
     public void getConversationListSuccess(List<Conversation> conversationBean) {
+
         if (data.size() != 0) data.clear();
         for (int i = 0; i < conversationBean.size(); i++) {
             Conversation conversation = conversationBean.get(i);
@@ -164,6 +185,11 @@ public class RecentMessageFragment extends BaseFragment implements RecentMessage
         }
 
         data = conversationBean;
+
+        for(int i =0;i<data.size();i++){
+            data.get(i).getTargetId();
+        }
+
         apadter.setNewData(data);
 
     }
@@ -176,11 +202,21 @@ public class RecentMessageFragment extends BaseFragment implements RecentMessage
 
     @Override
     public void onItemClick(View itemView, int position) {
-        Intent i = new Intent(getActivity(), ConversationActivity.class);
-        i.putExtra("MemberId", data.get(position - 1).getTargetId());
-        i.putExtra("MemberName", data.get(position - 1).getLatestMessage().getUserInfo().getName());
-        MainActivity.mainActivity.startActivityIn(i, getActivity());
 
+        RongUserInfoEntity rongUserInfoEntity = collectionInfoDao.queryBuilder().where(
+                RongUserInfoEntityDao.Properties.UserId.eq(data.get(position-1).getTargetId())).unique();
+
+        if(EmptyUtils.isNotEmpty(rongUserInfoEntity)){
+            Intent i = new Intent(getActivity(), ConversationActivity.class);
+            i.putExtra("MemberId", data.get(position - 1).getTargetId());
+            i.putExtra("MemberName", rongUserInfoEntity.getUserName());
+            MainActivity.mainActivity.startActivityIn(i, getActivity());
+        }else {
+            Intent i = new Intent(getActivity(), ConversationActivity.class);
+            i.putExtra("MemberId", data.get(position - 1).getTargetId());
+            i.putExtra("MemberName", data.get(position - 1).getTargetId());
+            MainActivity.mainActivity.startActivityIn(i, getActivity());
+        }
     }
 
     /**
@@ -212,37 +248,35 @@ public class RecentMessageFragment extends BaseFragment implements RecentMessage
             int direction = menuBridge.getDirection(); // 左侧还是右侧菜单。
             int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
             if (direction == SwipeMenuRecyclerView.RIGHT_DIRECTION) {
-                int deletePostion = adapterPosition - 1;
-                RongIMClient.getInstance().removeConversation(data.get(deletePostion).getConversationType(), data.get(deletePostion).getTargetId(), new RongIMClient.ResultCallback<Boolean>() {
-                    @Override
-                    public void onSuccess(Boolean aBoolean) {
-                        mPresenter.getConversationList();
-                    }
+                if (adapterPosition == 0) {
+                    apadter.removeAllHeaderView();
+                } else {
+                    int deletePostion = adapterPosition - 1;
+                    RongIMClient.getInstance().removeConversation(data.get(deletePostion).getConversationType(), data.get(deletePostion).getTargetId(), new RongIMClient.ResultCallback<Boolean>() {
+                        @Override
+                        public void onSuccess(Boolean aBoolean) {
+                            mPresenter.getConversationList();
+                        }
 
-                    @Override
-                    public void onError(RongIMClient.ErrorCode errorCode) {
+                        @Override
+                        public void onError(RongIMClient.ErrorCode errorCode) {
 
-                    }
-                });
+                        }
+                    });
+                }
             }
         }
     };
 
 
-    private View getHeaderView() {
+    private View getSystemHeaderView() {
         View headerView;
-        headerView = View.inflate(getActivity(), R.layout.recent_message_header, null);
+        headerView = View.inflate(getActivity(), R.layout.recent_system_message_header, null);
 
         tvSystemMeeageContent = (TextView) headerView.findViewById(R.id.tv_content);
         tvSystemMeeageTime = (TextView) headerView.findViewById(R.id.tv_time);
         tvSystemMeeageCount = (TextView) headerView.findViewById(R.id.tvCount);
-        tvOrdMeeageContent = (TextView) headerView.findViewById(R.id.tv_content_Order);
-        tvOrdMeeageTime = (TextView) headerView.findViewById(R.id.tv_time_Order);
-        tvOrdMeeageCount = (TextView) headerView.findViewById(R.id.tvCountOrder);
-
         RelativeLayout systemMeeageItem = (RelativeLayout) headerView.findViewById(R.id.rl_system_message);
-        RelativeLayout ordMeeageItem = (RelativeLayout) headerView.findViewById(R.id.rl_order_message);
-
         systemMeeageItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -252,6 +286,18 @@ public class RecentMessageFragment extends BaseFragment implements RecentMessage
                 MainActivity.mainActivity.startActivityIn(i, getActivity());
             }
         });
+        return headerView;
+    }
+
+    private View getOrderHeaderView() {
+        View headerView;
+        headerView = View.inflate(getActivity(), R.layout.recent_order_message_header, null);
+        tvOrdMeeageContent = (TextView) headerView.findViewById(R.id.tv_content_Order);
+        tvOrdMeeageTime = (TextView) headerView.findViewById(R.id.tv_time_Order);
+        tvOrdMeeageCount = (TextView) headerView.findViewById(R.id.tvCountOrder);
+
+        RelativeLayout ordMeeageItem = (RelativeLayout) headerView.findViewById(R.id.rl_order_message);
+
         ordMeeageItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -262,4 +308,8 @@ public class RecentMessageFragment extends BaseFragment implements RecentMessage
         });
         return headerView;
     }
+
+
+
+
 }

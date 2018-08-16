@@ -1,6 +1,7 @@
 package com.smg.art.presenter.contract.activity;
 
 import com.smg.art.base.BaseContract;
+import com.smg.art.bean.OrderMessageBean;
 import com.smg.art.bean.SystemMessageBean;
 
 import rx.Observable;
@@ -16,7 +17,7 @@ public interface OrderMessageActivityContract {
         /**
          * 获取系统消息列表
          */
-        void FetchOrderLidtFrontSuccess(SystemMessageBean systemMessageBean);
+        void FetchOrderLidtFrontSuccess(OrderMessageBean systemMessageBean);
 
     }
 

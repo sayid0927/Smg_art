@@ -81,6 +81,7 @@
                 android:layout_marginTop="24px"
                 android:text="注：我们系统在不断地优化中…敬请期待！"
                 android:textColor="#666666"
+                android:visibility="gone"
                 android:textSize="26px" />
 
         </com.zhy.autolayout.AutoLinearLayout>

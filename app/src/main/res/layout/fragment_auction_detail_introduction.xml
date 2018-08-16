@@ -128,7 +128,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/bj_10dp"
                             android:text=":"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="13sp"
                             android:textStyle="bold" />
 
@@ -148,7 +148,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/bj_10dp"
                             android:text=":"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="13sp"
                             android:textStyle="bold" />
 

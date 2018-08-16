@@ -29,7 +29,6 @@ public class RedPacketMessage extends MessageContent {
         public RedPacketMessage createFromParcel(Parcel var1) {
             return new RedPacketMessage(var1);
         }
-
         public RedPacketMessage[] newArray(int var1) {
             return new RedPacketMessage[var1];
         }

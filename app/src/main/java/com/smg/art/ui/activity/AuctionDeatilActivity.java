@@ -73,10 +73,10 @@ public class AuctionDeatilActivity extends BaseActivity implements AuctionDeatil
             String bookJson=getIntent().getStringExtra("data");
             AuctionGoodsBean.DataBean.RowsBean data=new Gson().fromJson(bookJson,AuctionGoodsBean.DataBean.RowsBean.class);
             mFragments.add(AuctionDetailIntroductionFragment.getInstance(data));
-            mFragments.add(AuctionCentreFragment.getInstance(data));
+            mFragments.add(AuctionCentreFragment.getInstance(data.getId()));
         }else if(type==2) {
             mFragments.add(AuctionDetailIntroductionFragment.getInstance(id));
-            mFragments.add(AuctionDetailIntroductionFragment.getInstance(id));
+            mFragments.add(AuctionCentreFragment.getInstance(id));
         }
 
 

@@ -22,9 +22,14 @@ public class Constant {
     public static final int STATE_EMPTY = 3;
     public static final int STATE_SUCCESS = 4;
 
+     // 测试环境
     public static final String BaseImgUrl = "http://192.168.1.56:8080/art-world";
+     // 开发环境
+// public static final String BaseImgUrl = "http://192.168.1.167:8080/art-world-dev";
+     // 测试环境
     public static final String API_BASE_URL = "http://192.168.1.56:8080/art-world/";
-
+    // 开发环境
+   // public static final String API_BASE_URL = "http://192.168.1.167:8080/art-world-dev/";
     /**
      * 会员注册
      */
@@ -179,7 +184,6 @@ public class Constant {
     public static final String QUERYCOMPLAINAUCTIONINFO = "auctionpage/queryComplainAuctionInfo";
     //投诉
     public static final String SAVEAUCTIONCOMPLAIN = "auctionpage/saveAuctionComplain";
-
 
 
     public static String LOCAL_APP_CONFIG_FILE_NAME = "smgconfig";//本地应用配置文件名，存储些全局变量

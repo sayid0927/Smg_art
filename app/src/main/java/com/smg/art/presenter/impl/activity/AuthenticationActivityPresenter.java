@@ -31,7 +31,6 @@ public class AuthenticationActivityPresenter extends BasePresenter<Authenticatio
 
     @Override
     public void FetchUploadFile(List<MultipartBody.Part> parts) {
-        showWaitingDialog("加载中...");
         addSubscrebe(api.FetchUploadFile(parts).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<CardUrlBean>() {
@@ -42,14 +41,13 @@ public class AuthenticationActivityPresenter extends BasePresenter<Authenticatio
 
                     @Override
                     public void onError(Throwable e) {
-                        hideWaitingDialog();
+
                         mView.showError(e.getMessage());
                     }
 
                     @Override
                     public void onNext(CardUrlBean data) {
                         if (mView != null && data != null&& data.getStatus()==1) {
-                            hideWaitingDialog();
                             mView.FetchUploadFileSuccess(data);
                         }else {
                             if(mView != null && data != null)
@@ -78,6 +76,7 @@ public class AuthenticationActivityPresenter extends BasePresenter<Authenticatio
 
                     @Override
                     public void onNext(CreatWordsBean data) {
+                        hideWaitingDialog();
                         if (mView != null && data != null && data.getStatus()==1) {
                             hideWaitingDialog();
                             mView.FetchMemberAuthSaveSuccess(data);

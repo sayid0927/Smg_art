@@ -2,6 +2,7 @@ package com.smg.art.presenter.impl.activity;
 
 import com.smg.art.api.Api;
 import com.smg.art.base.BasePresenter;
+import com.smg.art.bean.OrderMessageBean;
 import com.smg.art.bean.SystemMessageBean;
 import com.smg.art.presenter.contract.activity.OrderMessageActivityContract;
 
@@ -28,7 +29,7 @@ public class OrderMeesagePresenter extends BasePresenter<OrderMessageActivityCon
         showWaitingDialog("加载中...");
         addSubscrebe(api.FetchOrderLidtFront(s).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<SystemMessageBean>() {
+                .subscribe(new Observer<OrderMessageBean>() {
                     @Override
                     public void onCompleted() {
 
@@ -41,7 +42,7 @@ public class OrderMeesagePresenter extends BasePresenter<OrderMessageActivityCon
                     }
 
                     @Override
-                    public void onNext(SystemMessageBean data) {
+                    public void onNext(OrderMessageBean data) {
                         if (mView != null && data != null && data.getStatus() == 1) {
                             hideWaitingDialog();
                             mView.FetchOrderLidtFrontSuccess(data);

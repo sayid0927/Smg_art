@@ -34,8 +34,12 @@ public class HomeIconApadter extends BaseQuickAdapter<HomePageImgBean.DataBean.C
     @Override
     protected void convert(final BaseViewHolder helper, final HomePageImgBean.DataBean.CategoryListBean item) {
 
+        if(item.getCategoryName().equals("全部")){
+            GlideUtils.loadLocation(mContext,R.drawable.mor,(ImageView)helper.getView(R.id.iv_draw));
+        }else {
+            GlideUtils.load(mContext,Constant.BaseImgUrl+item.getIco(),(ImageView)helper.getView(R.id.iv_draw),R.drawable.draw_def);
+        }
         helper.setText(R.id.tv_title,item.getCategoryName());
-        GlideUtils.load(mContext,Constant.BaseImgUrl+item.getIco(),(ImageView)helper.getView(R.id.iv_draw),R.drawable.draw_def);
 
         helper.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,5 +57,4 @@ public class HomeIconApadter extends BaseQuickAdapter<HomePageImgBean.DataBean.C
     public interface OnHomeIconItemListener {
         void OnHomeIconItemListener(HomePageImgBean.DataBean.CategoryListBean item,int postion);
     }
-
 }
