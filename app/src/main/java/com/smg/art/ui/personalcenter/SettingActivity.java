@@ -132,7 +132,7 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
     @Override
     public void initView() {
         actionbarTitle.setText(R.string.setting);
-//        GlideUtils.load(this, Constant.BaseImgUrl + LocalAppConfigUtil.getInstance().getHeadImg(), civMyPicture);
+        GlideUtils.load(this, Constant.BaseImgUrl + LocalAppConfigUtil.getInstance().getHeadImg(), civMyPicture);
     }
 
     @OnClick({R.id.rl_back, R.id.civMyPicture, R.id.name, R.id.phone, R.id.pwd, R.id.pay_pwd, R.id.exit})
@@ -190,12 +190,6 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
                 });
                 break;
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getData();
     }
 
     private void getData() {

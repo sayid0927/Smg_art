@@ -15,7 +15,6 @@ import com.smg.art.base.Constant;
 import com.smg.art.bean.PersonalCenterBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
-import com.smg.art.photo.CircleImageView;
 import com.smg.art.presenter.contract.fragment.MyFragmentContract;
 import com.smg.art.presenter.impl.fragment.MyFragmentPresenter;
 import com.smg.art.ui.activity.MainActivity;
@@ -25,8 +24,9 @@ import com.smg.art.ui.personalcenter.MyCollectionActivity;
 import com.smg.art.ui.personalcenter.MyOrderActivity;
 import com.smg.art.ui.personalcenter.MyWalletActivity;
 import com.smg.art.ui.personalcenter.SettingActivity;
-import com.smg.art.utils.GlideCommonUtils;
+import com.smg.art.utils.GlideUtils;
 import com.smg.art.utils.LocalAppConfigUtil;
+import com.smg.art.view.RoundImageView;
 
 import javax.inject.Inject;
 
@@ -41,7 +41,7 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
     @Inject
     MyFragmentPresenter mPresenter;
     @BindView(R.id.mine_head)
-    CircleImageView mineHead;
+    RoundImageView mineHead;
     @BindView(R.id.user_name)
     TextView userName;
     @BindView(R.id.user_id)
@@ -128,13 +128,19 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
         DaggerMainComponent.builder().appComponent(appComponent).build().inject(this);
     }
 
-    @Override
+ /*   @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (mineHead != null && isVisibleToUser) {
             getdata();
         }
-    }
+    }*/
+
+   /* @Override
+    public void onResume() {
+        super.onResume();
+        getdata();
+    }*/
 
     @Override
     protected void initView(Bundle bundle) {
@@ -213,7 +219,8 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
         if (announcementAuctionListBean.getStatus() == 1) {
             userName.setText(announcementAuctionListBean.getData().getMemberName());
             userId.setText("ID: " + announcementAuctionListBean.getData().getMemberId());
-            GlideCommonUtils.showHead(getActivity(), announcementAuctionListBean.getData().getHeadImg(), mineHead);
+            GlideUtils.load(getActivity(), Constant.BaseImgUrl + LocalAppConfigUtil.getInstance().getHeadImg(), mineHead);
+            //   GlideCommonUtils.showHead(getActivity(), announcementAuctionListBean.getData().getHeadImg(), );
             isReal = announcementAuctionListBean.getData().getIsReal();
         } else {
             ToastUtils.showShortToast(announcementAuctionListBean.getMsg());
