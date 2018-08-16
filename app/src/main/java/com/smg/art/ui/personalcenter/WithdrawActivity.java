@@ -246,8 +246,6 @@ public class WithdrawActivity extends BaseActivity implements WithdrawContract.V
             }
         } else {
             ToastUtils.showShortToast(checkBankCardBean.getMsg());
-            addBank.setVisibility(View.VISIBLE);
-            bankInfo.setVisibility(View.GONE);
         }
     }
 
