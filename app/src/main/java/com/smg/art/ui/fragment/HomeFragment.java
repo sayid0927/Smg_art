@@ -113,7 +113,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
         mAdapter.OnGoodsItemListener(this);
         homeIconApadter.OnHomeIconItemListener(this);
 
-
     }
 
 
@@ -261,6 +260,10 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
      * @param categoryListBeans
      */
     private void fillView(List<HomePageImgBean.DataBean.CategoryListBean> categoryListBeans) {
+        HomePageImgBean.DataBean.CategoryListBean  categoryListBean = new HomePageImgBean.DataBean.CategoryListBean();
+        categoryListBean.setId(categoryListBeans.size()+1);
+        categoryListBean.setCategoryName("全部");
+        categoryListBeans.add(categoryListBean);
         homeIconApadter.setNewData(categoryListBeans);
     }
 
@@ -270,7 +273,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
     @Override
     public void OnHomeIconItemListener(HomePageImgBean.DataBean.CategoryListBean item, int postion) {
 
-        if (categoryListBeans.size() >= 0) {
+        if (categoryListBeans.size() > 0) {
             Bundle bundle = new Bundle();
             Intent i = new Intent(getActivity(), ClassifyActivity.class);
             i.putExtra("postion", postion);

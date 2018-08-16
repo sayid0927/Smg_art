@@ -7,36 +7,10 @@
     android:orientation="vertical">
 
 
-    <FrameLayout
+    <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+        android:id="@+id/rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
-            android:id="@+id/rv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-        <TextView
-            android:id="@+id/dialog"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center"
-            android:background="@drawable/shape_slide_grey"
-            android:gravity="center"
-            android:text="A"
-            android:textColor="@android:color/white"
-            android:textSize="36sp"
-            android:visibility="gone"
-            tools:visibility="visible" />
-
-        <com.smg.art.view.contactsView.SideBar
-            android:id="@+id/sidrbar"
-            android:layout_width="24dp"
-            android:visibility="gone"
-            android:layout_height="match_parent"
-            android:layout_gravity="right|center" />
-    </FrameLayout>
-
+        android:layout_height="match_parent" />
 
 
 </LinearLayout>

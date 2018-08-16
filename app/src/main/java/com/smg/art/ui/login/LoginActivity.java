@@ -20,6 +20,7 @@ import com.blankj.utilcode.utils.ToastUtils;
 import com.jaeger.library.StatusBarUtil;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
+import com.smg.art.base.Constant;
 import com.smg.art.bean.LoginBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
@@ -189,9 +190,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View, V
             LocalAppConfigUtil.getInstance().setHeadImg(loginBean.getData().getHeadImg());
             LocalAppConfigUtil.getInstance().setUserTelephone(etContext.getText().toString().replace(" ", ""));
             LocalAppConfigUtil.getInstance().setPassword(etPayPwd.getText().toString());
-
             LocalAppConfigUtil.getInstance().setRongUserHeadImg(loginBean.getData().getHeadImg());
-            LocalAppConfigUtil.getInstance().setRongUserName(loginBean.getData().getMemberNo());
+            LocalAppConfigUtil.getInstance().setRongUserName(loginBean.getData().getMemberName());
 
 
             startActivityIn(new Intent(this, MainActivity.class),this);

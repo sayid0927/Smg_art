@@ -1,17 +1,20 @@
 package com.smg.art.ui.activity;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.utilcode.utils.ToastUtils;
+import com.google.gson.Gson;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
+import com.smg.art.bean.OrderMessageBean;
 import com.smg.art.bean.SystemMessageBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
@@ -19,6 +22,7 @@ import com.smg.art.presenter.contract.activity.OrderMessageActivityContract;
 import com.smg.art.presenter.contract.activity.SystemMessageActivityContract;
 import com.smg.art.presenter.impl.activity.OrderMeesagePresenter;
 import com.smg.art.presenter.impl.activity.SystemMeesagePresenter;
+import com.smg.art.ui.adapter.OrderMessageApadter;
 import com.smg.art.ui.adapter.SystemMessageApadter;
 import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.view.MyLoadMoreView;
@@ -32,7 +36,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class OrderMessageActivity extends BaseActivity implements OrderMessageActivityContract.View, OnLoadmoreListener, OnRefreshListener {
+public class OrderMessageActivity extends BaseActivity implements OrderMessageActivityContract.View, OnLoadmoreListener, OnRefreshListener, OrderMessageApadter.OnOrderItemListener {
 
     @Inject
     OrderMeesagePresenter mPresenter;
@@ -46,8 +50,8 @@ public class OrderMessageActivity extends BaseActivity implements OrderMessageAc
     @BindView(R.id.srl)
     SmartRefreshLayout srl;
 
-    private SystemMessageApadter mAdapter;
-    private List<SystemMessageBean.DataBean.RowsBean> systemMessageBeans= new ArrayList<>();
+    private OrderMessageApadter mAdapter;
+    private List<OrderMessageBean.DataBean.RowsBean> orderMessageBeans= new ArrayList<>();
     private  int page = 1;
     private  int rows =10;
 
@@ -77,8 +81,9 @@ public class OrderMessageActivity extends BaseActivity implements OrderMessageAc
         setSwipeBackEnable(true);
         actionbarTitle.setText(R.string.order_message);
 
-        mAdapter = new SystemMessageApadter(systemMessageBeans, this);
+        mAdapter = new OrderMessageApadter(orderMessageBeans, this);
         mAdapter.setLoadMoreView(new MyLoadMoreView());
+        mAdapter.OnOrderItemListener(this);
         rlSystemMessage.setLayoutManager(new LinearLayoutManager(this));
         rlSystemMessage.setAdapter(mAdapter);
         srl.setOnLoadmoreListener(this);
@@ -104,15 +109,15 @@ public class OrderMessageActivity extends BaseActivity implements OrderMessageAc
      * 获取系统消息列表
      */
     @Override
-    public void FetchOrderLidtFrontSuccess(SystemMessageBean systemMessageBean) {
+    public void FetchOrderLidtFrontSuccess(OrderMessageBean systemMessageBean) {
         if(srl.isLoading()){
             mAdapter.addData(systemMessageBean.getData().getRows());
             srl.finishLoadmore();
         }else {
             if(srl.isRefreshing()) srl.finishRefresh();
-            if(systemMessageBeans.size()!=0)systemMessageBeans.clear();
-            this.systemMessageBeans = systemMessageBean.getData().getRows();
-            mAdapter.setNewData(systemMessageBeans);
+            if(orderMessageBeans.size()!=0)orderMessageBeans.clear();
+            this.orderMessageBeans = systemMessageBean.getData().getRows();
+            mAdapter.setNewData(orderMessageBeans);
         }
     }
 
@@ -138,4 +143,19 @@ public class OrderMessageActivity extends BaseActivity implements OrderMessageAc
                 "memberId",String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
     }
 
+
+    /**
+     *   跳转订单详情页面
+     * @param item
+     */
+    @Override
+    public void OnOrderItemListener(OrderMessageBean.DataBean.RowsBean item) {
+
+        Intent i = new Intent(this, AuctionDeatilActivity.class);
+        i.putExtra("id", item.getAuctionId());
+        i.putExtra("type",2);
+        MainActivity.mainActivity.startActivityIn(i, this);
+
+
+    }
 }

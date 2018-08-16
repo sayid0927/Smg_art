@@ -2,10 +2,13 @@ package com.smg.art.ui.adapter;
 
 import android.content.Context;
 import android.os.CountDownTimer;
+
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.SparseArray;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
@@ -25,7 +28,7 @@ import java.util.List;
  * Created by wengmf on 2018/3/22.
  */
 
-public class SearchGoodsListApadter extends BaseMultiItemQuickAdapter<AnnouncementAuctionListBean.DataBean.RowsBean, BaseViewHolder> {
+public class SearchGoodsListApadter extends BaseMultiItemQuickAdapter<AnnouncementAuctionListBean.DataBean.RowsBean, SearchGoodsListApadter.ViewHolder> {
 
 
     private List<AnnouncementAuctionListBean.DataBean.RowsBean> data;
@@ -59,8 +62,17 @@ public class SearchGoodsListApadter extends BaseMultiItemQuickAdapter<Announceme
         }
     }
 
+    public class ViewHolder extends BaseViewHolder{
+
+        public CountDownTimer countDownTimer;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
+
     @Override
-    protected void convert(final BaseViewHolder helper, final AnnouncementAuctionListBean.DataBean.RowsBean item) {
+    protected void convert(ViewHolder helper, RowsBean item) {
 
         switch (helper.getItemViewType()) {
             case RowsBean.GOODS:
@@ -86,22 +98,28 @@ public class SearchGoodsListApadter extends BaseMultiItemQuickAdapter<Announceme
                 }
                 if (time < item.getEndTime()) {
                     long countTime = item.getEndTime() - time;
-                 
                     if (countTime > 0) {
-                       countDownTimer = new CountDownTimer(countTime, 1000) {
+                        //将前一个缓存清除
+                        if (helper.countDownTimer != null) {
+                            helper.countDownTimer.cancel();
+                        }
+                     helper.countDownTimer = new CountDownTimer(countTime, 1000) {
                             public void onTick(long millisUntilFinished) {
                                 String hour = TimeTools.getCountTimeByLong(millisUntilFinished);
                                 String[] array = hour.split(":");
                                 helper.setText(R.id.tv_hour, array[0]);
                                 helper.setText(R.id.tv_min, array[1]);
                                 helper.setText(R.id.tv_second, array[2]);
+                                helper.getView(R.id.fl_auction).setVisibility(View.VISIBLE);
+                                helper.getView(R.id.iv_auction).setBackgroundResource(R.drawable.auction_red);
                             }
-
                             public void onFinish() {
                                 helper.setText(R.id.tv_hour, "00");
                                 helper.setText(R.id.tv_min, "00");
                                 helper.setText(R.id.tv_second, "00");
                                 helper.setText(R.id.detail, "拍卖结束");
+                                helper.getView(R.id.fl_auction).setVisibility(View.VISIBLE);
+                                helper.getView(R.id.iv_auction).setBackgroundResource(R.drawable.auction_gray);
                             }
                         }.start();
                         countDownMap.put(helper.getView(R.id.tv_hour).hashCode(), countDownTimer);
@@ -111,6 +129,8 @@ public class SearchGoodsListApadter extends BaseMultiItemQuickAdapter<Announceme
                         helper.setText(R.id.tv_second, "00");
                         helper.setText(R.id.detail, "拍卖结束");
                         helper.getView(R.id.tv_time).setVisibility(View.GONE);
+                        helper.getView(R.id.fl_auction).setVisibility(View.VISIBLE);
+                        helper.getView(R.id.iv_auction).setBackgroundResource(R.drawable.auction_gray);
                     }
                 } else if (time > item.getEndTime()) {
                     helper.setText(R.id.tv_hour, "00");
@@ -118,6 +138,8 @@ public class SearchGoodsListApadter extends BaseMultiItemQuickAdapter<Announceme
                     helper.setText(R.id.tv_second, "00");
                     helper.setText(R.id.detail, "拍卖结束");
                     helper.getView(R.id.tv_time).setVisibility(View.GONE);
+                    helper.getView(R.id.fl_auction).setVisibility(View.VISIBLE);
+                    helper.getView(R.id.iv_auction).setBackgroundResource(R.drawable.auction_gray);
                 }
                 if (!TextUtils.isEmpty(item.getPictureUrl())) {
                     GlideCommonUtils.showSquarePic(mContext, item.getPictureUrl(), (ImageView) helper.getView(R.id.shop_iv));
@@ -129,6 +151,13 @@ public class SearchGoodsListApadter extends BaseMultiItemQuickAdapter<Announceme
                 if (TextUtils.isEmpty(item.getAuctionDesc())) {
                     helper.setText(R.id.auction_tv, "拍卖方:" + item.getAuctionDesc());
                 }
+                helper.getView(R.id.detail).setVisibility(View.GONE);
+                helper.getView(R.id.auction_num).setVisibility(View.GONE);
+                helper.getView(R.id.auction_tv).setVisibility(View.GONE);
+                helper.getView(R.id.tv_search_en).setVisibility(View.VISIBLE);
+                helper.getView(R.id.view_line).setVisibility(View.VISIBLE);
+                helper.getView(R.id.item_list).setBackgroundResource(R.drawable.item_witeh_bg);
+
                 helper.setText(R.id.auction_num, "编码: " + item.getBidNo());
                 helper.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -141,14 +170,6 @@ public class SearchGoodsListApadter extends BaseMultiItemQuickAdapter<Announceme
                 break;
         }
     }
-    public class ViewHolder extends BaseViewHolder{
-
-        public ViewHolder(View view) {
-            super(view);
-        }
-
-    }
-
 
     public void OnGoodsItemListener(OnGoodsItemListener onGoodsItemListener) {
         this.onGoodsItemListener = onGoodsItemListener;
@@ -158,7 +179,6 @@ public class SearchGoodsListApadter extends BaseMultiItemQuickAdapter<Announceme
         void OnGoodsItemListener(RowsBean item);
     }
 
-
     public void OnAuctionItemListener(OnAuctionItemListener onAuctionItemListener) {
         this.onAuctionItemListener = onAuctionItemListener;
     }
@@ -166,9 +186,5 @@ public class SearchGoodsListApadter extends BaseMultiItemQuickAdapter<Announceme
     public interface OnAuctionItemListener {
         void OnAuctionItemListener(RowsBean item);
     }
-
-
-
-
 
 }

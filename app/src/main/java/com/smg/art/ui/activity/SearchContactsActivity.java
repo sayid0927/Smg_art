@@ -2,7 +2,9 @@ package com.smg.art.ui.activity;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -19,6 +21,7 @@ import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.activity.SearchContactsContract;
 import com.smg.art.presenter.impl.activity.SearchContactsActivityPresenter;
 import com.smg.art.ui.adapter.SearchContactsListApadter;
+import com.smg.art.utils.KeyBoardUtils;
 import com.smg.art.utils.LocalAppConfigUtil;
 import com.zhy.autolayout.AutoRelativeLayout;
 
@@ -83,6 +86,17 @@ public class SearchContactsActivity extends BaseActivity implements SearchContac
         rvSearch.setAdapter(mAdapter);
         headrerView.setVisibility(View.GONE);
 
+        etSearchContent.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEND || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                    mPesenter.FetchSearchMember("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
+                            "condition", etSearchContent.getText().toString().trim());
+                    return true;
+                }
+                return false;
+            }
+        });
+
     }
 
     private View getHeaderView() {
@@ -95,6 +109,7 @@ public class SearchContactsActivity extends BaseActivity implements SearchContac
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_back:  // 返回
+                KeyBoardUtils.hiddenKeyboart(this);
                 finish();
                 break;
             case R.id.tv_search:  //搜索

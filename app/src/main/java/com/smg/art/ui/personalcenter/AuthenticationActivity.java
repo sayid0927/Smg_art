@@ -34,6 +34,7 @@ import com.smg.art.presenter.contract.activity.AuthenticationContract;
 import com.smg.art.presenter.impl.activity.AuthenticationActivityPresenter;
 import com.smg.art.utils.ClipFileUtil;
 import com.smg.art.utils.CommonUtil;
+import com.smg.art.utils.KeyBoardUtils;
 import com.smg.art.utils.LocalAppConfigUtil;
 import com.zhy.autolayout.AutoRelativeLayout;
 
@@ -93,8 +94,7 @@ public class AuthenticationActivity extends BaseActivity implements Authenticati
     private int type;
     private int postType = 0;
     private String mainUri, backUri, handUri;
-    private MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-    private List<MultipartBody.Part> parts;
+
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -132,17 +132,19 @@ public class AuthenticationActivity extends BaseActivity implements Authenticati
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_back: //返回
+                KeyBoardUtils.hiddenKeyboart(this);
                 finish();
                 break;
             case R.id.bt_net:  //下一步
 //                if (checkUp()) {
-                    name = edName.getText().toString().trim();
-                    CardNum = edCardNum.getText().toString().trim();
-                    if (llNet.getVisibility() == View.VISIBLE && llPost.getVisibility() == View.GONE) {
-                        llNet.setVisibility(View.GONE);
-                        llPost.setVisibility(View.VISIBLE);
-                        ivTick1.setBackground(this.getResources().getDrawable(R.drawable.tick_renzheng_green));
-                    }
+                KeyBoardUtils.hiddenKeyboart(this);
+                name = edName.getText().toString().trim();
+                CardNum = edCardNum.getText().toString().trim();
+                if (llNet.getVisibility() == View.VISIBLE && llPost.getVisibility() == View.GONE) {
+                    llNet.setVisibility(View.GONE);
+                    llPost.setVisibility(View.VISIBLE);
+                    ivTick1.setBackground(this.getResources().getDrawable(R.drawable.tick_renzheng_green));
+                }
 //                }
                 break;
             case R.id.iv_main:  // 正面昭
@@ -158,15 +160,19 @@ public class AuthenticationActivity extends BaseActivity implements Authenticati
                 Camera();
                 break;
             case R.id.bt_post://提交
-                if(tempMainFile!=null && tempBackFile !=null && tempHandFile !=null){
+                if (tempMainFile != null && tempBackFile != null && tempHandFile != null) {
                     postType = 1;
                     File Mainfile = new File(String.valueOf(tempMainFile));
                     RequestBody Mainbody = RequestBody.create(MediaType.parse("multipart/form-data"), Mainfile);
+
+                    MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+                    List<MultipartBody.Part> parts;
+
                     builder.addFormDataPart("type", "member");
                     builder.addFormDataPart("upfile", Mainfile.getName(), Mainbody);
                     parts = builder.build().parts();
                     mPresenter.FetchUploadFile(parts);
-                }else {
+                } else {
                     ToastUtils.showLongToast("请选择照片");
                 }
                 break;
@@ -294,32 +300,37 @@ public class AuthenticationActivity extends BaseActivity implements Authenticati
     public void FetchUploadFileSuccess(CardUrlBean cardUrlBean) {
         switch (postType) {
             case 1:
-
+                MultipartBody.Builder builder2 = new MultipartBody.Builder().setType(MultipartBody.FORM);
+                List<MultipartBody.Part> parts2;
                 postType = 2;
                 File Backfile = new File(String.valueOf(tempBackFile));
                 RequestBody Backbody = RequestBody.create(MediaType.parse("multipart/form-data"), Backfile);
-                builder.addFormDataPart("type", "member");
-                builder.addFormDataPart("upfile", Backfile.getName(), Backbody);
-                parts = builder.build().parts();
-                mainUri =  cardUrlBean.getData();
-                mPresenter.FetchUploadFile(parts);
+                builder2.addFormDataPart("type", "member");
+                builder2.addFormDataPart("upfile", Backfile.getName(), Backbody);
+                parts2 = builder2.build().parts();
+                mainUri = cardUrlBean.getData();
+                mPresenter.FetchUploadFile(parts2);
 
                 break;
             case 2:
+                MultipartBody.Builder builder3 = new MultipartBody.Builder().setType(MultipartBody.FORM);
+                List<MultipartBody.Part> parts3;
                 postType = 3;
                 File Headfile = new File(String.valueOf(tempHandFile));
                 RequestBody Headbody = RequestBody.create(MediaType.parse("multipart/form-data"), Headfile);
-                builder.addFormDataPart("type", "member");
-                builder.addFormDataPart("upfile", Headfile.getName(), Headbody);
-                parts = builder.build().parts();
+                builder3.addFormDataPart("type", "member");
+                builder3.addFormDataPart("upfile", Headfile.getName(), Headbody);
+                parts3 = builder3.build().parts();
                 backUri = cardUrlBean.getData();
-                mPresenter.FetchUploadFile(parts);
+                mPresenter.FetchUploadFile(parts3);
                 break;
             case 3:
-                handUri =cardUrlBean.getData();
+
+                handUri = cardUrlBean.getData();
                 mPresenter.FetchMemberAuthSave("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
                         "realName", name, "cardNo", CardNum, "cardUrl", mainUri + ";" + backUri + ";" + handUri);
                 postType = 0;
+
                 break;
         }
     }

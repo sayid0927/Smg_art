@@ -71,16 +71,16 @@ public class AuctionCentreFragment extends BaseFragment implements AuctionCentre
     LinearLayout llCreatBidding;
 
 
-    private AuctionGoodsBean.DataBean.RowsBean data;
+    private  int  id;
     private AuctionCenterBean.DataBean.MaxMoneyBean maxMoneyBean;
     private List<AuctionCenterBean.DataBean.ListBean> rowsBeans = new ArrayList<>();
     private AuctionCentreListApadter apadter;
     private ScheduledFuture scheduledFuture;
     private boolean isFst = false;
 
-    public static AuctionCentreFragment getInstance(AuctionGoodsBean.DataBean.RowsBean data) {
+    public static AuctionCentreFragment getInstance(int  id) {
         AuctionCentreFragment sf = new AuctionCentreFragment();
-        sf.data = data;
+        sf.id = id;
         return sf;
     }
 
@@ -113,14 +113,14 @@ public class AuctionCentreFragment extends BaseFragment implements AuctionCentre
     @Override
     protected void initView(Bundle bundle) {
         super.initView(bundle);
-        mPresenter.FetchHomepageGetauctiondetail("id", String.valueOf(data.getId()));
+        mPresenter.FetchHomepageGetauctiondetail("id", String.valueOf(id));
         apadter = new AuctionCentreListApadter(getActivity(), rowsBeans);
         rvAcution.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvAcution.setAdapter(apadter);
         scheduledFuture = BaseApplication.MAIN_EXECUTOR.scheduleWithFixedDelay(new Runnable() {
             @Override
             public void run() {
-                mPresenter.FetchAuctionCenterList("auctionId", String.valueOf(data.getId()));
+                mPresenter.FetchAuctionCenterList("auctionId", String.valueOf(id));
             }
         }, 0, 1, TimeUnit.SECONDS);
     }
@@ -169,7 +169,7 @@ public class AuctionCentreFragment extends BaseFragment implements AuctionCentre
     public void FetchvalidteTradePwdSuccess(RefundBean refundBean) {
 
         mPresenter.FetchCreatBidding("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
-                "auctionId", String.valueOf(data.getId()), "amount", etCreatBidding.getText().toString().trim());
+                "auctionId", String.valueOf(id), "amount", etCreatBidding.getText().toString().trim());
     }
 
     private void initMaxMoneyView(AuctionCenterBean.DataBean.MaxMoneyBean maxMoneyBean) {

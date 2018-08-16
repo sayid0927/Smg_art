@@ -108,6 +108,7 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
     // 1: 圆形裁剪, 2: 矩形裁剪
     private int type = 0;
     private int RECode = 1;
+    private String headImg;
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -132,7 +133,7 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
     @Override
     public void initView() {
         actionbarTitle.setText(R.string.setting);
-        GlideUtils.load(this, Constant.BaseImgUrl + LocalAppConfigUtil.getInstance().getHeadImg(), civMyPicture);
+//        GlideUtils.load(this, Constant.BaseImgUrl + LocalAppConfigUtil.getInstance().getHeadImg(), civMyPicture);
     }
 
     @OnClick({R.id.rl_back, R.id.civMyPicture, R.id.name, R.id.phone, R.id.pwd, R.id.pay_pwd, R.id.exit})
@@ -369,17 +370,28 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
 
     @Override
     public void FetchUploadPicSuccess(UpLoadBean upLoadBean) {
-        GlideUtils.load(this, Constant.BaseImgUrl + upLoadBean.getHeadImg(), civMyPicture);
+
+        if (String.valueOf(upLoadBean.getHeadImg().subSequence(0, 1)).equals("/")) {
+            headImg = Constant.BaseImgUrl + upLoadBean.getHeadImg();
+            GlideUtils.load(this, headImg, civMyPicture);
+        } else {
+            headImg = Constant.API_BASE_URL + upLoadBean.getHeadImg();
+            GlideUtils.load(this, headImg, civMyPicture);
+        }
+
         LocalAppConfigUtil.getInstance().setRongUserHeadImg(upLoadBean.getHeadImg());
         RongIM.getInstance().refreshUserInfoCache(new UserInfo(
-                LocalAppConfigUtil.getInstance().getRongUserId(), LocalAppConfigUtil.getInstance().getRongUserName(), Uri.parse(LocalAppConfigUtil.getInstance().getRongUserHeadImg())
+                LocalAppConfigUtil.getInstance().getRongUserId(), LocalAppConfigUtil.getInstance().getRongUserName(), Uri.parse(headImg)
         ));
+
     }
 
     @Override
     public void FetchPersonalCenterSuccess(PersonalCenterBean announcementAuctionListBean) {
+
         if (announcementAuctionListBean.getStatus() == 1) {
-            GlideCommonUtils.showHead(this, announcementAuctionListBean.getData().getHeadImg(), civMyPicture);
+            GlideUtils.clearImageAllCache();
+            GlideUtils.load(this,Constant.BaseImgUrl +  announcementAuctionListBean.getData().getHeadImg(), civMyPicture);
             nick.setText(announcementAuctionListBean.getData().getMemberName());
             phoneNum.setText(announcementAuctionListBean.getData().getMobilePhone());
         } else {

@@ -3,10 +3,9 @@ package com.smg.art.utils;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.smg.art.db.database.CollectionEntityDao;
 import com.smg.art.db.database.DaoMaster;
 import com.smg.art.db.database.DaoSession;
-import com.smg.art.db.entity.CollectionEntity;
+import com.smg.art.db.database.RongUserInfoEntityDao;
 
 
 /**
@@ -39,8 +38,8 @@ public class GreenDaoUtil {
         return database;
     }
 
-    public  static CollectionEntityDao getCollectionEntityDao(){
-        return  daoSession.getCollectionEntityDao();
+    public  static RongUserInfoEntityDao getRongUserInfoEntityDao(){
+        return  daoSession.getRongUserInfoEntityDao();
     }
 
 }
