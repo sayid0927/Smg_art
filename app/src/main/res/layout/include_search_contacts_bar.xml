@@ -51,6 +51,8 @@
             android:hint="账号ID / 手机号"
             android:maxLines="1"
             android:paddingLeft="17px"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="26px" />
