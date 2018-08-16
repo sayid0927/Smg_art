@@ -131,6 +131,7 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
 
     @Override
     public void initView() {
+        getData();
         actionbarTitle.setText(R.string.setting);
         GlideUtils.load(this, Constant.BaseImgUrl + LocalAppConfigUtil.getInstance().getHeadImg(), civMyPicture);
     }
