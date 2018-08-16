@@ -31,8 +31,8 @@ import com.smg.art.photo.ClipImageActivity;
 import com.smg.art.presenter.contract.activity.SettingContract;
 import com.smg.art.presenter.impl.activity.SettingActivityPresenter;
 import com.smg.art.ui.login.LoginActivity;
+import com.smg.art.utils.CameraCanUseUtils;
 import com.smg.art.utils.ClipFileUtil;
-import com.smg.art.utils.GlideCommonUtils;
 import com.smg.art.utils.GlideUtils;
 import com.smg.art.utils.ImageFormartUtils;
 import com.smg.art.utils.KeyBoardUtils;
@@ -52,7 +52,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.rong.imkit.RongIM;
-import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.UserInfo;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -228,7 +227,16 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
                             WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
                 } else {
                     //跳转到调用系统相机
-                    gotoCamera();
+                    if (CameraCanUseUtils.isCameraCanUse()) {
+                        //摄像头可用
+                        gotoCamera();
+                    } else {
+                        //摄像头不可用
+                        ToastUtils.showShortToast("没相机权限，请到应用程序权限管理开启权限");
+                        //跳转至app设置
+                        getAppDetailSettingIntent();
+                    }
+
                 }
                 popDialog.dismiss();
             }
@@ -308,6 +316,19 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
         startActivityForResult(intent, REQUEST_CAPTURE);
     }
 
+    //跳转app设置
+    private void getAppDetailSettingIntent() {
+        Intent localIntent = new Intent();
+        if (Build.VERSION.SDK_INT >= 9) {
+            localIntent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+            localIntent.setData(Uri.fromParts("package", this.getPackageName(), null));
+        } else if (Build.VERSION.SDK_INT <= 8) {
+            localIntent.setAction(Intent.ACTION_VIEW);
+            localIntent.setClassName("com.android.settings", "com.android.settings.InstalledAppDetails");
+            localIntent.putExtra("com.android.settings.ApplicationPkgName", this.getPackageName());
+        }
+        startActivity(localIntent);
+    }
 
     /**
      * 打开截图界面

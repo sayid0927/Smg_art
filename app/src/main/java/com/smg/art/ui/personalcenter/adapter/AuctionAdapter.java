@@ -78,30 +78,56 @@ public class AuctionAdapter extends BaseAdapter {
                                 //查看详情
                             }
                         });
+                        if (!TextUtils.isEmpty(dataBean.getBuyerMemberId())) {
+                            if (dataBean.getBuyerMemberId().equals(String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()))) {
+                                viewHolder.shop_status.setText("已中标");
+                                viewHolder.detail.setBackgroundResource(R.drawable.shape_red);
+                            } else {
+                                viewHolder.shop_status.setText("已结束");
+                                viewHolder.shop_status.setBackgroundResource(R.drawable.shape_yellow);
+                                viewHolder.detail.setBackgroundResource(R.drawable.shape_faint_yellow);
+                            }
+                        }
                     } else {//0代表未投诉  或者dataBean.getComplainFlag()
+                        if (!TextUtils.isEmpty(dataBean.getBuyerMemberId())) {
+                            if (dataBean.getBuyerMemberId().equals(String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()))) {
+                                viewHolder.shop_status.setText("已交割");
+                                viewHolder.shop_status.setBackgroundResource(R.drawable.shape_re_red);
+                                viewHolder.detail.setBackgroundResource(R.drawable.shape_red);
+                                viewHolder.detail.setVisibility(View.VISIBLE);
+                                viewHolder.detail.setText("查看详情");
+                                viewHolder.complaint_btn.setVisibility(View.VISIBLE);
+                                viewHolder.complaint_btn.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Intent intent = new Intent(mContext, StartComplaintActivity.class);
+                                        intent.putExtra("auctionId", dataBean.getId());
+                                        intent.putExtra("goodsId", dataBean.getGoodsId());
+                                        mContext.startActivity(intent);
+
+                                    }
+                                });
+                            } else {
+                                viewHolder.shop_status.setText("已结束");
+                                viewHolder.shop_status.setBackgroundResource(R.drawable.shape_yellow);
+                                viewHolder.detail.setText("未中标");
+                                viewHolder.detail.setBackgroundResource(R.drawable.shape_faint_yellow);
+                                viewHolder.detail.setVisibility(View.VISIBLE);
+                                viewHolder.complaint_btn.setVisibility(View.GONE);
+                            }
+                        }
                         viewHolder.auction.setVisibility(View.VISIBLE);
                         viewHolder.complaint.setVisibility(View.GONE);
+
                         if (!TextUtils.isEmpty(dataBean.getPictureUrl())) {
                             String[] pic = dataBean.getPictureUrl().split(",");
                             GlideCommonUtils.showSquarePic(mContext, pic[0], viewHolder.iv);
                         } else {
                             viewHolder.iv.setImageResource(R.mipmap.defaut_square);
                         }
-                        viewHolder.shop_status.setText("已交割");
                         viewHolder.shop_name.setText(dataBean.getActionName());
                         viewHolder.end_time.setText("结束时间: " + DateFormatUtil.forString(dataBean.getEndTime(), "MM月dd日 HH:mm"));
                         viewHolder.price.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", dataBean.getNowprice()))));
-                        viewHolder.detail.setVisibility(View.VISIBLE);
-                        viewHolder.complaint_btn.setVisibility(View.VISIBLE);
-                        viewHolder.complaint_btn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Intent intent = new Intent(mContext, StartComplaintActivity.class);
-                                intent.putExtra("auctionId", dataBean.getId());
-                                intent.putExtra("goodsId",dataBean.getGoodsId());
-                                mContext.startActivity(intent);
-                            }
-                        });
                     }
                 } else {
                     viewHolder.auction.setVisibility(View.GONE);
@@ -109,6 +135,18 @@ public class AuctionAdapter extends BaseAdapter {
                 }
 
             } else if (("5").equals(dataBean.getStatus())) {//待交割
+                if (!TextUtils.isEmpty(dataBean.getBuyerMemberId())) {
+                    if (dataBean.getBuyerMemberId().equals(String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()))) {
+                        viewHolder.detail.setBackgroundResource(R.drawable.shape_red);
+                        viewHolder.shop_status.setText("待交割");
+                        viewHolder.detail.setText("查看详情");
+                    } else {
+                        viewHolder.detail.setText("未中标");
+                        viewHolder.detail.setBackgroundResource(R.drawable.shape_faint_yellow);
+                        viewHolder.shop_status.setText("已结束");
+                        viewHolder.shop_status.setBackgroundResource(R.drawable.shape_yellow);
+                    }
+                }
                 viewHolder.auction.setVisibility(View.VISIBLE);
                 viewHolder.complaint.setVisibility(View.GONE);
                 if (!TextUtils.isEmpty(dataBean.getPictureUrl())) {
@@ -117,7 +155,7 @@ public class AuctionAdapter extends BaseAdapter {
                 } else {
                     viewHolder.iv.setImageResource(R.mipmap.defaut_square);
                 }
-                viewHolder.shop_status.setText("待交割");
+
                 viewHolder.shop_name.setText(dataBean.getActionName());
                 viewHolder.end_time.setText("结束时间: " + DateFormatUtil.forString(dataBean.getEndTime(), "MM月dd日 HH:mm"));
                 viewHolder.price.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", dataBean.getNowprice()))));

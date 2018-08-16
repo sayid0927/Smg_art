@@ -34,6 +34,7 @@ import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.activity.ReChargeContract;
 import com.smg.art.presenter.impl.activity.ReChargePresenter;
+import com.smg.art.utils.CameraCanUseUtils;
 import com.smg.art.utils.ClipFileUtil;
 import com.smg.art.utils.KeyBoardUtils;
 import com.smg.art.utils.L;
@@ -237,7 +238,15 @@ public class RechargeActivity extends BaseActivity implements ReChargeContract.V
                             WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
                 } else {
                     //跳转到调用系统相机
-                    gotoCamera();
+                    if (CameraCanUseUtils.isCameraCanUse()) {
+                        //摄像头可用
+                        gotoCamera();
+                    } else {
+                        //摄像头不可用
+                        ToastUtils.showShortToast("没相机权限，请到应用程序权限管理开启权限");
+                        //跳转至app设置
+                        getAppDetailSettingIntent();
+                    }
                 }
                 popDialog.dismiss();
             }
@@ -263,6 +272,20 @@ public class RechargeActivity extends BaseActivity implements ReChargeContract.V
                 popDialog.dismiss();
             }
         });
+    }
+
+    //跳转app设置
+    private void getAppDetailSettingIntent() {
+        Intent localIntent = new Intent();
+        if (Build.VERSION.SDK_INT >= 9) {
+            localIntent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+            localIntent.setData(Uri.fromParts("package", this.getPackageName(), null));
+        } else if (Build.VERSION.SDK_INT <= 8) {
+            localIntent.setAction(Intent.ACTION_VIEW);
+            localIntent.setClassName("com.android.settings", "com.android.settings.InstalledAppDetails");
+            localIntent.putExtra("com.android.settings.ApplicationPkgName", this.getPackageName());
+        }
+        startActivity(localIntent);
     }
 
     /**

@@ -40,6 +40,15 @@ public class DateFormatUtil {
     }
 
     /**
+     * 将毫秒转为 日期
+     */
+    public static String formartData(long currentTimeMillis, String format) {
+        DateFormat dateTimeformat = new SimpleDateFormat(format);
+        String strBeginDate = dateTimeformat.format(currentTimeMillis);
+        return strBeginDate;
+    }
+
+    /**
      * 取得当前时间戳（精确到秒）
      */
     public static long getTime() {
