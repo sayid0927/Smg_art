@@ -7,9 +7,19 @@ package com.smg.art.bean;
 public class RongImStateBean {
 
     String msg;
+    int state;
 
-    public RongImStateBean(String msg) {
+    public RongImStateBean(String msg, int state) {
         this.msg = msg;
+        this.state = state;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 
     public String getMsg() {
