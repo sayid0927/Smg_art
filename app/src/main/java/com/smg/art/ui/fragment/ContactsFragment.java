@@ -215,10 +215,12 @@ public class ContactsFragment extends BaseFragment implements ContactsFragmentCo
 
     @Override
     public void onItemClick(View itemView, int position) {
-        Intent i = new Intent(getActivity(), ConversationActivity.class);
-        i.putExtra("MemberId", String.valueOf(mySections.get(position).t.getMemberId()));
-        i.putExtra("MemberName", String.valueOf(mySections.get(position).t.getMemberName()));
-        MainActivity.mainActivity.startActivityIn(i, getActivity());
+        if(!mySections.get(position).isHeader){
+            Intent i = new Intent(getActivity(), ConversationActivity.class);
+            i.putExtra("MemberId", String.valueOf(mySections.get(position).t.getMemberId()));
+            i.putExtra("MemberName", String.valueOf(mySections.get(position).t.getMemberName()));
+            MainActivity.mainActivity.startActivityIn(i, getActivity());
+        }
     }
 
 
