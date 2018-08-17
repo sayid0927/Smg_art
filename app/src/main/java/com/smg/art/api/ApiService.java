@@ -40,6 +40,7 @@ import com.smg.art.bean.CollectionBean;
 import com.smg.art.bean.ComplaintBean;
 import com.smg.art.bean.CreatWordsBean;
 import com.smg.art.bean.CurrencyExchangeRateBean;
+import com.smg.art.bean.DeleteCollectionBean;
 import com.smg.art.bean.ForgetPasswordBean;
 import com.smg.art.bean.HotWordsListBean;
 import com.smg.art.bean.LoginBean;
@@ -387,6 +388,12 @@ public interface ApiService {
      */
     @POST(Constant.SAVEAUCTIONCOMPLAIN)
     Observable<ComplaintBean> FetchComplaintService(@QueryMap Map<String, String> map);
+
+    /**
+     * 删除收藏
+     */
+    @POST(Constant.MEMBERCOLLECTSPAGEDELETE)
+    Observable<DeleteCollectionBean> FetchDeleteCollectionService(@QueryMap Map<String, String> map);
 
 
 }

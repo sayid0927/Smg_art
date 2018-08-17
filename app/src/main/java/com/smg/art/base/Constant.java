@@ -184,6 +184,8 @@ public class Constant {
     public static final String QUERYCOMPLAINAUCTIONINFO = "auctionpage/queryComplainAuctionInfo";
     //投诉
     public static final String SAVEAUCTIONCOMPLAIN = "auctionpage/saveAuctionComplain";
+    //删除收藏
+    public static final String MEMBERCOLLECTSPAGEDELETE = "memberCollectsPage/delete";
 
 
     public static String LOCAL_APP_CONFIG_FILE_NAME = "smgconfig";//本地应用配置文件名，存储些全局变量

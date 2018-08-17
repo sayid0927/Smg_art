@@ -43,6 +43,7 @@ import com.smg.art.bean.CollectionBean;
 import com.smg.art.bean.ComplaintBean;
 import com.smg.art.bean.CreatWordsBean;
 import com.smg.art.bean.CurrencyExchangeRateBean;
+import com.smg.art.bean.DeleteCollectionBean;
 import com.smg.art.bean.ForgetPasswordBean;
 import com.smg.art.bean.HotWordsListBean;
 import com.smg.art.bean.LoginBean;
@@ -481,6 +482,13 @@ public class Api {
      */
     public Observable<ComplaintBean> FetchComplaintService(String... s) {
         return service.FetchComplaintService(getMap(s));
+    }
+
+    /**
+     * 删除商品
+     */
+    public Observable<DeleteCollectionBean> FetchDeleteCollectionService(String... s) {
+        return service.FetchDeleteCollectionService(getMap(s));
     }
 
 }
