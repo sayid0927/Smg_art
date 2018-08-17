@@ -224,8 +224,9 @@
                 android:layout_height="47dp"
                 android:background="@null"
                 android:hint="请输入密码"
-                android:maxLength="16"
+                android:inputType="number"
                 android:paddingRight="@dimen/bj_15dp"
+                android:maxLength="6"
                 android:textColorHint="@color/grey_999999" />
         </LinearLayout>
 
