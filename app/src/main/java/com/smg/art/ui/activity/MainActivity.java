@@ -33,6 +33,7 @@ import com.smg.art.ui.fragment.HomeFragment;
 import com.smg.art.ui.fragment.MessageFragment;
 import com.smg.art.ui.fragment.MyFragment;
 import com.smg.art.utils.LocalAppConfigUtil;
+import com.smg.art.utils.Permission;
 import com.smg.art.utils.RongIMCUtils;
 import com.smg.art.utils.UIUtils;
 import com.smg.art.view.NoScrollViewPager;
@@ -122,6 +123,7 @@ public class MainActivity extends BaseActivity implements MainContract.View, OnT
 
         if (!TextUtils.isEmpty(LocalAppConfigUtil.getInstance().getRCToken()))
             mPresenter.connect(LocalAppConfigUtil.getInstance().getRCToken());
+        Permission.requestPermission(this);
     }
 
 

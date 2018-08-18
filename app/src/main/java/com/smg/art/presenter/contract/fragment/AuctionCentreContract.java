@@ -2,6 +2,8 @@
 package com.smg.art.presenter.contract.fragment;
 
 
+import android.widget.EditText;
+
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.BaseContract;
 import com.smg.art.base.Constant;
@@ -37,6 +39,9 @@ public interface AuctionCentreContract {
          * 验证交易密码
          */
         void  FetchvalidteTradePwdSuccess(RefundBean refundBean);
+
+
+        EditText getetCreatBidding();
 
     }
 

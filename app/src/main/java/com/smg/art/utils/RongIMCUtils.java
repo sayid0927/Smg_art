@@ -16,9 +16,9 @@ public class RongIMCUtils {
      *
      */
 
-    public static int CONNECTED = 0;//连接成功。
-    public static int DISCONNECTED = 1; //断开连接。
-    public static int CONNECTING = 2; //连接中。
+    public static final int CONNECTED = 0;//连接成功。
+    public static final int DISCONNECTED = 1; //断开连接。
+    public static final int CONNECTING = 2; //连接中。
     public static final int NETWORK_UNAVAILABLE = 3;//网络不可用。
     public static final int KICKED_OFFLINE_BY_OTHER_CLIENT = 4;//用户账户在其他设备登录，本机会被踢掉线
 

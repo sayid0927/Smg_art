@@ -64,8 +64,6 @@ public class ContactsFragment extends BaseFragment implements ContactsFragmentCo
     @BindView(R.id.rv)
     SwipeMenuRecyclerView rv;
 
-    //    private SortAdapter adapter;
-//    private List<ContactSortModel> SourceDateList = new ArrayList<>();
     private int deletePostion;
     private ContactsApadter contactsApadter;
     private List<MySection> mySections = new ArrayList<>();

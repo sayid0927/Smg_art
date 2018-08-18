@@ -116,6 +116,7 @@ public class AuctionCentreFragment extends BaseFragment implements AuctionCentre
         apadter = new AuctionCentreListApadter(getActivity(), rowsBeans);
         rvAcution.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvAcution.setAdapter(apadter);
+
         scheduledFuture = BaseApplication.MAIN_EXECUTOR.scheduleWithFixedDelay(new Runnable() {
             @Override
             public void run() {
@@ -147,9 +148,10 @@ public class AuctionCentreFragment extends BaseFragment implements AuctionCentre
     /**
      * 竞价
      */
+
     @Override
     public void FetchCreatBiddingSuccess(AuctionCenterBean auctionCenterBean) {
-        ToastUtils.showLongToast("请出价成功");
+//        ToastUtils.showLongToast("请出价成功");
         etCreatBidding.setText("");
     }
 
@@ -164,11 +166,18 @@ public class AuctionCentreFragment extends BaseFragment implements AuctionCentre
     /**
      * 验证交易密码(Gumq)
      */
+
     @Override
     public void FetchvalidteTradePwdSuccess(RefundBean refundBean) {
 
         mPresenter.FetchCreatBidding("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
                 "auctionId", String.valueOf(id), "amount", etCreatBidding.getText().toString().trim());
+
+    }
+
+    @Override
+    public EditText getetCreatBidding() {
+        return etCreatBidding;
     }
 
     private void initMaxMoneyView(AuctionCenterBean.DataBean.MaxMoneyBean maxMoneyBean) {

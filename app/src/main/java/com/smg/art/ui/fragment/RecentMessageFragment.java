@@ -110,7 +110,6 @@ public class RecentMessageFragment extends BaseFragment implements RecentMessage
     protected void initView(Bundle bundle) {
         super.initView(bundle);
         RongIM.setOnReceiveMessageListener(this);
-        EventBus.getDefault().register(this);
         mPresenter.getConversationList();
         apadter = new RecentMessageApadter(data, getActivity());
         apadter.setHeaderView(getSystemHeaderView());
@@ -129,8 +128,6 @@ public class RecentMessageFragment extends BaseFragment implements RecentMessage
         return false;
     }
 
-
-
     @Override
     public void onResume() {
         super.onResume();
@@ -142,69 +139,60 @@ public class RecentMessageFragment extends BaseFragment implements RecentMessage
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        EventBus.getDefault().unregister(this);
     }
-    
-    @Subscribe
-    public void getEventBus(RongImStateBean rongImStateBean) {
-        ToastUtils.showLongToast(rongImStateBean.getMsg());
-    }
-
 
     @Override
     public void getConversationListSuccess(List<Conversation> conversationBean) {
 
         if (data.size() != 0) data.clear();
-        for (int i = 0; i < conversationBean.size(); i++) {
-            Conversation conversation = conversationBean.get(i);
-            if (conversation.getTargetId().equals("1")) {
-                if (conversation.getLatestMessage() instanceof TextMessage)
-                    systemMeesageContent = String.valueOf(AndroidEmoji.ensure(((TextMessage) conversation.getLatestMessage()).getContent()));
-                systemMessageCont = conversation.getUnreadMessageCount();
-                systemMeesageTime = RongDateUtils.getConversationListFormatDate(conversation.getReceivedTime(), BaseApplication.getBaseApplication());
-                tvSystemMeeageContent.setText(systemMeesageContent);
-                tvSystemMeeageTime.setText(systemMeesageTime);
-                if (systemMessageCont > 0) {
-                    tvSystemMeeageCount.setVisibility(View.VISIBLE);
-                    tvSystemMeeageCount.setText(String.valueOf(systemMessageCont));
-                } else {
-                    tvSystemMeeageCount.setVisibility(View.GONE);
+        if(conversationBean.size()!=0) {
+            for (int i = 0; i < conversationBean.size(); i++) {
+                Conversation conversation = conversationBean.get(i);
+                if (conversation.getTargetId().equals("1")) {
+                    if (conversation.getLatestMessage() instanceof TextMessage)
+                        systemMeesageContent = String.valueOf(AndroidEmoji.ensure(((TextMessage) conversation.getLatestMessage()).getContent()));
+                    systemMessageCont = conversation.getUnreadMessageCount();
+                    systemMeesageTime = RongDateUtils.getConversationListFormatDate(conversation.getReceivedTime(), BaseApplication.getBaseApplication());
+                    tvSystemMeeageContent.setText(systemMeesageContent);
+                    tvSystemMeeageTime.setText(systemMeesageTime);
+                    if (systemMessageCont > 0) {
+                        tvSystemMeeageCount.setVisibility(View.VISIBLE);
+                        tvSystemMeeageCount.setText(String.valueOf(systemMessageCont));
+                    } else {
+                        tvSystemMeeageCount.setVisibility(View.GONE);
+                    }
+                    SYSTEMTYPE = conversation.getConversationType();
+                    SYSTEMID = conversation.getTargetId();
+                    conversationBean.remove(i);
+                    i--;
+                    continue;
                 }
-                SYSTEMTYPE = conversation.getConversationType();
-                SYSTEMID = conversation.getTargetId();
-                conversationBean.remove(i);
-                i--;
-                continue;
-            }
-            if (conversation.getTargetId().equals("2")) {
-                if (conversation.getLatestMessage() instanceof TextMessage)
-                    ordMeesageContent = (String) AndroidEmoji.ensure(((TextMessage) conversation.getLatestMessage()).getContent());
-                ordMessageCont = conversation.getUnreadMessageCount();
-                ordMeesageTime = RongDateUtils.getConversationListFormatDate(conversation.getReceivedTime(), BaseApplication.getBaseApplication());
-                tvOrdMeeageContent.setText(ordMeesageContent);
-                tvOrdMeeageTime.setText(ordMeesageTime);
-                if (ordMessageCont > 0) {
-                    tvOrdMeeageCount.setVisibility(View.VISIBLE);
-                    tvOrdMeeageCount.setText(String.valueOf(ordMessageCont));
-                } else {
-                    tvOrdMeeageCount.setVisibility(View.GONE);
+                if (conversation.getTargetId().equals("2")) {
+                    if (conversation.getLatestMessage() instanceof TextMessage)
+                        ordMeesageContent = (String) AndroidEmoji.ensure(((TextMessage) conversation.getLatestMessage()).getContent());
+                    ordMessageCont = conversation.getUnreadMessageCount();
+                    ordMeesageTime = RongDateUtils.getConversationListFormatDate(conversation.getReceivedTime(), BaseApplication.getBaseApplication());
+                    tvOrdMeeageContent.setText(ordMeesageContent);
+                    tvOrdMeeageTime.setText(ordMeesageTime);
+                    if (ordMessageCont > 0) {
+                        tvOrdMeeageCount.setVisibility(View.VISIBLE);
+                        tvOrdMeeageCount.setText(String.valueOf(ordMessageCont));
+                    } else {
+                        tvOrdMeeageCount.setVisibility(View.GONE);
+                    }
+                    ORDERID = conversation.getTargetId();
+                    ORDERTYPE = conversation.getConversationType();
+                    conversationBean.remove(i);
+                    i--;
+                    continue;
                 }
-                ORDERID = conversation.getTargetId();
-                ORDERTYPE = conversation.getConversationType();
-                conversationBean.remove(i);
-                i--;
-                continue;
             }
         }
-
         data = conversationBean;
-
         for (int i = 0; i < data.size(); i++) {
             data.get(i).getTargetId();
         }
-
         apadter.setNewData(data);
-
     }
 
     @Override
@@ -263,22 +251,20 @@ public class RecentMessageFragment extends BaseFragment implements RecentMessage
             int direction = menuBridge.getDirection(); // 左侧还是右侧菜单。
             int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
             if (direction == SwipeMenuRecyclerView.RIGHT_DIRECTION) {
-                if (adapterPosition == 0) {
-                    apadter.removeAllHeaderView();
-                } else {
-                    int deletePostion = adapterPosition - 1;
-                    RongIMClient.getInstance().removeConversation(data.get(deletePostion).getConversationType(), data.get(deletePostion).getTargetId(), new RongIMClient.ResultCallback<Boolean>() {
-                        @Override
-                        public void onSuccess(Boolean aBoolean) {
-                            mPresenter.getConversationList();
-                        }
 
-                        @Override
-                        public void onError(RongIMClient.ErrorCode errorCode) {
+                int deletePostion = adapterPosition - 1;
+                RongIMClient.getInstance().removeConversation(data.get(deletePostion).getConversationType(),
+                        data.get(deletePostion).getTargetId(), new RongIMClient.ResultCallback<Boolean>() {
+                    @Override
+                    public void onSuccess(Boolean aBoolean) {
+                        mPresenter.getConversationList();
+                    }
 
-                        }
-                    });
-                }
+                    @Override
+                    public void onError(RongIMClient.ErrorCode errorCode) {
+
+                    }
+                });
             }
         }
     };

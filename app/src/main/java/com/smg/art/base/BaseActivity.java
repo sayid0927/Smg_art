@@ -20,6 +20,7 @@ import com.smg.art.bean.RongImStateBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.ui.activity.GuideActivity;
 import com.smg.art.ui.login.LoginActivity;
+import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.utils.MyConnectionStatusListener;
 import com.smg.art.utils.RongIMCStateful;
 import com.smg.art.utils.RongIMCUtils;
@@ -34,6 +35,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import io.rong.imkit.RongIM;
 
 public abstract class BaseActivity extends SwipeBackActivity {
 
@@ -87,16 +89,26 @@ public abstract class BaseActivity extends SwipeBackActivity {
                         btPost.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                RongIM.getInstance().logout();
+                                LocalAppConfigUtil.getInstance().setAccessToken("");
+                                LocalAppConfigUtil.getInstance().setCurrentMerberId(0);
+                                LocalAppConfigUtil.getInstance().setCurrentMerberNo("");
+                                LocalAppConfigUtil.getInstance().setJsessionidShiro("");
+                                LocalAppConfigUtil.getInstance().setJsessionId("");
+                                LocalAppConfigUtil.getInstance().setRCToken("");
+                                LocalAppConfigUtil.getInstance().setUserTelephone("");
+                                LocalAppConfigUtil.getInstance().setPassword("");
+                                killAll();
+
+                                mDialogWaiting.dismiss();
                                 Intent intent = new Intent();
                                 intent.setClass(BaseActivity.this, LoginActivity.class);
                                 startActivityIn(intent,BaseActivity.this);
-                                killAll();
-                                mDialogWaiting.dismiss();
+
                             }
                         });
                     }
                 });
-
                 break;
 
         }

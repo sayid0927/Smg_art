@@ -127,7 +127,6 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
 
     @Override
     public void initView() {
-        EventBus.getDefault().register(this);
         setSwipeBackEnable(true);
 
         postion = getIntent().getIntExtra("postion", 0);
@@ -290,7 +289,6 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 
     @SuppressLint("MissingPermission")

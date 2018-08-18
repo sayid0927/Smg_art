@@ -22,14 +22,22 @@ public class Constant {
     public static final int STATE_EMPTY = 3;
     public static final int STATE_SUCCESS = 4;
 
-     // 测试环境
+    // 测试环境
     public static final String BaseImgUrl = "http://192.168.1.56:8080/art-world";
-     // 开发环境
-// public static final String BaseImgUrl = "http://192.168.1.167:8080/art-world-dev";
-     // 测试环境
+    // 测试环境
     public static final String API_BASE_URL = "http://192.168.1.56:8080/art-world/";
+
     // 开发环境
-   // public static final String API_BASE_URL = "http://192.168.1.167:8080/art-world-dev/";
+    // public static final String BaseImgUrl = "http://192.168.1.167:8080/art-world-dev";
+    // 开发环境
+    // public static final String API_BASE_URL = "http://192.168.1.167:8080/art-world-dev/";
+
+    // 外网环境
+    //public static final String API_BASE_URL = "http://yspsj.885505.com";
+    // 外网环境
+    //public static final String BaseImgUrl = "http://yspsj.885505.com/";
+
+
     /**
      * 会员注册
      */

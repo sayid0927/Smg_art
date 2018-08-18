@@ -52,6 +52,10 @@ public class AuctionConterPresenter extends BasePresenter<AuctionCentreContract.
                         hideWaitingDialog();
                         if (mView != null && data != null && data.getStatus() == 1) {
                             mView.FetchAuctionCenterListSuccess(data);
+
+                        }else if(mView != null && data!=null && data.getStatus() !=1 && data.getMsg()!=null){
+                            ToastUtils.showLongToast(data.getMsg());
+
                         }
                     }
                 }));
@@ -79,10 +83,10 @@ public class AuctionConterPresenter extends BasePresenter<AuctionCentreContract.
                     public void onNext(AuctionCenterBean data) {
                         hideWaitingDialog();
                         if (mView != null && data != null && data.getStatus() == 1) {
-                            mView.FetchAuctionCenterListSuccess(data);
-                        } else {
-                            if (data != null && data.getMsg() != null)
-                                mView.showError(data.getMsg());
+                            mView.getetCreatBidding().setText(" ");
+                        } else if(mView != null && data!=null && data.getStatus() !=1 && data.getMsg()!=null){
+                            ToastUtils.showLongToast(data.getMsg());
+                            mView.getetCreatBidding().setText(" ");
                         }
                     }
                 }));

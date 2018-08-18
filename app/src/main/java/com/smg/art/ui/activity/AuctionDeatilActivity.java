@@ -1,5 +1,6 @@
 package com.smg.art.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -7,7 +8,9 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.blankj.utilcode.utils.ToastUtils;
+import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.SlidingTabLayout;
+import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
@@ -16,6 +19,7 @@ import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.BaseActivity;
 import com.smg.art.base.BaseFragmentPageAdapter;
 import com.smg.art.bean.AuctionGoodsBean;
+import com.smg.art.bean.TabEntity;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.activity.AuctionDeatilContract;
@@ -40,7 +44,7 @@ public class AuctionDeatilActivity extends BaseActivity implements AuctionDeatil
     @BindView(R.id.rl_back)
     RelativeLayout rlBack;
     @BindView(R.id.tab_layout)
-    SlidingTabLayout tabLayout;
+    CommonTabLayout tabLayout;
     @BindView(R.id.vp)
     NoScrollViewPager vp;
 
@@ -51,6 +55,7 @@ public class AuctionDeatilActivity extends BaseActivity implements AuctionDeatil
     int type;
     int id;
     private int depositStatus;
+    private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -95,17 +100,22 @@ public class AuctionDeatilActivity extends BaseActivity implements AuctionDeatil
         BaseFragmentPageAdapter myAdapter = new BaseFragmentPageAdapter(getSupportFragmentManager(), mFragments, mTitleList);
         vp.setAdapter(myAdapter);
         myAdapter.notifyDataSetChanged();
-        tabLayout.setViewPager(vp);
+        for (int i = 0; i < mTitleList.size(); i++) {
+            mTabEntities.add(new TabEntity(mTitleList.get(i), 0,0));
+        }
+        tabLayout.setTabData(mTabEntities);
         vp.setNoScroll(true);
 
         tabLayout.setOnTabSelectListener(new OnTabSelectListener() {
+            @SuppressLint("NewApi")
             @Override
             public void onTabSelect(int position) {
 
                 if(position==1){
                     if(depositStatus==0){
-                        ToastUtils.showLongToast("请先交保证金");
+                        tabLayout.setCurrentTab(0);
                         vp.setCurrentItem(0);
+                        ToastUtils.showLongToast("请先交保证金");
                         return;
                     }else {
                         vp.setCurrentItem(position);
@@ -117,12 +127,9 @@ public class AuctionDeatilActivity extends BaseActivity implements AuctionDeatil
 
             @Override
             public void onTabReselect(int position) {
-
             }
         });
-
         auctionDeatilActivity = this;
-
     }
 
     @Override
@@ -133,8 +140,11 @@ public class AuctionDeatilActivity extends BaseActivity implements AuctionDeatil
 
     public  void  setCurrentItem(int postion){
         vp.setCurrentItem(postion);
+        tabLayout.setCurrentTab(postion);
     }
-
+    public  void  setdepositStatus(int postion){
+        depositStatus=1;
+    }
 
     @Override
     public void showError(String message) {

@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.utils.TimeUtils;
 import com.blankj.utilcode.utils.ToastUtils;
 import com.smg.art.BuildConfig;
 import com.smg.art.R;
@@ -388,10 +389,10 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
     public void FetchUploadPicSuccess(UpLoadBean upLoadBean) {
 
         if (String.valueOf(upLoadBean.getHeadImg().subSequence(0, 1)).equals("/")) {
-            headImg = Constant.BaseImgUrl + upLoadBean.getHeadImg();
+            headImg = Constant.BaseImgUrl + upLoadBean.getHeadImg()+"?t="+String.valueOf(TimeUtils.getNowTimeMills());
             GlideUtils.load(this, headImg, civMyPicture);
         } else {
-            headImg = Constant.API_BASE_URL + upLoadBean.getHeadImg();
+            headImg = Constant.API_BASE_URL + upLoadBean.getHeadImg()+"?t="+String.valueOf(TimeUtils.getNowTimeMills());
             GlideUtils.load(this, headImg, civMyPicture);
         }
 
@@ -399,7 +400,6 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
         RongIM.getInstance().refreshUserInfoCache(new UserInfo(
                 LocalAppConfigUtil.getInstance().getRongUserId(), LocalAppConfigUtil.getInstance().getRongUserName(), Uri.parse(headImg)
         ));
-
     }
 
     @Override

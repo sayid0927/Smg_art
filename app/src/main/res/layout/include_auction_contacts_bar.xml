@@ -26,7 +26,7 @@
 
 
 
-    <com.flyco.tablayout.SlidingTabLayout
+    <com.flyco.tablayout.CommonTabLayout
         android:id="@+id/tab_layout"
         android:layout_width="@dimen/bj_200dp"
         android:layout_height="match_parent"

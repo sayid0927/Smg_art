@@ -8,6 +8,7 @@ import com.smg.art.base.BasePresenter;
 import com.smg.art.presenter.contract.fragment.RecentMessageContract;
 import com.smg.art.utils.RongIMCUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -37,6 +38,10 @@ public class RecentMessagePresenter extends BasePresenter<RecentMessageContract.
                         if (mView != null) {
                             mView.getConversationListSuccess(conversations);
                         }
+                    }else {
+                         List<Conversation> data = new ArrayList<>();
+                        mView.getConversationListSuccess(data);
+
                     }
                 }
                 @Override
@@ -48,6 +53,12 @@ public class RecentMessagePresenter extends BasePresenter<RecentMessageContract.
             switch (RongIMCUtils.state){
                 case  RongIMCUtils.KICKED_OFFLINE_BY_OTHER_CLIENT :
                     ToastUtils.showLongToast("用户账户在其他设备登录");
+                    break;
+                case  RongIMCUtils.NETWORK_UNAVAILABLE :
+                    ToastUtils.showLongToast("网络不可用");
+                    break;
+                case  RongIMCUtils.DISCONNECTED :
+                    ToastUtils.showLongToast("断开连接");
                     break;
             }
         }

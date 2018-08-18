@@ -293,13 +293,12 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
                 break;
             case R.id.tv_phone:      // 收藏
 
-                if (data != null)
+                if (auctionDetailBean != null)
                     mPresenter.FetchMembercollectspageSave("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
-                            "goodsId", String.valueOf(data.getGoodsId()));
-
+                            "goodsId", String.valueOf(auctionDetailBean.getData().getGoodsId()));
                 break;
             case R.id.tv_now_action:  // 交保证金参与
-                if (data != null) {
+                if (auctionDetailBean != null) {
                     if (depositStatus == 0) {
                         Intent intent = new Intent(getActivity(), AuctionBuyerDepositActivity.class);
                         intent.putExtra("data", new Gson().toJson(auctionDetailBean));
@@ -317,5 +316,7 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
     public void getEventBus(AuctionBuyerDepositBean auctionBuyerDepositBean) {
         //支付保证金回来
         tvNowAction.setText("立即竟价");
+        depositStatus=1;
+        AuctionDeatilActivity.auctionDeatilActivity.setdepositStatus(1);
     }
 }
