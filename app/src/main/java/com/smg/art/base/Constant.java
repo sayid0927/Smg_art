@@ -27,17 +27,10 @@ public class Constant {
     // 测试环境
     public static final String API_BASE_URL = "http://192.168.1.56:8080/art-world/";
 
-    // 开发环境
-    // public static final String BaseImgUrl = "http://192.168.1.167:8080/art-world-dev";
     //生产环境
-    public static final String API_BASE_URL = "http://yspsj.885505.com/";
-    public static final String BaseImgUrl = "http://yspsj.885505.com/";
-    // 测试环境
-    //  public static final String BaseImgUrl = "http://192.168.1.56:8080/art-world";
-    // 开发环境
-// public static final String BaseImgUrl = "http://192.168.1.167:8080/art-world-dev";
-    // 测试环境
-    //public static final String API_BASE_URL = "http://192.168.1.56:8080/art-world/";
+//    public static final String API_BASE_URL = "http://yspsj.885505.com/";
+//    public static final String BaseImgUrl = "http://yspsj.885505.com/";
+
     // 开发环境
     // public static final String API_BASE_URL = "http://192.168.1.167:8080/art-world-dev/";
     // public static final String API_BASE_URL = "http://192.168.1.167:8080/art-world-dev/";
