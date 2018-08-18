@@ -215,7 +215,17 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
         popDialog.findViewById(R.id.btn_camera).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //权限判断
+                //跳转到调用系统相机
+                if (CameraCanUseUtils.isCameraCanUse()) {
+                    //摄像头可用
+                    gotoCamera();
+                } else {
+                    //摄像头不可用
+                    ToastUtils.showShortToast("没相机权限，请到应用程序权限管理开启权限");
+                    //跳转至app设置
+                    getAppDetailSettingIntent();
+                }
+               /* //权限判断
                 if (ContextCompat.checkSelfPermission(SettingActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     //申请WRITE_EXTERNAL_STORAGE权限
                     //申请WRITE_EXTERNAL_STORAGE权限
@@ -233,7 +243,7 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
                         getAppDetailSettingIntent();
                     }
 
-                }
+                }*/
                 popDialog.dismiss();
             }
         });

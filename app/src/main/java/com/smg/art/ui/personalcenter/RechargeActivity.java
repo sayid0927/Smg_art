@@ -230,8 +230,18 @@ public class RechargeActivity extends BaseActivity implements ReChargeContract.V
         popDialog.findViewById(R.id.btn_camera).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //跳转到调用系统相机
+                if (CameraCanUseUtils.isCameraCanUse()) {
+                    //摄像头可用
+                    gotoCamera();
+                } else {
+                    //摄像头不可用
+                    ToastUtils.showShortToast("没相机权限，请到应用程序权限管理开启权限");
+                    //跳转至app设置
+                    getAppDetailSettingIntent();
+                }
                 //权限判断
-                if (ContextCompat.checkSelfPermission(RechargeActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+               /* if (ContextCompat.checkSelfPermission(RechargeActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     //申请WRITE_EXTERNAL_STORAGE权限
                     //申请WRITE_EXTERNAL_STORAGE权限
                     ActivityCompat.requestPermissions(RechargeActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
@@ -247,7 +257,7 @@ public class RechargeActivity extends BaseActivity implements ReChargeContract.V
                         //跳转至app设置
                         getAppDetailSettingIntent();
                     }
-                }
+                }*/
                 popDialog.dismiss();
             }
         });
