@@ -69,30 +69,9 @@ public class MyCollectionActivity extends BaseActivity implements MyCollectionCo
     @BindView(R.id.recycler_view)
     SwipeMenuRecyclerView recyclerView;
     int p = 1;
-    private int count = 10;
     int position;
+    private int count = 10;
     private List<CollectionBean.DataBean> list = new ArrayList<CollectionBean.DataBean>();
-
-    @Override
-    protected void setupActivityComponent(AppComponent appComponent) {
-        DaggerMainComponent.builder().appComponent(appComponent).build().inject(this);
-    }
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.my_collection;
-    }
-
-    @Override
-    public void attachView() {
-        mPresenter.attachView(this, this);
-    }
-
-    @Override
-    public void detachView() {
-        mPresenter.detachView();
-    }
-
     /**
      * 菜单创建器，在Item要创建菜单的时候调用。
      */
@@ -113,6 +92,41 @@ public class MyCollectionActivity extends BaseActivity implements MyCollectionCo
             }
         }
     };
+    /**
+     * RecyclerView的Item的Menu点击监听。
+     */
+    private SwipeMenuItemClickListener mMenuItemClickListener = new SwipeMenuItemClickListener() {
+        @Override
+        public void onItemClick(SwipeMenuBridge menuBridge) {
+            menuBridge.closeMenu();
+            int direction = menuBridge.getDirection(); // 左侧还是右侧菜单。
+            int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
+            if (direction == SwipeMenuRecyclerView.RIGHT_DIRECTION) {
+                position = adapterPosition;
+                mPresenter.FetchDeleteCollection("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()), "collectsId", String.valueOf(list.get(adapterPosition).getId()));
+            }
+        }
+    };
+
+    @Override
+    protected void setupActivityComponent(AppComponent appComponent) {
+        DaggerMainComponent.builder().appComponent(appComponent).build().inject(this);
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.my_collection;
+    }
+
+    @Override
+    public void attachView() {
+        mPresenter.attachView(this, this);
+    }
+
+    @Override
+    public void detachView() {
+        mPresenter.detachView();
+    }
 
     private void getData(int p) {
         mPresenter.FetchMyCollection("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()), "page", String.valueOf(p), "rows", String.valueOf(count));
@@ -135,22 +149,6 @@ public class MyCollectionActivity extends BaseActivity implements MyCollectionCo
             myCollectionAdapter.cancelAllTimers();
         }
     }
-
-    /**
-     * RecyclerView的Item的Menu点击监听。
-     */
-    private SwipeMenuItemClickListener mMenuItemClickListener = new SwipeMenuItemClickListener() {
-        @Override
-        public void onItemClick(SwipeMenuBridge menuBridge) {
-            menuBridge.closeMenu();
-            int direction = menuBridge.getDirection(); // 左侧还是右侧菜单。
-            int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
-            if (direction == SwipeMenuRecyclerView.RIGHT_DIRECTION) {
-                position = adapterPosition;
-                mPresenter.FetchDeleteCollection("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()), "collectsId", String.valueOf(list.get(adapterPosition).getId()));
-            }
-        }
-    };
 
     @Override
     public void initView() {
