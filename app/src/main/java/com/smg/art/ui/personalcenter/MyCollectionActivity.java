@@ -113,7 +113,6 @@ public class MyCollectionActivity extends BaseActivity implements MyCollectionCo
         DaggerMainComponent.builder().appComponent(appComponent).build().inject(this);
     }
 
-
     @Override
     public int getLayoutId() {
         return R.layout.my_collection;
