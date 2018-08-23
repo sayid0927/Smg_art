@@ -61,33 +61,6 @@ public class SearchActivityPresenter extends BasePresenter<SearchContract.View> 
                     }
                 }));
     }
-
-    @Override
-    public void FetchLogin(String... s) {
-        addSubscrebe(api.FetchLogin(s).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<LoginBean>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        hideWaitingDialog();
-                        mView.showError(e.getMessage());
-                    }
-
-                    @Override
-                    public void onNext(LoginBean data) {
-                        if (mView != null && data != null && data.getStatus()==1) {
-                            hideWaitingDialog();
-                            mView.FetchLoginSuccess(data);
-                        }
-                    }
-                }));
-    }
-
     @Override
     public void FetchAuctionListByName(String... s) {
         addSubscrebe(api.FetchAuctionListByName(s).subscribeOn(Schedulers.io())

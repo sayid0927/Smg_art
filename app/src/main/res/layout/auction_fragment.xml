@@ -4,11 +4,12 @@
     android:layout_height="match_parent"
     android:background="#362828"
     android:orientation="vertical">
+
     <View
         android:id="@+id/fake_status_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/statusbar_view_height"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/colorPrimary" />
 
     <include layout="@layout/include_searbar" />
 
@@ -18,14 +19,50 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_goods"
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:overScrollMode="never" />
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/rl_empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+
+                <ImageView
+                    android:id="@+id/iv_emptv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/no_data"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/iv_emptv"
+                    android:layout_marginTop="@dimen/bj_10dp"
+                    android:gravity="center"
+                    android:text="暂无信息"
+                    android:textColor="#ac8f8f"
+                    android:textSize="14sp" />
+
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_goods"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                android:visibility="visible" />
+
+
+        </RelativeLayout>
 
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
-
 
 </LinearLayout>

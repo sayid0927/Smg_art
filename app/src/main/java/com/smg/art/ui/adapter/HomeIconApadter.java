@@ -7,9 +7,8 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.smg.art.R;
-import com.smg.art.base.AnnouncementAuctionListBean.DataBean.RowsBean;
 import com.smg.art.base.Constant;
-import com.smg.art.base.HomePageImgBean;
+import com.smg.art.bean.HomePageImgBean;
 import com.smg.art.utils.GlideUtils;
 
 import java.util.List;

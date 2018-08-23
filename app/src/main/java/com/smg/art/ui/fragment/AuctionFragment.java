@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.utils.ToastUtils;
@@ -58,7 +60,9 @@ public class AuctionFragment extends BaseFragment implements AuctionContract.Vie
     TextView tvSearch;
     @BindView(R.id.et_SearchContent)
     EditText etSearchContent;
-    Unbinder unbinder;
+
+    @BindView(R.id.rl_empty)
+    RelativeLayout rlEmptv;
 
     int p = 1;
     int count = 10;
@@ -82,6 +86,7 @@ public class AuctionFragment extends BaseFragment implements AuctionContract.Vie
             public void onRefresh(RefreshLayout refreshlayout) {
                 getData(p = 1);
                 srl.finishRefresh();
+
             }
 
         });
@@ -102,12 +107,10 @@ public class AuctionFragment extends BaseFragment implements AuctionContract.Vie
             public void OnAuctionGoodsItemListener(int item) {
                 Intent i = new Intent(getActivity(), AuctionDeatilActivity.class);
                 i.putExtra("data", new Gson().toJson(list.get(item)));
-                i.putExtra("type",1);
+                i.putExtra("type", 1);
                 MainActivity.mainActivity.startActivityIn(i, getActivity());
             }
         });
-
-
     }
 
     @Override
@@ -171,17 +174,21 @@ public class AuctionFragment extends BaseFragment implements AuctionContract.Vie
         }
     }
 
-
-
     @Override
     public void FetchAuctionListByNameSuccess(AuctionGoodsBean auctionGoodsBean) {
         if (auctionGoodsBean.getStatus() == 1) {
             if (p == 1) {
                 list.clear();
-            }
 
+            }
             list.addAll(auctionGoodsBean.getData().getRows());
             mAdapter.notifyDataSetChanged();
+
+            if (auctionGoodsBean.getData().getTotal() == 0) {
+                rlEmptv.setVisibility(View.VISIBLE);
+                rvGoods.setVisibility(View.GONE);
+            }
+
         } else {
             ToastUtils.showShortToast(auctionGoodsBean.getMsg());
         }

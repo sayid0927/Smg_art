@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.utils.ToastUtils;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
-import com.smg.art.base.CardUrlBean;
+import com.smg.art.bean.CardUrlBean;
 import com.smg.art.bean.ComplaintBean;
 import com.smg.art.bean.Feedback;
 import com.smg.art.component.AppComponent;
@@ -34,6 +34,8 @@ import com.smg.art.view.NoScrollGridView;
 import com.yho.image.imageselectorbrowser.ImageSelectorActivity;
 import com.yho.image.imp.ImageSelectorUtils;
 import com.zhy.autolayout.AutoRelativeLayout;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.io.Serializable;
@@ -314,6 +316,7 @@ public class StartComplaintActivity extends BaseActivity implements AddImageGrid
     public void FetchComplaintSuccess(ComplaintBean complaintBean) {
             if(complaintBean.getStatus()==1){
                 ToastUtils.showShortToast("投诉成功");
+                EventBus.getDefault().post(complaintBean);
             }else {
                 ToastUtils.showShortToast(complaintBean.getMsg());
             }

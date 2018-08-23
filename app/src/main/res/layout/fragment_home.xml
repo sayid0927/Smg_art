@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <com.zhy.autolayout.AutoLinearLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -33,7 +33,7 @@
                 <cn.bingoogolapple.bgabanner.BGABanner
                     android:id="@+id/banner"
                     style="@style/BannerDefaultStyle"
-                    android:layout_marginBottom="10px"
+                    android:layout_marginBottom="@dimen/bj_5dp"
                     app:banner_indicatorGravity="bottom|left"
                     app:banner_isNeedShowIndicatorOnOnlyOnePage="true"
                     app:banner_isNumberIndicator="true"
@@ -49,11 +49,12 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_goods"
                     android:overScrollMode="never"
-                    android:layout_marginTop="48px"
+                    android:layout_marginTop="@dimen/bj_24dp"
+                    android:nestedScrollingEnabled="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
-            </com.zhy.autolayout.AutoLinearLayout>
+            </LinearLayout>
 
         </android.support.v4.widget.NestedScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>

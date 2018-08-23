@@ -8,7 +8,6 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/bj_15dp"
-        android:background="@color/white"
         android:gravity="center"
         android:text="最近搜索"
         android:textColor="#999999"
@@ -22,7 +21,6 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/bj_15dp"
-        android:background="@color/white"
         android:text="清空"
         android:textColor="#999999" />
 

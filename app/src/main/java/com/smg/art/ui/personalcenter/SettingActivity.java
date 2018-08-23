@@ -398,17 +398,16 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
     @Override
     public void FetchUploadPicSuccess(UpLoadBean upLoadBean) {
 
-        if (String.valueOf(upLoadBean.getHeadImg().subSequence(0, 1)).equals("/")) {
-            headImg = Constant.BaseImgUrl + upLoadBean.getHeadImg()+"?t="+String.valueOf(TimeUtils.getNowTimeMills());
-            GlideUtils.load(this, headImg, civMyPicture);
-        } else {
-            headImg = Constant.API_BASE_URL + upLoadBean.getHeadImg()+"?t="+String.valueOf(TimeUtils.getNowTimeMills());
-            GlideUtils.load(this, headImg, civMyPicture);
-        }
+        headImg = upLoadBean.getHeadImg() + "?t=" + String.valueOf(TimeUtils.getNowTimeMills());
+        GlideUtils.load(this, Constant.BaseImgUrl +headImg, civMyPicture);
+        LocalAppConfigUtil.getInstance().setRongUserHeadImg(headImg);
 
-        LocalAppConfigUtil.getInstance().setRongUserHeadImg(upLoadBean.getHeadImg());
         RongIM.getInstance().refreshUserInfoCache(new UserInfo(
-                LocalAppConfigUtil.getInstance().getRongUserId(), LocalAppConfigUtil.getInstance().getRongUserName(), Uri.parse(headImg)
+
+                LocalAppConfigUtil.getInstance().getRongUserId(),
+                LocalAppConfigUtil.getInstance().getRongUserName(),
+                Uri.parse(Constant.BaseImgUrl +headImg )
+
         ));
     }
 
@@ -417,7 +416,7 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
 
         if (announcementAuctionListBean.getStatus() == 1) {
             GlideUtils.clearImageAllCache();
-            GlideUtils.load(this,Constant.BaseImgUrl +  announcementAuctionListBean.getData().getHeadImg(), civMyPicture);
+            GlideUtils.load(this, Constant.BaseImgUrl + announcementAuctionListBean.getData().getHeadImg(), civMyPicture);
             nick.setText(announcementAuctionListBean.getData().getMemberName());
             phoneNum.setText(announcementAuctionListBean.getData().getMobilePhone());
         } else {

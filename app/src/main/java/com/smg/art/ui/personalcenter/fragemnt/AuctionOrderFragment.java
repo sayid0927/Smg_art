@@ -124,7 +124,8 @@ public class AuctionOrderFragment extends BaseFragment implements AuctionOrderCo
 
 
     public void getData(int p) {
-        mPresenter.FetchAuctionOrder("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()), "type", String.valueOf(type), "page", String.valueOf(p), "rows", String.valueOf(count));
+        mPresenter.FetchAuctionOrder("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
+                "type", String.valueOf(type), "page", String.valueOf(p), "rows", String.valueOf(count));
     }
 
     @Override

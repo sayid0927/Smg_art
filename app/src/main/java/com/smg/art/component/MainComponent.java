@@ -29,6 +29,7 @@ import com.smg.art.ui.personalcenter.CashDepositActivity;
 import com.smg.art.ui.personalcenter.ChangeNickNameActivity;
 import com.smg.art.ui.personalcenter.ChangePasswordActivity;
 import com.smg.art.ui.personalcenter.ChangeTradersPasswordActivity;
+import com.smg.art.ui.personalcenter.ComplaintActivity;
 import com.smg.art.ui.personalcenter.MyCollectionActivity;
 import com.smg.art.ui.personalcenter.MyWalletActivity;
 import com.smg.art.ui.personalcenter.OrderdetailActivity;
@@ -37,8 +38,14 @@ import com.smg.art.ui.personalcenter.SendMobilePhoneActivity;
 import com.smg.art.ui.personalcenter.SettingActivity;
 import com.smg.art.ui.personalcenter.StartComplaintActivity;
 import com.smg.art.ui.personalcenter.WithdrawActivity;
+import com.smg.art.ui.personalcenter.address.AddAddressActivity;
+import com.smg.art.ui.personalcenter.address.AddressListActivity;
+import com.smg.art.ui.personalcenter.address.SelectAreaActivity;
 import com.smg.art.ui.personalcenter.fragemnt.AuctionOrderFragment;
 import com.smg.art.ui.personalcenter.fragemnt.BalanceFragment;
+import com.smg.art.ui.personalcenter.fragemnt.ComplaintApplyFragment;
+import com.smg.art.ui.personalcenter.fragemnt.ComplaintListFragment;
+import com.smg.art.ui.personalcenter.fragemnt.ComplaintRecordFragment;
 
 import dagger.Component;
 
@@ -120,4 +127,19 @@ public interface MainComponent {
     OrderdetailActivity inject(OrderdetailActivity orderdetailActivity);
 
     StartComplaintActivity inject(StartComplaintActivity startComplaintActivity);
+
+    AddressListActivity inject (AddressListActivity addressListActivity);
+
+    AddAddressActivity inject (AddAddressActivity addAddressActivity);
+
+    ComplaintActivity  inject(ComplaintActivity complaintActivity);
+
+    ComplaintApplyFragment inject (ComplaintApplyFragment complaintApplyFragment);
+
+    ComplaintListFragment inject (ComplaintListFragment complaintListFragment);
+
+    ComplaintRecordFragment inject (ComplaintRecordFragment complaintRecordFragment);
+
+    SelectAreaActivity inject (SelectAreaActivity selectAreaActivity);
+
 }

@@ -24,8 +24,6 @@
 
     </RelativeLayout>
 
-
-
     <com.flyco.tablayout.CommonTabLayout
         android:id="@+id/tab_layout"
         android:layout_width="@dimen/bj_200dp"
@@ -42,8 +40,7 @@
         tl:tl_textUnselectColor="#724949"
         tl:tl_textsize="15dp"
         tl:tl_underline_color="#1A000000"
-        tl:tl_underline_height="1dp" />
-
-
+        tl:tl_underline_height="1dp"
+        tl:tl_indicator_width="30dp"/>
 
 </RelativeLayout>

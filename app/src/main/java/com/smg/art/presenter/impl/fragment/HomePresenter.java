@@ -3,10 +3,8 @@ package com.smg.art.presenter.impl.fragment;
 
 import com.smg.art.api.Api;
 import com.smg.art.base.AnnouncementAuctionListBean;
-import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.BasePresenter;
-import com.smg.art.base.HomePageImgBean;
-import com.smg.art.bean.LoginBean;
+import com.smg.art.bean.HomePageImgBean;
 import com.smg.art.presenter.contract.fragment.HomeContract;
 
 import javax.inject.Inject;

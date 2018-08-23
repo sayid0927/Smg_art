@@ -8,7 +8,7 @@ import com.chad.library.adapter.base.BaseItemDraggableAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.smg.art.R;
 import com.smg.art.base.Constant;
-import com.smg.art.base.FindCustomerServiceBean;
+import com.smg.art.bean.FindCustomerServiceBean;
 import com.smg.art.utils.GlideUtils;
 
 import java.util.List;

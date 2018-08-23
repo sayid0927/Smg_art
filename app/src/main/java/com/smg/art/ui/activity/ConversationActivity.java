@@ -75,13 +75,13 @@ public class ConversationActivity extends FragmentActivity {
 
         switch (RongIMCUtils.state){
             case  RongIMCUtils.KICKED_OFFLINE_BY_OTHER_CLIENT :
-                ToastUtils.showLongToast("用户账户在其他设备登录");
+                ToastUtils.showLongToast("用户账户在其他设备登录,暂时不能发送信息");
                 break;
             case  RongIMCUtils.NETWORK_UNAVAILABLE :
-                ToastUtils.showLongToast("网络不可用");
+                ToastUtils.showLongToast("网络不可用,暂时不能发送信息");
                 break;
             case  RongIMCUtils.DISCONNECTED :
-                ToastUtils.showLongToast("断开连接");
+                ToastUtils.showLongToast("断开连接,暂时不能发送信息");
                 break;
         }
 

@@ -21,7 +21,7 @@
         <ImageView
             android:id="@+id/iv_actioniv"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/bj_170dp" />
+            android:layout_height="@dimen/bj_160dp" />
 
         <RelativeLayout
             android:orientation="vertical"

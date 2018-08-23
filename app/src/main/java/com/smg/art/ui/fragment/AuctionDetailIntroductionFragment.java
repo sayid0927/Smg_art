@@ -6,6 +6,8 @@ import android.os.CountDownTimer;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,21 +18,23 @@ import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.BaseFragment;
 import com.smg.art.base.Constant;
-import com.smg.art.base.FindCustomerServiceBean;
+import com.smg.art.bean.FindCustomerServiceBean;
 import com.smg.art.bean.AuctionGoodsBean;
 import com.smg.art.bean.SaveCollectsBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
+import com.smg.art.db.database.RongUserInfoEntityDao;
+import com.smg.art.db.entity.RongUserInfoEntity;
 import com.smg.art.presenter.contract.fragment.AuctionDeatilIntroductionContract;
 import com.smg.art.presenter.impl.fragment.AuctionDetailIntroductionPresenter;
 import com.smg.art.ui.activity.AuctionBuyerDepositActivity;
 import com.smg.art.ui.activity.AuctionDeatilActivity;
 import com.smg.art.ui.adapter.ServiceDialogApadter;
 import com.smg.art.utils.GlideUtils;
+import com.smg.art.utils.GreenDaoUtil;
 import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.utils.TimeTools;
 import com.smg.art.view.CustomDialog;
-import com.smg.art.view.MyBridgeWebView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -49,6 +53,8 @@ import butterknife.OnClick;
 import cn.bingoogolapple.bgabanner.BGABanner;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.model.CSCustomServiceInfo;
+import uk.co.senab.photoview.PhotoView;
+import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
  * Created by Lenovo on 2018/7/26.
@@ -60,7 +66,7 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
     @Inject
     AuctionDetailIntroductionPresenter mPresenter;
     @BindView(R.id.webview)
-    MyBridgeWebView webview;
+    WebView webview;
     @BindView(R.id.banner)
     BGABanner banner;
     @BindView(R.id.tv_nowprice)
@@ -85,8 +91,6 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
     TextView tvMm;
     @BindView(R.id.tv_ss)
     TextView tvSs;
-
-
     private AuctionDetailBean auctionDetailBean;
     private AuctionGoodsBean.DataBean.RowsBean data;
     private List<FindCustomerServiceBean.DataBean> serviceDatas = new ArrayList<>();
@@ -94,6 +98,8 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
     private int depositStatus;
     private CountDownTimer countDownTimer;
     private int id;
+
+    private RongUserInfoEntityDao collectionInfoDao;
 
     public static AuctionDetailIntroductionFragment getInstance(AuctionGoodsBean.DataBean.RowsBean data) {
         AuctionDetailIntroductionFragment sf = new AuctionDetailIntroductionFragment();
@@ -138,19 +144,41 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
     protected void initView(Bundle bundle) {
         super.initView(bundle);
         EventBus.getDefault().register(this);
-        if(id>0){
+        this.collectionInfoDao = GreenDaoUtil.getDaoSession().getRongUserInfoEntityDao();
+        if (id > 0) {
             mPresenter.FetchHomepageGetauctiondetail("id", String.valueOf(id));
-        }else {
+        } else {
             mPresenter.FetchHomepageGetauctiondetail("id", String.valueOf(data.getId()));
         }
+        webview.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (url.endsWith(".jpg") || url.endsWith(".png")) {
+                    final View dialogview = View.inflate(getActivity(), R.layout.dialog_img, null);
+                    final CustomDialog mDialogWaiting = new CustomDialog(getActivity(), dialogview, R.style.MyDialog);
+                    mDialogWaiting.show();
+                    mDialogWaiting.setCancelable(true);
+                    PhotoView ivurl = dialogview.findViewById(R.id.iv_dialog);
 
+                    ivurl.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
+                        @Override
+                        public void onPhotoTap(View view, float x, float y) {
+                            mDialogWaiting.dismiss();
+                        }
+                    });
+                    GlideUtils.load(getActivity(), url, ivurl);
+                }
+                return true;
+            }
+        });
 
-        //解决页面渲染闪烁问题.
+//         解决页面渲染闪烁问题.
 //        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED, WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
 //        webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 //            webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 //        }
+
     }
 
     @Override
@@ -192,6 +220,7 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
                     tvMm.setText(array[1]);
                     tvSs.setText(array[2]);
                 }
+
                 public void onFinish() {
                     tvHh.setText("00");
                     tvSs.setText("00");
@@ -224,6 +253,8 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
         });
         banner.setData(imgUrls, null);
         webview.loadDataWithBaseURL(null, getNewContent(auctionDetailBean.getData().getAuctionDesc()), "text/html", "utf-8", null);
+
+
     }
 
     /**
@@ -242,6 +273,29 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
         if (this.serviceDatas.size() != 0) serviceDatas.clear();
         serviceDatas = findCustomerServiceBean.getData();
         apadter.setNewData(serviceDatas);
+        if (findCustomerServiceBean.getData().size() != 0) {
+
+            for (int i = 0; i < findCustomerServiceBean.getData().size(); i++) {
+                RongUserInfoEntity r = collectionInfoDao.queryBuilder().where(
+                        RongUserInfoEntityDao.Properties.UserId.eq(String.valueOf(findCustomerServiceBean.getData().get(i).getMemberId()))).unique();
+
+                if (r != null) {
+                    RongUserInfoEntity rongUserInfoEntity = new RongUserInfoEntity();
+                    rongUserInfoEntity.setId(r.getId());
+                    rongUserInfoEntity.setUserId(String.valueOf(findCustomerServiceBean.getData().get(i).getMemberId()));
+                    rongUserInfoEntity.setUserName(findCustomerServiceBean.getData().get(i).getMemberName());
+                    rongUserInfoEntity.setUserPortraitUri(Constant.BaseImgUrl + findCustomerServiceBean.getData().get(i).getHeadImg());
+                    collectionInfoDao.update(rongUserInfoEntity);
+                } else {
+                    RongUserInfoEntity rongUserInfoEntity = new RongUserInfoEntity();
+                    rongUserInfoEntity.setUserId(String.valueOf(findCustomerServiceBean.getData().get(i).getMemberId()));
+                    rongUserInfoEntity.setUserName(findCustomerServiceBean.getData().get(i).getMemberName());
+                    rongUserInfoEntity.setUserPortraitUri(Constant.BaseImgUrl + findCustomerServiceBean.getData().get(i).getHeadImg());
+                    collectionInfoDao.insert(rongUserInfoEntity);
+
+                }
+            }
+        }
     }
 
     private String getNewContent(String htmltext) {
@@ -316,7 +370,7 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
     public void getEventBus(AuctionBuyerDepositBean auctionBuyerDepositBean) {
         //支付保证金回来
         tvNowAction.setText("立即竟价");
-        depositStatus=1;
+        depositStatus = 1;
         AuctionDeatilActivity.auctionDeatilActivity.setdepositStatus(1);
     }
 }

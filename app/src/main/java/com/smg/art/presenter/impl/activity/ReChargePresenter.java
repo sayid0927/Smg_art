@@ -2,7 +2,7 @@ package com.smg.art.presenter.impl.activity;
 
 import com.smg.art.api.Api;
 import com.smg.art.base.BasePresenter;
-import com.smg.art.base.CardUrlBean;
+import com.smg.art.bean.CardUrlBean;
 import com.smg.art.bean.CheckBankCardBean;
 import com.smg.art.bean.ReChargeBean;
 import com.smg.art.presenter.contract.activity.ReChargeContract;

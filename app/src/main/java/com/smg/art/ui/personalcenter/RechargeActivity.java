@@ -27,7 +27,7 @@ import com.bumptech.glide.Glide;
 import com.smg.art.BuildConfig;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
-import com.smg.art.base.CardUrlBean;
+import com.smg.art.bean.CardUrlBean;
 import com.smg.art.bean.CheckBankCardBean;
 import com.smg.art.bean.ReChargeBean;
 import com.smg.art.component.AppComponent;

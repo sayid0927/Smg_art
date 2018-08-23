@@ -20,10 +20,12 @@ import com.smg.art.presenter.impl.fragment.MyFragmentPresenter;
 import com.smg.art.ui.activity.MainActivity;
 import com.smg.art.ui.personalcenter.AuthenticationActivity;
 import com.smg.art.ui.personalcenter.CashDepositActivity;
+import com.smg.art.ui.personalcenter.ComplaintActivity;
 import com.smg.art.ui.personalcenter.MyCollectionActivity;
 import com.smg.art.ui.personalcenter.MyOrderActivity;
 import com.smg.art.ui.personalcenter.MyWalletActivity;
 import com.smg.art.ui.personalcenter.SettingActivity;
+import com.smg.art.ui.personalcenter.address.AddressListActivity;
 import com.smg.art.utils.GlideUtils;
 import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.view.RoundImageView;
@@ -66,6 +68,8 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
     LinearLayout memu;
     @BindView(R.id.memu_navigate)
     RelativeLayout memuNavigate;
+    @BindView(R.id.rl_complaint)
+    RelativeLayout rlComplaint;
     @BindView(R.id.icon1)
     ImageView icon1;
     @BindView(R.id.my_wallte)
@@ -80,6 +84,8 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
     View line4;
     @BindView(R.id.icon3)
     ImageView icon3;
+    @BindView(R.id.rl_address)
+    RelativeLayout rlAddress;
     @BindView(R.id.my_collection)
     RelativeLayout myCollection;
     @BindView(R.id.team1)
@@ -148,7 +154,9 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
         getdata();
     }
 
-    @OnClick({R.id.check_all, R.id.compete, R.id.for_the_delivery, R.id.is_the_delivery, R.id.after_sale, R.id.my_wallte, R.id.my_bond, R.id.my_collection, R.id.realnameauthentication, R.id.setting})
+    @OnClick({R.id.check_all, R.id.compete, R.id.for_the_delivery, R.id.is_the_delivery,
+            R.id.after_sale, R.id.my_wallte, R.id.my_bond, R.id.my_collection, R.id.realnameauthentication,
+            R.id.setting,R.id.rl_address,R.id.rl_complaint})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.check_all:
@@ -184,10 +192,22 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
                 intent = new Intent(getActivity(), CashDepositActivity.class);
                 MainActivity.mainActivity.startActivityIn(intent, getActivity());
                 break;
+
             case R.id.my_collection:
                 intent = new Intent(getActivity(), MyCollectionActivity.class);
                 MainActivity.mainActivity.startActivityIn(intent, getActivity());
                 break;
+
+            case R.id.rl_address:  // 收货地址
+                intent = new Intent(getActivity(), AddressListActivity.class);
+                MainActivity.mainActivity.startActivityIn(intent, getActivity());
+                break;
+
+            case R.id.rl_complaint:  // 售后投诉
+                intent = new Intent(getActivity(), ComplaintActivity.class);
+                MainActivity.mainActivity.startActivityIn(intent, getActivity());
+                break;
+
             case R.id.realnameauthentication:
                 if (isReal == 1) {
                     ToastUtils.showShortToast("您已认证");
@@ -196,6 +216,7 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
                     MainActivity.mainActivity.startActivityIn(intent, getActivity());
                 }
                 break;
+
             case R.id.setting:
                 intent = new Intent(getActivity(), SettingActivity.class);
                 startActivityForResult(intent, 10);

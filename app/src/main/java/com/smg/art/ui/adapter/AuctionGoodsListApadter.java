@@ -12,8 +12,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.smg.art.R;
 import com.smg.art.bean.AuctionGoodsBean;
+import com.smg.art.ui.personalcenter.adapter.MyCollectionAdapter;
 import com.smg.art.utils.GlideCommonUtils;
 import com.smg.art.utils.TimeTools;
 
@@ -24,7 +27,7 @@ import java.util.List;
  * Created by wengmf on 2018/3/22.
  */
 
-public class AuctionGoodsListApadter extends RecyclerView.Adapter<AuctionGoodsListApadter.ViewHolder> {
+public class AuctionGoodsListApadter extends  RecyclerView.Adapter<AuctionGoodsListApadter.ViewHolder> {
 
     //用于退出activity,避免countdown，造成资源浪费。
     private SparseArray<CountDownTimer> countDownMap;
@@ -64,7 +67,7 @@ public class AuctionGoodsListApadter extends RecyclerView.Adapter<AuctionGoodsLi
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(final AuctionGoodsListApadter.ViewHolder holder, final int position) {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,6 +134,7 @@ public class AuctionGoodsListApadter extends RecyclerView.Adapter<AuctionGoodsLi
 
     }
 
+
     @Override
     public int getItemCount() {
         if (mDatas != null && !mDatas.isEmpty()) {
@@ -147,7 +151,7 @@ public class AuctionGoodsListApadter extends RecyclerView.Adapter<AuctionGoodsLi
         void OnAuctionGoodsItemListener(int item);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends BaseViewHolder {
         public LinearLayout item_list;
         public TextView timeTv;
         public CountDownTimer countDownTimer;

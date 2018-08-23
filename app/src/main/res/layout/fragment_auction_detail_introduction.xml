@@ -7,6 +7,9 @@
     android:orientation="vertical">
 
 
+
+
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -15,7 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -263,11 +265,12 @@
 
             </LinearLayout>
 
-            <com.smg.art.view.MyBridgeWebView
+            <WebView
                 android:id="@+id/webview"
-               android:layout_marginBottom="@dimen/bj_50dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/bj_50dp" />
+
 
         </LinearLayout>
 
@@ -285,13 +288,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="82px"
-            android:drawablePadding="5px"
+            android:layout_marginLeft="@dimen/bj_40dp"
+            android:drawablePadding="@dimen/bj_5dp"
             android:drawableTop="@drawable/chart"
             android:gravity="center"
             android:text="客服"
             android:textColor="@color/white"
-            android:textSize="22px" />
+            android:textSize="@dimen/wz_13sp" />
 
         <TextView
             android:id="@+id/phone_service"
@@ -305,7 +308,7 @@
             android:gravity="center"
             android:text="电话"
             android:textColor="@color/white"
-            android:textSize="22px"
+            android:textSize="@dimen/wz_13sp"
             android:visibility="gone" />
 
 
@@ -314,29 +317,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="85px"
+            android:layout_marginLeft="@dimen/bj_30dp"
             android:layout_toRightOf="@+id/phone_service"
-            android:drawablePadding="5px"
+            android:drawablePadding="@dimen/bj_5dp"
             android:drawableTop="@drawable/collection"
             android:gravity="center"
             android:text="收藏 "
             android:textColor="@color/white"
-            android:textSize="22px" />
+            android:textSize="@dimen/wz_13sp" />
 
 
         <TextView
             android:id="@+id/tv_now_action"
-            android:layout_width="300px"
-            android:layout_height="76px"
+            android:layout_width="@dimen/bj_150dp"
+            android:layout_height="@dimen/bj_35dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="80px"
+            android:layout_marginRight="@dimen/bj_20dp"
             android:background="@drawable/text_red_bg"
             android:gravity="center"
-            android:padding="10px"
+            android:padding="@dimen/bj_5dp"
             android:text="交保证金参与"
             android:textColor="@color/white"
-            android:textSize="36px" />
+            android:textSize="@dimen/wz_14sp" />
 
     </RelativeLayout>
 

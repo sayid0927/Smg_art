@@ -1,14 +1,12 @@
 package com.smg.art.presenter.contract.activity;
 
 import com.smg.art.base.BaseContract;
-import com.smg.art.base.CardUrlBean;
+import com.smg.art.bean.CardUrlBean;
 import com.smg.art.bean.CreatWordsBean;
-import com.smg.art.bean.UpLoadBean;
 
 import java.util.List;
 
 import okhttp3.MultipartBody;
-import rx.Observable;
 
 /**
  * Created by Mervin on 2018/8/1 0001.

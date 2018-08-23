@@ -151,6 +151,42 @@ public class AuctionOrderBean {
         private double buyerEnsureAmount;
         private String categoryId;
         private int complainId;
+        private  int orderStatus;
+        private  long complainTime;
+        private  long deliveryTime;
+        private  String complainImageUrl;
+
+        public String getComplainImageUrl() {
+            return complainImageUrl;
+        }
+
+        public void setComplainImageUrl(String complainImageUrl) {
+            this.complainImageUrl = complainImageUrl;
+        }
+
+        public long getDeliveryTime() {
+            return deliveryTime;
+        }
+
+        public void setDeliveryTime(long deliveryTime) {
+            this.deliveryTime = deliveryTime;
+        }
+
+        public long getComplainTime() {
+            return complainTime;
+        }
+
+        public void setComplainTime(long complainTime) {
+            this.complainTime = complainTime;
+        }
+
+        public int getOrderStatus() {
+            return orderStatus;
+        }
+
+        public void setOrderStatus(int orderStatus) {
+            this.orderStatus = orderStatus;
+        }
 
         public int getComplainId() {
             return complainId;

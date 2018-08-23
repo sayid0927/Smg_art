@@ -17,6 +17,7 @@
             android:layout_marginTop="@dimen/bj_20dp"
             android:layout_marginLeft="@dimen/bj_20dp"
             android:layout_marginRight="@dimen/bj_20dp"
+            android:nestedScrollingEnabled="false"
             android:overScrollMode="never" />
 
 
@@ -26,6 +27,7 @@
         android:layout_marginRight="@dimen/bj_13dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="false"
         android:overScrollMode="never" />
 
 </LinearLayout>

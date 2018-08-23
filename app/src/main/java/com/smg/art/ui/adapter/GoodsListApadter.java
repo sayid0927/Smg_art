@@ -11,6 +11,7 @@ import com.smg.art.base.AnnouncementAuctionListBean;
 import com.smg.art.base.AnnouncementAuctionListBean.DataBean.RowsBean;
 import com.smg.art.base.Constant;
 import com.smg.art.bean.GoodsBean;
+import com.smg.art.utils.GlideCommonUtils;
 import com.smg.art.utils.GlideUtils;
 
 import java.util.List;
@@ -35,8 +36,8 @@ public class GoodsListApadter extends BaseQuickAdapter<AnnouncementAuctionListBe
     @Override
     protected void convert(final BaseViewHolder helper, final AnnouncementAuctionListBean.DataBean.RowsBean item) {
         helper.setText(R.id.tv_actionName, item.getActionName());
-        GlideUtils.loadFitCenter(mContext, Constant.BaseImgUrl + item.getPictureUrl(), (ImageView) helper.getView(R.id.iv_actioniv));
-
+//        GlideUtils.loadFitCenter(mContext, Constant.BaseImgUrl + item.getPictureUrl(), (ImageView) helper.getView(R.id.iv_actioniv));
+        GlideCommonUtils.showSquarePic(mContext,  item.getPictureUrl(), (ImageView) helper.getView(R.id.iv_actioniv));
         helper.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

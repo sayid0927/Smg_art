@@ -4,10 +4,8 @@ package com.smg.art.presenter.impl.fragment;
 import com.smg.art.api.Api;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.BasePresenter;
-import com.smg.art.base.FindCustomerServiceBean;
-import com.smg.art.bean.AuctionCenterBean;
+import com.smg.art.bean.FindCustomerServiceBean;
 import com.smg.art.bean.SaveCollectsBean;
-import com.smg.art.presenter.contract.fragment.AuctionContract;
 import com.smg.art.presenter.contract.fragment.AuctionDeatilIntroductionContract;
 
 import javax.inject.Inject;

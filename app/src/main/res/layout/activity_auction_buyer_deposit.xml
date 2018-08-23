@@ -13,7 +13,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/bj_150dp"
+        android:layout_height="@dimen/bj_180dp"
         android:background="#341c1c">
 
         <LinearLayout
@@ -21,8 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/bj_46dp"
-            android:gravity="center">
+            android:layout_marginLeft="@dimen/bj_15dp"
+            android:layout_marginTop="@dimen/bj_46dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -50,15 +50,15 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ll_concu"
-            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/bj_10dp"
             android:layout_marginTop="@dimen/bj_10dp"
-            android:text="保证金拍卖结束后将退回到个人账户"
+            android:text=""
             android:textColor="#999999"
-            android:textSize="@dimen/wz_13sp" />
-
+            android:textSize="@dimen/wz_15sp" />
 
     </RelativeLayout>
 
@@ -104,21 +104,65 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:button="@null"
-                android:layout_marginRight="@dimen/bj_10dp" />
+                android:layout_marginRight="@dimen/bj_10dp"
+                android:button="@null" />
 
         </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_btn"
+            android:layout_marginLeft="@dimen/bj_60dp"
+            android:layout_marginTop="@dimen/bj_20dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="竞拍需同意拍卖"
+                android:textColor="#999999"
+                android:textSize="@dimen/wz_9sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/bj_2dp"
+                android:text="《用户竞拍服务协议》"
+                android:textColor="#ffd278"
+                android:textSize="@dimen/wz_9sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="和"
+                android:textColor="#999999"
+                android:textSize="@dimen/wz_9sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="《保证金规则》"
+                android:textColor="#ffd278"
+                android:layout_marginLeft="@dimen/bj_2dp"
+                android:textSize="@dimen/wz_9sp" />
+
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/bt_post"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rl_btn"
+            android:layout_below="@+id/ll_item"
             android:layout_marginLeft="@dimen/bj_50dp"
             android:layout_marginRight="@dimen/bj_50dp"
-            android:layout_marginTop="@dimen/bj_100dp"
+            android:layout_marginTop="@dimen/bj_20dp"
             android:background="@drawable/btn_bg"
-            android:text="确 认"
+            android:text="同意并支付保证金"
             android:textColor="@color/white"
             android:textSize="@dimen/wz_15sp" />
 

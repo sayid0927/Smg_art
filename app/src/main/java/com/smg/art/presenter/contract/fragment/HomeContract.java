@@ -4,10 +4,8 @@ package com.smg.art.presenter.contract.fragment;
 
 
 import com.smg.art.base.AnnouncementAuctionListBean;
-import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.BaseContract;
-import com.smg.art.base.HomePageImgBean;
-import com.smg.art.bean.Apk_UpdateBean;
+import com.smg.art.bean.HomePageImgBean;
 
 public interface HomeContract {
 

@@ -22,13 +22,16 @@ import com.google.gson.Gson;
 import com.smg.art.base.AnnouncementAuctionListBean;
 import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
-import com.smg.art.base.CardUrlBean;
+import com.smg.art.bean.CardUrlBean;
 import com.smg.art.base.Constant;
-import com.smg.art.base.FindCustomerServiceBean;
-import com.smg.art.base.HomePageImgBean;
+import com.smg.art.bean.FindCustomerServiceBean;
+import com.smg.art.bean.HomePageImgBean;
+import com.smg.art.bean.PlayIntroductionBean;
+import com.smg.art.bean.SearchAreaBean;
 import com.smg.art.bean.AddBankCardBean;
 import com.smg.art.bean.AddFriendBean;
 import com.smg.art.bean.AddressBookFriendsBean;
+import com.smg.art.bean.AddressListBean;
 import com.smg.art.bean.AuctionCenterBean;
 import com.smg.art.bean.AuctionGoodsBean;
 import com.smg.art.bean.AuctionOrderBean;
@@ -75,6 +78,9 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.QueryMap;
 import rx.Observable;
 
 public class Api {
@@ -489,6 +495,49 @@ public class Api {
      */
     public Observable<DeleteCollectionBean> FetchDeleteCollectionService(String... s) {
         return service.FetchDeleteCollectionService(getMap(s));
+    }
+    /**
+     * 获取收货地址
+     */
+    public Observable<AddressListBean> FetchAddressList(String... s) {
+        return service.FetchAddressList(getMap(s));
+    }
+    /**
+     * 收货地址删除
+     */
+    public Observable<AddressListBean> FetchDeleteAddress(String... s) {
+        return service.FetchDeleteAddress(getMap(s));
+    }
+
+    /**
+     * 新增收货地址
+     */
+    public Observable<AddressListBean> FetchCreateAddress(String... s) {
+        return service.FetchCreateAddress(getMap(s));
+    }
+    /**
+     * 修改收货地址
+     */
+    public Observable<AddressListBean> FetchUpdateAddress(String... s) {
+        return service.FetchUpdateAddress(getMap(s));
+    }
+    /**
+     * 获取省市区信息
+     */
+    public Observable<SearchAreaBean> FetchRegionInfo(String... s) {
+        return service.FetchRegionInfo(getMap(s));
+    }
+    /**
+     * 获取竞拍支付说明
+     */
+    public Observable<PlayIntroductionBean> FetchPayIntroduction(String... s) {
+        return service.FetchPayIntroduction(getMap(s));
+    }
+    /**
+     * 查询投诉记录
+     */
+    public Observable<AuctionOrderBean> FetchComplainAuctionInfoList(String... s) {
+        return service.FetchComplainAuctionInfoList(getMap(s));
     }
 
 }

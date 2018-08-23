@@ -4,15 +4,8 @@ package com.smg.art.presenter.contract.activity;
 import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.BaseContract;
-import com.smg.art.base.Constant;
-import com.smg.art.base.FindCustomerServiceBean;
+import com.smg.art.bean.FindCustomerServiceBean;
 import com.smg.art.bean.SaveCollectsBean;
-
-import java.util.Map;
-
-import retrofit2.http.POST;
-import retrofit2.http.QueryMap;
-import rx.Observable;
 
 public interface GoodsDetailContract {
 

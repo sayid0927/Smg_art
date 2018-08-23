@@ -14,14 +14,6 @@ public interface SearchContract {
     interface View extends BaseContract.BaseView {
 
         void  FetchHotWordsListSuccess(HotWordsListBean hotWordsListBean);
-        /**
-         * 重新登录
-         */
-       void   onRestartLoging();
-        /**
-         * 登录成功
-         */
-        void FetchLoginSuccess(LoginBean loginBean);
 
         /**
          * 首页搜索框查询
@@ -43,11 +35,6 @@ public interface SearchContract {
     interface Presenter<T> extends BaseContract.BasePresenter<T> {
 
         void  FetchHotWordsList();
-        /**
-         * 登录
-         */
-        void FetchLogin(String... s);
-
         /**
          * 首页搜索框查询
          */

@@ -24,7 +24,6 @@ public class ContactsApadter extends BaseSectionQuickAdapter<MySection, BaseView
 
     private Context mContext;
     private List<MySection> data;
-    private OnGoodsItemListener onGoodsItemListener;
 
     public ContactsApadter(List<MySection> data, Context mContext) {
         super(R.layout.item_contact, R.layout.header_contacts, data);
@@ -38,21 +37,11 @@ public class ContactsApadter extends BaseSectionQuickAdapter<MySection, BaseView
     protected void convert(BaseViewHolder helper, final MySection item) {
         AddressBookFriendsBean.DataBean dataBean = item.t;
          helper.setText(R.id.tv_city_name,dataBean.getMemberName());
-//        GlideUtils.load(mContext, Constant.BaseImgUrl + item.getHeadImg(), (ImageView) helper.getView(R.id.iv_head));
-
-    }
-
-    public void OnGoodsItemListener (OnGoodsItemListener  onGoodsItemListener){
-        this.onGoodsItemListener =onGoodsItemListener;
+        GlideUtils.load(mContext, Constant.BaseImgUrl + dataBean.getHeadImg(), (ImageView) helper.getView(R.id.ivHeader));
     }
 
     @Override
     protected void convertHead(BaseViewHolder helper, MySection item) {
         helper.setText(R.id.tv_section, item.header);
     }
-
-    public  interface  OnGoodsItemListener {
-        void  OnGoodsItemListener(GoodsBean item, int postion);
-    }
-
 }

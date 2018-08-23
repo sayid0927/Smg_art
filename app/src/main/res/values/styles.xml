@@ -61,7 +61,7 @@
 
     <style name="BannerDefaultStyle">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">641px</item>
+        <item name="android:layout_height">@dimen/bj_390dp</item>
         <!-- 自定义属性在styles.xml中不需要命名空间,直接用属性名就可以了 -->
         <!-- 开启自动轮播 -->
         <item name="banner_pointAutoPlayAble">true</item>
@@ -86,7 +86,7 @@
         <!-- 提示文案的文字颜色 -->
         <item name="banner_tipTextColor">@android:color/white</item>
         <!-- 加载网络数据时覆盖在BGABanner最上层的占位图 -->
-        <!--<item name="banner_placeholderDrawable">@drawable/holder</item>-->
+        <!--<item name="banner_placeholderDrawable">@drawable/test</item>-->
     </style>
 
 

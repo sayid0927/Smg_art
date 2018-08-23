@@ -18,7 +18,7 @@ import com.smg.art.R;
 import com.smg.art.base.AnnouncementAuctionListBean;
 import com.smg.art.base.BaseFragment;
 import com.smg.art.base.Constant;
-import com.smg.art.base.HomePageImgBean;
+import com.smg.art.bean.HomePageImgBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.fragment.HomeContract;
@@ -30,7 +30,7 @@ import com.smg.art.ui.activity.SearchActivity;
 import com.smg.art.ui.adapter.GoodsListApadter;
 import com.smg.art.ui.adapter.HomeIconApadter;
 import com.smg.art.ui.adapter.HomeUnderListApadter;
-import com.smg.art.utils.GlideUtils;
+import com.smg.art.utils.GlideCommonUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -69,11 +69,12 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
     private GoodsListApadter mAdapter;
     private HomeUnderListApadter underListApadter;
     private HomeIconApadter homeIconApadter;
-
     private List<AnnouncementAuctionListBean.DataBean.RowsBean> rowsBeans = new ArrayList<>();
     private List<HomePageImgBean.DataBean.CategoryListBean> categoryListBeans = new ArrayList<>();
     private List<HomePageImgBean.DataBean.UpperListBean> upperListBeans = new ArrayList<>();
     private List<HomePageImgBean.DataBean.UnderListBean> underListBeans = new ArrayList<>();
+
+
     private int page = 1;
     private int rows = 10;
 
@@ -94,6 +95,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
         mAdapter = new GoodsListApadter(rowsBeans, getSupportActivity());
         underListApadter = new HomeUnderListApadter(underListBeans, getSupportActivity());
         underListApadter.OnUnderItemListener(this);
+
+
         rvGoods.setLayoutManager(new GridLayoutManager(getSupportActivity(), 2));
         rvUnder.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvIcon.setLayoutManager(new GridLayoutManager(getSupportActivity(), 5));
@@ -151,6 +154,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
         initUnder(underListBeans);
         initBanner(upperListBeans);
         fillView(categoryListBeans);
+
     }
 
     /**
@@ -237,7 +241,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
         numBanner.setAdapter(new BGABanner.Adapter<ImageView, String>() {
             @Override
             public void fillBannerItem(BGABanner banner, ImageView itemView, String model, int position) {
-                GlideUtils.loadFitCenter(getActivity(), model, itemView);
+//                GlideUtils.loadFitCenter(getActivity(), model, itemView);
+                GlideCommonUtils.showTSquarePic(getActivity(), model, itemView);
             }
         });
         numBanner.setData(imgUrls, null);

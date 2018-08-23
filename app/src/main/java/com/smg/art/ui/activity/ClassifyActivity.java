@@ -1,25 +1,20 @@
 package com.smg.art.ui.activity;
 
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.smg.art.R;
-import com.smg.art.base.AnnouncementAuctionListBean;
 import com.smg.art.base.BaseActivity;
 import com.smg.art.base.BaseFragmentPageAdapter;
-import com.smg.art.base.HomePageImgBean;
+import com.smg.art.bean.HomePageImgBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.activity.ClassifyContract;
 import com.smg.art.presenter.impl.activity.ClassifyActivityPresenter;
 import com.smg.art.ui.fragment.ClassifyChildFragment;
-import com.smg.art.utils.UIUtils;
 import com.zhy.autolayout.AutoRelativeLayout;
 
 import java.util.ArrayList;
@@ -28,7 +23,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ClassifyActivity extends BaseActivity implements ClassifyContract.View {

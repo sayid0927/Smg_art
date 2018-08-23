@@ -1,4 +1,4 @@
-package com.smg.art.base;
+package com.smg.art.bean;
 
 import java.io.Serializable;
 import java.util.List;
@@ -45,6 +45,8 @@ public class HomePageImgBean {
     }
 
     public static class DataBean {
+
+
         private List<UpperListBean> upperList;
         private List<CategoryListBean> categoryList;
         private List<UnderListBean> underList;
@@ -140,6 +142,7 @@ public class HomePageImgBean {
         }
 
         public static class CategoryListBean implements Serializable {
+
             /**
              * id : 1
              * parentId : null

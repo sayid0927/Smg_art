@@ -1,4 +1,4 @@
-package com.smg.art.base;
+package com.smg.art.bean;
 
 import java.util.List;
 

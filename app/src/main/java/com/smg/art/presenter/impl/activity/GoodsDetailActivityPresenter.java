@@ -5,9 +5,8 @@ import com.smg.art.api.Api;
 import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.BasePresenter;
-import com.smg.art.base.FindCustomerServiceBean;
+import com.smg.art.bean.FindCustomerServiceBean;
 import com.smg.art.bean.SaveCollectsBean;
-import com.smg.art.presenter.contract.activity.ClassifyContract;
 import com.smg.art.presenter.contract.activity.GoodsDetailContract;
 
 import javax.inject.Inject;

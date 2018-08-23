@@ -23,22 +23,17 @@ public class Constant {
     public static final int STATE_SUCCESS = 4;
 
     // 测试环境
-    public static final String BaseImgUrl = "http://192.168.1.56:8080/art-world";
+    public static final String BaseImgUrl = "http://192.168.1.167:8080/art-world";
     // 测试环境
-    public static final String API_BASE_URL = "http://192.168.1.56:8080/art-world/";
+    public static final String API_BASE_URL = "http://192.168.1.167:8080/art-world/";
 
-    //生产环境
-//    public static final String API_BASE_URL = "http://yspsj.885505.com/";
+//生产环境
+//    public static final String API_BASE_URL = "http://yspsj.885505.com";
 //    public static final String BaseImgUrl = "http://yspsj.885505.com/";
 
-    // 开发环境
-    // public static final String API_BASE_URL = "http://192.168.1.167:8080/art-world-dev/";
-    // public static final String API_BASE_URL = "http://192.168.1.167:8080/art-world-dev/";
-
-    // 外网环境
-    //public static final String API_BASE_URL = "http://yspsj.885505.com";
-    // 外网环境
-    //public static final String BaseImgUrl = "http://yspsj.885505.com/";
+// 开发环境
+//     public static final String API_BASE_URL = "http://192.168.1.167:8080/art-world";
+//     public static final String BaseImgUrl = "http://192.168.1.167:8080/art-world/";
 
 
     /**
@@ -197,7 +192,20 @@ public class Constant {
     public static final String SAVEAUCTIONCOMPLAIN = "auctionpage/saveAuctionComplain";
     //删除收藏
     public static final String MEMBERCOLLECTSPAGEDELETE = "memberCollectsPage/delete";
-
+    //获取收货地址
+    public static final String DELIVERYADDRESS_GETDELIVERYADDRESS = "deliveryAddress/getDeliveryAddress";
+    //收货地址删除
+    public static final String DELIVERYADDRESS_DELETEDELIVERYADDRESS = "deliveryAddress/deleteDeliveryAddress";
+    //新增收货地址
+    public static final String DELIVERYADDRESS_CREATEDELIVERYADDRESS = "deliveryAddress/createDeliveryAddress";
+    //修改收货地址
+    public static final String DELIVERYADDRESS_UPDATEDELIVERYADDRESS = "deliveryAddress/updateDeliveryAddress";
+    //获取省市区信息
+    public static final String DELIVERYADDRESS_GETREGIONINFO = "deliveryAddress/getRegionInfo";
+    //获取省市区信息
+    public static final String SYSCONFIGFRONT_GETPAYINTRODUCTION = "sysConfigFront/getPayIntroduction";
+    //查询投诉记录
+    public static final String AUCTIONPAGE_QUERYCOMPLAINAUCTIONINFOLIST = "auctionpage/queryComplainAuctionInfoList";
 
     public static String LOCAL_APP_CONFIG_FILE_NAME = "smgconfig";//本地应用配置文件名，存储些全局变量
 

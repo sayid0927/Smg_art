@@ -44,7 +44,7 @@
                 android:layout_marginTop="@dimen/bj_30dp"
                 android:background="@null"
                 android:inputType="textPassword"
-                android:hint="请输入验证交易密码"
+                android:hint="请输入交易密码"
                 android:paddingLeft="@dimen/bj_10dp"
                 android:text=""
                 android:textColor="@color/black"

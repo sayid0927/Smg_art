@@ -1,7 +1,7 @@
 package com.smg.art.presenter.contract.activity;
 
 import com.smg.art.base.BaseContract;
-import com.smg.art.base.CardUrlBean;
+import com.smg.art.bean.CardUrlBean;
 import com.smg.art.bean.CheckBankCardBean;
 import com.smg.art.bean.ReChargeBean;
 

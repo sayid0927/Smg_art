@@ -19,13 +19,16 @@ package com.smg.art.api;
 import com.smg.art.base.AnnouncementAuctionListBean;
 import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
-import com.smg.art.base.CardUrlBean;
+import com.smg.art.bean.CardUrlBean;
 import com.smg.art.base.Constant;
-import com.smg.art.base.FindCustomerServiceBean;
-import com.smg.art.base.HomePageImgBean;
+import com.smg.art.bean.FindCustomerServiceBean;
+import com.smg.art.bean.HomePageImgBean;
+import com.smg.art.bean.PlayIntroductionBean;
+import com.smg.art.bean.SearchAreaBean;
 import com.smg.art.bean.AddBankCardBean;
 import com.smg.art.bean.AddFriendBean;
 import com.smg.art.bean.AddressBookFriendsBean;
+import com.smg.art.bean.AddressListBean;
 import com.smg.art.bean.AuctionCenterBean;
 import com.smg.art.bean.AuctionGoodsBean;
 import com.smg.art.bean.AuctionOrderBean;
@@ -81,8 +84,6 @@ public interface ApiService {
     /**
      * 下载 图片
      */
-    @GET
-    Observable<Response<ResponseBody>> downloadPicFromNet(@Url String imgUrl);
 
     /**
      * 会员注册
@@ -96,12 +97,6 @@ public interface ApiService {
     @POST(Constant.MEMBER_GETPHONEVERIFYCODE)
     Observable<PhoneVerifyCodeBean> FetchPhoneVerifyCode(@QueryMap Map<String, String> map);
 
-    /**
-     * 获取图形验证码
-     * @param map
-     */
-/*    @GET(Constant.PICTURECODE)
-  //  Observable<PictureCodeBean> FetchPictureCode(@QueryMap Map<String, String> map);*/
 
     /**
      * 查询客服信息
@@ -394,6 +389,47 @@ public interface ApiService {
      */
     @POST(Constant.MEMBERCOLLECTSPAGEDELETE)
     Observable<DeleteCollectionBean> FetchDeleteCollectionService(@QueryMap Map<String, String> map);
+
+
+    /**
+     * 获取收货地址
+     */
+    @GET(Constant.DELIVERYADDRESS_GETDELIVERYADDRESS)
+    Observable<AddressListBean> FetchAddressList(@QueryMap Map<String, String> map);
+
+    /**
+     * 收货地址删除
+     */
+    @GET(Constant.DELIVERYADDRESS_DELETEDELIVERYADDRESS)
+    Observable<AddressListBean> FetchDeleteAddress(@QueryMap Map<String, String> map);
+
+    /**
+     * 新增收货地址
+     */
+    @POST(Constant.DELIVERYADDRESS_CREATEDELIVERYADDRESS)
+    Observable<AddressListBean> FetchCreateAddress(@QueryMap Map<String, String> map);
+    /**
+     * 修改收货地址
+     */
+    @POST(Constant.DELIVERYADDRESS_UPDATEDELIVERYADDRESS)
+    Observable<AddressListBean> FetchUpdateAddress(@QueryMap Map<String, String> map);
+    /**
+     * 获取省市区信息
+     */
+    @GET(Constant.DELIVERYADDRESS_GETREGIONINFO)
+    Observable<SearchAreaBean> FetchRegionInfo(@QueryMap Map<String, String> map);
+
+    /**
+     * 获取竞拍支付说明
+     */
+    @POST(Constant.SYSCONFIGFRONT_GETPAYINTRODUCTION)
+    Observable<PlayIntroductionBean> FetchPayIntroduction(@QueryMap Map<String, String> map);
+
+    /**
+     * 查询投诉记录
+     */
+    @GET(Constant.AUCTIONPAGE_QUERYCOMPLAINAUCTIONINFOLIST)
+    Observable<AuctionOrderBean> FetchComplainAuctionInfoList(@QueryMap Map<String, String> map);
 
 
 }

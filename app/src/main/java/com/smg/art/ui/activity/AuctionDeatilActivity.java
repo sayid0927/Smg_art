@@ -35,7 +35,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class AuctionDeatilActivity extends BaseActivity implements AuctionDeatilContract.View {
+public class AuctionDeatilActivity extends BaseActivity implements AuctionDeatilContract.View, OnTabSelectListener {
 
 
     @Inject
@@ -51,7 +51,7 @@ public class AuctionDeatilActivity extends BaseActivity implements AuctionDeatil
 
     private ArrayList<String> mTitleList = new ArrayList<>();
     private ArrayList<Fragment> mFragments = new ArrayList<>();
-    public  static  AuctionDeatilActivity auctionDeatilActivity;
+    public static AuctionDeatilActivity auctionDeatilActivity;
     int type;
     int id;
     private int depositStatus;
@@ -79,20 +79,19 @@ public class AuctionDeatilActivity extends BaseActivity implements AuctionDeatil
 
     @Override
     public void initView() {
-        type =getIntent().getIntExtra("type",0);
-        id=getIntent().getIntExtra("id",0);
-        if(type==1){
-            String bookJson=getIntent().getStringExtra("data");
-            AuctionGoodsBean.DataBean.RowsBean data=new Gson().fromJson(bookJson,AuctionGoodsBean.DataBean.RowsBean.class);
+        type = getIntent().getIntExtra("type", 0);
+        id = getIntent().getIntExtra("id", 0);
+        if (type == 1) {
+            String bookJson = getIntent().getStringExtra("data");
+            AuctionGoodsBean.DataBean.RowsBean data = new Gson().fromJson(bookJson, AuctionGoodsBean.DataBean.RowsBean.class);
             mFragments.add(AuctionDetailIntroductionFragment.getInstance(data));
             mFragments.add(AuctionCentreFragment.getInstance(data.getId()));
             mPresenter.FetchHomepageGetauctiondetail("id", String.valueOf(data.getId()));
-        }else if(type==2) {
+        } else if (type == 2) {
             mFragments.add(AuctionDetailIntroductionFragment.getInstance(id));
             mFragments.add(AuctionCentreFragment.getInstance(id));
             mPresenter.FetchHomepageGetauctiondetail("id", String.valueOf(id));
         }
-
 
         mTitleList.add(getString(R.string.DetailIntroduction));
         mTitleList.add(getString(R.string.AuctionCentre));
@@ -101,34 +100,12 @@ public class AuctionDeatilActivity extends BaseActivity implements AuctionDeatil
         vp.setAdapter(myAdapter);
         myAdapter.notifyDataSetChanged();
         for (int i = 0; i < mTitleList.size(); i++) {
-            mTabEntities.add(new TabEntity(mTitleList.get(i), 0,0));
+            mTabEntities.add(new TabEntity(mTitleList.get(i), 0, 0));
         }
         tabLayout.setTabData(mTabEntities);
         vp.setNoScroll(true);
+        tabLayout.setOnTabSelectListener(this);
 
-        tabLayout.setOnTabSelectListener(new OnTabSelectListener() {
-            @SuppressLint("NewApi")
-            @Override
-            public void onTabSelect(int position) {
-
-                if(position==1){
-                    if(depositStatus==0){
-                        tabLayout.setCurrentTab(0);
-                        vp.setCurrentItem(0);
-                        ToastUtils.showLongToast("请先交保证金");
-                        return;
-                    }else {
-                        vp.setCurrentItem(position);
-                    }
-                }else {
-                    vp.setCurrentItem(position);
-                }
-            }
-
-            @Override
-            public void onTabReselect(int position) {
-            }
-        });
         auctionDeatilActivity = this;
     }
 
@@ -138,12 +115,13 @@ public class AuctionDeatilActivity extends BaseActivity implements AuctionDeatil
         auctionDeatilActivity = null;
     }
 
-    public  void  setCurrentItem(int postion){
+    public void setCurrentItem(int postion) {
         vp.setCurrentItem(postion);
         tabLayout.setCurrentTab(postion);
     }
-    public  void  setdepositStatus(int postion){
-        depositStatus=1;
+
+    public void setdepositStatus(int postion) {
+        depositStatus = 1;
     }
 
     @Override
@@ -157,12 +135,32 @@ public class AuctionDeatilActivity extends BaseActivity implements AuctionDeatil
             case R.id.rl_back:
                 finish();
                 break;
-
         }
     }
 
     @Override
     public void FetchHomepageGetauctiondetailSuccess(AuctionDetailBean auctionDetailBean) {
         depositStatus = auctionDetailBean.getData().getDepositStatus();
+    }
+
+    @Override
+    public void onTabSelect(int position) {
+        if (position == 1) {
+            if (depositStatus == 0) {
+                tabLayout.setCurrentTab(0);
+                vp.setCurrentItem(0);
+                ToastUtils.showLongToast("请先交保证金");
+                return;
+            } else {
+                vp.setCurrentItem(position);
+            }
+        } else {
+            vp.setCurrentItem(position);
+        }
+    }
+
+    @Override
+    public void onTabReselect(int position) {
+
     }
 }

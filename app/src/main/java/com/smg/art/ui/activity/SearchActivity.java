@@ -244,34 +244,6 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
             historicalSearchApadter.setNewData(historicalSearch);
         }
     }
-
-    /**
-     * 重新登录
-     */
-    @Override
-    public void onRestartLoging() {
-        mPresenter.FetchLogin("account", LocalAppConfigUtil.getInstance().getUserTelephone(),
-                "password", LocalAppConfigUtil.getInstance().getPassword());
-    }
-
-    /**
-     * 重新登录成功
-     */
-    @Override
-    public void FetchLoginSuccess(LoginBean loginBean) {
-        if (loginBean.getStatus() == 1) {
-            LocalAppConfigUtil.getInstance().setAccessToken(loginBean.getData().getRCToken());
-            LocalAppConfigUtil.getInstance().setCurrentMerberId(loginBean.getData().getMemberId());
-            LocalAppConfigUtil.getInstance().setCurrentMerberNo(loginBean.getData().getMemberNo());
-            LocalAppConfigUtil.getInstance().setJsessionidShiro(loginBean.getData().getJSESSIONID_SHIRO());
-            LocalAppConfigUtil.getInstance().setJsessionId(loginBean.getData().getJSESSIONID());
-            LocalAppConfigUtil.getInstance().setRCToken(loginBean.getData().getRCToken());
-            mPresenter.FetchHotWordsList();
-        } else {
-            ToastUtils.showShortToast(loginBean.getMsg());
-        }
-    }
-
     /**
      * 首页搜索框查询
      */
