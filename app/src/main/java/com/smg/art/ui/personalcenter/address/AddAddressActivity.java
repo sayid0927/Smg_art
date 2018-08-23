@@ -101,7 +101,7 @@ public class AddAddressActivity extends BaseActivity implements AddAddressListCo
             if (EmptyUtils.isNotEmpty(data)) {
                 etName.setText(data.getDeliveryName());
                 etPhone.setText(data.getDeliveryPhone());
-                etDetail.setText(data.getProvinceName() + data.getCityName() + data.getAdress());
+                etDetail.setText(data.getAdress());
                 tvAddress.setText(data.getProvinceName() + " " + data.getCityName() + " ");
                 if(data.getDefaultFlag()==0){
                     checkBox.setChecked(true);
@@ -181,7 +181,7 @@ public class AddAddressActivity extends BaseActivity implements AddAddressListCo
     @Subscribe
     public void getEventBus(final SearchAreaEventBus searchAreaEventBus) {
         this.searchAreaEventBus = searchAreaEventBus;
-        tvAddress.setText(searchAreaEventBus.getProvinceName() + "  " + searchAreaEventBus.getCityName() + " " + searchAreaEventBus.getCountyName());
+        tvAddress.setText(searchAreaEventBus.getProvinceName() + "  " + searchAreaEventBus.getCityName() + " ");
     }
 
 

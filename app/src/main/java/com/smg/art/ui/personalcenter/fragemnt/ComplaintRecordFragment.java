@@ -17,7 +17,10 @@ import com.smg.art.bean.AuctionOrderBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.fragment.ComplaintIngContract;
+import com.smg.art.presenter.contract.fragment.ComplaintRecordContract;
+import com.smg.art.presenter.impl.activity.ComplaintPresenter;
 import com.smg.art.presenter.impl.fragment.ComplaintIngPresenter;
+import com.smg.art.presenter.impl.fragment.ComplaintRecordPresenter;
 import com.smg.art.ui.activity.MainActivity;
 import com.smg.art.ui.personalcenter.ComplaintDeatilActivity;
 import com.smg.art.ui.personalcenter.StartComplaintActivity;
@@ -36,12 +39,12 @@ import butterknife.BindView;
  * Created by Lenovo on 2018/7/26.
  */
 
-public class ComplaintRecordFragment extends BaseFragment implements ComplaintIngContract.View,
+public class ComplaintRecordFragment extends BaseFragment implements ComplaintRecordContract.View,
         OnLoadmoreListener, OnRefreshListener, ComplaintRecordApadter.OnComplaintPostItemListener{
 
 
     @Inject
-    ComplaintIngPresenter mPresenter;
+    ComplaintRecordPresenter mPresenter;
 
 
     @BindView(R.id.rv)

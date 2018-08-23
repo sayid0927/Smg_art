@@ -82,8 +82,6 @@ public class ComplaintApplyApadter extends BaseQuickAdapter<AuctionOrderBean.Dat
                         onComplaintPostItemListener.OnComplaintPostItemListener(item);
                 }
             });
-
-
     }
 
 

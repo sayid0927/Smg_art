@@ -19,11 +19,22 @@ public class RongUserInfoEntityDao extends AbstractDao<RongUserInfoEntity, Long>
 
     public static final String TABLENAME = "RONG_USER_INFO_ENTITY";
 
-    public RongUserInfoEntityDao(DaoConfig config) {
-        super(config);
+    /**
+     * Properties of entity RongUserInfoEntity.<br/>
+     * Can be used for QueryBuilder and for referencing column names.
+     */
+    public static class Properties {
+        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
+        public final static Property UserId = new Property(1, String.class, "userId", false, "USER_ID");
+        public final static Property UserName = new Property(2, String.class, "userName", false, "USER_NAME");
+        public final static Property UserPortraitUri = new Property(3, String.class, "userPortraitUri", false, "USER_PORTRAIT_URI");
     }
 
 
+    public RongUserInfoEntityDao(DaoConfig config) {
+        super(config);
+    }
+    
     public RongUserInfoEntityDao(DaoConfig config, DaoSession daoSession) {
         super(config, daoSession);
     }
@@ -47,22 +58,22 @@ public class RongUserInfoEntityDao extends AbstractDao<RongUserInfoEntity, Long>
     @Override
     protected final void bindValues(DatabaseStatement stmt, RongUserInfoEntity entity) {
         stmt.clearBindings();
-
+ 
         Long id = entity.getId();
         if (id != null) {
             stmt.bindLong(1, id);
         }
-
+ 
         String userId = entity.getUserId();
         if (userId != null) {
             stmt.bindString(2, userId);
         }
-
+ 
         String userName = entity.getUserName();
         if (userName != null) {
             stmt.bindString(3, userName);
         }
-
+ 
         String userPortraitUri = entity.getUserPortraitUri();
         if (userPortraitUri != null) {
             stmt.bindString(4, userPortraitUri);
@@ -72,22 +83,22 @@ public class RongUserInfoEntityDao extends AbstractDao<RongUserInfoEntity, Long>
     @Override
     protected final void bindValues(SQLiteStatement stmt, RongUserInfoEntity entity) {
         stmt.clearBindings();
-
+ 
         Long id = entity.getId();
         if (id != null) {
             stmt.bindLong(1, id);
         }
-
+ 
         String userId = entity.getUserId();
         if (userId != null) {
             stmt.bindString(2, userId);
         }
-
+ 
         String userName = entity.getUserName();
         if (userName != null) {
             stmt.bindString(3, userName);
         }
-
+ 
         String userPortraitUri = entity.getUserPortraitUri();
         if (userPortraitUri != null) {
             stmt.bindString(4, userPortraitUri);
@@ -97,7 +108,7 @@ public class RongUserInfoEntityDao extends AbstractDao<RongUserInfoEntity, Long>
     @Override
     public Long readKey(Cursor cursor, int offset) {
         return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
-    }
+    }    
 
     @Override
     public RongUserInfoEntity readEntity(Cursor cursor, int offset) {
@@ -109,7 +120,7 @@ public class RongUserInfoEntityDao extends AbstractDao<RongUserInfoEntity, Long>
         );
         return entity;
     }
-
+     
     @Override
     public void readEntity(Cursor cursor, RongUserInfoEntity entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
@@ -117,7 +128,7 @@ public class RongUserInfoEntityDao extends AbstractDao<RongUserInfoEntity, Long>
         entity.setUserName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setUserPortraitUri(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
      }
-
+    
     @Override
     protected final Long updateKeyAfterInsert(RongUserInfoEntity entity, long rowId) {
         entity.setId(rowId);
@@ -141,17 +152,6 @@ public class RongUserInfoEntityDao extends AbstractDao<RongUserInfoEntity, Long>
     @Override
     protected final boolean isEntityUpdateable() {
         return true;
-    }
-
-    /**
-     * Properties of entity RongUserInfoEntity.<br/>
-     * Can be used for QueryBuilder and for referencing column names.
-     */
-    public static class Properties {
-        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property UserId = new Property(1, String.class, "userId", false, "USER_ID");
-        public final static Property UserName = new Property(2, String.class, "userName", false, "USER_NAME");
-        public final static Property UserPortraitUri = new Property(3, String.class, "userPortraitUri", false, "USER_PORTRAIT_URI");
     }
     
 }

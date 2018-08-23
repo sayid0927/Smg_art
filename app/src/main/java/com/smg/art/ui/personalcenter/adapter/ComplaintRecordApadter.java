@@ -37,7 +37,7 @@ public class ComplaintRecordApadter extends BaseQuickAdapter<AuctionOrderBean.Da
         helper.setText(R.id.tv_time,TimeUtils.millis2String(item.getComplainTime(),"yyyy-MM-dd"));
         helper.setText(R.id.tv_actionName, item.getActionName());
         helper.setText(R.id.tv_orderStatus, "处理结果: "+ item.getComplainResult ());
-        helper.itemView.setOnClickListener(new View.OnClickListener() {
+        helper.getView(R.id.bt_auction).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(onComplaintPostItemListener!=null) onComplaintPostItemListener.OnComplaintPostItemListener(item);
