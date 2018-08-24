@@ -86,6 +86,31 @@
                             android:textColor="@color/white" />
                     </LinearLayout>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="@dimen/bj_13dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:text="设置"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/arrow_right_white" />
+
+                </LinearLayout>
             </RelativeLayout>
 
             <RelativeLayout
@@ -140,60 +165,47 @@
                 </LinearLayout>
             </RelativeLayout>
 
-
-            <LinearLayout
-                android:id="@+id/ll_item"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <RelativeLayout
+                android:id="@+id/rl_complaint"
                 android:layout_below="@+id/memu_navigate"
-                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
                 android:background="@color/white"
-                android:orientation="vertical">
+                android:layout_marginTop="@dimen/bj_10dp"
+                android:layout_height="@dimen/bj_54dp">
 
+                <ImageView
+                    android:id="@+id/iv_complaint"
+                    android:layout_width="@dimen/bj_22dp"
+                    android:layout_height="@dimen/bj_18dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/bj_23dp"
+                    android:background="@drawable/complaint_icon" />
 
-                <RelativeLayout
-                    android:id="@+id/rl_complaint"
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/bj_54dp">
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/bj_130dp"
+                    android:text="@string/complaint"
+                    android:textColor="@color/grey_e6333333"
+                    android:textSize="@dimen/sp_12" />
 
-                    <ImageView
-                        android:id="@+id/iv_complaint"
-                        android:layout_width="@dimen/bj_22dp"
-                        android:layout_height="@dimen/bj_18dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerInParent="true"
-                        android:layout_marginLeft="@dimen/bj_23dp"
-                        android:background="@drawable/complaint_icon" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="@dimen/bj_18dp"
+                    android:background="@drawable/arrow_gray" />
+            </RelativeLayout>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_marginLeft="@dimen/bj_130dp"
-                        android:text="@string/complaint"
-                        android:textColor="@color/grey_e6333333"
-                        android:textSize="@dimen/sp_12" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerInParent="true"
-                        android:layout_marginRight="@dimen/bj_18dp"
-                        android:background="@drawable/arrow_gray" />
-                </RelativeLayout>
-
-
-
-
-
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/team1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ll_item"
+                android:layout_below="@+id/rl_complaint"
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:orientation="vertical">
@@ -403,7 +415,7 @@
                     android:background="@color/grey_e5e5e5" />
 
                 <RelativeLayout
-                    android:id="@+id/setting"
+                    android:id="@+id/consultation_hotline"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/bj_54dp">
 
@@ -414,24 +426,24 @@
                         android:layout_alignParentLeft="true"
                         android:layout_centerInParent="true"
                         android:layout_marginLeft="@dimen/bj_23dp"
-                        android:background="@drawable/setting" />
+                        android:background="@drawable/consultation_hotline" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_marginLeft="@dimen/bj_130dp"
-                        android:text="@string/setting"
+                        android:text="@string/consultation_hotline"
                         android:textColor="@color/grey_e6333333"
                         android:textSize="@dimen/sp_12" />
 
-                    <ImageView
+                    <TextView
+                        android:id="@+id/phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerInParent="true"
-                        android:layout_marginRight="@dimen/bj_18dp"
-                        android:background="@drawable/arrow_gray" />
+                        android:layout_marginRight="@dimen/bj_18dp" />
                 </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>

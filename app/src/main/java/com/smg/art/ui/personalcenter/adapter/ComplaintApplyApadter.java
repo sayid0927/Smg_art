@@ -43,26 +43,28 @@ public class ComplaintApplyApadter extends BaseQuickAdapter<AuctionOrderBean.Dat
         helper.setText(R.id.tv_actionName, item.getActionName());
         String[] pic = item.getPictureUrl().split(",");
         GlideCommonUtils.showSquarePic(mContext, pic[0], (ImageView) helper.getView(R.id.iv_header));
-        int orderStatus = item.getOrderStatus();
+        String orderStatus = item.getOrderStatus();
         TextView tvOrderStatus = helper.getView(R.id.tv_orderStatus);
          Button  btAuction = helper.getView(R.id.bt_auction);
         switch (orderStatus) {
-            case 0:   // 0未投诉
+            case "0":   // 0未投诉
                 tvOrderStatus.setVisibility(View.GONE);
                 break;
-            case 1:  //  orderStatus=1投诉中；
+            case "1":  //  orderStatus=1投诉中
 
                 tvOrderStatus.setText("您已申请投诉，正在处理中");
                 tvOrderStatus.setTextColor(UIUtils.getColor(R.color.red_b20002));
                 btAuction.setTextColor(UIUtils.getColor(R.color.red_F1D1D1));
-                helper.getView(R.id.bt_auction).setBackgroundResource(R.drawable.text_red_p_bg);
+                btAuction.setBackgroundResource(R.drawable.text_red_p_bg);
                 break;
-            case 2:  // orderStatus=2投诉完成
+            case "2":  // orderStatus=2投诉完成
                 tvOrderStatus.setText("您已申请投诉，投诉完成");
-                tvOrderStatus.setTextColor(UIUtils.getColor(R.color.black));
-                helper.getView(R.id.bt_auction).setBackgroundResource(R.drawable.text_red_p_bg);
+                tvOrderStatus.setTextColor(UIUtils.getColor(R.color.red_b20002));
+                btAuction.setTextColor(UIUtils.getColor(R.color.red_F1D1D1));
+                btAuction.setBackgroundResource(R.drawable.text_red_p_bg);
+
                 break;
-            case 3:  // 超过售后期
+            case "3":  // 超过售后期
 
                 Drawable drawable_n = mContext.getResources().getDrawable(R.drawable.address_n_icon);
                 drawable_n.setBounds(0, 0, drawable_n.getMinimumWidth(),drawable_n.getMinimumHeight());

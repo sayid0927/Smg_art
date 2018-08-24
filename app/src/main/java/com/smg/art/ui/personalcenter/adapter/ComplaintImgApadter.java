@@ -37,6 +37,4 @@ public class ComplaintImgApadter extends BaseQuickAdapter<String, BaseViewHolder
         GlideCommonUtils.showSquarePic(mContext, item, (ImageView) helper.getView(R.id.img));
 
     }
-
-
 }

@@ -23,6 +23,7 @@ import com.smg.art.bean.CardUrlBean;
 import com.smg.art.base.Constant;
 import com.smg.art.bean.FindCustomerServiceBean;
 import com.smg.art.bean.HomePageImgBean;
+import com.smg.art.bean.LogisticInfo;
 import com.smg.art.bean.PlayIntroductionBean;
 import com.smg.art.bean.SearchAreaBean;
 import com.smg.art.bean.AddBankCardBean;
@@ -57,6 +58,7 @@ import com.smg.art.bean.RefundBean;
 import com.smg.art.bean.RegisterBean;
 import com.smg.art.bean.SaveCollectsBean;
 import com.smg.art.bean.SearchMemberBean;
+import com.smg.art.bean.ServiceBean;
 import com.smg.art.bean.SystemMessageBean;
 import com.smg.art.bean.UpLoadBean;
 import com.smg.art.bean.UserRulaBean;
@@ -431,5 +433,22 @@ public interface ApiService {
     @GET(Constant.AUCTIONPAGE_QUERYCOMPLAINAUCTIONINFOLIST)
     Observable<AuctionOrderBean> FetchComplainAuctionInfoList(@QueryMap Map<String, String> map);
 
+    /**
+     * 查看物流
+     */
+    @GET(Constant.GETLOGISTICSINFOBYNO)
+    Observable<LogisticInfo> FetchLogisticInfoService(@QueryMap Map<String, String> map);
+
+    /**
+     * 查看客服信息
+     */
+    @GET(Constant.FINDCUSTOMERSERVICE)
+    Observable<ServiceBean> FetchServiceService(@QueryMap Map<String, String> map);
+
+    /**
+     * 确认收货
+     */
+    @POST(Constant.CONFIRMBUYERGOODS)
+    Observable<ServiceBean> FetchConfirmBuyerGoods(@QueryMap Map<String, String> map);
 
 }

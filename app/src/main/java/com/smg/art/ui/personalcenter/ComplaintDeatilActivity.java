@@ -71,6 +71,9 @@ public class ComplaintDeatilActivity extends BaseActivity {
 
     @BindView(R.id.iv_header)
     ImageView ivHeader;
+
+    @BindView(R.id.iv_he)
+    ImageView ivHe;
     @BindView(R.id.rv)
     RecyclerView rv;
 
@@ -107,11 +110,13 @@ public class ComplaintDeatilActivity extends BaseActivity {
         rv.setLayoutManager(new GridLayoutManager(this, 3));
         rv.setAdapter(apadter);
         if (dataBean != null) {
-            if (dataBean.getComplainStatus() != null && dataBean.getComplainStatus().equals("0")) {//投诉状态:0未处理，1已处理
+            if (dataBean.getOrderStatus() != null && dataBean.getOrderStatus().equals("1")) {
                 tvStatus.setText("未处理");
                 tvOrderStatus.setText("平台未处理");
-            } else {
+                ivHe.setVisibility(View.GONE);
+            } else  if(dataBean.getOrderStatus() != null && dataBean.getOrderStatus().equals("2")){
                 tvStatus.setText("已处理");
+                ivHe.setVisibility(View.VISIBLE);
                 tvOrderStatus.setText("您与平台已达成协议");
             }
 
@@ -127,7 +132,7 @@ public class ComplaintDeatilActivity extends BaseActivity {
             String imgUrl = dataBean.getComplainImageUrl();
 
             if (imgUrl != null) {
-                String[] imgUrls = dataBean.getPictureUrl().split(",");
+                String[] imgUrls = dataBean.getComplainImageUrl().split(";");
                 for (int i = 0; i < imgUrls.length; i++) {
                     strings.add(imgUrls[i]);
                 }

@@ -2,6 +2,7 @@ package com.smg.art.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,6 +14,7 @@ import com.smg.art.R;
 import com.smg.art.base.BaseFragment;
 import com.smg.art.base.Constant;
 import com.smg.art.bean.PersonalCenterBean;
+import com.smg.art.bean.ServiceBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.fragment.MyFragmentContract;
@@ -26,6 +28,7 @@ import com.smg.art.ui.personalcenter.MyOrderActivity;
 import com.smg.art.ui.personalcenter.MyWalletActivity;
 import com.smg.art.ui.personalcenter.SettingActivity;
 import com.smg.art.ui.personalcenter.address.AddressListActivity;
+import com.smg.art.utils.CallPhone;
 import com.smg.art.utils.GlideUtils;
 import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.view.RoundImageView;
@@ -62,14 +65,12 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
     LinearLayout forTheDelivery;
     @BindView(R.id.is_the_delivery)
     LinearLayout isTheDelivery;
-    @BindView(R.id.after_sale)
-    LinearLayout afterSale;
+    /*  @BindView(R.id.after_sale)
+      LinearLayout afterSale;*/
     @BindView(R.id.memu)
     LinearLayout memu;
     @BindView(R.id.memu_navigate)
     RelativeLayout memuNavigate;
-    @BindView(R.id.rl_complaint)
-    RelativeLayout rlComplaint;
     @BindView(R.id.icon1)
     ImageView icon1;
     @BindView(R.id.my_wallte)
@@ -84,8 +85,6 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
     View line4;
     @BindView(R.id.icon3)
     ImageView icon3;
-    @BindView(R.id.rl_address)
-    RelativeLayout rlAddress;
     @BindView(R.id.my_collection)
     RelativeLayout myCollection;
     @BindView(R.id.team1)
@@ -99,7 +98,13 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
     @BindView(R.id.icon5)
     ImageView icon5;
     @BindView(R.id.setting)
-    RelativeLayout setting;
+    LinearLayout setting;
+    @BindView(R.id.consultation_hotline)
+    RelativeLayout consultation_hotline;
+    @BindView(R.id.phone)
+    TextView phone;
+
+
     Intent intent;
     int isReal = 0;
 
@@ -127,6 +132,7 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
 
     private void getdata() {
         mPresenter.FetchPersonalCenter("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
+        mPresenter.FetchService();
     }
 
     @Override
@@ -154,9 +160,7 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
         getdata();
     }
 
-    @OnClick({R.id.check_all, R.id.compete, R.id.for_the_delivery, R.id.is_the_delivery,
-            R.id.after_sale, R.id.my_wallte, R.id.my_bond, R.id.my_collection, R.id.realnameauthentication,
-            R.id.setting,R.id.rl_address,R.id.rl_complaint})
+    @OnClick({R.id.check_all, R.id.compete, R.id.for_the_delivery, R.id.is_the_delivery, R.id.my_wallte, R.id.my_bond, R.id.my_collection, R.id.realnameauthentication, R.id.setting, R.id.consultation_hotline,R.id.rl_address,R.id.rl_complaint})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.check_all:
@@ -179,11 +183,11 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
                 intent.putExtra("index", 3);
                 MainActivity.mainActivity.startActivityIn(intent, getActivity());
                 break;
-            case R.id.after_sale:
+      /*      case R.id.after_sale:
                 intent = new Intent(getActivity(), MyOrderActivity.class);
                 intent.putExtra("index", 4);
                 MainActivity.mainActivity.startActivityIn(intent, getActivity());
-                break;
+                break;*/
             case R.id.my_wallte:
                 intent = new Intent(getActivity(), MyWalletActivity.class);
                 MainActivity.mainActivity.startActivityIn(intent, getActivity());
@@ -192,12 +196,28 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
                 intent = new Intent(getActivity(), CashDepositActivity.class);
                 MainActivity.mainActivity.startActivityIn(intent, getActivity());
                 break;
-
             case R.id.my_collection:
                 intent = new Intent(getActivity(), MyCollectionActivity.class);
                 MainActivity.mainActivity.startActivityIn(intent, getActivity());
                 break;
-
+            case R.id.realnameauthentication:
+                if (isReal == 1) {
+                    ToastUtils.showShortToast("您已认证");
+                } else {
+                    intent = new Intent(getActivity(), AuthenticationActivity.class);
+                    MainActivity.mainActivity.startActivityIn(intent, getActivity());
+                }
+                break;
+            case R.id.setting:
+                intent = new Intent(getActivity(), SettingActivity.class);
+                startActivityForResult(intent, 10);
+                //  MainActivity.mainActivity.startActivityIn(intent, getActivity());
+                break;
+            case R.id.consultation_hotline:
+                if (!TextUtils.isEmpty(phone.getText().toString())) {
+                    CallPhone.diallPhone(getActivity(), phone.getText().toString());
+                }
+                break;
             case R.id.rl_address:  // 收货地址
                 intent = new Intent(getActivity(), AddressListActivity.class);
                 MainActivity.mainActivity.startActivityIn(intent, getActivity());
@@ -207,22 +227,6 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
                 intent = new Intent(getActivity(), ComplaintActivity.class);
                 MainActivity.mainActivity.startActivityIn(intent, getActivity());
                 break;
-
-            case R.id.realnameauthentication:
-                if (isReal == 1) {
-                    ToastUtils.showShortToast("您已认证");
-                } else {
-                    intent = new Intent(getActivity(), AuthenticationActivity.class);
-                    MainActivity.mainActivity.startActivityIn(intent, getActivity());
-                }
-                break;
-
-            case R.id.setting:
-                intent = new Intent(getActivity(), SettingActivity.class);
-                startActivityForResult(intent, 10);
-                //  MainActivity.mainActivity.startActivityIn(intent, getActivity());
-                break;
-
         }
     }
 
@@ -245,6 +249,15 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
             isReal = announcementAuctionListBean.getData().getIsReal();
         } else {
             ToastUtils.showShortToast(announcementAuctionListBean.getMsg());
+        }
+    }
+
+    @Override
+    public void FetchServiceSuccess(ServiceBean serviceBean) {
+        if (serviceBean.getStatus() == 1) {
+            phone.setText(serviceBean.getData().get(0).getMobilePhone());
+        } else {
+            ToastUtils.showShortToast(serviceBean.getMsg());
         }
     }
 }

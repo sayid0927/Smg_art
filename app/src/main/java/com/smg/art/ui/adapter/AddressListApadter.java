@@ -37,7 +37,7 @@ public class AddressListApadter extends BaseQuickAdapter<AddressListBean.DataBea
         helper.setText(R.id.tv_name,item.getDeliveryName());
         helper.setText(R.id.tv_phone,item.getDeliveryPhone());
 
-        helper.setText(R.id.tv_adress,item.getProvinceName()+item.getCityName()+item.getAdress());
+        helper.setText(R.id.tv_adress,item.getProvinceName()+item.getCityName()+ item.getCountyName() +item.getAdress());
 
         helper.getView(R.id.iv_address_edit).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -4,6 +4,7 @@ import com.smg.art.api.Api;
 import com.smg.art.base.BasePresenter;
 import com.smg.art.bean.OderDetailBean;
 import com.smg.art.bean.RefundBean;
+import com.smg.art.bean.ServiceBean;
 import com.smg.art.presenter.contract.activity.OderdetailContract;
 
 import javax.inject.Inject;
@@ -73,6 +74,33 @@ public class OrderDetailPresenter extends BasePresenter<OderdetailContract.View>
                         if (mView != null && data != null) {
                             hideWaitingDialog();
                             mView.FetchRefundSuccess(data);
+                        }
+                    }
+                }));
+    }
+
+    @Override
+    public void FetchConfirmBuyerGoods(String... s) {
+        showWaitingDialog("加载中...");
+        addSubscrebe(api.FetchConfirmBuyerGoods(s).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ServiceBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        hideWaitingDialog();
+                        mView.showError(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(ServiceBean data) {
+                        if (mView != null && data != null && data.getStatus()==1) {
+                            hideWaitingDialog();
+                            mView.FetchConfirmBuyerGoodsSuccess(data);
                         }
                     }
                 }));

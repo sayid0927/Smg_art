@@ -99,17 +99,10 @@ public class AuctionOrderFragment extends BaseFragment implements AuctionOrderCo
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (type == 4) {
-                    Intent intent = new Intent(getActivity(), OrderdetailActivity.class);
-                    intent.putExtra("id", list.get(i).getComplainId());
-                    intent.putExtra("typeId", 1);//1代表投诉
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(getActivity(), OrderdetailActivity.class);
-                    intent.putExtra("id", list.get(i).getId());
-                    intent.putExtra("typeId", 2);//2代表不是投诉
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(getActivity(), OrderdetailActivity.class);
+                intent.putExtra("id", list.get(i).getId());
+                intent.putExtra("typeId", 2);
+                startActivity(intent);
             }
         });
     }
@@ -124,8 +117,7 @@ public class AuctionOrderFragment extends BaseFragment implements AuctionOrderCo
 
 
     public void getData(int p) {
-        mPresenter.FetchAuctionOrder("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
-                "type", String.valueOf(type), "page", String.valueOf(p), "rows", String.valueOf(count));
+        mPresenter.FetchAuctionOrder("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()), "type", String.valueOf(type), "page", String.valueOf(p), "rows", String.valueOf(count));
     }
 
     @Override

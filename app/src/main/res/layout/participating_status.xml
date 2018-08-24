@@ -44,13 +44,13 @@
         <ImageView
             android:layout_width="@dimen/bj_30dp"
             android:layout_height="@dimen/bj_30dp"
-            android:background="@drawable/for_the_delivery" />
+            android:background="@drawable/havepat" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/bj_5dp"
-            android:text="@string/for_the_delivery"
+            android:text="@string/havepat"
             android:textColor="@color/grey_e6333333"
             android:textSize="@dimen/wz_12sp" />
     </LinearLayout>
@@ -72,41 +72,13 @@
         <ImageView
             android:layout_width="@dimen/bj_30dp"
             android:layout_height="@dimen/bj_30dp"
-            android:background="@drawable/is_the_delivery" />
+            android:background="@drawable/notpat" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/bj_5dp"
-            android:text="@string/is_the_delivery"
-            android:textColor="@color/grey_e6333333"
-            android:textSize="@dimen/wz_12sp" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="@dimen/bj_1dp"
-        android:layout_height="@dimen/bj_31dp"
-        android:layout_gravity="center"
-        android:background="@color/grey_e5e5e5" />
-
-    <LinearLayout
-        android:id="@+id/after_sale"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="@dimen/bj_30dp"
-            android:layout_height="@dimen/bj_30dp"
-            android:background="@drawable/after_sale" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/bj_5dp"
-            android:text="@string/after_sale"
+            android:text="@string/not_pat"
             android:textColor="@color/grey_e6333333"
             android:textSize="@dimen/wz_12sp" />
     </LinearLayout>

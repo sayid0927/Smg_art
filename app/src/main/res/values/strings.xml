@@ -105,8 +105,11 @@
     <string-array name="order_them_title">
         <item>全部</item>
         <item>参拍中</item>
-        <item>待交割</item>
-        <item>已交割</item>
-        <item>投诉</item>
+        <item>已获拍</item>
+        <item>未获拍</item>
     </string-array>
+
+    <string name="havepat">已获拍</string>
+    <string name="not_pat">未获拍</string>
+    <string name="consultation_hotline">咨询热线</string>
 </resources>

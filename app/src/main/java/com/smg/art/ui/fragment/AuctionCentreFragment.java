@@ -152,7 +152,7 @@ public class AuctionCentreFragment extends BaseFragment implements AuctionCentre
     @Override
     public void FetchCreatBiddingSuccess(AuctionCenterBean auctionCenterBean) {
 //        ToastUtils.showLongToast("请出价成功");
-        etCreatBidding.setText("");
+//        etCreatBidding.setText("");
     }
 
     /**
@@ -205,34 +205,37 @@ public class AuctionCentreFragment extends BaseFragment implements AuctionCentre
             return;
         }
 
-        View dialogview = View.inflate(getActivity(), R.layout.dialog_validtetradepwd, null);
-        Button btPost = dialogview.findViewById(R.id.bt_post);
-        Button btClecn = dialogview.findViewById(R.id.bt_clecn);
-        final EditText edPwd = dialogview.findViewById(R.id.ed_pwd);
-        final CustomDialog mDialogWaiting = new CustomDialog(getActivity(), dialogview, R.style.MyDialog);
-        mDialogWaiting.show();
-        mDialogWaiting.setCancelable(true);
+        mPresenter.FetchCreatBidding("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
+                "auctionId", String.valueOf(id), "amount", etCreatBidding.getText().toString().trim());
 
-        btClecn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mDialogWaiting.dismiss();
-            }
-        });
-
-        btPost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String pwd = edPwd.getText().toString().trim();
-                if (EmptyUtils.isNotEmpty(pwd)) {
-                    mPresenter.FetchvalidteTradePwd("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
-                            "tradePwd", pwd);
-                    mDialogWaiting.dismiss();
-                } else {
-                    ToastUtils.showLongToast("请输入交易密码");
-                }
-            }
-        });
+//        View dialogview = View.inflate(getActivity(), R.layout.dialog_validtetradepwd, null);
+//        Button btPost = dialogview.findViewById(R.id.bt_post);
+//        Button btClecn = dialogview.findViewById(R.id.bt_clecn);
+//        final EditText edPwd = dialogview.findViewById(R.id.ed_pwd);
+//        final CustomDialog mDialogWaiting = new CustomDialog(getActivity(), dialogview, R.style.MyDialog);
+//        mDialogWaiting.show();
+//        mDialogWaiting.setCancelable(true);
+//
+//        btClecn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mDialogWaiting.dismiss();
+//            }
+//        });
+//
+//        btPost.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                String pwd = edPwd.getText().toString().trim();
+//                if (EmptyUtils.isNotEmpty(pwd)) {
+//                    mPresenter.FetchvalidteTradePwd("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
+//                            "tradePwd", pwd);
+//                    mDialogWaiting.dismiss();
+//                } else {
+//                    ToastUtils.showLongToast("请输入交易密码");
+//                }
+//            }
+//        });
 
     }
 

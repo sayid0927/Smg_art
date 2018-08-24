@@ -136,9 +136,9 @@ public class SelectAreaActivity extends BaseActivity implements SelectAreaContra
                 searchAreaEventBus.setCityId(city_id);
                 searchAreaEventBus.setCityName(city_name);
                 searchAreaEventBus.setCountyId(item.getCountyId());
-                searchAreaEventBus.setCountyName(text);
+                searchAreaEventBus.setCountyName(item.getCountyName());
                 EventBus.getDefault().post(searchAreaEventBus);
-               finish();
+                finish();
 
                 break;
         }

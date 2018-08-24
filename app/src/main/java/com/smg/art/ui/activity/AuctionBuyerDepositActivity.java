@@ -24,6 +24,7 @@ import com.smg.art.presenter.contract.activity.AuctionBuyerDepositContract;
 import com.smg.art.presenter.impl.activity.AuctionBuyerDepositPresenter;
 import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.view.CustomDialog;
+import com.smg.art.view.NumberDialog;
 import com.zhy.autolayout.AutoRelativeLayout;
 
 import org.greenrobot.eventbus.EventBus;
@@ -117,7 +118,7 @@ public class AuctionBuyerDepositActivity extends BaseActivity implements Auction
         String play = playIntroductionBean.getData().getPayIntroduction();
         String[] plays = play.split(";");
         StringBuffer stringBuffer = new StringBuffer();
-        for ( int s=0; s<plays.length; s++){
+        for (int s = 0; s < plays.length; s++) {
             stringBuffer.append(plays[s]).append("\n");
         }
         tvPlay.setText(stringBuffer.toString());
@@ -137,39 +138,54 @@ public class AuctionBuyerDepositActivity extends BaseActivity implements Auction
                 break;
             case R.id.bt_post:
                 if (checkBox.isChecked()) {
-                    if (goodsData != null) {
-                        View dialogview = View.inflate(this, R.layout.dialog_validtetradepwd, null);
-                        Button btPost = dialogview.findViewById(R.id.bt_post);
-                        Button btClecn = dialogview.findViewById(R.id.bt_clecn);
-                        final EditText edPwd = dialogview.findViewById(R.id.ed_pwd);
-                        final CustomDialog mDialogWaiting = new CustomDialog(this, dialogview, R.style.MyDialog);
-                        mDialogWaiting.show();
-                        mDialogWaiting.setCancelable(true);
+//                    if (goodsData != null) {
+//                        View dialogview = View.inflate(this, R.layout.dialog_validtetradepwd, null);
+//                        Button btPost = dialogview.findViewById(R.id.bt_post);
+//                        Button btClecn = dialogview.findViewById(R.id.bt_clecn);
+//                        final EditText edPwd = dialogview.findViewById(R.id.ed_pwd);
+//                        final CustomDialog mDialogWaiting = new CustomDialog(this, dialogview, R.style.MyDialog);
+//                        mDialogWaiting.show();
+//                        mDialogWaiting.setCancelable(true);
+//
+//                        btClecn.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//                                mDialogWaiting.dismiss();
+//                            }
+//                        });
+//
+//                        btPost.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//                                String pwd = edPwd.getText().toString().trim();
+//                                if (EmptyUtils.isNotEmpty(pwd)) {
+//                                    mPresenter.FetchvalidteTradePwd("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
+//                                            "tradePwd", pwd);
+//                                    mDialogWaiting.dismiss();
+//                                } else {
+//                                    ToastUtils.showLongToast("请输入交易密码");
+//                                }
+//                            }
+//                        });
 
-                        btClecn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                mDialogWaiting.dismiss();
-                            }
-                        });
 
-                        btPost.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                String pwd = edPwd.getText().toString().trim();
-                                if (EmptyUtils.isNotEmpty(pwd)) {
-                                    mPresenter.FetchvalidteTradePwd("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
-                                            "tradePwd", pwd);
-                                    mDialogWaiting.dismiss();
-                                } else {
-                                    ToastUtils.showLongToast("请输入交易密码");
-                                }
+                    final NumberDialog numberDialog = new NumberDialog(this);
+                    numberDialog.show();
+                    numberDialog.OnbtAuctionClick(new NumberDialog.OnbtAuctionClick() {
+                        @Override
+                        public void OnbtAuctionClick(String pwd) {
+                            if (EmptyUtils.isNotEmpty(pwd)) {
+                                mPresenter.FetchvalidteTradePwd("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
+                                        "tradePwd", pwd);
+                                numberDialog.dismiss();
                             }
-                        });
-                    }
+                        }
+                    });
                 } else {
                     ToastUtils.showLongToast("请选择支付方式");
                 }
+
+
                 break;
         }
     }

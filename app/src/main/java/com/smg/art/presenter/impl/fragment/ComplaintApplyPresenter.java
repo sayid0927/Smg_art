@@ -25,9 +25,9 @@ public class ComplaintApplyPresenter extends BasePresenter<ComplaintApplyContrac
 
 
     @Override
-    public void FetchAuctionOrder(String... s) {
+    public void FetchComplainAuctionInfoList(String... s) {
         showWaitingDialog("加载中...");
-        addSubscrebe(api.FetchAuctionOrder(s).subscribeOn(Schedulers.io())
+        addSubscrebe(api.FetchComplainAuctionInfoList(s).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<AuctionOrderBean>() {
                     @Override
@@ -45,7 +45,7 @@ public class ComplaintApplyPresenter extends BasePresenter<ComplaintApplyContrac
                     public void onNext(AuctionOrderBean data) {
                         hideWaitingDialog();
                         if (mView != null && data != null && data.getStatus() == 1) {
-                            mView.FetchAuctionOrderSuccess(data);
+                            mView.FetchComplainAuctionInfoListSuccess(data);
                         } else {
                             if (mView != null && data != null)
                                 mView.showError(data.getMsg());

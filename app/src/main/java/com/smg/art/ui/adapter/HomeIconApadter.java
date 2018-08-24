@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.smg.art.R;
 import com.smg.art.base.Constant;
 import com.smg.art.bean.HomePageImgBean;
+import com.smg.art.utils.GlideCommonUtils;
 import com.smg.art.utils.GlideUtils;
 
 import java.util.List;
@@ -36,7 +37,9 @@ public class HomeIconApadter extends BaseQuickAdapter<HomePageImgBean.DataBean.C
         if(item.getCategoryName().equals("全部")){
             GlideUtils.loadLocation(mContext,R.drawable.mor,(ImageView)helper.getView(R.id.iv_draw));
         }else {
-            GlideUtils.load(mContext,Constant.BaseImgUrl+item.getIco(),(ImageView)helper.getView(R.id.iv_draw),R.drawable.draw_def);
+//            GlideUtils.loadFitCenter(mContext,Constant.BaseImgUrl+item.getIco(),(ImageView)helper.getView(R.id.iv_draw),R.drawable.draw_def);
+            GlideCommonUtils.showHeadPic(mContext,item.getIco(),(ImageView)helper.getView(R.id.iv_draw));
+
         }
         helper.setText(R.id.tv_title,item.getCategoryName());
 

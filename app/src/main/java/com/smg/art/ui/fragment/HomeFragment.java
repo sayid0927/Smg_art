@@ -31,6 +31,7 @@ import com.smg.art.ui.adapter.GoodsListApadter;
 import com.smg.art.ui.adapter.HomeIconApadter;
 import com.smg.art.ui.adapter.HomeUnderListApadter;
 import com.smg.art.utils.GlideCommonUtils;
+import com.smg.art.view.NumberDialog;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -283,5 +284,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
 //        Intent i = new Intent(getActivity(), GoodsDetailActivity.class);
 //        i.putExtra("postion",item.getId());
 //        MainActivity.mainActivity.startActivityIn(i, getActivity());
+
     }
 }

@@ -57,6 +57,8 @@ public class AddressListActivity extends BaseActivity implements AddressListCont
 
     private AddressListApadter apadter;
     private List<AddressListBean.DataBean> addressListBeans = new ArrayList<>();
+    public  boolean isFts= false;
+    public static   AddressListActivity addressListActivity;
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -91,6 +93,7 @@ public class AddressListActivity extends BaseActivity implements AddressListCont
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(apadter);
         mPresenter.FetchAddressList("memberId",String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
+        addressListActivity = this;
     }
 
     @Override
@@ -98,6 +101,13 @@ public class AddressListActivity extends BaseActivity implements AddressListCont
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(isFts){
+            mPresenter.FetchAddressList("memberId",String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
+        }
+    }
 
     @Subscribe
     public void getEventBus(final AddressEventBus addressEventBus) {

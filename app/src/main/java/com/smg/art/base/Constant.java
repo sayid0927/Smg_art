@@ -206,6 +206,12 @@ public class Constant {
     public static final String SYSCONFIGFRONT_GETPAYINTRODUCTION = "sysConfigFront/getPayIntroduction";
     //查询投诉记录
     public static final String AUCTIONPAGE_QUERYCOMPLAINAUCTIONINFOLIST = "auctionpage/queryComplainAuctionInfoList";
+    //查看物流信息
+    public static final String GETLOGISTICSINFOBYNO = "auctionpage/getLogisticsInfoByNo";
+    //确认收货
+    public static final String CONFIRMBUYERGOODS = "auctionpage/confirmBuyerGoods";
+    //查看客服信息
+    public static final String FINDCUSTOMERSERVICE = "member/findCustomerService";
 
     public static String LOCAL_APP_CONFIG_FILE_NAME = "smgconfig";//本地应用配置文件名，存储些全局变量
 

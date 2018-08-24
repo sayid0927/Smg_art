@@ -37,34 +37,40 @@
             android:textStyle="bold" />
 
 
-        <TextView
-            android:id="@+id/tv_orderStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_below="@+id/tv_actionName"
-            android:gravity="center"
+        <LinearLayout
             android:layout_marginBottom="@dimen/bj_5dp"
             android:layout_marginLeft="@dimen/bj_5dp"
-            android:drawablePadding="@dimen/bj_5dp"
-            android:maxLines="1"
-            android:text="处理结果:"
-            android:textColor="@color/black"
-            android:textSize="@dimen/wz_13sp"
-            android:visibility="visible" />
+            android:layout_marginRight="@dimen/bj_5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_actionName"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/bt_auction"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/bj_20dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="@dimen/bj_5dp"
-            android:layout_marginRight="@dimen/bj_10dp"
-            android:background="@drawable/text_red_n_bg"
-            android:text="查看详情"
-            android:textColor="#b20002"
-            android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/tv_orderStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="@dimen/bj_5dp"
+                android:maxLines="1"
+                android:text="处理结果:"
+                android:textColor="@color/black"
+                android:textSize="@dimen/wz_13sp"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/bt_auction"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/bj_20dp"
+                android:layout_marginBottom="@dimen/bj_5dp"
+                android:background="@drawable/text_red_n_bg"
+                android:text="查看详情"
+                android:textColor="#b20002"
+                android:textSize="11sp" />
+
+
+        </LinearLayout>
 
 
     </RelativeLayout>

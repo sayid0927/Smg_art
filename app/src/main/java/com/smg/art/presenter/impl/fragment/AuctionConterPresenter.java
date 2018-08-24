@@ -84,9 +84,11 @@ public class AuctionConterPresenter extends BasePresenter<AuctionCentreContract.
                         hideWaitingDialog();
                         if (mView != null && data != null && data.getStatus() == 1) {
                             mView.getetCreatBidding().setText(" ");
+                            ToastUtils.showLongToast("出价成功");
                         } else if(mView != null && data!=null && data.getStatus() !=1 && data.getMsg()!=null){
                             ToastUtils.showLongToast(data.getMsg());
                             mView.getetCreatBidding().setText(" ");
+
                         }
                     }
                 }));

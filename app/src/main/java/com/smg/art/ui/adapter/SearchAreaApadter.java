@@ -42,6 +42,7 @@ public class SearchAreaApadter extends BaseQuickAdapter<SearchAreaBean.DataBean,
                 text.setText(item.getCityName());
                 break;
             case 3:
+                text.setText(item.getCountyName());
                 break;
         }
 

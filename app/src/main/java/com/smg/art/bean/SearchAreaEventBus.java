@@ -15,6 +15,7 @@ public class SearchAreaEventBus {
     private  String countyName;
 
 
+
     public int getProvinceId() {
         return provinceId;
     }

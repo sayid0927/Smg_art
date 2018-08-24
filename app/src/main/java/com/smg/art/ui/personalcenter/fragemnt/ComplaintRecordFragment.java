@@ -92,7 +92,7 @@ public class ComplaintRecordFragment extends BaseFragment implements ComplaintRe
         apadter.OnComplaintPostItemListener(this);
 
         mPresenter.FetchComplainAuctionInfoList("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
-                "type", String.valueOf(0), "page", String.valueOf(page), "rows", String.valueOf(count));
+                "type", String.valueOf(2), "page", String.valueOf(page), "rows", String.valueOf(count));
 
     }
 
@@ -120,7 +120,7 @@ public class ComplaintRecordFragment extends BaseFragment implements ComplaintRe
         // 加载更多
         page++;
         mPresenter.FetchComplainAuctionInfoList("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
-                "type", String.valueOf(0), "page", String.valueOf(page), "rows", String.valueOf(count));
+                "type", String.valueOf(2), "page", String.valueOf(page), "rows", String.valueOf(count));
 
     }
 
@@ -129,7 +129,7 @@ public class ComplaintRecordFragment extends BaseFragment implements ComplaintRe
         //下拉刷新
         page = 1;
         mPresenter.FetchComplainAuctionInfoList("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
-                "type", String.valueOf(0), "page", String.valueOf(page), "rows", String.valueOf(count));
+                "type", String.valueOf(2), "page", String.valueOf(page), "rows", String.valueOf(count));
 
     }
 

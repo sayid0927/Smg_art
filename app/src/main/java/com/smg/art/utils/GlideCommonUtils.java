@@ -22,7 +22,7 @@ public class GlideCommonUtils {
      */
     public static RequestManager showHead(Context context, String picPath, ImageView imageView) {
         RequestManager requestManager = Glide.with(context.getApplicationContext());
-        requestManager.load(Constant.API_BASE_URL + picPath).asBitmap().placeholder(R.mipmap.head).error(R.mipmap.head).into(imageView);
+        requestManager.load(Constant.BaseImgUrl + picPath).asBitmap().placeholder(R.mipmap.head).error(R.mipmap.head).into(imageView);
 //		requestManager.load(picPath).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.test_back).error(R.drawable.test_back).into(imageView);
         return requestManager;
     }
@@ -34,7 +34,7 @@ public class GlideCommonUtils {
      */
     public static RequestManager showHeadPic(Context context, String picPath, ImageView imageView) {
         RequestManager requestManager = Glide.with(context.getApplicationContext());
-        requestManager.load(Constant.API_BASE_URL + picPath).asBitmap().placeholder(R.mipmap.iv_round).error(R.mipmap.iv_round).into(imageView);
+        requestManager.load(Constant.BaseImgUrl + picPath).asBitmap().placeholder(R.mipmap.iv_round).error(R.mipmap.iv_round).into(imageView);
 //		requestManager.load(picPath).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.test_back).error(R.drawable.test_back).into(imageView);
         return requestManager;
     }
@@ -46,13 +46,7 @@ public class GlideCommonUtils {
      */
     public static RequestManager showSquarePic(Context context, String picPath, ImageView imageView) {
         RequestManager requestManager = Glide.with(context.getApplicationContext());
-        requestManager.load(Constant.API_BASE_URL + picPath).asBitmap().placeholder(R.mipmap.defaut_square).error(R.mipmap.defaut_square).into(imageView);
-//		requestManager.load(picPath).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.test_back).error(R.drawable.test_back).into(imageView);
-        return requestManager;
-    }
-    public static RequestManager showTSquarePic(Context context, String picPath, ImageView imageView) {
-        RequestManager requestManager = Glide.with(context.getApplicationContext());
-        requestManager.load(picPath).asBitmap().placeholder(R.mipmap.defaut_square).error(R.mipmap.defaut_square).into(imageView);
+        requestManager.load(Constant.BaseImgUrl + picPath).asBitmap().placeholder(R.mipmap.defaut_square).error(R.mipmap.defaut_square).into(imageView);
 //		requestManager.load(picPath).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.test_back).error(R.drawable.test_back).into(imageView);
         return requestManager;
     }
@@ -69,5 +63,10 @@ public class GlideCommonUtils {
         return requestManager;
     }
 
-
+    public static RequestManager showTSquarePic(Context context, String picPath, ImageView imageView) {
+        RequestManager requestManager = Glide.with(context.getApplicationContext());
+        requestManager.load(picPath).asBitmap().placeholder(R.mipmap.defaut_square).error(R.mipmap.defaut_square).into(imageView);
+//		requestManager.load(picPath).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.test_back).error(R.drawable.test_back).into(imageView);
+        return requestManager;
+    }
 }

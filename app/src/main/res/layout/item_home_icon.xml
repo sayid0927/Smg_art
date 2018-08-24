@@ -16,10 +16,10 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <com.smg.art.view.RoundImageView
+        <ImageView
             android:id="@+id/iv_draw"
-            android:layout_width="@dimen/bj_45dp"
-            android:layout_height="@dimen/bj_45dp"
+            android:layout_width="@dimen/bj_40dp"
+            android:layout_height="@dimen/bj_40dp"
             android:src="@drawable/draw_def" />
 
         <TextView

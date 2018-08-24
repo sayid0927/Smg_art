@@ -26,6 +26,7 @@ import com.smg.art.bean.CardUrlBean;
 import com.smg.art.base.Constant;
 import com.smg.art.bean.FindCustomerServiceBean;
 import com.smg.art.bean.HomePageImgBean;
+import com.smg.art.bean.LogisticInfo;
 import com.smg.art.bean.PlayIntroductionBean;
 import com.smg.art.bean.SearchAreaBean;
 import com.smg.art.bean.AddBankCardBean;
@@ -60,6 +61,7 @@ import com.smg.art.bean.RefundBean;
 import com.smg.art.bean.RegisterBean;
 import com.smg.art.bean.SaveCollectsBean;
 import com.smg.art.bean.SearchMemberBean;
+import com.smg.art.bean.ServiceBean;
 import com.smg.art.bean.SystemMessageBean;
 import com.smg.art.bean.UpLoadBean;
 import com.smg.art.bean.UserRulaBean;
@@ -539,5 +541,28 @@ public class Api {
     public Observable<AuctionOrderBean> FetchComplainAuctionInfoList(String... s) {
         return service.FetchComplainAuctionInfoList(getMap(s));
     }
+
+
+    /**
+     * 查看物流
+     */
+    public Observable<LogisticInfo> FetchLogisticInfoService(String... s) {
+        return service.FetchLogisticInfoService(getMap(s));
+    }
+
+    /**
+     * 查看客服信息
+     */
+    public Observable<ServiceBean> FetchServiceService(String... s) {
+        return service.FetchServiceService(getMap(s));
+    }
+    /**
+     * 确认收货
+     */
+    public Observable<ServiceBean> FetchConfirmBuyerGoods(String... s) {
+        return service.FetchConfirmBuyerGoods(getMap(s));
+    }
+
+
 
 }

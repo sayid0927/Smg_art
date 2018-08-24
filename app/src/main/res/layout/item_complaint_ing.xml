@@ -34,8 +34,6 @@
             android:textColor="@color/black" />
 
 
-
-
         <TextView
             android:id="@+id/tv_orderStatus"
             android:layout_width="wrap_content"
@@ -43,10 +41,13 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/bj_5dp"
             android:layout_marginLeft="@dimen/bj_5dp"
+            android:layout_marginRight="@dimen/bj_5dp"
             android:layout_marginTop="@dimen/bj_10dp"
             android:layout_toRightOf="@+id/iv_header"
             android:drawablePadding="@dimen/bj_5dp"
             android:maxLines="1"
+            android:layout_toStartOf="@+id/bt_auction"
+            android:layout_toEndOf="@+id/iv_header"
             android:text=""
             android:textColor="@color/black"
             android:textSize="@dimen/wz_13sp"

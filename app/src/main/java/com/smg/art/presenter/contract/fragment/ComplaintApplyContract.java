@@ -11,13 +11,18 @@ public interface ComplaintApplyContract {
     interface View extends BaseContract.BaseView {
 
         /**
-         * 我的拍卖
+         * 查询投诉记录
          */
-        void FetchAuctionOrderSuccess(AuctionOrderBean auctionOrderBean);
+        void FetchComplainAuctionInfoListSuccess(AuctionOrderBean auctionOrderBean);
+
     }
 
     interface Presenter<T> extends BaseContract.BasePresenter<T> {
 
-        void FetchAuctionOrder(String... s);
+        /**
+         * 查询投诉记录
+         */
+        void FetchComplainAuctionInfoList(String ...s);
+
     }
 }

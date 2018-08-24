@@ -102,7 +102,7 @@ public class AddAddressActivity extends BaseActivity implements AddAddressListCo
                 etName.setText(data.getDeliveryName());
                 etPhone.setText(data.getDeliveryPhone());
                 etDetail.setText(data.getAdress());
-                tvAddress.setText(data.getProvinceName() + " " + data.getCityName() + " ");
+                tvAddress.setText(data.getProvinceName() + " " + data.getCityName() + " "+ data.getCountyName());
                 if(data.getDefaultFlag()==0){
                     checkBox.setChecked(true);
                 }else {
@@ -168,20 +168,22 @@ public class AddAddressActivity extends BaseActivity implements AddAddressListCo
     @Override
     public void FetchCreateAddressSuccess(AddressListBean addressListBean) {
         ToastUtils.showLongToast("添加成功");
-        EventBus.getDefault().post(new AddressEventBus());
+        AddressListActivity.addressListActivity.isFts= true;
+        finish();
     }
 
     @Override
     public void FetchUpdateAddressSuccess() {
         ToastUtils.showLongToast("修改成功");
-        EventBus.getDefault().post(new AddressEventBus());
+        AddressListActivity.addressListActivity.isFts= true;
+        finish();
     }
 
 
     @Subscribe
     public void getEventBus(final SearchAreaEventBus searchAreaEventBus) {
         this.searchAreaEventBus = searchAreaEventBus;
-        tvAddress.setText(searchAreaEventBus.getProvinceName() + "  " + searchAreaEventBus.getCityName() + " ");
+        tvAddress.setText(searchAreaEventBus.getProvinceName() + "  " + searchAreaEventBus.getCityName() + " " + searchAreaEventBus.getCountyName()  );
     }
 
 
