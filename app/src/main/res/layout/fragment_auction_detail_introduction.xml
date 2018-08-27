@@ -7,9 +7,6 @@
     android:orientation="vertical">
 
 
-
-
-
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -183,7 +180,6 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/wz_13sp" />
 
-
                     <ImageView
                         android:layout_width="@dimen/bj_17dp"
                         android:layout_height="@dimen/bj_17dp"
@@ -200,6 +196,14 @@
                         android:textColor="#fecb67"
                         android:textSize="@dimen/wz_18sp" />
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/bj_5dp"
+                    android:layout_marginBottom="@dimen/bj_6dp"
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -210,7 +214,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/bj_2dp"
+                            android:layout_marginLeft="@dimen/bj_5dp"
                             android:text="起拍费"
                             android:textColor="#999999"
                             android:textSize="@dimen/wz_13sp" />
@@ -235,6 +239,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/bj_5dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -262,7 +267,6 @@
 
                     </LinearLayout>
                 </LinearLayout>
-
             </LinearLayout>
 
             <WebView
@@ -283,12 +287,27 @@
         android:layout_alignParentBottom="true"
         android:background="#341c1c">
 
+
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/bj_30dp"
+            android:drawablePadding="@dimen/bj_5dp"
+            android:drawableTop="@drawable/collection"
+            android:gravity="center"
+            android:text="收藏 "
+            android:textColor="@color/white"
+            android:textSize="@dimen/wz_13sp" />
+
         <TextView
             android:id="@+id/tv_collectioin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/bj_40dp"
+            android:layout_marginLeft="@dimen/bj_30dp"
+            android:layout_toRightOf="@+id/tv_phone"
             android:drawablePadding="@dimen/bj_5dp"
             android:drawableTop="@drawable/chart"
             android:gravity="center"
@@ -310,22 +329,6 @@
             android:textColor="@color/white"
             android:textSize="@dimen/wz_13sp"
             android:visibility="gone" />
-
-
-        <TextView
-            android:id="@+id/tv_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/bj_30dp"
-            android:layout_toRightOf="@+id/phone_service"
-            android:drawablePadding="@dimen/bj_5dp"
-            android:drawableTop="@drawable/collection"
-            android:gravity="center"
-            android:text="收藏 "
-            android:textColor="@color/white"
-            android:textSize="@dimen/wz_13sp" />
-
 
         <TextView
             android:id="@+id/tv_now_action"

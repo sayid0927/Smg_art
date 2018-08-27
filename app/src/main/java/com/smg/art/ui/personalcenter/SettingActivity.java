@@ -176,6 +176,7 @@ public class SettingActivity extends BaseActivity implements SettingContract.Vie
                 popDialog.findViewById(R.id.roll_out_submit).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        popDialog.dismiss();
                         RongIM.getInstance().logout();
                         LocalAppConfigUtil.getInstance().setAccessToken("");
                         LocalAppConfigUtil.getInstance().setCurrentMerberId(0);

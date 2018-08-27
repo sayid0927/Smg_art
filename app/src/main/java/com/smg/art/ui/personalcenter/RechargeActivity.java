@@ -423,7 +423,6 @@ public class RechargeActivity extends BaseActivity implements ReChargeContract.V
         } else {
             ToastUtils.showShortToast(reChargeBean.getMsg());
         }
-
     }
 
     @Override
@@ -433,6 +432,41 @@ public class RechargeActivity extends BaseActivity implements ReChargeContract.V
             bankName.setText(checkBankCardBean.getData().getBank());
             bankCard.setText(checkBankCardBean.getData().getCardNo());
             payee.setText(checkBankCardBean.getData().getReceiptName());
+            switch (checkBankCardBean.getData().getBankType()) {
+                case "ABC":
+                    bankIcon.setBackground(getResources().getDrawable(R.mipmap.abc));
+                    break;
+                case "BCM":
+                    bankIcon.setBackground(getResources().getDrawable(R.mipmap.bcm));
+                    break;
+                case "BOC":
+                    bankIcon.setBackground(getResources().getDrawable(R.mipmap.boc));
+                    break;
+                case "CCB":
+                    bankIcon.setBackground(getResources().getDrawable(R.mipmap.ccb));
+                    break;
+                case "CEB":
+                    bankIcon.setBackground(getResources().getDrawable(R.mipmap.ceb));
+                    break;
+                case "CMB":
+                    bankIcon.setBackground(getResources().getDrawable(R.mipmap.cmb));
+                    break;
+                case "CMBC":
+                    bankIcon.setBackground(getResources().getDrawable(R.mipmap.cmbc));
+                    break;
+                case "HB":
+                    bankIcon.setBackground(getResources().getDrawable(R.mipmap.hb));
+                    break;
+                case "ICBC":
+                    bankIcon.setBackground(getResources().getDrawable(R.mipmap.icbc));
+                    break;
+                case "PSBC":
+                    bankIcon.setBackground(getResources().getDrawable(R.mipmap.psbc));
+                    break;
+                case "SPDB":
+                    bankIcon.setBackground(getResources().getDrawable(R.mipmap.spdb));
+                    break;
+            }
         } else {
             ToastUtils.showShortToast(checkBankCardBean.getMsg());
         }

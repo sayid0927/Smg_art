@@ -214,36 +214,32 @@
             android:name=".ui.personalcenter.address.AddressListActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.personalcenter.address.AddAddressActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.personalcenter.ComplaintActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.personalcenter.address.SelectAreaActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.personalcenter.ComplaintDeatilActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.personalcenter.LogisticsInformationActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.personalcenter.ConfirmOrderActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.AgreementActivity" />
+        <activity android:name=".ui.activity.RulespageActivity"></activity>
     </application>
 
 </manifest>

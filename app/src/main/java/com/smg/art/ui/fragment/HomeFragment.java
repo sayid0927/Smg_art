@@ -179,9 +179,9 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, BGA
      */
     @Override
     public void onBannerItemClick(BGABanner banner, View itemView, Object model, int position) {
-        Intent i = new Intent(getActivity(), GoodsDetailActivity.class);
-        i.putExtra("postion",this.upperListBeans.get(position).getId());
-        MainActivity.mainActivity.startActivityIn(i, getActivity());
+//        Intent i = new Intent(getActivity(), GoodsDetailActivity.class);
+//        i.putExtra("postion",this.upperListBeans.get(position).getId());
+//        MainActivity.mainActivity.startActivityIn(i, getActivity());
     }
 
 

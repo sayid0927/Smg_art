@@ -37,7 +37,6 @@ public class ComplaintApplyApadter extends BaseQuickAdapter<AuctionOrderBean.Dat
         this.mContext = context;
     }
 
-
     @Override
     protected void convert(BaseViewHolder helper, final AuctionOrderBean.DataBean item) {
         helper.setText(R.id.tv_actionName, item.getActionName());
@@ -56,8 +55,10 @@ public class ComplaintApplyApadter extends BaseQuickAdapter<AuctionOrderBean.Dat
                 tvOrderStatus.setTextColor(UIUtils.getColor(R.color.red_b20002));
                 btAuction.setTextColor(UIUtils.getColor(R.color.red_F1D1D1));
                 btAuction.setBackgroundResource(R.drawable.text_red_p_bg);
+
                 break;
             case "2":  // orderStatus=2投诉完成
+
                 tvOrderStatus.setText("您已申请投诉，投诉完成");
                 tvOrderStatus.setTextColor(UIUtils.getColor(R.color.red_b20002));
                 btAuction.setTextColor(UIUtils.getColor(R.color.red_F1D1D1));
@@ -86,7 +87,6 @@ public class ComplaintApplyApadter extends BaseQuickAdapter<AuctionOrderBean.Dat
             });
     }
 
-
     public void OnComplaintPostItemListener(OnComplaintPostItemListener onComplaintPostItemListener) {
         this.onComplaintPostItemListener = onComplaintPostItemListener;
     }
@@ -94,5 +94,4 @@ public class ComplaintApplyApadter extends BaseQuickAdapter<AuctionOrderBean.Dat
     public interface OnComplaintPostItemListener {
         void OnComplaintPostItemListener(AuctionOrderBean.DataBean item);
     }
-
 }

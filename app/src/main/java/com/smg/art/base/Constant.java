@@ -23,13 +23,13 @@ public class Constant {
     public static final int STATE_SUCCESS = 4;
 
     // 测试环境
-    public static final String BaseImgUrl = "http://192.168.1.167:8080/art-world";
+//    public static final String BaseImgUrl = "http://192.168.1.167:8080/art-world";
     // 测试环境
-    public static final String API_BASE_URL = "http://192.168.1.167:8080/art-world/";
+//    public static final String API_BASE_URL = "http://192.168.1.167:8080/art-world/";
 
 //生产环境
-//    public static final String API_BASE_URL = "http://yspsj.885505.com";
-//    public static final String BaseImgUrl = "http://yspsj.885505.com/";
+    public static final String API_BASE_URL = "http://yspsj.885505.com/";
+    public static final String BaseImgUrl = "http://yspsj.885505.com";
 
 // 开发环境
 //     public static final String API_BASE_URL = "http://192.168.1.167:8080/art-world";
@@ -212,6 +212,15 @@ public class Constant {
     public static final String CONFIRMBUYERGOODS = "auctionpage/confirmBuyerGoods";
     //查看客服信息
     public static final String FINDCUSTOMERSERVICE = "member/findCustomerService";
+    //确认支付
+    public static final String CONFIRMGOODSPAGE = "auctionpage/confirmGoodsPage";
+
+    //商品订单支付
+    public static final String AUCTIONPAGE_PAYBUYERGOODS = "auctionpage/payBuyerGoods";
+    //跳转到保证金规则页面
+    public static final String  MEMBER_TOMARGINRULESPAGE = "member/toMarginRulesPage";
+    //跳转到用户竞拍服务协议页面
+    public static final String MEMBER_TOAUCTIONAGREEMENTPAGE = "member/toAuctionAgreementPage";
 
     public static String LOCAL_APP_CONFIG_FILE_NAME = "smgconfig";//本地应用配置文件名，存储些全局变量
 

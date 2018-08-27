@@ -1,5 +1,6 @@
 package com.smg.art.ui.activity;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.smg.art.R;
 import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.base.BaseActivity;
+import com.smg.art.base.Constant;
 import com.smg.art.bean.AuctionGoodsBean;
 import com.smg.art.bean.PlayIntroductionBean;
 import com.smg.art.bean.RefundBean;
@@ -25,6 +27,7 @@ import com.smg.art.presenter.impl.activity.AuctionBuyerDepositPresenter;
 import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.view.CustomDialog;
 import com.smg.art.view.NumberDialog;
+import com.smg.art.view.webview.PublicWebViewActivity;
 import com.zhy.autolayout.AutoRelativeLayout;
 
 import org.greenrobot.eventbus.EventBus;
@@ -46,6 +49,10 @@ public class AuctionBuyerDepositActivity extends BaseActivity implements Auction
     TextView tvPlay;
     @BindView(R.id.tv_frontMoneyAmount)
     TextView tvFrontMoneyAmount;
+    @BindView(R.id.tv_agreement)
+    TextView tvAgreement;
+    @BindView(R.id.tv_rulespage)
+    TextView tvRulespage;
     @BindView(R.id.bt_post)
     Button btPost;
 
@@ -130,45 +137,31 @@ public class AuctionBuyerDepositActivity extends BaseActivity implements Auction
     }
 
 
-    @OnClick({R.id.rl_back, R.id.bt_post})
+    @OnClick({R.id.rl_back, R.id.bt_post, R.id.tv_rulespage, R.id.tv_agreement})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_back:
                 finish();
                 break;
+
+            case R.id.tv_agreement:  // 用户竞拍服务协议
+                String sss = Constant.API_BASE_URL + Constant.MEMBER_TOMARGINRULESPAGE;
+                Intent intent = new Intent(this, PublicWebViewActivity.class);
+                intent.putExtra("url", Constant.API_BASE_URL + Constant.MEMBER_TOAUCTIONAGREEMENTPAGE);
+                intent.putExtra("title", "竞拍服务协议");
+                startActivityIn(intent, this);
+                break;
+
+            case R.id.tv_rulespage: // 保证金规则
+                String ss = Constant.API_BASE_URL + Constant.MEMBER_TOMARGINRULESPAGE;
+                Intent intent1 = new Intent(this, PublicWebViewActivity.class);
+                intent1.putExtra("url", Constant.API_BASE_URL + Constant.MEMBER_TOMARGINRULESPAGE);
+                intent1.putExtra("title", "保证金规则");
+                startActivityIn(intent1, this);
+                break;
+
             case R.id.bt_post:
                 if (checkBox.isChecked()) {
-//                    if (goodsData != null) {
-//                        View dialogview = View.inflate(this, R.layout.dialog_validtetradepwd, null);
-//                        Button btPost = dialogview.findViewById(R.id.bt_post);
-//                        Button btClecn = dialogview.findViewById(R.id.bt_clecn);
-//                        final EditText edPwd = dialogview.findViewById(R.id.ed_pwd);
-//                        final CustomDialog mDialogWaiting = new CustomDialog(this, dialogview, R.style.MyDialog);
-//                        mDialogWaiting.show();
-//                        mDialogWaiting.setCancelable(true);
-//
-//                        btClecn.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View view) {
-//                                mDialogWaiting.dismiss();
-//                            }
-//                        });
-//
-//                        btPost.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View view) {
-//                                String pwd = edPwd.getText().toString().trim();
-//                                if (EmptyUtils.isNotEmpty(pwd)) {
-//                                    mPresenter.FetchvalidteTradePwd("memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
-//                                            "tradePwd", pwd);
-//                                    mDialogWaiting.dismiss();
-//                                } else {
-//                                    ToastUtils.showLongToast("请输入交易密码");
-//                                }
-//                            }
-//                        });
-
-
                     final NumberDialog numberDialog = new NumberDialog(this);
                     numberDialog.show();
                     numberDialog.OnbtAuctionClick(new NumberDialog.OnbtAuctionClick() {
@@ -184,8 +177,6 @@ public class AuctionBuyerDepositActivity extends BaseActivity implements Auction
                 } else {
                     ToastUtils.showLongToast("请选择支付方式");
                 }
-
-
                 break;
         }
     }

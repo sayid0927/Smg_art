@@ -21,6 +21,7 @@ import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.bean.CardUrlBean;
 import com.smg.art.base.Constant;
+import com.smg.art.bean.ComfirmOrderBean;
 import com.smg.art.bean.FindCustomerServiceBean;
 import com.smg.art.bean.HomePageImgBean;
 import com.smg.art.bean.LogisticInfo;
@@ -450,5 +451,32 @@ public interface ApiService {
      */
     @POST(Constant.CONFIRMBUYERGOODS)
     Observable<ServiceBean> FetchConfirmBuyerGoods(@QueryMap Map<String, String> map);
+
+
+    /**
+     * 确认支付
+     */
+    @GET(Constant.CONFIRMGOODSPAGE)
+    Observable<ComfirmOrderBean> FetchComfirmOrderService(@QueryMap Map<String, String> map);
+
+    /**
+     * 商品订单支付
+     */
+    @POST(Constant.AUCTIONPAGE_PAYBUYERGOODS)
+    Observable<ComfirmOrderBean> FetchPayBuyerGoods(@QueryMap Map<String, String> map);
+
+
+    /**
+     * 跳转到保证金规则页面
+     */
+    @POST(Constant.MEMBER_TOMARGINRULESPAGE)
+    Observable<ComfirmOrderBean> FetchTomarginrulespage(@QueryMap Map<String, String> map);
+
+    /**
+     * 跳转到用户竞拍服务协议页面
+     */
+    @POST(Constant.MEMBER_TOAUCTIONAGREEMENTPAGE)
+    Observable<ComfirmOrderBean> FetchToAuctionAgreementPage(@QueryMap Map<String, String> map);
+
 
 }

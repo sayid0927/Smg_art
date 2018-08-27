@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.utils.EmptyUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.smg.art.R;
@@ -34,14 +35,29 @@ public class ComplaintIngApadter extends BaseQuickAdapter<AuctionOrderBean.DataB
     @Override
     protected void convert(BaseViewHolder helper, final AuctionOrderBean.DataBean item) {
         helper.setText(R.id.tv_actionName, item.getActionName());
-        helper.setText(R.id.tv_orderStatus, "投诉原因: "+ item.getComplain ());
+        String complainType = item.getComplainType();
+        if (EmptyUtils.isNotEmpty(complainType)) {
+            switch (complainType) {
+                case "1":
+                    helper.setText(R.id.tv_orderStatus, "投诉类型: " + "产品建议");
+                    break;
+                case "2":
+                    helper.setText(R.id.tv_orderStatus, "投诉类型: " + "商品破损");
+                    break;
+                case "3":
+                    helper.setText(R.id.tv_orderStatus, "投诉类型: " + "违规投诉");
+                    break;
+            }
+        }
+
         String[] pic = item.getPictureUrl().split(",");
         GlideCommonUtils.showSquarePic(mContext, pic[0], (ImageView) helper.getView(R.id.iv_header));
 
         helper.getView(R.id.bt_auction).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(onComplaintPostItemListener!=null) onComplaintPostItemListener.OnComplaintPostItemListener(item);
+                if (onComplaintPostItemListener != null)
+                    onComplaintPostItemListener.OnComplaintPostItemListener(item);
             }
         });
     }

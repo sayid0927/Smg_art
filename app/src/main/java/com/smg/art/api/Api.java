@@ -24,6 +24,7 @@ import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.AuctionDetailBean;
 import com.smg.art.bean.CardUrlBean;
 import com.smg.art.base.Constant;
+import com.smg.art.bean.ComfirmOrderBean;
 import com.smg.art.bean.FindCustomerServiceBean;
 import com.smg.art.bean.HomePageImgBean;
 import com.smg.art.bean.LogisticInfo;
@@ -563,6 +564,29 @@ public class Api {
         return service.FetchConfirmBuyerGoods(getMap(s));
     }
 
-
+    /**
+     * 确认支付
+     */
+    public Observable<ComfirmOrderBean> FetchComfirmOrderService(String... s) {
+        return service.FetchComfirmOrderService(getMap(s));
+    }
+    /**
+     * 商品订单支付
+     */
+    public Observable<ComfirmOrderBean> FetchPayBuyerGoods(String... s) {
+        return service.FetchPayBuyerGoods(getMap(s));
+    }
+    /**
+     * 跳转到保证金规则页面
+     */
+    public Observable<ComfirmOrderBean> FetchTomarginrulespage(String... s) {
+        return service.FetchTomarginrulespage(getMap(s));
+    }
+    /**
+     * 跳转到用户竞拍服务协议页面
+     */
+    public Observable<ComfirmOrderBean> FetchToAuctionAgreementPage(String... s) {
+        return service.FetchToAuctionAgreementPage(getMap(s));
+    }
 
 }

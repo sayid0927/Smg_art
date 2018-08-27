@@ -1,6 +1,5 @@
 package com.smg.art.ui.personalcenter;
 
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -8,32 +7,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.utils.TimeUtils;
-import com.flyco.tablayout.CommonTabLayout;
-import com.flyco.tablayout.listener.CustomTabEntity;
-import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.google.gson.Gson;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
-import com.smg.art.base.BaseFragmentPageAdapter;
 import com.smg.art.bean.AuctionOrderBean;
-import com.smg.art.bean.ComplaintBean;
-import com.smg.art.bean.TabEntity;
 import com.smg.art.component.AppComponent;
-import com.smg.art.component.DaggerMainComponent;
-import com.smg.art.presenter.contract.activity.ComplaintActivityContract;
-import com.smg.art.presenter.impl.activity.ComplaintActivityPresenter;
 import com.smg.art.ui.personalcenter.adapter.ComplaintImgApadter;
-import com.smg.art.ui.personalcenter.fragemnt.ComplaintApplyFragment;
-import com.smg.art.ui.personalcenter.fragemnt.ComplaintListFragment;
-import com.smg.art.ui.personalcenter.fragemnt.ComplaintRecordFragment;
 import com.smg.art.utils.GlideCommonUtils;
-import com.smg.art.view.NoScrollViewPager;
 import com.zhy.autolayout.AutoRelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -47,7 +31,6 @@ public class ComplaintDeatilActivity extends BaseActivity {
     AutoRelativeLayout rlBack;
 
     private AuctionOrderBean.DataBean dataBean;
-
 
     @BindView(R.id.tv_status)
     TextView tvStatus;
@@ -111,12 +94,10 @@ public class ComplaintDeatilActivity extends BaseActivity {
         rv.setAdapter(apadter);
         if (dataBean != null) {
             if (dataBean.getOrderStatus() != null && dataBean.getOrderStatus().equals("1")) {
-                tvStatus.setText("未处理");
-                tvOrderStatus.setText("平台未处理");
-                ivHe.setVisibility(View.GONE);
+                tvStatus.setText("已提交");
+                tvOrderStatus.setText("平台已收到您的申请,24小时内联系您");
             } else  if(dataBean.getOrderStatus() != null && dataBean.getOrderStatus().equals("2")){
                 tvStatus.setText("已处理");
-                ivHe.setVisibility(View.VISIBLE);
                 tvOrderStatus.setText("您与平台已达成协议");
             }
 
@@ -140,7 +121,6 @@ public class ComplaintDeatilActivity extends BaseActivity {
             }
         }
     }
-
 
     @OnClick({R.id.rl_back})
     public void onViewClicked(View view) {

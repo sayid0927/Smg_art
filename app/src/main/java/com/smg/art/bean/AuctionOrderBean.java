@@ -136,6 +136,7 @@ public class AuctionOrderBean {
         private String complainId;
         private String complainStatus;
         private String complain;
+        private String complainType;
         private String complainResult;
         private long complainTime;
         private String complainImageUrl;
@@ -165,6 +166,15 @@ public class AuctionOrderBean {
         private long sendOutTime;
         private long paymentTime;
         private long receiveTime;
+
+
+        public String getComplainType() {
+            return complainType;
+        }
+
+        public void setComplainType(String complainType) {
+            this.complainType = complainType;
+        }
 
         public long getSendOutTime() {
             return sendOutTime;

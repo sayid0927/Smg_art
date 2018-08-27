@@ -315,8 +315,9 @@ public class StartComplaintActivity extends BaseActivity implements AddImageGrid
     @Override
     public void FetchComplaintSuccess(ComplaintBean complaintBean) {
             if(complaintBean.getStatus()==1){
-                ToastUtils.showShortToast("投诉成功");
                 EventBus.getDefault().post(complaintBean);
+                ToastUtils.showShortToast("投诉成功");
+                this.finish();
             }else {
                 ToastUtils.showShortToast(complaintBean.getMsg());
             }

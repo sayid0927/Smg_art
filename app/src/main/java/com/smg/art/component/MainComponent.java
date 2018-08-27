@@ -30,6 +30,7 @@ import com.smg.art.ui.personalcenter.ChangeNickNameActivity;
 import com.smg.art.ui.personalcenter.ChangePasswordActivity;
 import com.smg.art.ui.personalcenter.ChangeTradersPasswordActivity;
 import com.smg.art.ui.personalcenter.ComplaintActivity;
+import com.smg.art.ui.personalcenter.ConfirmOrderActivity;
 import com.smg.art.ui.personalcenter.LogisticsInformationActivity;
 import com.smg.art.ui.personalcenter.MyCollectionActivity;
 import com.smg.art.ui.personalcenter.MyWalletActivity;
@@ -144,4 +145,7 @@ public interface MainComponent {
     SelectAreaActivity inject (SelectAreaActivity selectAreaActivity);
 
     LogisticsInformationActivity inject(LogisticsInformationActivity logisticsInformationActivity);
+
+    ConfirmOrderActivity inject(ConfirmOrderActivity confirmOrderActivity);
+
 }

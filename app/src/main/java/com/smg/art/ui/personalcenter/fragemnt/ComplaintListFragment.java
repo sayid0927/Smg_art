@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 
 import com.google.gson.Gson;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -107,6 +108,9 @@ public class ComplaintListFragment extends BaseFragment implements ComplaintIngC
             if (srl.isRefreshing()) srl.finishRefresh();
             dataBeans = auctionOrderBean.getData();
             apadter.setNewData(dataBeans);
+            if(apadter.getItemCount()==0){
+                apadter.setEmptyView(LayoutInflater.from(getActivity()).inflate(R.layout.complain_state_empty, null));
+            }
 
         }
     }

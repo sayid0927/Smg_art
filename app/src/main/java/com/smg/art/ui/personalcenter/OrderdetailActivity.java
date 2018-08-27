@@ -279,11 +279,11 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
             case R.id.logistics_info://待发货查看物流
                 Intent intent1 = new Intent(this, LogisticsInformationActivity.class);
                 intent1.putExtra("id", orderDataBean.getId());
+                intent1.putExtra("shipments",2);
                 startActivityIn(intent1, this);
                 break;
 
             case R.id.go_obligation://去付款
-
                 Intent intent4 = new Intent(this, ConfirmOrderActivity.class);
                 intent4.putExtra("id", orderDataBean.getId());
                 startActivityIn(intent4, this);
@@ -337,7 +337,8 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
      */
     @Override
     public void FetchConfirmBuyerGoodsSuccess(ServiceBean serviceBean) {
-
+           ToastUtils.showLongToast("确认收货成功");
+           this.finish();
     }
 
     private void setData(OderDetailBean oderDetailBean) {
@@ -365,11 +366,12 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
                     }
                     topPrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getNowprice()))));
                     onSaleShopName.setText(orderDataBean.getActionName());
-                    onSalePrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getNowprice()))));
+                    onSalePrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getMemberNowPrice()))));
+                    onSaleDeposit.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getFrontMoneyAmount()))));
                     //交易单号
                     onSaleOderNum.setText(orderDataBean.getBidNo());
                     //下单时间
-                    onSaleOrderTime.setText(orderDataBean.getCreateTime());
+                    onSaleOrderTime.setText(  orderDataBean.getCreateTime());
                 } else {
                     long time = System.currentTimeMillis();
                     if (time < orderDataBean.getEndTime()) {
@@ -384,9 +386,10 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
                         } else {
                             onSalePic.setImageResource(R.mipmap.defaut_square);
                         }
+                        topPrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getNowprice()))));
                         onSaleShopName.setText(orderDataBean.getActionName());
-                        onSalePrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getNowprice()))));
-                        topPrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getMemberNowPrice()))));
+                        onSalePrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getMemberNowPrice()))));
+                        onSaleDeposit.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getFrontMoneyAmount()))));
                         //交易单号
                         onSaleOderNum.setText(orderDataBean.getBidNo());
                         //下单时间
@@ -424,8 +427,8 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
                                 obligationPic.setImageResource(R.mipmap.defaut_square);
                             }
                             obligationDeposit.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getBuyerEnsureAmount()))));
-                            onSaleShopName.setText(orderDataBean.getActionName());
-                            onSalePrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getNowprice()))));
+                            obligationShopName.setText(orderDataBean.getActionName());
+                            obligationPrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getNowprice()))));
                             //交易单号
                             obligationOderNum.setText(orderDataBean.getBidNo());
                             //下单时间
@@ -452,7 +455,7 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
                             //下单时间
                             deliveryOrderTime.setText(orderDataBean.getCreateTime());
                             //付款时间
-                            deliveryTime.setText(orderDataBean.getPaymentTime());
+                            deliveryTime.setText(DateFormatUtil.forString(orderDataBean.getPaymentTime(), "yyyy-MM-dd HH:mm:ss"));
                             break;
                         case "3"://待收货
                             onSale.setVisibility(View.GONE);//参拍中
@@ -474,9 +477,9 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
                             //下单时间
                             receivingOrderTime.setText(orderDataBean.getCreateTime());
                             //付款时间
-                            receivingTime.setText(orderDataBean.getPaymentTime());
+                            receivingTime.setText(DateFormatUtil.forString(orderDataBean.getPaymentTime(), "yyyy-MM-dd HH:mm:ss"));
                             //发货时间
-                            receivingDeliverTime.setText(orderDataBean.getSendOutTime());
+                            receivingDeliverTime.setText(DateFormatUtil.forString(orderDataBean.getSendOutTime(), "yyyy-MM-dd HH:mm:ss"));
                             break;
                         case "4"://已确认
                             onSale.setVisibility(View.GONE);//参拍中
@@ -499,9 +502,11 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
                             //下单时间
                             confirmedOrderTime.setText(orderDataBean.getCreateTime());
                             //付款时间
-                            confirmedTime.setText(orderDataBean.getPaymentTime());
+                            confirmedTime.setText(DateFormatUtil.forString(orderDataBean.getPaymentTime(), "yyyy-MM-dd HH:mm:ss"));
                             //发货时间
-                            confirmedDeliverTime.setText(orderDataBean.getSendOutTime());
+                            confirmedDeliverTime.setText(DateFormatUtil.forString(orderDataBean.getSendOutTime(), "yyyy-MM-dd HH:mm:ss"));
+                            //确认时间
+                            confirmedFinalTime.setText(DateFormatUtil.forString(orderDataBean.getReceiveTime(), "yyyy-MM-dd HH:mm:ss"));
                             break;
                         case "5"://超时未确认
                             onSale.setVisibility(View.GONE);//参拍中
@@ -550,7 +555,7 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
                             //下单时间
                             failureOrderTime.setText(orderDataBean.getCreateTime());
                             //退款时间时间
-                            failureRefundTime.setText(orderDataBean.getCreateTime());
+                            failureRefundTime.setText(DateFormatUtil.forString(orderDataBean.getPaybiddingFinalTime(), "yyyy-MM-dd HH:mm:ss"));
                             break;
                     }
                 }
@@ -858,6 +863,5 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
     public void timerStart() {
         timer.start();
     }
-
 
 }

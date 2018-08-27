@@ -255,7 +255,7 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View 
     @Override
     public void FetchServiceSuccess(ServiceBean serviceBean) {
         if (serviceBean.getStatus() == 1) {
-            phone.setText(serviceBean.getData().get(0).getMobilePhone());
+            phone.setText(serviceBean.getData().getHotline());
         } else {
             ToastUtils.showShortToast(serviceBean.getMsg());
         }

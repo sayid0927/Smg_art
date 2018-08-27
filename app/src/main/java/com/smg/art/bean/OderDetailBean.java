@@ -9,7 +9,17 @@ public class OderDetailBean {
     /**
      * status : 1
      * msg : OK
-     * data : {"id":277,"sellerMemberId":95,"addressId":null,"sellerMemberName":null,"goodsId":62,"bidNo":"BM15343048202","actionName":"杨小石 《熊出没》9060cm","startPrice":200,"stepSize":100,"nowprice":300,"buyerMemberId":95,"bidCount":1,"startTime":1534348800000,"endTime":1534392600000,"stepTime":null,"deferredTime":null,"status":8,"orderStatus":null,"feeStatus":1,"feeAmount":200,"returnFrontMoneyStatus":1,"frontMoneyAmount":200,"deliveryStatus":1,"approvalStatus":1,"approvalReason":null,"applyStatus":1,"applyReason":"","frontMoneyStatus":1,"pictureUrl":"/static/uploads/image/fa454c96-277f-43e8-99c9-f0329906914e.jpg,/static/uploads/image/9f609250-d243-4e9e-9210-b94ebc164b19.jpg,/static/uploads/image/b167c839-61aa-4a11-bc7e-a88dcaf0274d.jpg,/static/uploads/image/16f77fd3-c1c0-4a1b-888b-00cde55c2c17.jpg,/static/uploads/image/66d982a2-bfe5-4219-ac24-ccd7c2acf30e.jpg","auctionDesc":"<p><img alt=\"\" src=\"https://img10.360buyimg.com/imgzone/jfs/t24229/271/341145286/2555800/709de47/5b2c9964Nfc18ec7e.jpg\"/><img alt=\"\" src=\"https://img10.360buyimg.com/imgzone/jfs/t20641/198/786136079/279425/86dd9266/5b1746feN6b5a49d4.jpg\"/><img alt=\"\" src=\"https://img10.360buyimg.com/imgzone/jfs/t8623/10/1995910707/514154/1ca84d6/59c2297eN2718f014.jpg\"/><\/p>","certificateUrl":"/static/uploads/image/2646b483-82aa-4444-95f6-e54998501210.jpg","complainId":null,"complainStatus":1,"complain":null,"complainResult":null,"complainTime":null,"complainImageUrl":null,"createTime":"2018-08-15 11:49:07","returnFrontMoneyTime":"2018-08-17 23:59:59","descn":null,"startCreateDate":null,"endCreateDate":null,"sysDate":1534903074376,"buyerEnsureAmount":100,"categoryId":null,"depositStatus":null,"deliveryTime":1534401498000,"finishTime":null,"paybiddingStatus":0,"shipStatus":0,"receiveStatus":0,"paybiddingFinalTime":null,"shipFinalTime":null,"receiveFinalTime":null,"receiveNoticeStatus":0,"paybiddingMoney":null,"biddingMoneyReturnStatus":0,"shipPictureUrl":null,"logisticsNum":null,"sendOutTime":null,"paymentTime":null,"receiveTime":null}
+     * data : {"id":277,"sellerMemberId":95,"addressId":null,"sellerMemberName":null,"goodsId":62,"bidNo":"BM15343048202",
+     * "actionName":"杨小石 《熊出没》9060cm","startPrice":200,"stepSize":100,"nowprice":300,"buyerMemberId":95,"bidCount":1,.
+     * "startTime":1534348800000,"endTime":1534392600000,"stepTime":null,"deferredTime":null,"status":8,"orderStatus":null,
+     * "feeStatus":1,"feeAmount":200,"returnFrontMoneyStatus":1,"frontMoneyAmount":200,"deliveryStatus":1,"approvalStatus":1,
+     * "approvalReason":null,"applyStatus":1,"applyReason":"","frontMoneyStatus":1,
+     * "pictureUrl":"/static/uploads/image/fa454c96-277f-43e8-99c9-f0329906914e.jpg,/static/uploads/image/9f609250-d243-4e9e-9210-b94ebc164b19.jpg,/static/uploads/image/b167c839-61aa-4a11-bc7e-a88dcaf0274d.jpg,/static/uploads/image/16f77fd3-c1c0-4a1b-888b-00cde55c2c17.jpg,/static/uploads/image/66d982a2-bfe5-4219-ac24-ccd7c2acf30e.jpg","auctionDesc":"<p><img alt=\"\" src=\"https://img10.360buyimg.com/imgzone/jfs/t24229/271/341145286/2555800/709de47/5b2c9964Nfc18ec7e.jpg\"/><img alt=\"\" src=\"https://img10.360buyimg.com/imgzone/jfs/t20641/198/786136079/279425/86dd9266/5b1746feN6b5a49d4.jpg\"/><img alt=\"\" src=\"https://img10.360buyimg.com/imgzone/jfs/t8623/10/1995910707/514154/1ca84d6/59c2297eN2718f014.jpg\"/><\/p>","certificateUrl":"/static/uploads/image/2646b483-82aa-4444-95f6-e54998501210.jpg",
+     * "complainId":null,"complainStatus":1,"complain":null,"complainResult":null,"complainTime":null,"complainImageUrl":null,
+     * "createTime":"2018-08-15 11:49:07","returnFrontMoneyTime":"2018-08-17 23:59:59","descn":null,"startCreateDate":null,
+     * "endCreateDate":null,"sysDate":1534903074376,"buyerEnsureAmount":100,"categoryId":null,"depositStatus":null,
+     * "deliveryTime":1534401498000,"finishTime":null,"paybiddingStatus":0,"shipStatus":0,"receiveStatus":0,
+     * "paybiddingFinalTime":null,"shipFinalTime":null,"receiveFinalTime":null,"receiveNoticeStatus":0,"paybiddingMoney":null,"biddingMoneyReturnStatus":0,"shipPictureUrl":null,"logisticsNum":null,"sendOutTime":null,"paymentTime":null,"receiveTime":null}
      */
 
     private int status;
@@ -153,7 +163,7 @@ public class OderDetailBean {
         private String categoryId;
         private String depositStatus;
         private long deliveryTime;
-        private String finishTime;
+        private long finishTime;
         private int paybiddingStatus;
         private int shipStatus;
         private int receiveStatus;
@@ -161,20 +171,20 @@ public class OderDetailBean {
         private long shipFinalTime;
         private long receiveFinalTime;
         private int receiveNoticeStatus;
-        private String paybiddingMoney;
+        private double paybiddingMoney;
         private int biddingMoneyReturnStatus;
         private String shipPictureUrl;
         private String logisticsNum;
-        private String sendOutTime;
-        private String paymentTime;
-        private String receiveTime;
-        private String memberNowPrice;
+        private long sendOutTime;
+        private long paymentTime;
+        private long receiveTime;
+        private double memberNowPrice;
 
-        public String getMemberNowPrice() {
+        public double getMemberNowPrice() {
             return memberNowPrice;
         }
 
-        public void setMemberNowPrice(String memberNowPrice) {
+        public void setMemberNowPrice(double memberNowPrice) {
             this.memberNowPrice = memberNowPrice;
         }
 
@@ -554,11 +564,11 @@ public class OderDetailBean {
             this.deliveryTime = deliveryTime;
         }
 
-        public String getFinishTime() {
+        public long getFinishTime() {
             return finishTime;
         }
 
-        public void setFinishTime(String finishTime) {
+        public void setFinishTime(long finishTime) {
             this.finishTime = finishTime;
         }
 
@@ -618,11 +628,11 @@ public class OderDetailBean {
             this.receiveNoticeStatus = receiveNoticeStatus;
         }
 
-        public String getPaybiddingMoney() {
+        public double getPaybiddingMoney() {
             return paybiddingMoney;
         }
 
-        public void setPaybiddingMoney(String paybiddingMoney) {
+        public void setPaybiddingMoney(double paybiddingMoney) {
             this.paybiddingMoney = paybiddingMoney;
         }
 
@@ -650,27 +660,27 @@ public class OderDetailBean {
             this.logisticsNum = logisticsNum;
         }
 
-        public String getSendOutTime() {
+        public long getSendOutTime() {
             return sendOutTime;
         }
 
-        public void setSendOutTime(String sendOutTime) {
+        public void setSendOutTime(long sendOutTime) {
             this.sendOutTime = sendOutTime;
         }
 
-        public String getPaymentTime() {
+        public long getPaymentTime() {
             return paymentTime;
         }
 
-        public void setPaymentTime(String paymentTime) {
+        public void setPaymentTime(long paymentTime) {
             this.paymentTime = paymentTime;
         }
 
-        public String getReceiveTime() {
+        public long getReceiveTime() {
             return receiveTime;
         }
 
-        public void setReceiveTime(String receiveTime) {
+        public void setReceiveTime(long receiveTime) {
             this.receiveTime = receiveTime;
         }
     }

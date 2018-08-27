@@ -94,5 +94,4 @@ dependencies {
     implementation project(':IMKit')
     implementation project(':imageselectorbrowser')
 //    implementation 'com.github.chrisbanes.photoview:library:1.2.4'
-
 }

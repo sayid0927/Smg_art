@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -23,6 +24,7 @@ import com.smg.art.ui.personalcenter.StartComplaintActivity;
 import com.smg.art.ui.personalcenter.adapter.ComplaintApplyApadter;
 import com.smg.art.utils.LocalAppConfigUtil;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
@@ -77,7 +79,7 @@ public class ComplaintApplyFragment extends BaseFragment implements ComplaintApp
     @Override
     protected void initView(Bundle bundle) {
         super.initView(bundle);
-
+        EventBus.getDefault().register(this);
         apadter = new ComplaintApplyApadter(dataBeans, getActivity());
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setAdapter(apadter);
@@ -98,6 +100,11 @@ public class ComplaintApplyFragment extends BaseFragment implements ComplaintApp
 
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+    }
 
     @Override
     public void showError(String message) {
@@ -148,6 +155,9 @@ public class ComplaintApplyFragment extends BaseFragment implements ComplaintApp
             if (srl.isRefreshing()) srl.finishRefresh();
             dataBeans = auctionOrderBean.getData();
             apadter.setNewData(dataBeans);
+            if(apadter.getItemCount()==0){
+                apadter.setEmptyView(LayoutInflater.from(getActivity()).inflate(R.layout.complain_state_empty, null));
+            }
         }
     }
 }

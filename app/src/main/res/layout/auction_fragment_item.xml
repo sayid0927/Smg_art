@@ -51,7 +51,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:text="玉佛牌石器吊坠"
                 android:textColor="@color/black_000000"
                 android:textSize="@dimen/wz_15sp"
                 android:textStyle="bold" />
@@ -160,7 +159,6 @@
                     android:layout_marginLeft="@dimen/bj_3dp"
                     android:layout_marginRight="@dimen/bj_5dp"
                     android:layout_weight="1"
-                    android:text="199"
                     android:textColor="@color/red_b20002"
                     android:textSize="@dimen/wz_20sp" />
 

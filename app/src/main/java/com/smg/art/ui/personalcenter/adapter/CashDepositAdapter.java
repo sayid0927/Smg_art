@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.smg.art.R;
@@ -58,11 +59,33 @@ public class CashDepositAdapter extends BaseAdapter {
         viewHolder.price.setText(String.format("%.2f", dataBean.getAmount()));
         viewHolder.shop_name.setText(dataBean.getActionName());
         if (dataBean.getStatus() == 0) {
-            viewHolder.status_btn.setVisibility(View.VISIBLE);
-            viewHolder.status_text.setVisibility(View.GONE);
+            if(dataBean.getMainStatus()==3){
+                viewHolder.status_btn.setVisibility(View.VISIBLE);
+                viewHolder.status_text.setVisibility(View.GONE);
+                viewHolder.imageView.setVisibility(View.GONE);
+                viewHolder.status_btn.setText("预展中");
+            }else if(dataBean.getMainStatus()==4){
+                viewHolder.status_btn.setVisibility(View.VISIBLE);
+                viewHolder.status_text.setVisibility(View.GONE);
+                viewHolder.imageView.setVisibility(View.GONE);
+                viewHolder.status_btn.setText("拍卖中");
+            }else {
+                viewHolder.status_btn.setVisibility(View.GONE);
+                viewHolder.status_text.setVisibility(View.VISIBLE);
+                if(dataBean.getRemark()!=null){
+                    if(dataBean.getRemark().equals("逾期未支付，扣除保证金")){
+                        viewHolder.imageView.setVisibility(View.VISIBLE);
+                    }else {
+                        viewHolder.imageView.setVisibility(View.GONE);
+                    }
+                    viewHolder.status_text.setText(dataBean.getRemark());
+                }
+            }
         } else if (dataBean.getStatus() == 1) {
             viewHolder.status_btn.setVisibility(View.GONE);
             viewHolder.status_text.setVisibility(View.VISIBLE);
+            viewHolder.imageView.setVisibility(View.GONE);
+            viewHolder.status_text.setText(dataBean.getRemark());
         }
         viewHolder.time.setText(dataBean.getCreateTime());
         return convertView;
@@ -74,6 +97,7 @@ public class CashDepositAdapter extends BaseAdapter {
         private TextView price;
         private TextView status_text;
         private TextView status_btn;
+        private ImageView imageView;
 
         public ViewHolder(View view) {
             shop_name = (TextView) view.findViewById(R.id.shop_name);
@@ -81,6 +105,7 @@ public class CashDepositAdapter extends BaseAdapter {
             price = (TextView) view.findViewById(R.id.price);
             status_text = (TextView) view.findViewById(R.id.status_text);
             status_btn = (TextView) view.findViewById(R.id.status_btn);
+            imageView=(ImageView) view.findViewById(R.id.red_image);
         }
     }
 

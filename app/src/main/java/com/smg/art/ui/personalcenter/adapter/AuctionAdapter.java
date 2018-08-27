@@ -89,7 +89,11 @@ public class AuctionAdapter extends BaseAdapter {
                 viewHolder.time.setVisibility(View.GONE);
                 viewHolder.shop_status.setText("参拍中");
                 viewHolder.shop_status.setBackgroundResource(R.drawable.shape_re_red);
-
+                viewHolder.shop_name.setText(dataBean.getActionName());
+                viewHolder.price.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", dataBean.getNowprice()))));
+                if (dataBean.getEndTime() > 0) {
+                    viewHolder.end_time.setText("结拍时间: " + DateFormatUtil.forString(dataBean.getEndTime(), "MM月dd日 HH:mm"));
+                }
             } else if (Integer.parseInt(dataBean.getStatus()) >= 5) {//已获拍或 未获拍  buyerMemberId等于用户ID为已获拍。反之
                 if (!TextUtils.isEmpty(dataBean.getOrderStatus())) {
                     switch (dataBean.getOrderStatus()) {

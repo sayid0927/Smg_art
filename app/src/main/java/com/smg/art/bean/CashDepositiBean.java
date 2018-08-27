@@ -66,6 +66,15 @@ public class CashDepositiBean {
         private String createTime;
         private int status;
         private String remark;
+        private int mainStatus;
+
+        public int getMainStatus() {
+            return mainStatus;
+        }
+
+        public void setMainStatus(int mainStatus) {
+            this.mainStatus = mainStatus;
+        }
 
         public int getId() {
             return id;

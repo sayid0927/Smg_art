@@ -24,6 +24,8 @@ import com.smg.art.presenter.impl.activity.OrderMeesagePresenter;
 import com.smg.art.presenter.impl.activity.SystemMeesagePresenter;
 import com.smg.art.ui.adapter.OrderMessageApadter;
 import com.smg.art.ui.adapter.SystemMessageApadter;
+import com.smg.art.ui.personalcenter.ConfirmOrderActivity;
+import com.smg.art.ui.personalcenter.OrderdetailActivity;
 import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.view.MyLoadMoreView;
 import com.zhy.autolayout.AutoRelativeLayout;
@@ -151,11 +153,9 @@ public class OrderMessageActivity extends BaseActivity implements OrderMessageAc
     @Override
     public void OnOrderItemListener(OrderMessageBean.DataBean.RowsBean item) {
 
-        Intent i = new Intent(this, AuctionDeatilActivity.class);
-        i.putExtra("id", item.getAuctionId());
-        i.putExtra("type",2);
-        MainActivity.mainActivity.startActivityIn(i, this);
-
+//        Intent intent = new Intent(this, OrderdetailActivity.class);
+//        intent.putExtra("id", item.getAuctionId());
+//        MainActivity.mainActivity.startActivityIn(intent, this);
 
     }
 }

@@ -34,6 +34,7 @@ public class LogisticsInformationActivity extends BaseActivity implements Logist
     @Inject
     LogisticInfoPresenter mPresenter;
     int id;
+    int shipments;
     @BindView(R.id.rl_back)
     AutoRelativeLayout rlBack;
     @BindView(R.id.left_title)
@@ -96,7 +97,8 @@ public class LogisticsInformationActivity extends BaseActivity implements Logist
     @Override
     public void initView() {
         id = getIntent().getIntExtra("id", 0);
-        actionbarTitle.setText(R.string.auction_order);
+        shipments = getIntent().getIntExtra("shipments", 0);
+        actionbarTitle.setText("物流信息");
         logisticsAdapter = new LogisticsAdapter(this, list);
         listView.setAdapter(logisticsAdapter);
         mPresenter.logisticInfo("auctionId", String.valueOf(id));
@@ -105,39 +107,52 @@ public class LogisticsInformationActivity extends BaseActivity implements Logist
     @Override
     public void logisticInfoSuccess(LogisticInfo logisticInfo) {
         if (logisticInfo.getStatus() == 1) {
-            if (logisticInfo.getData().getAdList().size() > 0) {
-                list.addAll(logisticInfo.getData().getAdList());
+            if(shipments==2){//代发货
+                logisticStatus.setText("待发货");
+                expressageNameText.setVisibility(View.GONE);
+                orderNumText.setVisibility(View.GONE);
                 courierName.setText("收货人:" + logisticInfo.getData().getAddress().getDeliveryName());
                 courierPhone.setText(logisticInfo.getData().getAddress().getDeliveryPhone());
                 courierAddress.setText("收货地址:" + logisticInfo.getData().getAddress().getProvinceName() + logisticInfo.getData().getAddress().getCityName() + logisticInfo.getData().getAddress().getCountyName() + logisticInfo.getData().getAddress().getAdress());
                 expressageName.setText(logisticInfo.getData().getName());
                 orderNum.setText(logisticInfo.getData().getCode());
                 GlideCommonUtils.showSquarePic(this, logisticInfo.getData().getPictureUrl(), shopImage);
-                switch (logisticInfo.getData().getStatus()) {
-                    case 0:
-                        logisticStatus.setText("已发货");
-                        break;
-                    case 1:
-                        logisticStatus.setText("已揽件");
-                        break;
-                    case 2:
-                        logisticStatus.setText("已发货");
-                        break;
-                    case 3:
-                        logisticStatus.setText("已签收");
-                        break;
-                    case 4:
-                        logisticStatus.setText("已退签");
-                        break;
-                    case 5:
-                        logisticStatus.setText("已派件");
-                        break;
-                    case 6:
-                        logisticStatus.setText("退回中");
-                        break;
+            }else {
+                if (logisticInfo.getData().getAdList().size() > 0) {
+                    list.addAll(logisticInfo.getData().getAdList());
+                    courierName.setText("收货人:" + logisticInfo.getData().getAddress().getDeliveryName());
+                    courierPhone.setText(logisticInfo.getData().getAddress().getDeliveryPhone());
+                    courierAddress.setText("收货地址:" + logisticInfo.getData().getAddress().getProvinceName() + logisticInfo.getData().getAddress().getCityName() + logisticInfo.getData().getAddress().getCountyName() + logisticInfo.getData().getAddress().getAdress());
+                    expressageName.setText(logisticInfo.getData().getName());
+                    orderNum.setText(logisticInfo.getData().getCode());
+                    GlideCommonUtils.showSquarePic(this, logisticInfo.getData().getPictureUrl(), shopImage);
+                    switch (logisticInfo.getData().getStatus()) {
+                        case 0:
+                            logisticStatus.setText("已发货");
+                            break;
+                        case 1:
+                            logisticStatus.setText("已揽件");
+                            break;
+                        case 2:
+                            logisticStatus.setText("已发货");
+                            break;
+                        case 3:
+                            logisticStatus.setText("已签收");
+                            break;
+                        case 4:
+                            logisticStatus.setText("已退签");
+                            break;
+                        case 5:
+                            logisticStatus.setText("已派件");
+                            break;
+                        case 6:
+                            logisticStatus.setText("退回中");
+                            break;
+                    }
+                    logisticsAdapter.notifyDataSetChanged();
                 }
-                logisticsAdapter.notifyDataSetChanged();
             }
+
         } else {
             ToastUtils.showShortToast(logisticInfo.getMsg());
         }

@@ -996,7 +996,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="gone"
+               >
 
                 <LinearLayout
                     android:layout_width="319dp"
@@ -1113,7 +1114,7 @@
 
                 <LinearLayout
                     android:layout_width="319dp"
-                    android:layout_height="@dimen/bj_85dp"
+                    android:layout_height="115dp"
                     android:layout_marginTop="@dimen/bj_1dp"
                     android:background="@drawable/shape_wihte_model"
                     android:gravity="center_vertical"

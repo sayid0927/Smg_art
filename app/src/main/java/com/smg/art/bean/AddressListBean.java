@@ -124,7 +124,7 @@ public class AddressListBean {
             this.cityId = cityId;
         }
 
-        public Object getCountyId() {
+        public int getCountyId() {
             return countyId;
         }
 

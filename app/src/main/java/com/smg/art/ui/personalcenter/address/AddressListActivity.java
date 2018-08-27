@@ -10,14 +10,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blankj.utilcode.utils.LocationUtils;
 import com.blankj.utilcode.utils.ToastUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.smg.art.R;
 import com.smg.art.base.BaseActivity;
 import com.smg.art.bean.AddressEventBus;
 import com.smg.art.bean.AddressListBean;
+import com.smg.art.bean.EventBusAddressBean;
 import com.smg.art.bean.RongImStateBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
@@ -28,6 +31,7 @@ import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.utils.UIUtils;
 import com.zhy.autolayout.AutoRelativeLayout;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
@@ -39,7 +43,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class AddressListActivity extends BaseActivity implements AddressListContract.View,
-        AddressListApadter.OnEditItemListener, AddressListApadter.OnDeleItemListener {
+        AddressListApadter.OnEditItemListener, AddressListApadter.OnDeleItemListener, AddressListApadter.OnAddressItemListener {
 
     @Inject
     AddressListActivityPresenter mPresenter;
@@ -53,6 +57,7 @@ public class AddressListActivity extends BaseActivity implements AddressListCont
 
     @BindView(R.id.rv)
     RecyclerView rv;
+    int type;
 
 
     private AddressListApadter apadter;
@@ -82,6 +87,7 @@ public class AddressListActivity extends BaseActivity implements AddressListCont
 
     @Override
     public void initView() {
+        type = getIntent().getIntExtra("confirm", 0);
         setSwipeBackEnable(true);
         actionbarTitle.setText("收货地址");
         actionbarTextAction.setText("添加");
@@ -94,6 +100,8 @@ public class AddressListActivity extends BaseActivity implements AddressListCont
         rv.setAdapter(apadter);
         mPresenter.FetchAddressList("memberId",String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()));
         addressListActivity = this;
+        apadter.OnAddressItemListener(this);
+
     }
 
     @Override
@@ -178,5 +186,24 @@ public class AddressListActivity extends BaseActivity implements AddressListCont
     @Override
     public Activity getContext() {
         return this;
+    }
+
+    @Override
+    public void OnAddressItemListener(AddressListBean.DataBean item, int postion) {
+        EventBusAddressBean eventBusAddressBean = new EventBusAddressBean();
+        eventBusAddressBean.setType(type);
+        eventBusAddressBean.setId(item.getId());
+        eventBusAddressBean.setCityId(item.getCityId());
+        eventBusAddressBean.setCityName(item.getCityName());
+        eventBusAddressBean.setCountyId(item.getCountyId());
+        eventBusAddressBean.setCountyName(item.getCountyName());
+        eventBusAddressBean.setProvinceName(item.getProvinceName());
+        eventBusAddressBean.setProvinceId(item.getProvinceId());
+        eventBusAddressBean.setAdress(item.getAdress());
+        eventBusAddressBean.setDeliveryName(item.getDeliveryName());
+        eventBusAddressBean.setDeliveryPhone(item.getDeliveryPhone());
+        eventBusAddressBean.setDefaultFlag(item.getDefaultFlag());
+        EventBus.getDefault().post(eventBusAddressBean);
+        finish();
     }
 }

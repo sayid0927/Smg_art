@@ -20,6 +20,7 @@ public class AddressListApadter extends BaseQuickAdapter<AddressListBean.DataBea
     private Context mCotext;
     private OnEditItemListener onEditItemListener;
     private OnDeleItemListener onDeleItemListener;
+    private OnAddressItemListener onAddressItemListener;
 
     public AddressListApadter( List<AddressListBean.DataBean> data,Context context) {
         super(R.layout.item_address, data);
@@ -38,6 +39,13 @@ public class AddressListApadter extends BaseQuickAdapter<AddressListBean.DataBea
         helper.setText(R.id.tv_phone,item.getDeliveryPhone());
 
         helper.setText(R.id.tv_adress,item.getProvinceName()+item.getCityName()+ item.getCountyName() +item.getAdress());
+
+        helper.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(onAddressItemListener!=null) onAddressItemListener.OnAddressItemListener(item,helper.getLayoutPosition());
+            }
+        });
 
         helper.getView(R.id.iv_address_edit).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +80,14 @@ public class AddressListApadter extends BaseQuickAdapter<AddressListBean.DataBea
 
     public interface OnDeleItemListener {
         void OnDeleItemListener(AddressListBean.DataBean item,int postion);
+    }
+
+    public void OnAddressItemListener(OnAddressItemListener onAddresstemListener) {
+        this.onAddressItemListener = onAddresstemListener;
+    }
+
+    public interface OnAddressItemListener {
+        void OnAddressItemListener(AddressListBean.DataBean item,int postion);
     }
 
 }

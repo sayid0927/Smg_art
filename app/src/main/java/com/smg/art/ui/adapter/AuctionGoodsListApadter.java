@@ -97,9 +97,8 @@ public class AuctionGoodsListApadter extends  RecyclerView.Adapter<AuctionGoodsL
                         holder.tv_hour.setText(array[0]);
                         holder.tv_min.setText(array[1]);
                         holder.tv_second.setText(array[2]);
-
+                        holder.detail.setText("立即去拍");
                     }
-
                     public void onFinish() {
                         holder.tv_hour.setText("00");
                         holder.tv_min.setText("00");
@@ -107,7 +106,6 @@ public class AuctionGoodsListApadter extends  RecyclerView.Adapter<AuctionGoodsL
                         holder.detail.setText("拍卖结束");
                     }
                 }.start();
-
                 countDownMap.put(holder.tv_hour.hashCode(), holder.countDownTimer);
             } else {
                 holder.tv_hour.setText("00");
@@ -131,9 +129,7 @@ public class AuctionGoodsListApadter extends  RecyclerView.Adapter<AuctionGoodsL
             holder.auction_tv.setText("拍卖方:" + data.getSellerMemberName());
         }
         holder.auction_num.setText("编码: " + data.getBidNo());
-
     }
-
 
     @Override
     public int getItemCount() {
