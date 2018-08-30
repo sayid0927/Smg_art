@@ -2,8 +2,8 @@
 package com.smg.art.presenter.impl.activity;
 
 import com.smg.art.api.Api;
-import com.smg.art.base.AuctionBuyerDepositBean;
-import com.smg.art.base.AuctionDetailBean;
+import com.smg.art.bean.AuctionBuyerDepositBean;
+import com.smg.art.bean.AuctionDetailBean;
 import com.smg.art.base.BasePresenter;
 import com.smg.art.bean.FindCustomerServiceBean;
 import com.smg.art.bean.SaveCollectsBean;

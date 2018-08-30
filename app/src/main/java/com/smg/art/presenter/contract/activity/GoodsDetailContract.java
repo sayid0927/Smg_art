@@ -1,8 +1,8 @@
 
 package com.smg.art.presenter.contract.activity;
 
-import com.smg.art.base.AuctionBuyerDepositBean;
-import com.smg.art.base.AuctionDetailBean;
+import com.smg.art.bean.AuctionBuyerDepositBean;
+import com.smg.art.bean.AuctionDetailBean;
 import com.smg.art.base.BaseContract;
 import com.smg.art.bean.FindCustomerServiceBean;
 import com.smg.art.bean.SaveCollectsBean;

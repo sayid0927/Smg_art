@@ -4,16 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.smg.art.R;
-import com.smg.art.base.AnnouncementAuctionListBean;
+import com.smg.art.bean.AnnouncementAuctionListBean;
 import com.smg.art.base.BaseFragment;
 import com.smg.art.base.Constant;
 import com.smg.art.component.AppComponent;
@@ -22,7 +19,6 @@ import com.smg.art.presenter.contract.fragment.ClassifyChildContract;
 import com.smg.art.presenter.impl.fragment.ClassifyChildPresenter;
 import com.smg.art.ui.activity.ClassifyActivity;
 import com.smg.art.ui.activity.GoodsDetailActivity;
-import com.smg.art.ui.activity.MainActivity;
 import com.smg.art.ui.adapter.GoodsListApadter;
 
 import java.util.ArrayList;
@@ -31,8 +27,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Created by Lenovo on 2018/7/24.
@@ -56,10 +50,12 @@ public class ClassifyChildFragment extends BaseFragment implements ClassifyChild
     private int id;
     private int page = 1;
     private int rows = 10;
+    private  String title;
 
-    public static ClassifyChildFragment getInstance(int id) {
+    public static ClassifyChildFragment getInstance(int id , String title) {
         ClassifyChildFragment sf = new ClassifyChildFragment();
         sf.id = id;
+        sf.title = title;
         return sf;
     }
 
@@ -80,8 +76,12 @@ public class ClassifyChildFragment extends BaseFragment implements ClassifyChild
     @Override
     public void loadData() {
         setState(Constant.STATE_LOADING);
-        mPresenter.FetchAuctionListByName("categoryId", String.valueOf(id), "status", String.valueOf(3),
-                "page", String.valueOf(page), "rows", String.valueOf(rows));
+        if(title.equals("全部")){
+            mPresenter.FetchAnnouncementAuctionList("page", String.valueOf(page), "rows", String.valueOf(rows));
+        }else {
+            mPresenter.FetchAuctionListByName("categoryId", String.valueOf(id), "status", String.valueOf(3),
+                    "page", String.valueOf(page), "rows", String.valueOf(rows));
+        }
     }
 
     @Override
@@ -126,19 +126,49 @@ public class ClassifyChildFragment extends BaseFragment implements ClassifyChild
     }
 
     @Override
+    public void FetchAnnouncementAuctionListSuccess(AnnouncementAuctionListBean announcementAuctionListBean) {
+        if (srl!=null && srl.isLoading()) {
+            mAdapter.addData(announcementAuctionListBean.getData().getRows());
+            srl.finishLoadmore();
+        } else {
+            if(announcementAuctionListBean.getData().getRows().size()==0){
+                setState(Constant.STATE_EMPTY);
+            }else {
+                setState(Constant.STATE_SUCCESS);
+                if (rowsBeans.size() != 0) rowsBeans.clear();
+                if (srl.isRefreshing()) srl.finishRefresh();
+                rowsBeans = announcementAuctionListBean.getData().getRows();
+                mAdapter.setNewData(rowsBeans);
+            }
+        }
+    }
+
+    @Override
     public void onLoadmore(RefreshLayout refreshlayout) {
         // 加载更多
         page++;
-        mPresenter.FetchAuctionListByName("categoryId", String.valueOf(id), "status", String.valueOf(3),
-                "page", String.valueOf(page), "rows", String.valueOf(rows));
+//        mPresenter.FetchAuctionListByName("categoryId", String.valueOf(id), "status", String.valueOf(3),
+//                "page", String.valueOf(page), "rows", String.valueOf(rows));
+        if(title.equals("全部")){
+            mPresenter.FetchAnnouncementAuctionList("page", String.valueOf(page), "rows", String.valueOf(rows));
+        }else {
+            mPresenter.FetchAuctionListByName("categoryId", String.valueOf(id), "status", String.valueOf(3),
+                    "page", String.valueOf(page), "rows", String.valueOf(rows));
+        }
     }
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
         //下拉刷新
         page = 1;
-        mPresenter.FetchAuctionListByName("categoryId", String.valueOf(id), "status", String.valueOf(3),
-                "page", String.valueOf(page), "rows", String.valueOf(rows));
+//        mPresenter.FetchAuctionListByName("categoryId", String.valueOf(id), "status", String.valueOf(3),
+//                "page", String.valueOf(page), "rows", String.valueOf(rows));
+        if(title.equals("全部")){
+            mPresenter.FetchAnnouncementAuctionList("page", String.valueOf(page), "rows", String.valueOf(rows));
+        }else {
+            mPresenter.FetchAuctionListByName("categoryId", String.valueOf(id), "status", String.valueOf(3),
+                    "page", String.valueOf(page), "rows", String.valueOf(rows));
+        }
     }
 
     /**

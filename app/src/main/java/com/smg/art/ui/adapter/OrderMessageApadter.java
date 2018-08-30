@@ -6,9 +6,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.smg.art.R;
-import com.smg.art.base.AnnouncementAuctionListBean;
 import com.smg.art.bean.OrderMessageBean;
-import com.smg.art.bean.SystemMessageBean;
 
 import java.util.List;
 

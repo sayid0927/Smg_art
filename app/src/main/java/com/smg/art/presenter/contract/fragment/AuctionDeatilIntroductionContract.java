@@ -3,7 +3,7 @@ package com.smg.art.presenter.contract.fragment;
 
 
 
-import com.smg.art.base.AuctionDetailBean;
+import com.smg.art.bean.AuctionDetailBean;
 import com.smg.art.base.BaseContract;
 import com.smg.art.bean.FindCustomerServiceBean;
 import com.smg.art.bean.SaveCollectsBean;

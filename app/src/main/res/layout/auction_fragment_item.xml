@@ -182,7 +182,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/bj_9dp"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/overdue_shop_name"
@@ -212,11 +212,13 @@
 
                 <TextView
                     android:id="@+id/overdue_text"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/bj_5dp"
                     android:layout_marginTop="@dimen/bj_3dp"
                     android:layout_weight="1"
+                    android:drawablePadding="@dimen/bj_5dp"
+                    android:drawableRight="@drawable/tan"
                     android:text="该商品已逾期未支付"
                     android:textColor="@color/grey"
                     android:textSize="@dimen/wz_12sp" />
@@ -234,7 +236,7 @@
                         android:layout_width="@dimen/bj_85dp"
                         android:layout_height="@dimen/bj_20dp"
                         android:layout_marginRight="@dimen/bj_10dp"
-                        android:background="@drawable/shape_red"
+                        android:background="@drawable/shape_grd"
                         android:gravity="center"
                         android:text="逾期未支付"
                         android:textColor="@color/white"

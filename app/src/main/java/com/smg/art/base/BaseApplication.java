@@ -3,14 +3,10 @@ package com.smg.art.base;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.multidex.MultiDex;
-import android.text.TextUtils;
-import android.util.Log;
 
 import com.blankj.utilcode.utils.ThreadPoolUtils;
-import com.blankj.utilcode.utils.ToastUtils;
 import com.blankj.utilcode.utils.Utils;
 import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
@@ -22,16 +18,9 @@ import com.smg.art.utils.GreenDaoUtil;
 import com.smg.art.utils.LocalAppConfigUtil;
 import com.smg.art.utils.MyConnectionStatusListener;
 import com.smg.art.utils.PreferUtil;
-import com.smg.art.utils.RongIMCUtils;
-import com.smg.art.utils.UIUtils;
 
-import io.rong.eventbus.EventBus;
 import io.rong.imkit.RongIM;
-import io.rong.imlib.RongIMClient;
-import io.rong.imlib.model.Message;
 import io.rong.imlib.model.UserInfo;
-
-import static io.rong.imlib.RongIMClient.ConnectionStatusListener.ConnectionStatus.*;
 
 
 public class BaseApplication extends Application implements RongIM.UserInfoProvider {

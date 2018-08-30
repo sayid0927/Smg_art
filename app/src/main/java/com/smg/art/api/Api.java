@@ -19,9 +19,9 @@ package com.smg.art.api;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
-import com.smg.art.base.AnnouncementAuctionListBean;
-import com.smg.art.base.AuctionBuyerDepositBean;
-import com.smg.art.base.AuctionDetailBean;
+import com.smg.art.bean.AnnouncementAuctionListBean;
+import com.smg.art.bean.AuctionBuyerDepositBean;
+import com.smg.art.bean.AuctionDetailBean;
 import com.smg.art.bean.CardUrlBean;
 import com.smg.art.base.Constant;
 import com.smg.art.bean.ComfirmOrderBean;
@@ -81,9 +81,6 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.QueryMap;
 import rx.Observable;
 
 public class Api {
@@ -121,7 +118,7 @@ public class Api {
                 map.put(s[i], s[++i]);
             }
         }
-        if (!TextUtils.isEmpty(LocalAppConfigUtil.getInstance().getAccessToken())) {
+        if (!TextUtils.isEmpty(LocalAppConfigUtil.getInstance().getJsessionId())) {
             map.put("access_token", LocalAppConfigUtil.getInstance().getJsessionId());
         }
         return map;

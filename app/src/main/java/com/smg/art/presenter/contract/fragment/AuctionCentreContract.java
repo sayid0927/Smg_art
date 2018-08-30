@@ -4,17 +4,10 @@ package com.smg.art.presenter.contract.fragment;
 
 import android.widget.EditText;
 
-import com.smg.art.base.AuctionDetailBean;
+import com.smg.art.bean.AuctionDetailBean;
 import com.smg.art.base.BaseContract;
-import com.smg.art.base.Constant;
 import com.smg.art.bean.AuctionCenterBean;
 import com.smg.art.bean.RefundBean;
-
-import java.util.Map;
-
-import retrofit2.http.POST;
-import retrofit2.http.QueryMap;
-import rx.Observable;
 
 public interface AuctionCentreContract {
 

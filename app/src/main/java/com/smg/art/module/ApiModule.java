@@ -6,18 +6,14 @@ import android.annotation.SuppressLint;
 
 import com.blankj.utilcode.utils.NetworkUtils;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.orhanobut.logger.Logger;
 import com.smg.art.api.Api;
 import com.smg.art.base.BaseApplication;
 import com.smg.art.base.Constant;
 import com.smg.art.bean.LoginBean;
-import com.smg.art.module.persistentcookiejar.ClearableCookieJar;
 import com.smg.art.module.persistentcookiejar.PersistentCookieJar;
 import com.smg.art.module.persistentcookiejar.cache.SetCookieCache;
 import com.smg.art.module.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
-import com.smg.art.utils.L;
 import com.smg.art.utils.LocalAppConfigUtil;
 
 import org.json.JSONException;
@@ -52,12 +48,13 @@ import okio.BufferedSource;
 public class ApiModule {
 
 
+    public static PersistentCookieJar cookieJar;
+
     @Provides
     public OkHttpClient provideOkHttpClient() {
 
         //cookie
-        ClearableCookieJar cookieJar =
-                new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(BaseApplication.baseApplication));
+        cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(BaseApplication.baseApplication));
 
         File httpCacheDir = new File(BaseApplication.getBaseApplication().getCacheDir(), "response");
         int cacheSize = 10 * 1024 * 1024;// 10 MiB
@@ -112,34 +109,79 @@ public class ApiModule {
         public Response intercept(Interceptor.Chain chain) throws IOException {
             Request request = chain.request();
             long t1 = System.nanoTime();//请求发起的时间
-            Map<String,String> map = new HashMap<>();
-            for(int i=0;i<request.url().queryParameterNames().size();i++){
-                map.put(request.url().queryParameterName(i),request.url().queryParameterValue(i));
+            Map<String, String> map = new HashMap<>();
+            for (int i = 0; i < request.url().queryParameterNames().size(); i++) {
+                map.put(request.url().queryParameterName(i), request.url().queryParameterValue(i));
             }
 
             Response response = chain.proceed(request);
             long t2 = System.nanoTime();//收到响应的时间
             ResponseBody responseBody = response.peekBody(1024 * 1024);
-            Logger.e(String.format("接收响应: [%s] %n返回json:【%s】%n请求参数: [%s] %n响应时间[%.1fms]" ,
+            Logger.e(String.format("接收响应: [%s] %n返回json:【%s】%n请求参数: [%s] %n响应时间[%.1fms]",
                     response.request().url(),
-                    responseBody.string(),
+                    formatJson(responseBody.string()),
                     transMapToString(map),
                     (t2 - t1) / 1e6d
             ));
             return response;
         }
     }
-     static String transMapToString(Map map){
+
+    static String transMapToString(Map map) {
         java.util.Map.Entry entry;
         StringBuffer sb = new StringBuffer();
-        for(Iterator iterator = map.entrySet().iterator(); iterator.hasNext();)
-        {
-            entry = (java.util.Map.Entry)iterator.next();
-            sb.append(entry.getKey().toString()).append( " == " ).append(null==entry.getValue()?"":
-                    entry.getValue().toString()).append (iterator.hasNext() ? "\n" : "");
+        for (Iterator iterator = map.entrySet().iterator(); iterator.hasNext(); ) {
+            entry = (java.util.Map.Entry) iterator.next();
+            sb.append(entry.getKey().toString()).append(" == ").append(null == entry.getValue() ? "" :
+                    entry.getValue().toString()).append(iterator.hasNext() ? "\n" : "");
         }
         return sb.toString();
     }
+
+    public static String formatJson(String jsonStr) {
+        if (null == jsonStr || "".equals(jsonStr)) return "";
+        StringBuilder sb = new StringBuilder();
+        char last = '\0';
+        char current = '\0';
+        int indent = 0;
+        for (int i = 0; i < jsonStr.length(); i++) {
+            last = current;
+            current = jsonStr.charAt(i);
+            switch (current) {
+                case '{':
+                case '[':
+                    sb.append(current);
+                    sb.append('\n');
+                    indent++;
+                    addIndentBlank(sb, indent);
+                    break;
+                case '}':
+                case ']':
+                    sb.append('\n');
+                    indent--;
+                    addIndentBlank(sb, indent);
+                    sb.append(current);
+                    break;
+                case ',':
+                    sb.append(current);
+                    if (last != '\\') {
+                        sb.append('\n');
+                        addIndentBlank(sb, indent);
+                    }
+                    break;
+                default:
+                    sb.append(current);
+            }
+        }
+        return sb.toString();
+    }
+
+    private static void addIndentBlank(StringBuilder sb, int indent) {
+        for (int i = 0; i < indent; i++) {
+            sb.append('\t');
+        }
+    }
+
 
     class TokenInterceptor implements Interceptor {
 
@@ -185,10 +227,10 @@ public class ApiModule {
                         LoginBean newToken = new Gson().fromJson(responseStr, LoginBean.class);
 
                         if (newToken.getData() != null && newToken.getData().getRCToken() != null) {
-                           LocalAppConfigUtil.getInstance().setJsessionId(newToken.getData().getJSESSIONID());
+                            LocalAppConfigUtil.getInstance().setJsessionId(newToken.getData().getJSESSIONID());
                             HttpUrl originalHttpUrl = request.url();
                             HttpUrl url = originalHttpUrl.newBuilder()
-                                    .setQueryParameter("access_token",newToken.getData().getJSESSIONID())
+                                    .setQueryParameter("access_token", newToken.getData().getJSESSIONID())
                                     .build();
 
                             Request newRequest = request.newBuilder()
@@ -210,6 +252,12 @@ public class ApiModule {
     @Provides
     protected Api provideService(OkHttpClient okHttpClient) {
         return Api.getInstance(okHttpClient);
+    }
+
+
+    @Provides
+    protected PersistentCookieJar provideCookieJar() {
+        return cookieJar;
     }
 
 }

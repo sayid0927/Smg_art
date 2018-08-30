@@ -69,6 +69,15 @@ public class CollectionBean {
         private String createTime;
         private int status;
         private long sysDate;
+        private int auctionId;
+
+        public int getAuctionId() {
+            return auctionId;
+        }
+
+        public void setAuctionId(int auctionId) {
+            this.auctionId = auctionId;
+        }
 
         public long getSysDate() {
             return sysDate;

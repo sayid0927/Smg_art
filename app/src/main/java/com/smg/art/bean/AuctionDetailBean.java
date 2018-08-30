@@ -1,4 +1,4 @@
-package com.smg.art.base;
+package com.smg.art.bean;
 
 /**
  * Created by Lenovo on 2018/7/30.
@@ -112,6 +112,7 @@ public class AuctionDetailBean {
         private int approvalStatus;
         private int applyStatus;
         private int frontMoneyStatus;
+
         private String pictureUrl;
         private String auctionDesc;
         private String certificateUrl;
@@ -126,7 +127,7 @@ public class AuctionDetailBean {
         private Object startCreateDate;
         private Object endCreateDate;
         private long sysDate;
-        private Object buyerEnsureAmount;
+        private int buyerEnsureAmount;
         private Object categoryId;
         private int depositStatus;
         private Object deliveryTime;
@@ -436,11 +437,11 @@ public class AuctionDetailBean {
             this.sysDate = sysDate;
         }
 
-        public Object getBuyerEnsureAmount() {
+        public int getBuyerEnsureAmount() {
             return buyerEnsureAmount;
         }
 
-        public void setBuyerEnsureAmount(Object buyerEnsureAmount) {
+        public void setBuyerEnsureAmount(int buyerEnsureAmount) {
             this.buyerEnsureAmount = buyerEnsureAmount;
         }
 

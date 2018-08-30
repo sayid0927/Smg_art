@@ -211,7 +211,7 @@ public class Constant {
     //确认收货
     public static final String CONFIRMBUYERGOODS = "auctionpage/confirmBuyerGoods";
     //查看客服信息
-    public static final String FINDCUSTOMERSERVICE = "member/findCustomerService";
+    public static final String FINDCUSTOMERSERVICE = "sysConfigFront/getHotline";
     //确认支付
     public static final String CONFIRMGOODSPAGE = "auctionpage/confirmGoodsPage";
 

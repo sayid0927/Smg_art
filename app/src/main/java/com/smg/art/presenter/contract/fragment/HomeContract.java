@@ -3,7 +3,7 @@ package com.smg.art.presenter.contract.fragment;
 
 
 
-import com.smg.art.base.AnnouncementAuctionListBean;
+import com.smg.art.bean.AnnouncementAuctionListBean;
 import com.smg.art.base.BaseContract;
 import com.smg.art.bean.HomePageImgBean;
 

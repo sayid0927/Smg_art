@@ -16,9 +16,9 @@
 package com.smg.art.api;
 
 
-import com.smg.art.base.AnnouncementAuctionListBean;
-import com.smg.art.base.AuctionBuyerDepositBean;
-import com.smg.art.base.AuctionDetailBean;
+import com.smg.art.bean.AnnouncementAuctionListBean;
+import com.smg.art.bean.AuctionBuyerDepositBean;
+import com.smg.art.bean.AuctionDetailBean;
 import com.smg.art.bean.CardUrlBean;
 import com.smg.art.base.Constant;
 import com.smg.art.bean.ComfirmOrderBean;
@@ -72,13 +72,11 @@ import java.util.Map;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.QueryMap;
-import retrofit2.http.Url;
 import rx.Observable;
 
 

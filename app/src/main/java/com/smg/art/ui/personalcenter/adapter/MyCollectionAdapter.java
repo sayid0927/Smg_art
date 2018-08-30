@@ -1,6 +1,7 @@
 package com.smg.art.ui.personalcenter.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -12,8 +13,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.utils.ToastUtils;
 import com.smg.art.R;
 import com.smg.art.bean.CollectionBean;
+import com.smg.art.ui.activity.AuctionDeatilActivity;
 import com.smg.art.utils.DateFormatUtil;
 import com.smg.art.utils.GlideCommonUtils;
 import com.smg.art.utils.TimeTools;
@@ -63,7 +66,7 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final CollectionBean.DataBean data = mDatas.get(position);
-        long time;
+        final long time;
         if (data.getSysDate() > 0) {
             time = data.getSysDate();
         } else {
@@ -73,6 +76,7 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
             holder.end_time.setText("开始时间为:  " + DateFormatUtil.formartData(data.getStartTime(), "MM月dd日 HH:mm") + "将开始");
             holder.time.setVisibility(View.GONE);
             holder.shop_status.setText("展览中");
+            holder.shop_status.setBackgroundResource(R.drawable.shape_re_red);
         } else if (time > data.getStartTime() && time < data.getEndTime()) {
             long countTime = data.getEndTime() - time;
             //将前一个缓存清除
@@ -89,6 +93,7 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
                         holder.tv_min.setText(array[1]);
                         holder.tv_second.setText(array[2]);
                         holder.shop_status.setText("拍卖中");
+                        holder.shop_status.setBackgroundResource(R.drawable.shape_re_red);
                     }
 
                     public void onFinish() {
@@ -96,6 +101,7 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
                         // holder.end_text.setVisibility(View.VISIBLE);
                         holder.end_time.setText("拍卖已结束: " + DateFormatUtil.formartData(data.getEndTime(), "MM月dd日 HH:mm") + "已结束");
                         holder.shop_status.setText("已结束");
+                        holder.shop_status.setBackgroundResource(R.drawable.shape_yellow);
                     }
                 }.start();
 
@@ -104,13 +110,31 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
                 holder.time.setVisibility(View.GONE);
                 holder.end_time.setText("拍卖已结束: " + DateFormatUtil.formartData(data.getEndTime(), "MM月dd日 HH:mm") + "已结束");
                 holder.shop_status.setText("已结束");
+                holder.shop_status.setBackgroundResource(R.drawable.shape_yellow);
                 //  holder.end_text.setVisibility(View.VISIBLE);
             }
         } else if (time > data.getEndTime()) {
             holder.end_time.setText("拍卖已结束: " + DateFormatUtil.formartData(data.getEndTime(), "MM月dd日 HH:mm") + "已结束");
             holder.time.setVisibility(View.GONE);
             holder.shop_status.setText("已结束");
+            holder.shop_status.setBackgroundResource(R.drawable.shape_yellow);
         }
+
+
+        holder.ll_collection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (time < data.getEndTime()) {
+                    Intent i = new Intent(context, AuctionDeatilActivity.class);
+                    i.putExtra("type", 2);
+                    i.putExtra("id", data.getAuctionId());
+                    context.startActivity(i);
+                } else {
+                    ToastUtils.showShortToast("已结束");
+                }
+            }
+        });
+
         if (!TextUtils.isEmpty(data.getPictureUrl())) {
             String[] pic = data.getPictureUrl().split(",");
             GlideCommonUtils.showSquarePic(context, pic[0], holder.shop_iv);
@@ -140,6 +164,7 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
         public TextView end_time;
         public TextView shop_status;
         public TextView shop_name;
+        public LinearLayout ll_collection;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -152,6 +177,7 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
             end_time = (TextView) itemView.findViewById(R.id.end_time);
             shop_status = (TextView) itemView.findViewById(R.id.shop_status);
             shop_name = (TextView) itemView.findViewById(R.id.shop_name);
+            ll_collection = itemView.findViewById(R.id.ll_collection);
         }
     }
 }

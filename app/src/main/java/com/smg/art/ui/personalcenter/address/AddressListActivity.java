@@ -190,20 +190,22 @@ public class AddressListActivity extends BaseActivity implements AddressListCont
 
     @Override
     public void OnAddressItemListener(AddressListBean.DataBean item, int postion) {
-        EventBusAddressBean eventBusAddressBean = new EventBusAddressBean();
-        eventBusAddressBean.setType(type);
-        eventBusAddressBean.setId(item.getId());
-        eventBusAddressBean.setCityId(item.getCityId());
-        eventBusAddressBean.setCityName(item.getCityName());
-        eventBusAddressBean.setCountyId(item.getCountyId());
-        eventBusAddressBean.setCountyName(item.getCountyName());
-        eventBusAddressBean.setProvinceName(item.getProvinceName());
-        eventBusAddressBean.setProvinceId(item.getProvinceId());
-        eventBusAddressBean.setAdress(item.getAdress());
-        eventBusAddressBean.setDeliveryName(item.getDeliveryName());
-        eventBusAddressBean.setDeliveryPhone(item.getDeliveryPhone());
-        eventBusAddressBean.setDefaultFlag(item.getDefaultFlag());
-        EventBus.getDefault().post(eventBusAddressBean);
-        finish();
+        if(type==1){
+            EventBusAddressBean eventBusAddressBean = new EventBusAddressBean();
+            eventBusAddressBean.setType(type);
+            eventBusAddressBean.setId(item.getId());
+            eventBusAddressBean.setCityId(item.getCityId());
+            eventBusAddressBean.setCityName(item.getCityName());
+            eventBusAddressBean.setCountyId(item.getCountyId());
+            eventBusAddressBean.setCountyName(item.getCountyName());
+            eventBusAddressBean.setProvinceName(item.getProvinceName());
+            eventBusAddressBean.setProvinceId(item.getProvinceId());
+            eventBusAddressBean.setAdress(item.getAdress());
+            eventBusAddressBean.setDeliveryName(item.getDeliveryName());
+            eventBusAddressBean.setDeliveryPhone(item.getDeliveryPhone());
+            eventBusAddressBean.setDefaultFlag(item.getDefaultFlag());
+            EventBus.getDefault().post(eventBusAddressBean);
+            finish();
+        }
     }
 }

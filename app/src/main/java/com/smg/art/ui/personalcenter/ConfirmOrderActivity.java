@@ -1,7 +1,6 @@
 package com.smg.art.ui.personalcenter;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 import com.blankj.utilcode.utils.EmptyUtils;
 import com.blankj.utilcode.utils.ToastUtils;
 import com.smg.art.R;
-import com.smg.art.base.AuctionBuyerDepositBean;
 import com.smg.art.base.BaseActivity;
 import com.smg.art.bean.ComfirmOrderBean;
 import com.smg.art.bean.EventBusAddressBean;
@@ -31,7 +29,6 @@ import org.greenrobot.eventbus.Subscribe;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**

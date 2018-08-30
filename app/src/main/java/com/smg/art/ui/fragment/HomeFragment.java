@@ -15,7 +15,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.smg.art.R;
-import com.smg.art.base.AnnouncementAuctionListBean;
+import com.smg.art.bean.AnnouncementAuctionListBean;
 import com.smg.art.base.BaseFragment;
 import com.smg.art.base.Constant;
 import com.smg.art.bean.HomePageImgBean;
@@ -31,7 +31,6 @@ import com.smg.art.ui.adapter.GoodsListApadter;
 import com.smg.art.ui.adapter.HomeIconApadter;
 import com.smg.art.ui.adapter.HomeUnderListApadter;
 import com.smg.art.utils.GlideCommonUtils;
-import com.smg.art.view.NumberDialog;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -52,6 +52,9 @@ public class ComplaintDeatilActivity extends BaseActivity {
     @BindView(R.id.tv_complain)
     TextView tvComplain;
 
+    @BindView(R.id.tv_con)
+    TextView tvCon;
+
     @BindView(R.id.iv_header)
     ImageView ivHeader;
 
@@ -96,6 +99,9 @@ public class ComplaintDeatilActivity extends BaseActivity {
             if (dataBean.getOrderStatus() != null && dataBean.getOrderStatus().equals("1")) {
                 tvStatus.setText("已提交");
                 tvOrderStatus.setText("平台已收到您的申请,24小时内联系您");
+                tvCon.setVisibility(View.GONE);
+                tvComplainResult.setVisibility(View.GONE);
+
             } else  if(dataBean.getOrderStatus() != null && dataBean.getOrderStatus().equals("2")){
                 tvStatus.setText("已处理");
                 tvOrderStatus.setText("您与平台已达成协议");

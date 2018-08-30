@@ -1,7 +1,7 @@
 
 package com.smg.art.presenter.contract.activity;
 
-import com.smg.art.base.AuctionDetailBean;
+import com.smg.art.bean.AuctionDetailBean;
 import com.smg.art.base.BaseContract;
 
 public interface AuctionDeatilContract {

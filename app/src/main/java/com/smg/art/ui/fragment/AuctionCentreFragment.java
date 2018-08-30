@@ -3,8 +3,6 @@ package com.smg.art.ui.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -12,12 +10,11 @@ import android.widget.TextView;
 import com.blankj.utilcode.utils.EmptyUtils;
 import com.blankj.utilcode.utils.ToastUtils;
 import com.smg.art.R;
-import com.smg.art.base.AuctionDetailBean;
+import com.smg.art.bean.AuctionDetailBean;
 import com.smg.art.base.BaseApplication;
 import com.smg.art.base.BaseFragment;
 import com.smg.art.base.Constant;
 import com.smg.art.bean.AuctionCenterBean;
-import com.smg.art.bean.AuctionGoodsBean;
 import com.smg.art.bean.RefundBean;
 import com.smg.art.component.AppComponent;
 import com.smg.art.component.DaggerMainComponent;
@@ -26,7 +23,6 @@ import com.smg.art.presenter.impl.fragment.AuctionConterPresenter;
 import com.smg.art.ui.adapter.AuctionCentreListApadter;
 import com.smg.art.utils.GlideUtils;
 import com.smg.art.utils.LocalAppConfigUtil;
-import com.smg.art.view.CustomDialog;
 import com.smg.art.view.MyBridgeWebView;
 import com.smg.art.view.RoundImageView;
 
@@ -183,16 +179,17 @@ public class AuctionCentreFragment extends BaseFragment implements AuctionCentre
     private void initMaxMoneyView(AuctionCenterBean.DataBean.MaxMoneyBean maxMoneyBean) {
 
         if (rowsBeans.size() == 0) {
-            tvMoney.setText(String.valueOf(maxMoneyBean.getStartPrice()));
+            tvMoney.setText(String.valueOf((int) maxMoneyBean.getStartPrice()));
             etCreatBidding.setHint("最低加价" + String.valueOf(maxMoneyBean.getStepSize()) + "元");
         } else {
             tvName.setText(maxMoneyBean.getMember().getMemberName());
-            tvMoney.setText(String.valueOf(maxMoneyBean.getAmount()));
+            tvMoney.setText( String.valueOf(String.format("%.2f", maxMoneyBean.getAmount())));
+
             if (EmptyUtils.isNotEmpty(maxMoneyBean.getMember()) && EmptyUtils.isNotEmpty(maxMoneyBean.getMember().getHeadImg()))
                 GlideUtils.loadFitCenter(getActivity(), Constant.BaseImgUrl + maxMoneyBean.getMember().getHeadImg(), ivHread, R.drawable.draw_def);
 
             if (EmptyUtils.isNotEmpty(maxMoneyBean.getStepSize()))
-                etCreatBidding.setHint("最低加价" + String.valueOf(maxMoneyBean.getStepSize()) + "元");
+                etCreatBidding.setHint("最低加价" + String.valueOf(maxMoneyBean.getStepSize()));
         }
         this.maxMoneyBean = maxMoneyBean;
     }

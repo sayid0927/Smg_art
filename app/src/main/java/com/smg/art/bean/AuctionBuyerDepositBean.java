@@ -1,4 +1,4 @@
-package com.smg.art.base;
+package com.smg.art.bean;
 
 /**
  * Created by Lenovo on 2018/7/30.

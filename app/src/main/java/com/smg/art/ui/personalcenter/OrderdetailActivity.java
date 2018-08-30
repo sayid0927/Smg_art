@@ -217,8 +217,33 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
     LinearLayout llDispose;
     @BindView(R.id.girdview)
     NoScrollGridView girdview;
+
     @BindView(R.id.refund_success)
     LinearLayout refundSuccess;
+
+
+    @BindView(R.id.ll_overdue_receiving)
+    LinearLayout llOverdueReceiving;
+    @BindView(R.id.iv_overdue_receiving_pic)
+    ImageView ivOverdueReceivingPic;
+    @BindView(R.id.tv_overdue_receiving_shop_name)
+    TextView tvOverdueReceivingShopName;
+    @BindView(R.id.tv_overdue_receiving_deposit)
+    TextView tvOverdueReceivingDeposit;
+    @BindView(R.id.tv_overdue_receiving_oder_num)
+    TextView tvOverdueReceivingOderNum;
+    @BindView(R.id.tv_overdue_receiving_order_time)
+    TextView tvOverdueReceivingOrderTime;
+    @BindView(R.id.tv_overdue_receiving_delivery_time)
+    TextView tvOverdueReceivingDeliveryTime;
+    @BindView(R.id.tv_overdue_receiving_price)
+    TextView tvOverdueReceivingPrice;
+
+
+
+
+
+
     CountDownTimer timer;
     OderDetailBean.DataBean orderDataBean;
     private List<String> images = new ArrayList<>();
@@ -352,6 +377,7 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
                 receiving.setVisibility(View.GONE);//待收货
                 confirmed.setVisibility(View.GONE);//已确认
                 overdue.setVisibility(View.GONE);//已逾期
+                llOverdueReceiving.setVisibility(View.GONE);//卖家逾期未发货
                 if (orderDataBean.getSysDate() != null) {
                     long countTime = orderDataBean.getEndTime() - orderDataBean.getSysDate();
                     if (countTime > 0) {
@@ -367,7 +393,7 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
                     topPrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getNowprice()))));
                     onSaleShopName.setText(orderDataBean.getActionName());
                     onSalePrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getMemberNowPrice()))));
-                    onSaleDeposit.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getFrontMoneyAmount()))));
+                    onSaleDeposit.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getBuyerEnsureAmount()))));
                     //交易单号
                     onSaleOderNum.setText(orderDataBean.getBidNo());
                     //下单时间
@@ -389,7 +415,7 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
                         topPrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getNowprice()))));
                         onSaleShopName.setText(orderDataBean.getActionName());
                         onSalePrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getMemberNowPrice()))));
-                        onSaleDeposit.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getFrontMoneyAmount()))));
+                        onSaleDeposit.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getBuyerEnsureAmount()))));
                         //交易单号
                         onSaleOderNum.setText(orderDataBean.getBidNo());
                         //下单时间
@@ -407,6 +433,7 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
                             receiving.setVisibility(View.GONE);//待收货
                             confirmed.setVisibility(View.GONE);//已确认
                             overdue.setVisibility(View.GONE);//已逾期
+                            llOverdueReceiving.setVisibility(View.GONE);//卖家逾期未发货
                             long time;
                             if (orderDataBean.getSysDate() > 0) {
                                 time = orderDataBean.getSysDate();
@@ -442,6 +469,7 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
                             receiving.setVisibility(View.GONE);//待收货
                             confirmed.setVisibility(View.GONE);//已确认
                             overdue.setVisibility(View.GONE);//已逾期
+                            llOverdueReceiving.setVisibility(View.GONE);//卖家逾期未发货
                             if (!TextUtils.isEmpty(orderDataBean.getPictureUrl())) {
                                 String[] pic = orderDataBean.getPictureUrl().split(",");
                                 GlideCommonUtils.showSquarePic(this, pic[0], deliverPic);
@@ -465,6 +493,7 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
                             receiving.setVisibility(View.VISIBLE);//待收货
                             confirmed.setVisibility(View.GONE);//已确认
                             overdue.setVisibility(View.GONE);//已逾期
+                            llOverdueReceiving.setVisibility(View.GONE);//卖家逾期未发货
                             if (!TextUtils.isEmpty(orderDataBean.getPictureUrl())) {
                                 String[] pic = orderDataBean.getPictureUrl().split(",");
                                 GlideCommonUtils.showSquarePic(this, pic[0], receivingPic);
@@ -489,6 +518,7 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
                             receiving.setVisibility(View.GONE);//待收货
                             confirmed.setVisibility(View.VISIBLE);//已确认
                             overdue.setVisibility(View.GONE);//已逾期
+                            llOverdueReceiving.setVisibility(View.GONE);//卖家逾期未发货
                             if (!TextUtils.isEmpty(orderDataBean.getPictureUrl())) {
                                 String[] pic = orderDataBean.getPictureUrl().split(",");
                                 GlideCommonUtils.showSquarePic(this, pic[0], confirmedPic);
@@ -516,6 +546,7 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
                             receiving.setVisibility(View.GONE);//待收货
                             confirmed.setVisibility(View.GONE);//已确认
                             overdue.setVisibility(View.VISIBLE);//已逾期
+                            llOverdueReceiving.setVisibility(View.GONE);//卖家逾期未发货
                             if (!TextUtils.isEmpty(orderDataBean.getPictureUrl())) {
                                 String[] pic = orderDataBean.getPictureUrl().split(",");
                                 GlideCommonUtils.showSquarePic(this, pic[0], overduePic);
@@ -542,6 +573,7 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
                             receiving.setVisibility(View.GONE);//待收货
                             confirmed.setVisibility(View.GONE);//已确认
                             overdue.setVisibility(View.GONE);//已逾期
+                            llOverdueReceiving.setVisibility(View.GONE);//卖家逾期未发货
                             if (!TextUtils.isEmpty(orderDataBean.getPictureUrl())) {
                                 String[] pic = orderDataBean.getPictureUrl().split(",");
                                 GlideCommonUtils.showSquarePic(this, pic[0], failurePic);
@@ -556,6 +588,33 @@ public class OrderdetailActivity extends BaseActivity implements OderdetailContr
                             failureOrderTime.setText(orderDataBean.getCreateTime());
                             //退款时间时间
                             failureRefundTime.setText(DateFormatUtil.forString(orderDataBean.getPaybiddingFinalTime(), "yyyy-MM-dd HH:mm:ss"));
+                            break;
+                        case "7":  //卖家逾期未发货
+                            llOverdueReceiving.setVisibility(View.VISIBLE);//卖家逾期未发货
+                            onSale.setVisibility(View.GONE);//参拍中
+                            biddingFailure.setVisibility(View.GONE);//竞拍失败
+                            obligation.setVisibility(View.GONE);//待付款
+                            toSendTheGoods.setVisibility(View.GONE);//待发货
+                            receiving.setVisibility(View.GONE);//待收货
+                            confirmed.setVisibility(View.GONE);//已确认
+                            overdue.setVisibility(View.GONE);//已逾期
+
+                            if (!TextUtils.isEmpty(orderDataBean.getPictureUrl())) {
+                                String[] pic = orderDataBean.getPictureUrl().split(",");
+                                GlideCommonUtils.showSquarePic(this, pic[0], ivOverdueReceivingPic);
+                            } else {
+                                ivOverdueReceivingPic.setImageResource(R.mipmap.defaut_square);
+                            }
+                            tvOverdueReceivingPrice.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getNowprice()))));
+                            tvOverdueReceivingShopName.setText(orderDataBean.getActionName());
+                             // 保证金
+                            tvOverdueReceivingDeposit.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", orderDataBean.getBuyerEnsureAmount()))));
+                            //交易单号
+                            tvOverdueReceivingOderNum.setText(orderDataBean.getBidNo());
+                            //下单时间
+                            tvOverdueReceivingOrderTime.setText(orderDataBean.getCreateTime());
+                            //逾期发货时间
+                            tvOverdueReceivingDeliveryTime.setText(DateFormatUtil.forString(orderDataBean.getShipFinalTime(), "yyyy-MM-dd HH:mm:ss"));
                             break;
                     }
                 }

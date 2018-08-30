@@ -35,6 +35,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import io.rong.imkit.RongIM;
 
 public abstract class BaseActivity extends SwipeBackActivity {
@@ -42,12 +43,14 @@ public abstract class BaseActivity extends SwipeBackActivity {
 
     public final static List<AppCompatActivity> mActivities = new LinkedList<>();
     private SwipeBackLayout mSwipeBackLayout;
+    private Unbinder bind;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
-        ButterKnife.bind(this);
+        bind = ButterKnife.bind(this);
         setupActivityComponent(BaseApplication.getBaseApplication().getAppComponent());
         //沉浸式状态栏
         if (Build.VERSION.SDK_INT > 19) {
@@ -77,8 +80,8 @@ public abstract class BaseActivity extends SwipeBackActivity {
                         TextView tvCencls = (TextView) view.findViewById(R.id.tv_cencls);
                         tvCencls.setText(rongImStateBean.getMsg());
 
-                        Button btPost =(Button)view.findViewById(R.id.bt_post);
-                        Button btClecn = (Button)view.findViewById(R.id.bt_clecn);
+                        Button btPost = (Button) view.findViewById(R.id.bt_post);
+                        Button btClecn = (Button) view.findViewById(R.id.bt_clecn);
                         btClecn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -103,7 +106,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
                                 mDialogWaiting.dismiss();
                                 Intent intent = new Intent();
                                 intent.setClass(BaseActivity.this, LoginActivity.class);
-                                startActivityIn(intent,BaseActivity.this);
+                                startActivityIn(intent, BaseActivity.this);
 
                             }
                         });
@@ -151,6 +154,8 @@ public abstract class BaseActivity extends SwipeBackActivity {
         synchronized (mActivities) {
             mActivities.remove(this);
         }
+        if (bind != null)
+            bind.unbind();
         detachView();
         EventBus.getDefault().unregister(this);
     }

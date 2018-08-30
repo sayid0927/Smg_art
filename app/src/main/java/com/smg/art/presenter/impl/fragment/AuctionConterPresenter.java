@@ -3,14 +3,11 @@ package com.smg.art.presenter.impl.fragment;
 
 import com.blankj.utilcode.utils.ToastUtils;
 import com.smg.art.api.Api;
-import com.smg.art.base.AuctionDetailBean;
+import com.smg.art.bean.AuctionDetailBean;
 import com.smg.art.base.BasePresenter;
-import com.smg.art.bean.AddressBookFriendsBean;
 import com.smg.art.bean.AuctionCenterBean;
 import com.smg.art.bean.RefundBean;
-import com.smg.art.bean.SystemMessageBean;
 import com.smg.art.presenter.contract.fragment.AuctionCentreContract;
-import com.smg.art.presenter.contract.fragment.AuctionContract;
 
 import javax.inject.Inject;
 

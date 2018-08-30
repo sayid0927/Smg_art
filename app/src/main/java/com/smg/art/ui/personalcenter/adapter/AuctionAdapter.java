@@ -191,11 +191,14 @@ public class AuctionAdapter extends BaseAdapter {
                         case "5"://超时未确认
                             viewHolder.shop_status.setText("已获拍");
                             viewHolder.time.setVisibility(View.GONE);
-                            viewHolder.detail.setText("逾期未支付");
+
                             viewHolder.overdue.setVisibility(View.VISIBLE);
                             viewHolder.normal.setVisibility(View.GONE);
+                            viewHolder.overdue_btn.setText("逾期未支付");
+                            viewHolder.overdue_btn.setBackgroundResource(R.drawable.shape_grd);
                             viewHolder.overdue_shop_name.setText(dataBean.getActionName());
                             viewHolder.shop_status.setBackgroundResource(R.drawable.have_pat_brown);
+
                             if (dataBean.getPaybiddingFinalTime() > 0) {
                                 viewHolder.overdue_end_time.setText("逾期支付:" + DateFormatUtil.forString(dataBean.getPaybiddingFinalTime(), "MM月dd日 HH:mm"));
                             }
@@ -213,6 +216,25 @@ public class AuctionAdapter extends BaseAdapter {
                             viewHolder.shop_name.setText(dataBean.getActionName());
                             viewHolder.price.setText(CommonDpUtils.priceText(String.valueOf(String.format("%.2f", dataBean.getNowprice()))));
                             break;
+
+                        case  "7":
+
+                            viewHolder.shop_status.setText("已获拍");
+                            viewHolder.time.setVisibility(View.GONE);
+                            viewHolder.overdue_btn.setText("逾期未发货");
+                            viewHolder.overdue.setVisibility(View.VISIBLE);
+                            viewHolder.normal.setVisibility(View.GONE);
+                            viewHolder.overdueText.setText("卖家未按时发货");
+
+                            viewHolder.overdue_shop_name.setText(dataBean.getActionName());
+                            viewHolder.shop_status.setBackgroundResource(R.drawable.have_pat_brown);
+                            viewHolder.overdue_btn.setBackgroundResource(R.drawable.shape_grd);
+                            if (dataBean.getPaybiddingFinalTime() > 0) {
+                                viewHolder.overdue_end_time.setText("逾期发货: " + DateFormatUtil.forString(dataBean.getPaybiddingFinalTime(), "MM月dd日 HH:mm"));
+                            }
+
+                            break;
+
                     }
                 }
             }
@@ -395,6 +417,7 @@ public class AuctionAdapter extends BaseAdapter {
         private TextView detail;//查看详情
         private LinearLayout overdue, normal;
         private TextView overdue_btn;
+        private  TextView overdueText;
 
         public ViewHolder(View view) {
             iv = (ImageView) view.findViewById(R.id.shop_iv);
@@ -413,6 +436,7 @@ public class AuctionAdapter extends BaseAdapter {
             overdue_btn = (TextView) view.findViewById(R.id.overdue_btn);
             overdue_shop_name = (TextView) view.findViewById(R.id.overdue_shop_name);
             overdue_end_time = (TextView) view.findViewById(R.id.overdue_end_time);
+            overdueText = (TextView) view.findViewById(R.id.overdue_text);
         }
     }
 

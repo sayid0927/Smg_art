@@ -1,15 +1,9 @@
 package com.smg.art.presenter.contract.activity;
 
-import android.widget.Button;
-
-import com.smg.art.base.AuctionBuyerDepositBean;
+import com.smg.art.bean.AuctionBuyerDepositBean;
 import com.smg.art.base.BaseContract;
-import com.smg.art.bean.AddBankCardBean;
-import com.smg.art.bean.PhoneVerifyCodeBean;
 import com.smg.art.bean.PlayIntroductionBean;
 import com.smg.art.bean.RefundBean;
-
-import rx.Observable;
 
 /**
  * Created by Mervin on 2018/8/2 0002.

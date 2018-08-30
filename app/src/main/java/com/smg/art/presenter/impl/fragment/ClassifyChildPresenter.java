@@ -2,7 +2,7 @@
 package com.smg.art.presenter.impl.fragment;
 
 import com.smg.art.api.Api;
-import com.smg.art.base.AnnouncementAuctionListBean;
+import com.smg.art.bean.AnnouncementAuctionListBean;
 import com.smg.art.base.BasePresenter;
 import com.smg.art.presenter.contract.fragment.ClassifyChildContract;
 
@@ -44,6 +44,36 @@ public class ClassifyChildPresenter extends BasePresenter<ClassifyChildContract.
                         if (mView != null && data != null) {
                             hideWaitingDialog();
                             mView.FetchAuctionListByNameSuccess(data);
+                        }
+                    }
+                }));
+    }
+
+    @Override
+    public void FetchAnnouncementAuctionList(String... s) {
+        addSubscrebe(api.FetchAnnouncementAuctionList(s).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<AnnouncementAuctionListBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        hideWaitingDialog();
+                        mView.showError(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(AnnouncementAuctionListBean data) {
+                        if (mView != null && data != null && data.getStatus() ==1) {
+                            hideWaitingDialog();
+                            mView.FetchAnnouncementAuctionListSuccess(data);
+                        }else {
+                            if(data!=null && data.getMsg()!=null){
+                                mView.showError(data.getMsg());
+                            }
                         }
                     }
                 }));

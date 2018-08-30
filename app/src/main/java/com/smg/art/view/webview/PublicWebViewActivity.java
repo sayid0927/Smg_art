@@ -5,12 +5,17 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.smg.art.R;
+import com.smg.art.module.ApiModule;
 import com.smg.art.utils.keyboard.Loading;
 import com.tencent.smtt.sdk.CookieManager;
 import com.tencent.smtt.sdk.CookieSyncManager;
 import com.zhy.autolayout.AutoRelativeLayout;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+
+import okhttp3.Cookie;
+import okhttp3.HttpUrl;
 
 /**
  * 公用的webviewactivity
@@ -64,9 +69,12 @@ public class PublicWebViewActivity extends BaseWebViewActivity implements View.O
         CookieManager cookieManager = CookieManager.getInstance();
         cookieManager.setAcceptCookie(true);
         cookieManager.removeSessionCookie();//移除
-        int userId = 555;
-        //  String token = LocalAppConfigUtil.getInstance().getDataInterfaceToken().replace(" ", "");
-        //  cookieManager.setCookie(url,"Token="+token);//cookies是在HttpClient中获得的cookie
+        List<Cookie> Cookies = ApiModule.cookieJar.loadForRequest(HttpUrl.parse(url));
+        if(Cookies!=null && Cookies.size()!=0){
+            for(int i =0; i<Cookies.size();i++){
+                cookieManager.setCookie(url,  Cookies.get(i).toString());
+            }
+        }
         CookieSyncManager.getInstance().sync();
     }
 

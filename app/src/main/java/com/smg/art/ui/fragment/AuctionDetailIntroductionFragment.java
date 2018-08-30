@@ -14,8 +14,8 @@ import android.widget.TextView;
 import com.blankj.utilcode.utils.ToastUtils;
 import com.google.gson.Gson;
 import com.smg.art.R;
-import com.smg.art.base.AuctionBuyerDepositBean;
-import com.smg.art.base.AuctionDetailBean;
+import com.smg.art.bean.AuctionBuyerDepositBean;
+import com.smg.art.bean.AuctionDetailBean;
 import com.smg.art.base.BaseFragment;
 import com.smg.art.base.Constant;
 import com.smg.art.bean.FindCustomerServiceBean;
@@ -199,8 +199,8 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
     public void FetchHomepageGetauctiondetailSuccess(AuctionDetailBean auctionDetailBean) {
         this.auctionDetailBean = auctionDetailBean;
         tvStartPrice.setText(String.valueOf(auctionDetailBean.getData().getStartPrice()));
-        tvFrontMoneyAmount.setText(String.valueOf(auctionDetailBean.getData().getFrontMoneyAmount()));
-        tvNowprice.setText(String.valueOf(auctionDetailBean.getData().getNowprice()));
+        tvFrontMoneyAmount.setText(String.valueOf(auctionDetailBean.getData().getBuyerEnsureAmount()));
+        tvNowprice.setText(String.valueOf(String.format("%.2f", auctionDetailBean.getData().getNowprice())));
         tvActionName.setText(String.valueOf(auctionDetailBean.getData().getActionName()));
         depositStatus = auctionDetailBean.getData().getDepositStatus();
 

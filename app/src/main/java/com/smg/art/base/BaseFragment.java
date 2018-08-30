@@ -21,9 +21,7 @@ public abstract class BaseFragment extends Fragment implements Stateful {
 
 
     public LoadingPage mLoadingPage;
-    protected View parentView;
     protected FragmentActivity activity;
-    protected LayoutInflater inflater;
     protected View contentView;
     private boolean mIsVisible = false;     // fragment是否显示了
     private boolean isPrepared = false;
@@ -99,6 +97,7 @@ public abstract class BaseFragment extends Fragment implements Stateful {
             return;
         }
         loadData();
+
     }
 
     public abstract void loadData();

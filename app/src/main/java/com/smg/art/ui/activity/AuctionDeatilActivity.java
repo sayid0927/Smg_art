@@ -1,21 +1,16 @@
 package com.smg.art.ui.activity;
 
-import android.annotation.SuppressLint;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.blankj.utilcode.utils.ToastUtils;
 import com.flyco.tablayout.CommonTabLayout;
-import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.google.gson.Gson;
-import com.orhanobut.logger.Logger;
 import com.smg.art.R;
-import com.smg.art.base.AuctionDetailBean;
+import com.smg.art.bean.AuctionDetailBean;
 import com.smg.art.base.BaseActivity;
 import com.smg.art.base.BaseFragmentPageAdapter;
 import com.smg.art.bean.AuctionGoodsBean;

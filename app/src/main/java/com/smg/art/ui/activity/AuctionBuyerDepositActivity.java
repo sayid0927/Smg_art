@@ -2,22 +2,19 @@ package com.smg.art.ui.activity;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.blankj.utilcode.utils.EmptyUtils;
 import com.blankj.utilcode.utils.ToastUtils;
 import com.google.gson.Gson;
 import com.smg.art.R;
-import com.smg.art.base.AuctionBuyerDepositBean;
-import com.smg.art.base.AuctionDetailBean;
+import com.smg.art.bean.AuctionBuyerDepositBean;
+import com.smg.art.bean.AuctionDetailBean;
 import com.smg.art.base.BaseActivity;
 import com.smg.art.base.Constant;
-import com.smg.art.bean.AuctionGoodsBean;
 import com.smg.art.bean.PlayIntroductionBean;
 import com.smg.art.bean.RefundBean;
 import com.smg.art.component.AppComponent;
@@ -25,7 +22,6 @@ import com.smg.art.component.DaggerMainComponent;
 import com.smg.art.presenter.contract.activity.AuctionBuyerDepositContract;
 import com.smg.art.presenter.impl.activity.AuctionBuyerDepositPresenter;
 import com.smg.art.utils.LocalAppConfigUtil;
-import com.smg.art.view.CustomDialog;
 import com.smg.art.view.NumberDialog;
 import com.smg.art.view.webview.PublicWebViewActivity;
 import com.zhy.autolayout.AutoRelativeLayout;
@@ -35,7 +31,6 @@ import org.greenrobot.eventbus.EventBus;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class AuctionBuyerDepositActivity extends BaseActivity implements AuctionBuyerDepositContract.View {
@@ -88,8 +83,8 @@ public class AuctionBuyerDepositActivity extends BaseActivity implements Auction
         String bookJson = getIntent().getStringExtra("data");
         type = getIntent().getIntExtra("type", 1);
         goodsData = new Gson().fromJson(bookJson, AuctionDetailBean.class);
-        if (EmptyUtils.isNotEmpty(goodsData) && EmptyUtils.isNotEmpty(String.valueOf(goodsData.getData().getFrontMoneyAmount())))
-            tvFrontMoneyAmount.setText(String.valueOf(goodsData.getData().getFrontMoneyAmount()));
+        if (EmptyUtils.isNotEmpty(goodsData) && EmptyUtils.isNotEmpty(String.valueOf(goodsData.getData().getBuyerEnsureAmount())))
+            tvFrontMoneyAmount.setText(String.valueOf(goodsData.getData().getBuyerEnsureAmount()));
         Drawable drawable = this.getResources().getDrawable(R.drawable.checkbox_style);
         drawable.setBounds(0, 0, 40, 40);
         checkBox.setCompoundDrawables(drawable, null, null, null);
@@ -117,7 +112,7 @@ public class AuctionBuyerDepositActivity extends BaseActivity implements Auction
         mPresenter.FetchAuctionBuyerDeposit("auctionId", String.valueOf(goodsData.getData().getId()),
                 "goodsId", String.valueOf(goodsData.getData().getGoodsId()),
                 "memberId", String.valueOf(LocalAppConfigUtil.getInstance().getCurrentMerberId()),
-                "amount", String.valueOf(goodsData.getData().getFrontMoneyAmount()));
+                "amount", String.valueOf(goodsData.getData().getBuyerEnsureAmount()));
     }
 
     @Override
@@ -125,8 +120,8 @@ public class AuctionBuyerDepositActivity extends BaseActivity implements Auction
         String play = playIntroductionBean.getData().getPayIntroduction();
         String[] plays = play.split(";");
         StringBuffer stringBuffer = new StringBuffer();
-        for (int s = 0; s < plays.length; s++) {
-            stringBuffer.append(plays[s]).append("\n");
+        for (String play1 : plays) {
+            stringBuffer.append(play1).append("\n");
         }
         tvPlay.setText(stringBuffer.toString());
     }
@@ -145,7 +140,6 @@ public class AuctionBuyerDepositActivity extends BaseActivity implements Auction
                 break;
 
             case R.id.tv_agreement:  // 用户竞拍服务协议
-                String sss = Constant.API_BASE_URL + Constant.MEMBER_TOMARGINRULESPAGE;
                 Intent intent = new Intent(this, PublicWebViewActivity.class);
                 intent.putExtra("url", Constant.API_BASE_URL + Constant.MEMBER_TOAUCTIONAGREEMENTPAGE);
                 intent.putExtra("title", "竞拍服务协议");
@@ -153,7 +147,6 @@ public class AuctionBuyerDepositActivity extends BaseActivity implements Auction
                 break;
 
             case R.id.tv_rulespage: // 保证金规则
-                String ss = Constant.API_BASE_URL + Constant.MEMBER_TOMARGINRULESPAGE;
                 Intent intent1 = new Intent(this, PublicWebViewActivity.class);
                 intent1.putExtra("url", Constant.API_BASE_URL + Constant.MEMBER_TOMARGINRULESPAGE);
                 intent1.putExtra("title", "保证金规则");

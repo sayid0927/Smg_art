@@ -75,7 +75,7 @@ public class ClassifyActivity extends BaseActivity implements ClassifyContract.V
         categoryListBeans = (List<HomePageImgBean.DataBean.CategoryListBean>) getIntent().getSerializableExtra("item");
          for(int n =0;n<categoryListBeans.size();n++){
              mTitleList.add(categoryListBeans.get(n).getCategoryName());
-             mFragments.add(ClassifyChildFragment.getInstance(categoryListBeans.get(n).getId()));
+             mFragments.add(ClassifyChildFragment.getInstance(categoryListBeans.get(n).getId(),categoryListBeans.get(n).getCategoryName()));
          }
 
         BaseFragmentPageAdapter myAdapter = new BaseFragmentPageAdapter(getSupportFragmentManager(), mFragments, mTitleList);

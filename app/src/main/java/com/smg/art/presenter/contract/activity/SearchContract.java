@@ -1,13 +1,10 @@
 
 package com.smg.art.presenter.contract.activity;
 
-import com.smg.art.base.AnnouncementAuctionListBean;
+import com.smg.art.bean.AnnouncementAuctionListBean;
 import com.smg.art.base.BaseContract;
 import com.smg.art.bean.CreatWordsBean;
 import com.smg.art.bean.HotWordsListBean;
-import com.smg.art.bean.LoginBean;
-
-import rx.Observable;
 
 public interface SearchContract {
 

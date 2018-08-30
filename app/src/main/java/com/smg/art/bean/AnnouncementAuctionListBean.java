@@ -1,4 +1,4 @@
-package com.smg.art.base;
+package com.smg.art.bean;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 

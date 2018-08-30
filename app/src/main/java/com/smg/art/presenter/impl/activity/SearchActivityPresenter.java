@@ -2,18 +2,14 @@
 package com.smg.art.presenter.impl.activity;
 
 import com.smg.art.api.Api;
-import com.smg.art.base.AnnouncementAuctionListBean;
-import com.smg.art.base.AuctionBuyerDepositBean;
+import com.smg.art.bean.AnnouncementAuctionListBean;
 import com.smg.art.base.BasePresenter;
 import com.smg.art.bean.CreatWordsBean;
 import com.smg.art.bean.HotWordsListBean;
-import com.smg.art.bean.LoginBean;
 import com.smg.art.presenter.contract.activity.SearchContract;
 
 import javax.inject.Inject;
 
-import okhttp3.ResponseBody;
-import retrofit2.Response;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;

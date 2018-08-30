@@ -1,9 +1,6 @@
 package com.smg.art.utils;
 
-import com.smg.art.base.AnnouncementAuctionListBean;
 import com.smg.art.bean.RongImStateBean;
-import com.smg.art.bean.UpudterMessageBean;
-import com.smg.art.ui.adapter.GoodsListApadter;
 
 import org.greenrobot.eventbus.EventBus;
 

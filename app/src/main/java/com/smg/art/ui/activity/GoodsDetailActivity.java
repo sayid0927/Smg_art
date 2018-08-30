@@ -19,8 +19,8 @@ import android.widget.TextView;
 import com.blankj.utilcode.utils.ToastUtils;
 import com.google.gson.Gson;
 import com.smg.art.R;
-import com.smg.art.base.AuctionBuyerDepositBean;
-import com.smg.art.base.AuctionDetailBean;
+import com.smg.art.bean.AuctionBuyerDepositBean;
+import com.smg.art.bean.AuctionDetailBean;
 import com.smg.art.base.BaseActivity;
 import com.smg.art.base.Constant;
 import com.smg.art.bean.FindCustomerServiceBean;
@@ -246,12 +246,13 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
     /**
      * 拍卖品详情
      */
+
     @Override
     public void FetchHomepageGetauctiondetailSuccess(AuctionDetailBean auctionDetailBean) {
         this.detailBean = auctionDetailBean;
         tvActionName.setText(auctionDetailBean.getData().getActionName());
         tvStartPrice.setText(String.valueOf(auctionDetailBean.getData().getStartPrice()));
-        tvFrontMoneyAmount.setText(String.valueOf(auctionDetailBean.getData().getFrontMoneyAmount()));
+        tvFrontMoneyAmount.setText(String.valueOf(auctionDetailBean.getData().getBuyerEnsureAmount()));
         depositStatus = detailBean.getData().getDepositStatus();
 
         if (depositStatus == 0) {
@@ -403,4 +404,5 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
         }
         return doc.toString();
     }
+
 }
