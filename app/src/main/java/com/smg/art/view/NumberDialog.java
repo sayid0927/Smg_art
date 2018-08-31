@@ -83,8 +83,8 @@ public class NumberDialog extends Dialog implements XNumberKeyboardView.IOnKeybo
 
     @Override
     public void onInsertKeyEvent(String text) {
-        str += text;
         if (str.length() < 7) {
+            str += text;
             tvPwd.setText(str);
             tvPwd.setSelection(str.length());
         } else {

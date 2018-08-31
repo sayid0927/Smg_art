@@ -146,7 +146,6 @@ public class RecentMessageApadter extends BaseQuickAdapter<Conversation, BaseVie
         void OnMessageItemListener(Conversation item);
     }
 
-
     private OnMessageItemLongListener onMessageItemLongListener;
 
     public void OnMessageItemLongListener(OnMessageItemLongListener onMessageItemLongListener) {

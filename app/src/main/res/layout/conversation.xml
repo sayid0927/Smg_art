@@ -6,12 +6,6 @@
 
     <include layout="@layout/actionbar_root_layout"/>
 
-    <!--<fragment-->
-        <!--android:id="@+id/conversation"-->
-        <!--android:name="io.rong.imkit.fragment.ConversationFragment"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent" />-->
-
     <FrameLayout
         android:id="@+id/conversation"
         android:layout_width="match_parent"

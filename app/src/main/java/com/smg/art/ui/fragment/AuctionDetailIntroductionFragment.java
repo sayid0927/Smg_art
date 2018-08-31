@@ -189,7 +189,10 @@ public class AuctionDetailIntroductionFragment extends BaseFragment implements A
             webview.destroy();
             webview = null;
         }
-        countDownTimer = null;
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+            countDownTimer = null;
+        }
     }
 
     /**

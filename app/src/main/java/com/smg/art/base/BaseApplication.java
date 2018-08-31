@@ -35,9 +35,9 @@ public class BaseApplication extends Application implements RongIM.UserInfoProvi
 
     /**
      * 获取BaseApplication实例
-     *
      * @return
      */
+
     public static ThreadPoolUtils MAIN_EXECUTOR = new ThreadPoolUtils(ThreadPoolUtils.Type.FixedThread, 5);
 
     public static BaseApplication getBaseApplication() {
@@ -75,12 +75,8 @@ public class BaseApplication extends Application implements RongIM.UserInfoProvi
         Utils.init(this);
 //        CrashHandler.getInstance(this).init();
         PreferUtil.getInstance().init(this);
-        //初始化融云
         initRongCloud();
         GreenDaoUtil.initDataBase(getApplicationContext());
-        //初始化红包
-//        initRedPacket();
-
     }
 
     private void initCompoent() {

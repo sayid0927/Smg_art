@@ -53,18 +53,17 @@ public class ApiModule {
     @Provides
     public OkHttpClient provideOkHttpClient() {
 
-        //cookie
         cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(BaseApplication.baseApplication));
 
         File httpCacheDir = new File(BaseApplication.getBaseApplication().getCacheDir(), "response");
-        int cacheSize = 10 * 1024 * 1024;// 10 MiB
+        int cacheSize = 10 * 1024 * 1024;
         Cache cache = new Cache(httpCacheDir, cacheSize);
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder().connectTimeout(10, TimeUnit.SECONDS)
                 .connectTimeout(20 * 1000, TimeUnit.MILLISECONDS)
                 .readTimeout(20 * 1000, TimeUnit.MILLISECONDS)
                 .addInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR)
-                .retryOnConnectionFailure(true) // 失败重发
+                .retryOnConnectionFailure(true)
                 .cache(cache)
                 .cookieJar(cookieJar)
                 .addInterceptor(new TokenInterceptor())
@@ -138,7 +137,7 @@ public class ApiModule {
         return sb.toString();
     }
 
-    public static String formatJson(String jsonStr) {
+    static String formatJson(String jsonStr) {
         if (null == jsonStr || "".equals(jsonStr)) return "";
         StringBuilder sb = new StringBuilder();
         char last = '\0';
@@ -176,7 +175,7 @@ public class ApiModule {
         return sb.toString();
     }
 
-    private static void addIndentBlank(StringBuilder sb, int indent) {
+     static void addIndentBlank(StringBuilder sb, int indent) {
         for (int i = 0; i < indent; i++) {
             sb.append('\t');
         }

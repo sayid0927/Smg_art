@@ -124,6 +124,7 @@ public class RecentMessageFragment extends BaseFragment implements RecentMessage
 
     @Override
     public boolean onReceived(Message message, int i) {
+        if (mPresenter != null)
         mPresenter.getConversationList();
         return false;
     }
@@ -236,7 +237,7 @@ public class RecentMessageFragment extends BaseFragment implements RecentMessage
                         .setTextSize(16)
                         .setWidth(width)
                         .setHeight(height);
-                swipeRightMenu.addMenuItem(deleteItem);// 添加菜单到右侧。
+                swipeRightMenu.addMenuItem(deleteItem);
             }
         }
     };
@@ -248,8 +249,8 @@ public class RecentMessageFragment extends BaseFragment implements RecentMessage
         @Override
         public void onItemClick(SwipeMenuBridge menuBridge) {
             menuBridge.closeMenu();
-            int direction = menuBridge.getDirection(); // 左侧还是右侧菜单。
-            int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
+            int direction = menuBridge.getDirection();
+            int adapterPosition = menuBridge.getAdapterPosition();
             if (direction == SwipeMenuRecyclerView.RIGHT_DIRECTION) {
 
                 int deletePostion = adapterPosition - 1;
@@ -281,7 +282,6 @@ public class RecentMessageFragment extends BaseFragment implements RecentMessage
         systemMeeageItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //设置会话已读
                 RongIMClient.getInstance().clearMessagesUnreadStatus(SYSTEMTYPE, SYSTEMID);
                 Intent i = new Intent(getActivity(), SystemMessageActivity.class);
                 MainActivity.mainActivity.startActivityIn(i, getActivity());

@@ -104,6 +104,7 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
     private ServiceDialogApadter apadter;
     private int depositStatus = -1;
     private RongUserInfoEntityDao collectionInfoDao;
+    private CountDownTimer countDownTimer;
 
 
     @Override
@@ -272,7 +273,7 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
             long countTime = auctionDetailBean.getData().getStartTime() - time;
             //将前一个缓存清除
             if (countTime > 0) {
-                CountDownTimer countDownTimer = new CountDownTimer(countTime, 1000) {
+                countDownTimer = new CountDownTimer(countTime, 1000) {
                     public void onTick(long millisUntilFinished) {
                         String hour = TimeTools.getCountTimeByLong(millisUntilFinished);
                         String[] array = hour.split(":");
@@ -322,6 +323,12 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailCont
             webview.destroy();
             webview = null;
         }
+        if (countDownTimer != null){
+            countDownTimer.cancel();
+            countDownTimer = null;
+        }
+
+
         super.finish();
     }
 
